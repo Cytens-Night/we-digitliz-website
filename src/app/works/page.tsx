@@ -100,10 +100,10 @@ export default function WorksPage() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="w-full h-full"
                   >
-                    <img 
-                      src={project.image} 
-                      alt={project.name} 
-                      className="w-full h-full object-cover"
+                    <iframe 
+                      src={project.url} 
+                      title={project.name}
+                      className="w-full h-full border-none pointer-events-none bg-white"
                     />
                   </motion.div>
                   

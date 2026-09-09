@@ -157,10 +157,10 @@ export default function DigitalCards() {
                     <div className="absolute top-2 left-1/2 -translate-x-1/2 w-28 h-7 bg-black rounded-full z-20" />
                     
                     <div className="relative w-full h-full rounded-[2.2rem] overflow-hidden bg-[#161a22]">
-                       <img 
-                         src={activeProject.image} 
-                         alt={activeProject.name}
-                         className="absolute inset-0 w-full h-full object-cover z-10"
+                       <iframe 
+                         src={activeProject.url} 
+                         title={activeProject.name}
+                         className="absolute inset-0 w-full h-full z-10 bg-white"
                        />
                     </div>
                  </motion.div>
@@ -182,10 +182,10 @@ export default function DigitalCards() {
                     </div>
                     
                     <div className="relative w-full h-full rounded-xl overflow-hidden bg-[#161a22] mt-6 md:mt-8 border border-white/10">
-                       <img 
-                         src={activeProject.image} 
-                         alt={activeProject.name}
-                         className="absolute inset-0 w-full h-full object-cover z-10"
+                       <iframe 
+                         src={activeProject.url} 
+                         title={activeProject.name}
+                         className="absolute inset-0 w-full h-full z-10 bg-white"
                        />
                     </div>
                  </motion.div>
