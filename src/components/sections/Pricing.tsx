@@ -173,12 +173,12 @@ function PricingTiltCard({ children, isSelected, onClick, className = "" }: { ch
         {/* Card Content Container */}
         <div className={`
           relative w-full h-full rounded-3xl p-6 lg:p-8 overflow-hidden flex flex-col
-          ${isSelected ? 'bg-[#fafafa]' : 'bg-[#ffffff] hover:bg-[#fafafa] border border-black/10'}
+          ${isSelected ? 'bg-[#fafafa]' : 'bg-[#0a0a0a] hover:bg-[#fafafa] border border-white/10'}
         `}>
           
           {/* Base Inner Border for active state to mask the spinning background */}
           {isSelected && (
-            <div className="absolute inset-0 rounded-3xl border border-black/5 pointer-events-none z-10 bg-[#ffffff]/90 backdrop-blur-xl" />
+            <div className="absolute inset-0 rounded-3xl border border-white/5 pointer-events-none z-10 bg-[#0a0a0a]/90 backdrop-blur-xl" />
           )}
 
           {/* Actual Children Content */}
@@ -280,22 +280,22 @@ export default function Pricing() {
   };
 
   return (
-    <section id="pricing" className="py-32 bg-[#f5f5f7] relative overflow-hidden">
+    <section id="pricing" className="py-32 bg-[#0a0a0a] relative overflow-hidden">
       
       {/* Background Glow */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-black/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-white/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-[1200px] mx-auto px-6 relative z-10 pb-20">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 text-[#1d1d1f] text-sm font-semibold mb-6 border border-black/20 uppercase tracking-widest">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-white text-sm font-semibold mb-6 border border-white/20 uppercase tracking-widest">
              Investment
           </div>
-          <h3 className="text-5xl md:text-6xl font-display font-bold text-[#1d1d1f] mb-6">
-            Pre-built <span className="text-[#1d1d1f]">Packages.</span>
+          <h3 className="text-5xl md:text-6xl font-display font-bold text-white mb-6">
+            Pre-built <span className="text-white">Packages.</span>
           </h3>
-          <p className="text-lg text-[#3c3c43] mb-12">
+          <p className="text-lg text-white/60 mb-12">
             Select a complete, done-for-you digital dominance suite, or scroll down to build a custom bespoke architecture.
           </p>
         </div>
@@ -315,26 +315,26 @@ export default function Pricing() {
                  )}
                  
                  <div className="flex justify-between items-start mb-6">
-                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-black/5 text-[#1d1d1f] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-black/10 text-[#3c3c43]'}`}>
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-white/5 text-white shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-white/10 text-white/60'}`}>
                       <Icon size={28} />
                     </div>
                     {isSelected && (
                       <motion.div initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring" }} className="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.2)]">
-                        <Check size={18} className="text-[#1d1d1f]" />
+                        <Check size={18} className="text-white" />
                       </motion.div>
                     )}
                  </div>
                  
-                 <h5 className="text-3xl font-bold text-[#1d1d1f] mb-3">{bundle.title}</h5>
-                 <div className="text-4xl font-display font-bold text-[#1d1d1f] mb-4 text-[#1d1d1f]">
+                 <h5 className="text-3xl font-bold text-white mb-3">{bundle.title}</h5>
+                 <div className="text-4xl font-display font-bold text-white mb-4 text-white">
                    {bundle.priceLabel}
                  </div>
-                 <p className="text-[#3c3c43] text-sm mb-6">{bundle.desc}</p>
+                 <p className="text-white/60 text-sm mb-6">{bundle.desc}</p>
                  
                  <ul className="space-y-3 mb-8 flex-grow">
                    {bundle.features.map((feature, i) => (
-                     <li key={i} className="flex items-start gap-3 text-sm text-[#1d1d1f]/80">
-                       <Check size={16} className="text-[#1d1d1f] shrink-0 mt-0.5 shadow-[0_0_20px_rgba(0,0,0,0.2)] rounded-full" />
+                     <li key={i} className="flex items-start gap-3 text-sm text-white/80">
+                       <Check size={16} className="text-white shrink-0 mt-0.5 shadow-[0_0_20px_rgba(0,0,0,0.2)] rounded-full" />
                        <span>{feature}</span>
                      </li>
                    ))}
@@ -342,7 +342,7 @@ export default function Pricing() {
                  
                  <button 
                    onClick={() => applyBundle(bundle.id)}
-                   className={`w-full py-4 rounded-xl font-bold transition-all mt-auto flex items-center justify-center gap-2 ${isSelected ? 'bg-primary text-[#1d1d1f] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-black/10 text-[#1d1d1f] hover:bg-black/20'}`}
+                   className={`w-full py-4 rounded-xl font-bold transition-all mt-auto flex items-center justify-center gap-2 ${isSelected ? 'bg-primary text-white shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-white/10 text-white hover:bg-white/20'}`}
                  >
                    {isSelected ? (
                      <>
@@ -358,14 +358,14 @@ export default function Pricing() {
         {/* --- DIVIDER --- */}
         <div id="custom-builder" className="relative flex items-center justify-center mb-24 pt-12">
           <div className="absolute w-full h-px bg-[#1d1d1f]" />
-          <div className="bg-[#f5f5f7] px-6 py-2 relative z-10 border border-black/10 rounded-full text-sm font-bold tracking-widest uppercase text-[#3c3c43] shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+          <div className="bg-[#0a0a0a] px-6 py-2 relative z-10 border border-white/10 rounded-full text-sm font-bold tracking-widest uppercase text-white/60 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
             Or Build Custom Architecture
           </div>
         </div>
 
         {/* 1. CORE WEBSITES */}
         <div className="mb-24">
-           <h4 className="text-2xl font-bold text-[#1d1d1f] mb-8 flex items-center gap-4">
+           <h4 className="text-2xl font-bold text-white mb-8 flex items-center gap-4">
              <span className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-sm font-bold shadow-[0_0_20px_rgba(0,0,0,0.2)]">1</span>
              Core Websites
            </h4>
@@ -378,21 +378,21 @@ export default function Pricing() {
                return (
                  <PricingTiltCard key={pkg.id} isSelected={isSelected} onClick={() => toggleWeb(pkg.id)}>
                     <div className="flex justify-between items-start mb-6">
-                       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-black/5 text-[#1d1d1f] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-black/10 text-[#3c3c43]'}`}>
+                       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-white/5 text-white shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-white/10 text-white/60'}`}>
                          <Icon size={20} />
                        </div>
                        {isSelected && (
                          <motion.div initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring" }} className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.2)]">
-                           <Check size={14} className="text-[#1d1d1f]" />
+                           <Check size={14} className="text-white" />
                          </motion.div>
                        )}
                     </div>
                     
-                    <h5 className="text-xl font-bold text-[#1d1d1f] mb-2">{pkg.title}</h5>
-                    <div className="text-2xl font-display font-bold text-[#1d1d1f] mb-4">
+                    <h5 className="text-xl font-bold text-white mb-2">{pkg.title}</h5>
+                    <div className="text-2xl font-display font-bold text-white mb-4">
                       £{pkg.price.toLocaleString()}
                     </div>
-                    <p className="text-[#3c3c43] text-sm mt-auto">{pkg.desc}</p>
+                    <p className="text-white/60 text-sm mt-auto">{pkg.desc}</p>
                  </PricingTiltCard>
                )
              })}
@@ -401,7 +401,7 @@ export default function Pricing() {
 
         {/* 2. DIGITAL BUSINESS CARDS */}
         <div className="mb-24">
-           <h4 className="text-2xl font-bold text-[#1d1d1f] mb-8 flex items-center gap-4">
+           <h4 className="text-2xl font-bold text-white mb-8 flex items-center gap-4">
              <span className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-sm font-bold shadow-[0_0_20px_rgba(0,0,0,0.2)]">2</span>
              Digital Business Cards
            </h4>
@@ -414,21 +414,21 @@ export default function Pricing() {
                return (
                  <PricingTiltCard key={pkg.id} isSelected={isSelected} onClick={() => toggleDC(pkg.id)}>
                     <div className="flex justify-between items-start mb-6">
-                       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-black/5 text-[#1d1d1f] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-black/10 text-[#3c3c43]'}`}>
+                       <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-white/5 text-white shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-white/10 text-white/60'}`}>
                          <Icon size={20} />
                        </div>
                        {isSelected && (
                          <motion.div initial={{ scale: 0, rotate: -45 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: "spring" }} className="w-6 h-6 rounded-full bg-primary flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.2)]">
-                           <Check size={14} className="text-[#1d1d1f]" />
+                           <Check size={14} className="text-white" />
                          </motion.div>
                        )}
                     </div>
                     
-                    <h5 className="text-xl font-bold text-[#1d1d1f] mb-2">{pkg.title}</h5>
-                    <div className="text-2xl font-display font-bold text-[#1d1d1f] mb-4">
+                    <h5 className="text-xl font-bold text-white mb-2">{pkg.title}</h5>
+                    <div className="text-2xl font-display font-bold text-white mb-4">
                       £{pkg.price.toLocaleString()}
                     </div>
-                    <p className="text-[#3c3c43] text-sm mt-auto">{pkg.desc}</p>
+                    <p className="text-white/60 text-sm mt-auto">{pkg.desc}</p>
                  </PricingTiltCard>
                )
              })}
@@ -437,15 +437,15 @@ export default function Pricing() {
 
         {/* 3-6. ADDONS GRID */}
         <div className="mb-12">
-           <h4 className="text-2xl font-bold text-[#1d1d1f] mb-8 flex items-center gap-4">
-             <span className="w-8 h-8 rounded-full bg-black/10 flex items-center justify-center text-sm font-bold border border-black/20">3</span>
+           <h4 className="text-2xl font-bold text-white mb-8 flex items-center gap-4">
+             <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold border border-white/20">3</span>
              Mix & Match Add-ons
            </h4>
            
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
              {addonCategories.map((category, catIdx) => (
-                <div key={catIdx} className="bg-black/5 rounded-3xl p-6 md:p-8 border border-black/5">
-                  <h5 className="text-lg font-bold text-[#1d1d1f] mb-6 uppercase tracking-wider text-[#1d1d1f]">{category.category}</h5>
+                <div key={catIdx} className="bg-white/5 rounded-3xl p-6 md:p-8 border border-white/5">
+                  <h5 className="text-lg font-bold text-white mb-6 uppercase tracking-wider text-white">{category.category}</h5>
                   <div className="space-y-3">
                     {category.items.map((addon) => {
                       const isSelected = selectedAddons.includes(addon.id);
@@ -457,7 +457,7 @@ export default function Pricing() {
                           onClick={() => toggleAddon(addon.id)}
                           className={`
                             relative p-4 rounded-xl cursor-pointer transition-all duration-300 flex items-center gap-4 overflow-hidden group
-                            ${isSelected ? 'bg-black/5 border-black/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-[#ffffff] border-black/5 hover:bg-black/10 hover:border-black/20'}
+                            ${isSelected ? 'bg-white/5 border-white/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-[#0a0a0a] border-white/5 hover:bg-white/10 hover:border-white/20'}
                             border
                           `}
                         >
@@ -471,32 +471,32 @@ export default function Pricing() {
 
                             <motion.div 
                               layout
-                              className={`w-6 h-6 shrink-0 rounded flex items-center justify-center transition-colors z-10 ${isSelected ? 'bg-primary shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-black/10 group-hover:bg-black/20'}`}
+                              className={`w-6 h-6 shrink-0 rounded flex items-center justify-center transition-colors z-10 ${isSelected ? 'bg-primary shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-white/10 group-hover:bg-white/20'}`}
                             >
-                              {isSelected ? <Check size={12} className="text-[#1d1d1f]" /> : <Plus size={12} className="text-[#3c3c43] group-hover:text-[#1d1d1f]" />}
+                              {isSelected ? <Check size={12} className="text-white" /> : <Plus size={12} className="text-white/60 group-hover:text-white" />}
                             </motion.div>
                             
                             <div className="flex-1 z-10">
                               <div className="flex justify-between items-start md:items-center flex-col md:flex-row mb-1 gap-1 md:gap-0">
-                                <h6 className="font-bold text-[#1d1d1f] text-sm">{addon.title}</h6>
+                                <h6 className="font-bold text-white text-sm">{addon.title}</h6>
                                 
                                 {/* Pricing Logic */}
                                 <div className="flex gap-2">
                                   {addon.isQuote ? (
-                                    <span className="text-[#1d1d1f] font-mono text-xs font-bold bg-black/5 px-2 py-0.5 rounded">Custom Quote</span>
+                                    <span className="text-white font-mono text-xs font-bold bg-white/5 px-2 py-0.5 rounded">Custom Quote</span>
                                   ) : (
                                     <>
                                       {addon.upfront > 0 && (
-                                        <span className={`font-bold font-mono text-sm transition-colors ${isSelected ? 'text-[#1d1d1f]' : 'text-[#1d1d1f]/70'}`}>+£{addon.upfront}</span>
+                                        <span className={`font-bold font-mono text-sm transition-colors ${isSelected ? 'text-white' : 'text-white/70'}`}>+£{addon.upfront}</span>
                                       )}
                                       {addon.monthly > 0 && (
-                                        <span className={`font-bold font-mono text-sm transition-colors ${isSelected ? 'text-[#1d1d1f]' : 'text-[#1d1d1f]/70'}`}>+£{addon.monthly}/mo</span>
+                                        <span className={`font-bold font-mono text-sm transition-colors ${isSelected ? 'text-white' : 'text-white/70'}`}>+£{addon.monthly}/mo</span>
                                       )}
                                     </>
                                   )}
                                 </div>
                               </div>
-                              <p className="text-[#3c3c43] text-xs">{addon.desc}</p>
+                              <p className="text-white/60 text-xs">{addon.desc}</p>
                             </div>
                         </motion.div>
                       )
@@ -515,31 +515,31 @@ export default function Pricing() {
            initial={{ y: 100, opacity: 0 }}
            animate={{ y: 0, opacity: 1 }}
            transition={{ delay: 1, type: "spring", bounce: 0.4 }}
-           className="bg-[#ffffff]/90 backdrop-blur-2xl border border-black/10 p-4 md:px-8 md:py-4 rounded-[2rem] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] flex flex-col lg:flex-row items-center gap-4 lg:gap-8 pointer-events-auto max-w-[95vw] lg:max-w-none"
+           className="bg-[#0a0a0a]/90 backdrop-blur-2xl border border-white/10 p-4 md:px-8 md:py-4 rounded-[2rem] shadow-[0_-20px_50px_rgba(0,0,0,0.8)] flex flex-col lg:flex-row items-center gap-4 lg:gap-8 pointer-events-auto max-w-[95vw] lg:max-w-none"
         >
            <div className="flex items-center justify-between w-full lg:w-auto gap-4 lg:gap-8">
              <div className="flex gap-4 lg:gap-8 items-center">
                <div className="hidden lg:block">
-                 <span className="block text-[#3c3c43] text-[10px] tracking-widest uppercase mb-1">
+                 <span className="block text-white/60 text-[10px] tracking-widest uppercase mb-1">
                    {selectedBundle ? "Active Package" : "Selections"}
                  </span>
-                 <span className="text-[#1d1d1f] font-bold flex items-center gap-2 text-sm">
+                 <span className="text-white font-bold flex items-center gap-2 text-sm">
                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                    {selectedBundle ? bundledPackages.find(b => b.id === selectedBundle)?.title : `${selectedCount} Items`}
                  </span>
                </div>
-               <div className="w-px h-8 bg-black/10 hidden lg:block" />
+               <div className="w-px h-8 bg-white/10 hidden lg:block" />
                <div>
-                 <span className="block text-[#3c3c43] text-[10px] tracking-widest uppercase mb-1">Est. Upfront</span>
-                 <span className="text-2xl md:text-3xl font-display font-bold text-[#1d1d1f]">
+                 <span className="block text-white/60 text-[10px] tracking-widest uppercase mb-1">Est. Upfront</span>
+                 <span className="text-2xl md:text-3xl font-display font-bold text-white">
                    <AnimatedNumber value={totalUpfront} />
                  </span>
                </div>
-               <div className="w-px h-8 bg-black/10" />
+               <div className="w-px h-8 bg-white/10" />
                <div>
-                 <span className="block text-[#3c3c43] text-[10px] tracking-widest uppercase mb-1">Est. Monthly</span>
-                 <span className="text-xl md:text-2xl font-display font-bold text-[#1d1d1f] flex items-baseline gap-1">
-                   <AnimatedNumber value={totalMonthly} /><span className="text-sm text-[#1d1d1f]/50">/mo</span>
+                 <span className="block text-white/60 text-[10px] tracking-widest uppercase mb-1">Est. Monthly</span>
+                 <span className="text-xl md:text-2xl font-display font-bold text-white flex items-baseline gap-1">
+                   <AnimatedNumber value={totalMonthly} /><span className="text-sm text-white/50">/mo</span>
                  </span>
                </div>
              </div>

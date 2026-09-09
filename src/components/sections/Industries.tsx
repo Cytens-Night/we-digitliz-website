@@ -16,7 +16,7 @@ const RetailGraphic = () => (
           initial={{ height: 0 }}
           animate={{ height: `${h}%` }}
           transition={{ duration: 0.8, delay: i * 0.1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1, ease: "easeOut" }}
-          className="flex-1 bg-black/5 rounded-t-md shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+          className="flex-1 bg-white/5 rounded-t-md shadow-[0_0_20px_rgba(0,0,0,0.2)]"
         />
      ))}
   </div>
@@ -43,11 +43,11 @@ const HospitalityGraphic = () => (
       initial={{ y: "100%" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5, ease: "easeOut" }}
-      className="w-16 h-20 bg-black/10 border border-black/20 rounded-t-xl mx-auto p-3 flex flex-col gap-2 shadow-[0_-5px_20px_rgba(255,255,255,0.1)]"
+      className="w-16 h-20 bg-white/10 border border-white/20 rounded-t-xl mx-auto p-3 flex flex-col gap-2 shadow-[0_-5px_20px_rgba(255,255,255,0.1)]"
     >
       <div className="w-full h-1.5 bg-white/40 rounded-full" />
-      <div className="w-3/4 h-1.5 bg-black/20 rounded-full" />
-      <div className="w-1/2 h-1.5 bg-black/20 rounded-full" />
+      <div className="w-3/4 h-1.5 bg-white/20 rounded-full" />
+      <div className="w-1/2 h-1.5 bg-white/20 rounded-full" />
     </motion.div>
   </div>
 );
@@ -140,23 +140,23 @@ export default function Industries() {
   const [activeId, setActiveId] = useState(industries[0].id);
 
   return (
-    <section id="industries" className="py-32 bg-[#f5f5f7] overflow-hidden relative">
+    <section id="industries" className="py-32 bg-[#0a0a0a] overflow-hidden relative">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-black/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 text-[#1d1d1f] text-sm font-semibold mb-6 border border-black/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-white text-sm font-semibold mb-6 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                Custom Solutions
             </div>
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-[#1d1d1f] leading-tight">
-              Architectures tailored <br/> for <span className="text-[#1d1d1f]">every sector.</span>
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight">
+              Architectures tailored <br/> for <span className="text-white">every sector.</span>
             </h3>
           </div>
-          <p className="text-[#3c3c43] max-w-md pb-2 text-lg md:text-xl">
+          <p className="text-white/60 max-w-md pb-2 text-lg md:text-xl">
             We don't build generic websites. We engineer bespoke, automated digital systems that solve the specific bottlenecks of your industry.
           </p>
         </div>
@@ -172,8 +172,8 @@ export default function Industries() {
                 key={industry.id}
                 onMouseEnter={() => setActiveId(industry.id)}
                 className={`
-                  relative rounded-[2.5rem] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer group border border-black/5 hover:border-black/10
-                  ${isActive ? 'flex-[4] lg:flex-[5] bg-[#fafafa] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'flex-[1] lg:flex-[1] bg-[#ffffff]'}
+                  relative rounded-[2.5rem] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer group border border-white/5 hover:border-white/10
+                  ${isActive ? 'flex-[4] lg:flex-[5] bg-[#fafafa] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'flex-[1] lg:flex-[1] bg-[#0a0a0a]'}
                 `}
               >
                 {/* Background Image with Parallax & Grayscale Toggle */}
@@ -205,14 +205,14 @@ export default function Industries() {
                       <div className="flex items-center gap-4 mb-4">
                          <div className={`
                             shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center backdrop-blur-md border transition-all duration-700 
-                            ${isActive ? 'bg-black/5 border-black/20 text-[#1d1d1f] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-black/5 border-black/10 text-[#3c3c43] group-hover:text-[#1d1d1f]'}
+                            ${isActive ? 'bg-white/5 border-white/20 text-white shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'bg-white/5 border-white/10 text-white/60 group-hover:text-white'}
                          `}>
                             <industry.icon size={24} />
                          </div>
                          
                          <h3 className={`
                             font-display font-bold transition-all duration-700 whitespace-nowrap
-                            ${isActive ? 'text-3xl lg:text-4xl text-[#1d1d1f] opacity-100' : 'text-xl text-[#3c3c43] lg:opacity-0 lg:-translate-x-4 lg:absolute lg:pointer-events-none'}
+                            ${isActive ? 'text-3xl lg:text-4xl text-white opacity-100' : 'text-xl text-white/60 lg:opacity-0 lg:-translate-x-4 lg:absolute lg:pointer-events-none'}
                          `}>
                             {industry.title}
                          </h3>
@@ -224,7 +224,7 @@ export default function Industries() {
                          ${isActive ? 'max-h-[400px] opacity-100 mt-6' : 'max-h-0 opacity-0 mt-0'}
                       `}>
                          
-                         <p className="text-[#1d1d1f]/70 mb-8 max-w-md text-lg leading-relaxed">
+                         <p className="text-white/70 mb-8 max-w-md text-lg leading-relaxed">
                             {industry.description}
                          </p>
 

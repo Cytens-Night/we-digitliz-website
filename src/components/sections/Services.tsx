@@ -108,7 +108,7 @@ function TiltCard({ children, className, delay = 0 }: { children: React.ReactNod
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative w-full h-full bg-[#ffffff] hover:bg-[#fafafa] border border-black/5 transition-colors duration-500 rounded-[2rem] overflow-hidden shadow-2xl cursor-pointer group"
+        className="relative w-full h-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors duration-500 rounded-[2rem] overflow-hidden shadow-2xl cursor-pointer group"
       >
         
         {/* The Card Content */}
@@ -128,7 +128,7 @@ function TiltCard({ children, className, delay = 0 }: { children: React.ReactNod
         />
 
         {/* Hover Border Glow */}
-        <div className="absolute inset-0 border-2 border-black/20 group-hover:border-black/20 transition-colors duration-700 rounded-[2rem] pointer-events-none z-40" />
+        <div className="absolute inset-0 border-2 border-white/20 group-hover:border-white/30 transition-colors duration-700 rounded-[2rem] pointer-events-none z-40" />
 
       </motion.div>
     </motion.div>
@@ -137,10 +137,10 @@ function TiltCard({ children, className, delay = 0 }: { children: React.ReactNod
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 md:py-32 bg-[#f5f5f7] relative overflow-hidden">
+    <section id="services" className="py-16 md:py-32 bg-[#0a0a0a] relative overflow-hidden">
       
       {/* Decorative blurred blob */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[800px] h-[800px] bg-black/5 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[150px] pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
@@ -149,7 +149,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/5 text-[#1d1d1f] text-sm font-bold mb-6 border border-black/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/5 text-white text-sm font-bold mb-6 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.05)]"
           >
              Core Capabilities
           </motion.div>
@@ -158,16 +158,16 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-[#1d1d1f] mb-6 leading-[1.1] tracking-tight md:tracking-normal"
+            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-[1.1] tracking-tight md:tracking-normal mix-blend-screen"
           >
-            Comprehensive solutions for <br/> <span className="text-[#1d1d1f]">modern enterprises.</span>
+            Comprehensive solutions for <br/> <span className="text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">modern enterprises.</span>
           </motion.h3>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-[#3c3c43] max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto"
           >
             We digitliz your world so you can scale in confidence. From full-scale automations and custom SaaS to stunning brand aesthetics.
           </motion.p>
@@ -196,24 +196,24 @@ export default function Services() {
                 >
                   <div className={`
                     rounded-2xl flex items-center justify-center border transition-all duration-700 shadow-xl
-                    ${isHero ? 'w-24 h-24 bg-black/5 border-black/10 mb-8' : 'w-16 h-16 bg-black/5 border-black/10 mb-6'}
-                    group-hover:bg-black/5 group-hover:border-black/20 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(0,0,0,0.2)]
+                    ${isHero ? 'w-24 h-24 bg-white/5 border-white/10 mb-8' : 'w-16 h-16 bg-white/5 border-white/10 mb-6'}
+                    group-hover:bg-white/10 group-hover:border-white/20 group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]
                   `}>
-                    <Icon className={`${isHero ? 'w-12 h-12' : 'w-8 h-8'} text-[#1d1d1f]/70 group-hover:text-[#1d1d1f] transition-colors duration-500`} />
+                    <Icon className={`${isHero ? 'w-12 h-12' : 'w-8 h-8'} text-white/70 group-hover:text-white transition-colors duration-500`} />
                   </div>
                   
                   <div style={{ transform: "translateZ(40px)" }}>
-                    <h4 className={`${isHero ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-xl md:text-2xl font-bold'} font-display font-bold text-[#1d1d1f] mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all`}>
+                    <h4 className={`${isHero ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-xl md:text-2xl font-bold'} font-display font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/50 transition-all`}>
                       {service.title}
                     </h4>
-                    <p className={`text-[#3c3c43] leading-relaxed ${isHero ? 'text-lg max-w-md' : 'text-sm'}`}>
+                    <p className={`text-white/60 leading-relaxed ${isHero ? 'text-lg max-w-md' : 'text-sm'}`}>
                       {service.description}
                     </p>
                   </div>
                   
                   {/* Subtle Interactive Element */}
                   <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0" style={{ transform: "translateZ(20px)" }}>
-                    <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-[#1d1d1f] backdrop-blur-md">
+                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white backdrop-blur-md">
                       <ArrowRight size={20} />
                     </div>
                   </div>

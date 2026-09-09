@@ -79,7 +79,7 @@ function FloatingDashboard() {
     <div className="absolute inset-0 z-0 overflow-hidden flex items-center justify-center pointer-events-none" style={{ perspective: "2000px" }}>
       
       {/* Central Emerald Glow */}
-      <div className="absolute w-[800px] h-[800px] bg-black/5 rounded-full blur-[120px]" />
+      <div className="absolute w-[800px] h-[800px] bg-white/5 rounded-full blur-[120px]" />
 
       <motion.div 
         style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
@@ -88,16 +88,16 @@ function FloatingDashboard() {
         {/* Card 1: Analytics / Traffic (Top Right - Pushed out) */}
         <motion.div 
           style={{ x: tx1, y: ty1, translateZ: 150 }}
-          className="absolute top-[5%] md:top-[10%] right-[-10%] md:right-[2%] lg:right-[5%] w-64 md:w-80 bg-[#ffffff]/80 backdrop-blur-2xl border border-black/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+          className="absolute top-[5%] md:top-[10%] right-[-10%] md:right-[2%] lg:right-[5%] w-64 md:w-80 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
         >
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center text-[#1d1d1f] border border-black/20">
+              <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white border border-white/10">
                 <BarChart3 size={24} />
               </div>
               <div>
-                <div className="text-[#1d1d1f] text-sm font-bold">Global Traffic</div>
-                <div className="text-[#1d1d1f] text-xs font-mono mt-1">+124.5% Surge</div>
+                <div className="text-white text-sm font-bold">Global Traffic</div>
+                <div className="text-white/70 text-xs font-mono mt-1">+124.5% Surge</div>
               </div>
             </div>
           </div>
@@ -109,7 +109,7 @@ function FloatingDashboard() {
                 initial={{ height: 0 }}
                 animate={{ height: `${h}%` }}
                 transition={{ duration: 1.5, delay: i * 0.1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 2, ease: "easeInOut" }}
-                className="flex-1 bg-[#1d1d1f] rounded-t-sm shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+                className="flex-1 bg-white rounded-t-sm shadow-[0_0_20px_rgba(255,255,255,0.2)]"
               />
             ))}
           </div>
@@ -118,31 +118,31 @@ function FloatingDashboard() {
         {/* Card 2: Server Architecture (Bottom Left - Pushed out) */}
         <motion.div 
           style={{ x: tx2, y: ty2, translateZ: 250 }}
-          className="absolute bottom-[5%] md:bottom-[15%] left-[-10%] md:left-[2%] lg:left-[5%] w-72 md:w-80 bg-[#ffffff]/80 backdrop-blur-2xl border border-black/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+          className="absolute bottom-[5%] md:bottom-[15%] left-[-10%] md:left-[2%] lg:left-[5%] w-72 md:w-80 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
         >
-          <div className="flex justify-between items-center mb-6 border-b border-black/10 pb-4">
-            <div className="text-[#1d1d1f] font-bold text-sm">System Architecture</div>
+          <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
+            <div className="text-white font-bold text-sm">System Architecture</div>
             <div className="flex items-center gap-2">
               <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent shadow-[0_0_10px_#ff2d55]"></span>
               </span>
-              <span className="text-[#3c3c43] text-[10px] uppercase tracking-widest font-bold">Live</span>
+              <span className="text-white/50 text-[10px] uppercase tracking-widest font-bold">Live</span>
             </div>
           </div>
           
           <div className="space-y-3">
             {[
-              { icon: Globe, label: "Edge Routing", val: "99.99%", color: "text-[#1d1d1f]" },
-              { icon: Zap, label: "Compute Cluster", val: "Optimized", color: "text-[#1d1d1f]" },
-              { icon: ShieldCheck, label: "Security Layer", val: "Active", color: "text-[#1d1d1f]" }
+              { icon: Globe, label: "Edge Routing", val: "99.99%", color: "text-white" },
+              { icon: Zap, label: "Compute Cluster", val: "Optimized", color: "text-white" },
+              { icon: ShieldCheck, label: "Security Layer", val: "Active", color: "text-white" }
             ].map((item, i) => (
-              <div key={i} className="flex items-center justify-between bg-[#f5f5f7]/80 rounded-xl p-3 border border-black/5">
+              <div key={i} className="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-white/5">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-black/5 flex items-center justify-center">
-                    <item.icon size={14} className="text-[#3c3c43]" />
+                  <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                    <item.icon size={14} className="text-white/70" />
                   </div>
-                  <span className="text-[#1d1d1f]/80 text-xs font-medium">{item.label}</span>
+                  <span className="text-white/90 text-xs font-medium">{item.label}</span>
                 </div>
                 <span className={`${item.color} text-[10px] font-mono font-bold tracking-wider`}>{item.val}</span>
               </div>
@@ -153,16 +153,16 @@ function FloatingDashboard() {
         {/* Card 3: Floating Status Pill (Top Left - Pushed out) */}
         <motion.div 
           style={{ x: tx3, y: ty3, translateZ: 100 }}
-          className="absolute top-[20%] md:top-[25%] left-[-5%] md:left-[5%] lg:left-[15%] px-5 py-3 bg-[#ffffff]/90 backdrop-blur-xl border border-black/20 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex items-center gap-3"
+          className="absolute top-[20%] md:top-[25%] left-[-5%] md:left-[5%] lg:left-[15%] px-5 py-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.5)] flex items-center gap-3"
         >
           <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#0066cc]" />
-          <span className="text-[#1d1d1f] text-[10px] font-bold uppercase tracking-widest">Deployment Successful</span>
+          <span className="text-white text-[10px] font-bold uppercase tracking-widest">Deployment Successful</span>
         </motion.div>
 
       </motion.div>
 
       {/* Extreme Radial Mask to protect the center text */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,245,247,0.85)_0%,rgba(245,245,247,0.4)_40%,transparent_70%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(10,10,10,0.7)_0%,rgba(10,10,10,0.9)_50%,#0a0a0a_100%)] pointer-events-none" />
     </div>
   );
 }
@@ -180,7 +180,7 @@ const revealVariants = {
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f7]">
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
       
       {/* 3D Floating UI Parallax Environment */}
       <FloatingDashboard />
@@ -193,20 +193,20 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-8 px-5 py-2 rounded-full bg-[#ffffff]/80 backdrop-blur-xl text-[#1d1d1f] text-xs md:text-sm font-bold tracking-widest uppercase border border-black/20 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+          className="mb-8 px-5 py-2 rounded-full bg-white/5 backdrop-blur-xl text-white text-xs md:text-sm font-bold tracking-widest uppercase border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
         >
           Next-Generation Digital Infrastructure
         </motion.div>
         
-        {/* Cinematic Typography */}
-        <div className="text-4xl md:text-7xl lg:text-[5.5rem] font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1] max-w-5xl flex flex-col items-center tracking-tight md:tracking-normal">
+        {/* Cinematic Typography with mix-blend mode */}
+        <div className="text-4xl md:text-7xl lg:text-[5.5rem] font-display font-bold text-white mb-8 leading-[1.1] max-w-5xl flex flex-col items-center tracking-tight md:tracking-normal mix-blend-screen">
           <div className="overflow-hidden py-2">
             <motion.div custom={0} initial="hidden" animate="visible" variants={revealVariants}>
-              We <span className="text-[#1d1d1f] drop-shadow-[0_0_20px_rgba(0,0,0,0.2)]">Digitliz</span> Your World.
+              We <span className="text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.3)]">Digitliz</span> Your World.
             </motion.div>
           </div>
           <div className="overflow-hidden py-2">
-            <motion.div custom={1} initial="hidden" animate="visible" variants={revealVariants} className="text-[#1d1d1f]/90">
+            <motion.div custom={1} initial="hidden" animate="visible" variants={revealVariants} className="text-white/80">
               Architecture for the Future.
             </motion.div>
           </div>
@@ -217,7 +217,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="text-lg md:text-xl text-[#3c3c43] font-medium max-w-2xl mb-12 leading-relaxed"
+          className="text-lg md:text-xl text-white/60 font-medium max-w-2xl mb-12 leading-relaxed"
         >
           We engineer bespoke digital ecosystems, automated systems, and breathtaking web experiences for brands that refuse to settle for average.
         </motion.p>
@@ -231,14 +231,14 @@ export default function Hero() {
         >
           <MagneticButton
             href="#contact"
-            className="px-10 py-5 rounded-full bg-[#1d1d1f] text-white hover:bg-black font-bold hover:scale-105 hover:shadow-[0_0_20px_rgba(0,0,0,0.2)] transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider group shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+            className="px-10 py-5 rounded-full bg-white text-black font-bold hover:bg-white/90 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.3)] transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider group shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
           >
             Start Your Transformation
           </MagneticButton>
           
           <MagneticButton
             href="#services"
-            className="px-10 py-5 rounded-full bg-white text-[#1d1d1f] font-bold hover:bg-white hover:border-black/30 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+            className="px-10 py-5 rounded-full bg-transparent text-white font-bold hover:bg-white/10 hover:border-white/50 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
           >
             View Our Capabilities
           </MagneticButton>
