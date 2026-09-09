@@ -94,22 +94,32 @@ export default function WorksPage() {
                 className="group relative"
               >
                 {/* Image Container */}
-                <a href={project.url} target="_blank" rel="noreferrer" className="block relative w-full aspect-[4/3] bg-black/5 overflow-hidden mb-8">
+                <a href={project.url} target="_blank" rel="noreferrer" className="block relative w-full aspect-[4/3] bg-[#f5f5f7] rounded-2xl overflow-hidden mb-8 border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.05)] group/window">
+                  
+                  {/* Browser Chrome */}
+                  <div className="absolute top-0 left-0 right-0 h-10 bg-white/80 backdrop-blur-md border-b border-black/10 flex items-center px-4 gap-2 z-20 transition-colors group-hover/window:bg-white">
+                     <div className="w-3 h-3 rounded-full bg-black/10 transition-colors group-hover/window:bg-[#ff5f56]" />
+                     <div className="w-3 h-3 rounded-full bg-black/10 transition-colors group-hover/window:bg-[#ffbd2e]" />
+                     <div className="w-3 h-3 rounded-full bg-black/10 transition-colors group-hover/window:bg-[#27c93f]" />
+                  </div>
+
                   <motion.div 
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="w-full h-full"
+                    className="w-full h-full pt-10"
                   >
-                    <iframe 
-                      src={project.url} 
-                      title={project.name}
-                      className="w-full h-full border-none pointer-events-none bg-white"
-                    />
+                    <div className="relative w-full h-full overflow-hidden bg-[#1d1d1f]">
+                      <iframe 
+                        src={project.url} 
+                        title={project.name}
+                        className="w-full h-full border-none pointer-events-none bg-white"
+                      />
+                    </div>
                   </motion.div>
                   
                   {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
-                    <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-white -rotate-45 group-hover:rotate-0 transition-transform duration-500">
+                  <div className="absolute inset-0 z-30 bg-black/60 opacity-0 group-hover/window:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+                    <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center text-white -rotate-45 group-hover/window:rotate-0 transition-transform duration-500">
                       <ArrowUpRight size={24} />
                     </div>
                   </div>
