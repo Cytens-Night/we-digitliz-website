@@ -89,7 +89,7 @@ export default function DigitalCards() {
                    onClick={() => setActiveId(project.id)}
                    className={`
                      relative p-6 rounded-2xl cursor-pointer transition-all duration-500 overflow-hidden group
-                     ${isActive ? 'bg-white/10 border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.5)]' : 'bg-transparent border-transparent hover:bg-white/5'}
+                     ${isActive ? 'border-white/20 shadow-[0_20px_40px_rgba(0,0,0,0.5)]' : 'border-transparent hover:bg-white/5'}
                      border
                    `}
                  >
@@ -97,7 +97,7 @@ export default function DigitalCards() {
                     {isActive && (
                       <motion.div 
                         layoutId="active-project-glow"
-                        className="absolute inset-0 bg-white opacity-50"
+                        className="absolute inset-0 bg-white/10"
                       />
                     )}
                     
