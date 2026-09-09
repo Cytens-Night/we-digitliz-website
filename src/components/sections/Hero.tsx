@@ -174,7 +174,7 @@ const revealVariants = {
     y: 0,
     rotate: 0,
     opacity: 1,
-    transition: { delay: custom * 0.1 + 0.2, duration: 1.2, ease: [0.16, 1, 0.3, 1] }
+    transition: { delay: custom * 0.1 + 0.2, duration: 1.2, ease: "easeOut" }
   })
 };
 
