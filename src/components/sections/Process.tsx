@@ -42,7 +42,7 @@ export default function Process() {
   const cometY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="process" ref={sectionRef} className="py-32 bg-[#000000] relative overflow-hidden border-t border-white/10">
+    <section id="process" ref={sectionRef} className="py-16 md:py-32 bg-[#000000] relative overflow-hidden border-t border-white/10">
       
       {/* Brutalist Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[1px] bg-white/5 pointer-events-none" />
@@ -51,11 +51,11 @@ export default function Process() {
       <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-32">
+        <div className="text-center max-w-3xl mx-auto mb-16 md:mb-32">
           <div className="inline-flex items-center gap-2 px-6 py-2 bg-transparent text-white text-xs font-bold mb-6 border border-white/20 uppercase tracking-[0.2em]">
              Our Process
           </div>
-          <h3 className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight tracking-tighter">
+          <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight tracking-tight md:tracking-tighter">
             WE EXECUTE WITH <br/> <span className="text-white/40">PRECISION.</span>
           </h3>
         </div>

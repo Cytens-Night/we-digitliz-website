@@ -53,7 +53,7 @@ export default function DigitalCards() {
   const activeProject = PROJECTS.find(p => p.id === activeId) || PROJECTS[0];
 
   return (
-    <section id="portfolio" className="relative bg-[#0f1115] text-white py-32 overflow-hidden border-t border-white/10">
+    <section id="portfolio" className="relative bg-[#0f1115] text-white py-16 md:py-32 overflow-hidden border-t border-white/10">
       
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/10 blur-[200px] rounded-full pointer-events-none" />
@@ -66,7 +66,7 @@ export default function DigitalCards() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white text-sm font-semibold mb-6 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(255,255,255,0.05)]">
                  <Briefcase size={16} /> Selected Works
               </div>
-              <h2 className="text-5xl md:text-6xl font-display font-bold text-white max-w-2xl">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white max-w-2xl tracking-tight">
                 The Caliber of <br/> <span className="text-white/40">Our Deliverables.</span>
               </h2>
            </div>
@@ -140,7 +140,7 @@ export default function DigitalCards() {
           {/* ========================================
               RIGHT COLUMN: LIVE DYNAMIC MOCKUP
               ======================================== */}
-          <div className="w-full lg:w-2/3 flex items-center justify-center min-h-[600px] lg:min-h-[800px] relative">
+          <div className="w-full lg:w-2/3 flex items-center justify-center min-h-[450px] md:min-h-[600px] lg:min-h-[800px] relative">
              <AnimatePresence mode="wait">
                
                {activeProject.type === 'mobile' ? (

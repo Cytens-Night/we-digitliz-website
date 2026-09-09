@@ -5,7 +5,7 @@ import { ArrowRight, Mail, MapPin } from "lucide-react";
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-32 bg-[#ffffff] relative overflow-hidden border-t border-black/10">
+    <section id="contact" className="py-16 md:py-32 bg-[#ffffff] relative overflow-hidden border-t border-black/10">
       <div className="max-w-[1400px] mx-auto px-6">
         
         {/* Huge Brutalist Header */}
@@ -23,8 +23,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.8, ease: "circOut" }}
-            className="text-6xl md:text-8xl lg:text-[9rem] font-display font-bold text-[#1d1d1f] leading-[0.9] tracking-tighter"
+            className="text-5xl md:text-8xl lg:text-[9rem] font-display font-bold text-[#1d1d1f] leading-[0.9] tracking-tight md:tracking-tighter"
           >
             LET'S <br /> COLLABORATE.
           </motion.h2>
@@ -78,11 +77,10 @@ export default function Contact() {
                   <input 
                     type="text" 
                     id="name"
-                    required
-                    className="w-full bg-transparent border-b border-black/20 py-4 text-2xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
+                    className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
                     placeholder="Name"
                   />
-                  <label htmlFor="name" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
+                  <label htmlFor="name" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
                     What is your name?
                   </label>
                 </div>
@@ -91,11 +89,10 @@ export default function Contact() {
                   <input 
                     type="email" 
                     id="email"
-                    required
-                    className="w-full bg-transparent border-b border-black/20 py-4 text-2xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
+                    className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
                     placeholder="Email"
                   />
-                  <label htmlFor="email" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
+                  <label htmlFor="email" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
                     What is your email?
                   </label>
                 </div>
@@ -105,10 +102,10 @@ export default function Contact() {
                 <input 
                   type="text" 
                   id="company"
-                  className="w-full bg-transparent border-b border-black/20 py-4 text-2xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
+                  className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
                   placeholder="Company"
                 />
-                <label htmlFor="company" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
+                <label htmlFor="company" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
                   Company / Organization (Optional)
                 </label>
               </div>
@@ -118,10 +115,10 @@ export default function Contact() {
                   id="message"
                   required
                   rows={3}
-                  className="w-full bg-transparent border-b border-black/20 py-4 text-2xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors resize-none"
+                  className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors resize-none"
                   placeholder="Message"
                 />
-                <label htmlFor="message" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
+                <label htmlFor="message" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
                   Tell us about your project
                 </label>
               </div>

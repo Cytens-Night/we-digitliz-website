@@ -199,7 +199,7 @@ export default function Hero() {
         </motion.div>
         
         {/* Cinematic Typography */}
-        <div className="text-5xl md:text-7xl lg:text-[5.5rem] font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1] max-w-5xl flex flex-col items-center">
+        <div className="text-4xl md:text-7xl lg:text-[5.5rem] font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1] max-w-5xl flex flex-col items-center tracking-tight md:tracking-normal">
           <div className="overflow-hidden py-2">
             <motion.div custom={0} initial="hidden" animate="visible" variants={revealVariants}>
               We <span className="text-[#1d1d1f] drop-shadow-[0_0_20px_rgba(0,0,0,0.2)]">Digitliz</span> Your World.

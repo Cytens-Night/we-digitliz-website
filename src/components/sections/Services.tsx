@@ -137,7 +137,7 @@ function TiltCard({ children, className, delay = 0 }: { children: React.ReactNod
 
 export default function Services() {
   return (
-    <section id="services" className="py-32 bg-[#f5f5f7] relative overflow-hidden">
+    <section id="services" className="py-16 md:py-32 bg-[#f5f5f7] relative overflow-hidden">
       
       {/* Decorative blurred blob */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[800px] h-[800px] bg-black/5 rounded-full blur-[150px] pointer-events-none" />
@@ -158,7 +158,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-[#1d1d1f] mb-6 leading-[1.1]"
+            className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-[#1d1d1f] mb-6 leading-[1.1] tracking-tight md:tracking-normal"
           >
             Comprehensive solutions for <br/> <span className="text-[#1d1d1f]">modern enterprises.</span>
           </motion.h3>
@@ -191,7 +191,7 @@ export default function Services() {
                 
                 {/* Content translated aggressively forward in 3D space */}
                 <div 
-                  className={`relative z-10 h-full flex flex-col justify-between ${isHero ? 'p-10 md:p-12' : 'p-8'}`}
+                  className={`relative z-10 h-full flex flex-col justify-between ${isHero ? 'p-6 md:p-12' : 'p-6 md:p-8'}`}
                   style={{ transform: "translateZ(60px)", transformStyle: "preserve-3d" }}
                 >
                   <div className={`
@@ -203,7 +203,7 @@ export default function Services() {
                   </div>
                   
                   <div style={{ transform: "translateZ(40px)" }}>
-                    <h4 className={`${isHero ? 'text-4xl lg:text-5xl' : 'text-2xl font-bold'} font-display font-bold text-[#1d1d1f] mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all`}>
+                    <h4 className={`${isHero ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-xl md:text-2xl font-bold'} font-display font-bold text-[#1d1d1f] mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all`}>
                       {service.title}
                     </h4>
                     <p className={`text-[#3c3c43] leading-relaxed ${isHero ? 'text-lg max-w-md' : 'text-sm'}`}>

@@ -31,7 +31,7 @@ export default function About() {
         <motion.div style={{ x }} className="flex w-[400vw] h-full items-center relative z-10 px-[10vw]">
           
           {/* Slide 1: Introduction */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col justify-center pr-20 md:pr-40 relative">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col justify-center pr-10 md:pr-40 relative">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export default function About() {
               About The Agency
             </motion.div>
             
-            <h3 className="text-6xl md:text-8xl lg:text-[7rem] font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
+            <h3 className="text-5xl md:text-8xl lg:text-[7rem] font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
               <motion.span 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -83,12 +83,12 @@ export default function About() {
           </div>
 
           {/* Slide 2: Bespoke Architecture */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-20 md:pr-40">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-10 md:pr-40">
             <div className="w-full lg:w-1/2">
               <div className="w-20 h-20 rounded-3xl bg-black/5 flex items-center justify-center mb-8 border border-black/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                 <Cpu size={40} className="text-[#1d1d1f]" />
               </div>
-              <h3 className="text-5xl md:text-7xl font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
+              <h3 className="text-4xl md:text-7xl font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
                 Bespoke <br/> <span className="text-[#1d1d1f]">Architecture.</span>
               </h3>
               <p className="text-xl md:text-2xl text-[#3c3c43] max-w-xl leading-relaxed">
@@ -107,12 +107,12 @@ export default function About() {
           </div>
 
           {/* Slide 3: Rapid Execution */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-20 md:pr-40">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-10 md:pr-40">
             <div className="w-full lg:w-1/2">
               <div className="w-20 h-20 rounded-3xl bg-black/5 flex items-center justify-center mb-8 border border-black/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                 <Code2 size={40} className="text-[#1d1d1f]" />
               </div>
-              <h3 className="text-5xl md:text-7xl font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
+              <h3 className="text-4xl md:text-7xl font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
                 Rapid <br/> Execution.
               </h3>
               <p className="text-xl md:text-2xl text-[#3c3c43] max-w-xl leading-relaxed">
@@ -120,7 +120,7 @@ export default function About() {
               </p>
             </div>
             {/* Visual Graphic */}
-            <div className="w-full lg:w-1/2 h-[40vh] lg:h-[60vh] bg-white rounded-[3rem] border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex flex-col justify-center p-12 relative overflow-hidden">
+            <div className="w-full lg:w-1/2 h-[40vh] lg:h-[60vh] bg-white rounded-[3rem] border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex flex-col justify-center p-8 md:p-12 relative overflow-hidden">
                 <div className="text-[#3c3c43] font-mono text-sm mb-4">system.compile()</div>
                 <div className="w-full h-6 bg-[#f5f5f7] rounded-full overflow-hidden mb-6 border border-black/10 shadow-inner relative">
                   <motion.div 
@@ -139,12 +139,12 @@ export default function About() {
           </div>
 
           {/* Slide 4: Data Driven */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-20 md:pr-40">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-10 md:pr-40">
             <div className="w-full lg:w-1/2">
               <div className="w-20 h-20 rounded-3xl bg-black/5 flex items-center justify-center mb-8 border border-black/10 shadow-lg">
                 <Network size={40} className="text-[#1d1d1f]/80" />
               </div>
-              <h3 className="text-5xl md:text-7xl font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
+              <h3 className="text-4xl md:text-7xl font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1]">
                 Data-Driven <br/> Decisions.
               </h3>
               <p className="text-xl md:text-2xl text-[#3c3c43] max-w-xl leading-relaxed">
@@ -152,7 +152,7 @@ export default function About() {
               </p>
             </div>
             {/* Visual Graphic */}
-            <div className="w-full lg:w-1/2 h-[40vh] lg:h-[60vh] bg-[#ffffff] rounded-[3rem] border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex items-end justify-center gap-4 p-12 lg:p-20 relative overflow-hidden">
+            <div className="w-full lg:w-1/2 h-[40vh] lg:h-[60vh] bg-[#ffffff] rounded-[3rem] border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex items-end justify-center gap-2 md:gap-4 p-8 md:p-12 lg:p-20 relative overflow-hidden">
                <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent opacity-50" />
                {[40, 70, 50, 90, 60, 100, 80].map((h, i) => (
                  <motion.div 

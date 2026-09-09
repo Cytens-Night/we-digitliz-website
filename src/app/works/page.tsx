@@ -50,9 +50,9 @@ export default function WorksPage() {
     <div className="bg-[#f5f5f7] min-h-screen">
       <Navbar />
       
-      <main className="pt-40 pb-32">
+      <main className="pt-32 md:pt-40 pb-16 md:pb-32">
         {/* Massive Brutalist Header */}
-        <section className="max-w-[1400px] mx-auto px-6 mb-32">
+        <section className="max-w-[1400px] mx-auto px-6 mb-16 md:mb-32">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ export default function WorksPage() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.8, ease: "circOut" }}
-            className="text-6xl md:text-8xl lg:text-[10rem] font-display font-bold text-[#1d1d1f] leading-[0.9] tracking-tighter"
+            className="text-5xl md:text-8xl lg:text-[10rem] font-display font-bold text-[#1d1d1f] leading-[0.9] tracking-tight md:tracking-tighter"
           >
             SELECTED <br /> WORKS.
           </motion.h1>
@@ -83,7 +83,7 @@ export default function WorksPage() {
 
         {/* Project Grid */}
         <section className="max-w-[1400px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-12 md:gap-y-24">
             {PROJECTS.map((project, index) => (
               <motion.div 
                 key={project.id}
@@ -138,8 +138,8 @@ export default function WorksPage() {
         </section>
 
         {/* CTA Footer */}
-        <section className="max-w-[1400px] mx-auto px-6 mt-40">
-          <div className="py-20 border-t border-b border-black/10 flex flex-col md:flex-row items-center justify-between gap-8">
+        <section className="max-w-[1400px] mx-auto px-6 mt-20 md:mt-40">
+          <div className="py-10 md:py-20 border-t border-b border-black/10 flex flex-col md:flex-row items-center justify-between gap-8">
             <h3 className="text-4xl md:text-5xl font-display font-bold text-[#1d1d1f]">
               Ready to start?
             </h3>
