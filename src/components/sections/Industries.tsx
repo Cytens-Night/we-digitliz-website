@@ -185,8 +185,8 @@ export default function Industries() {
                   style={{ backgroundImage: `url(${industry.image})` }}
                 />
                 
-                {/* Dark Gradient Overlay for Text Readability */}
-                <div className={`absolute inset-0 bg-[#1d1d1f] transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-100'}`} />
+                {/* Gradient Overlay for Text Readability */}
+                <div className={`absolute inset-0 bg-gradient-to-t from-[#fafafa] via-[#fafafa]/80 to-transparent transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-80'}`} />
                 
                 {/* Index Number */}
                 <div className={`
