@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Laptop3D from "@/components/laptop/Laptop3D";
 import Image from "next/image";
-import data from "../../../furqansweets-repo/src/data.json"; // We can import JSON directly
+import data from "./data.json";
 
 export default function LaptopCardPage() {
   const [mounted, setMounted] = useState(false);
