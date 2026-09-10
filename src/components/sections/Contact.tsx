@@ -52,9 +52,13 @@ export default function Contact() {
               <div>
                 <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] mb-4">Socials</h4>
                 <div className="flex flex-col gap-2">
-                  {['Twitter / X', 'LinkedIn', 'Instagram'].map((social) => (
-                    <a key={social} href="#" className="text-lg font-medium text-[#1d1d1f] hover:text-black/50 transition-colors flex items-center gap-2 group w-max">
-                      {social} <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                  {[
+                    { name: 'Twitter / X', href: '#' },
+                    { name: 'LinkedIn', href: '#' },
+                    { name: 'Instagram', href: 'https://www.instagram.com/wedigitlize' }
+                  ].map((social) => (
+                    <a key={social.name} href={social.href} target="_blank" rel="noopener noreferrer" className="text-lg font-medium text-[#1d1d1f] hover:text-black/50 transition-colors flex items-center gap-2 group w-max">
+                      {social.name} <ArrowRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                     </a>
                   ))}
                 </div>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Globe, Mail, MessageCircle, Phone } from "lucide-react";
+import { Globe, Mail, MessageCircle, Phone, Instagram } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 export default function Footer() {
@@ -19,6 +19,9 @@ export default function Footer() {
             <div className="flex items-center gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
                 <Globe className="w-4 h-4" />
+              </a>
+              <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
+                <Instagram className="w-4 h-4" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
                 <MessageCircle className="w-4 h-4" />
