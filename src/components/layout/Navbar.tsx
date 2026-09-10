@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { ArrowRight, Home, Briefcase, CreditCard, FolderStar } from "lucide-react";
+import { ArrowRight, Home, Briefcase, CreditCard, Folder } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -19,7 +19,7 @@ const mobileNavLinks = [
   { name: "Home", href: "/", icon: Home },
   { name: "Sectors", href: "/#industries", icon: Briefcase },
   { name: "Pricing", href: "/#pricing", icon: CreditCard },
-  { name: "Works", href: "/works", icon: FolderStar },
+  { name: "Works", href: "/works", icon: Folder },
 ];
 
 export default function Navbar() {
