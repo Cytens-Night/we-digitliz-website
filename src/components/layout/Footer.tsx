@@ -1,14 +1,6 @@
 import Link from "next/link";
-import { Globe, Mail, MessageCircle, Phone } from "lucide-react";
+import { FaXTwitter, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import Logo from "@/components/ui/Logo";
-
-const Instagram = ({ className }: { className?: string }) => (
-  <svg className={className} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-  </svg>
-);
 
 export default function Footer() {
   return (
@@ -26,19 +18,13 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <Globe className="w-4 h-4" />
+                <FaXTwitter className="w-4 h-4" />
               </a>
               <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <Instagram className="w-4 h-4" />
+                <FaInstagram className="w-4 h-4" />
               </a>
               <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <MessageCircle className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <Phone className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <Mail className="w-4 h-4" />
+                <FaLinkedin className="w-4 h-4" />
               </a>
             </div>
           </div>
