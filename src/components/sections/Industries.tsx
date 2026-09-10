@@ -172,26 +172,26 @@ export default function Industries() {
                 key={industry.id}
                 onMouseEnter={() => setActiveId(industry.id)}
                 className={`
-                  relative rounded-[2.5rem] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer group border border-white/5 hover:border-white/10
-                  ${isActive ? 'flex-[4] lg:flex-[5] bg-[#fafafa] shadow-[0_0_20px_rgba(0,0,0,0.2)]' : 'flex-[1] lg:flex-[1] bg-[#0a0a0a]'}
+                  relative rounded-[2.5rem] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer group border
+                  ${isActive ? 'flex-[4] lg:flex-[5] bg-black shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-white/20' : 'flex-[1] lg:flex-[1] bg-[#0f1115] border-white/5 hover:border-white/10'}
                 `}
               >
                 {/* Background Image with Parallax & Grayscale Toggle */}
                 <div 
                   className={`
                     absolute inset-0 bg-cover bg-center transition-all duration-[1200ms] ease-out
-                    ${isActive ? 'scale-105 grayscale-0 opacity-40' : 'scale-100 grayscale opacity-20 group-hover:opacity-30'}
+                    ${isActive ? 'scale-105 grayscale-0 opacity-60' : 'scale-100 grayscale opacity-20 group-hover:opacity-30'}
                   `}
                   style={{ backgroundImage: `url(${industry.image})` }}
                 />
                 
-                {/* Gradient Overlay for Text Readability */}
-                <div className={`absolute inset-0 bg-gradient-to-t from-[#fafafa] via-[#fafafa]/80 to-transparent transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-80'}`} />
+                {/* Gradient Overlay for Text Readability & Image Clarity */}
+                <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/10 transition-opacity duration-700 ${isActive ? 'opacity-100' : 'opacity-80'}`} />
                 
                 {/* Index Number */}
                 <div className={`
                   absolute top-8 right-8 font-display font-bold text-5xl transition-all duration-700
-                  ${isActive ? 'text-black/40 scale-110' : 'text-black/5 scale-100'}
+                  ${isActive ? 'text-white/20 scale-110' : 'text-white/5 scale-100'}
                 `}>
                   {industry.number}
                 </div>
@@ -246,7 +246,7 @@ export default function Industries() {
                 {/* Vertical Text for Inactive State (Desktop Only) */}
                 {!isActive && (
                   <div className="hidden lg:flex absolute inset-0 items-center justify-center pointer-events-none">
-                     <h3 className="text-xl font-display font-bold text-black/50 whitespace-nowrap -rotate-90 tracking-widest uppercase">
+                     <h3 className="text-xl font-display font-bold text-white/50 whitespace-nowrap -rotate-90 tracking-widest uppercase">
                         {industry.title}
                      </h3>
                   </div>

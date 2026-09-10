@@ -72,16 +72,16 @@ export default function Navbar() {
       <div className={`
         flex items-center justify-between transition-all duration-500 rounded-full relative
         ${scrolled 
-          ? "w-full md:w-[750px] lg:w-[850px] bg-[#1a1a1a]/80 backdrop-blur-xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] px-4 py-2" 
+          ? "w-full md:w-[750px] lg:w-[850px] bg-[#f5f5f7]/80 backdrop-blur-xl border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.1)] px-4 py-2" 
           : "w-full md:w-[850px] lg:w-[1000px] bg-transparent border-transparent px-2 py-4"}
       `}>
         
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 group z-10 px-2 relative">
-          <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-colors">
-            <Logo className="w-5 h-5 text-white group-hover:text-white transition-colors" />
+          <div className="w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-colors">
+            <Logo className="w-5 h-5 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
           </div>
-          <span className="font-display font-bold text-lg tracking-wide text-white">We Digitliz</span>
+          <span className="font-display font-bold text-lg tracking-wide text-[#1d1d1f]">We Digitliz</span>
         </Link>
 
         {/* Desktop Nav */}
@@ -93,13 +93,13 @@ export default function Navbar() {
                 href={link.href}
                 onMouseEnter={() => setHoveredLink(link.name)}
                 onMouseLeave={() => setHoveredLink(null)}
-                className="relative px-5 py-2.5 text-sm font-medium text-white/70 hover:text-white transition-colors"
+                className="relative px-5 py-2.5 text-sm font-medium text-[#1d1d1f]/70 hover:text-[#1d1d1f] transition-colors"
               >
                 <span className="relative z-10">{link.name}</span>
                 {hoveredLink === link.name && (
                   <motion.div
                     layoutId="nav-hover"
-                    className="absolute inset-0 bg-white/10 rounded-full"
+                    className="absolute inset-0 bg-black/10 rounded-full"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
@@ -115,19 +115,19 @@ export default function Navbar() {
         <div className="hidden md:block z-10 pl-4">
           <Link
             href="/#contact"
-            className="group relative px-6 py-2.5 rounded-full bg-white hover:bg-white/90 text-black font-bold text-sm shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all flex items-center gap-2 overflow-hidden"
+            className="group relative px-6 py-2.5 rounded-full bg-primary hover:bg-black/5 text-[#1d1d1f] font-bold text-sm shadow-[0_0_20px_rgba(0,0,0,0.2)] hover:shadow-[0_0_20px_rgba(0,0,0,0.2)] transition-all flex items-center gap-2 overflow-hidden"
           >
             <span className="relative z-10">Start Project</span>
             <ArrowRight size={14} className="relative z-10 group-hover:translate-x-1 transition-transform" />
             <motion.div 
-              className="absolute inset-0 bg-white -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" 
+              className="absolute inset-0 bg-[#1d1d1f] -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" 
             />
           </Link>
         </div>
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-white z-10 p-2"
+          className="md:hidden text-[#1d1d1f] z-10 p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -142,10 +142,10 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-[80px] left-4 right-4 bg-[#111111] border border-white/10 shadow-[0_40px_80px_rgba(0,0,0,0.8)] rounded-2xl py-6 px-6 md:hidden flex flex-col gap-2 z-40 overflow-hidden"
+            className="absolute top-[80px] left-4 right-4 bg-[#ffffff] border border-black/10 shadow-2xl rounded-2xl py-6 px-6 md:hidden flex flex-col gap-2 z-40 overflow-hidden"
           >
             {/* Decorative background glow */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 blur-[50px] -z-10" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-black/5 blur-[50px] -z-10" />
             
             {navLinks.map((link, i) => (
               <motion.div
@@ -156,7 +156,7 @@ export default function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="block text-xl font-display font-bold text-white/80 hover:text-white py-3 border-b border-white/5"
+                  className="block text-xl font-display font-bold text-[#1d1d1f]/80 hover:text-[#1d1d1f] py-3 border-b border-black/5"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {link.name}
@@ -172,7 +172,7 @@ export default function Navbar() {
             >
               <Link
                 href="/#contact"
-                className="w-full py-4 rounded-xl bg-white text-black text-center font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+                className="w-full py-4 rounded-xl bg-primary text-[#1d1d1f] text-center font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,0,0,0.2)]"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Start Project <ArrowRight size={18} />
