@@ -96,7 +96,10 @@ export default function DigitalCards() {
                     <iframe 
                       src={client.url}
                       title={client.name}
-                      className="absolute inset-0 w-[120%] h-[120%] -top-[10%] -left-[10%] bg-white scale-100"
+                      tabIndex={-1}
+                      loading="lazy"
+                      sandbox="allow-scripts allow-same-origin"
+                      className="absolute inset-0 w-[120%] h-[120%] -top-[10%] -left-[10%] bg-white scale-100 border-none pointer-events-none"
                     />
                     {/* Dark gradient overlay to ensure text remains perfectly readable */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/30" />
