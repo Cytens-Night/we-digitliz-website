@@ -85,6 +85,24 @@ export default function Pricing() {
     setSelectedItems(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
   };
 
+  const handleCustomDeploy = () => {
+    if (selectedItems.length === 0) return;
+    
+    const itemsList = selectedItems.map(id => {
+      const item = CUSTOM_ITEMS.find(i => i.id === id);
+      return `- ${item?.title} (£${item?.price}${item?.monthly ? ` + £${item.monthly}/mo` : ''})`;
+    }).join('%0A');
+
+    const message = `Hello We Digitlize! I would like to deploy the following custom architecture:%0A%0A${itemsList}%0A%0ATotal Upfront: £${totalUpfront}%0ATotal Monthly: £${totalMonthly}`;
+    window.open(`https://wa.me/447000000000?text=${message}`, '_blank');
+  };
+
+  const handleBundleDeploy = (bundle: any, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const message = `Hello We Digitlize! I am interested in the ${bundle.title} Package for ${bundle.priceLabel}.`;
+    window.open(`https://wa.me/447000000000?text=${message}`, '_blank');
+  };
+
   const categories = Array.from(new Set(CUSTOM_ITEMS.map(i => i.category)));
 
   return (
@@ -188,6 +206,14 @@ export default function Pricing() {
                               </div>
                             ))}
                           </div>
+                          <div className="mt-8 flex justify-end">
+                            <button 
+                              onClick={(e) => handleBundleDeploy(bundle, e)} 
+                              className={`px-8 py-3 rounded-full font-bold text-sm shadow-xl hover:scale-105 transition-transform flex items-center gap-2 ${isSelected ? 'bg-primary text-white' : 'bg-primary text-white'}`}
+                            >
+                              Deploy via WhatsApp <ArrowRight size={16} />
+                            </button>
+                          </div>
                         </div>
                      </motion.div>
                    )}
@@ -288,8 +314,11 @@ export default function Pricing() {
                          </span>
                        </div>
                      </div>
-                     <button className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(0,102,204,0.4)] flex items-center justify-center gap-2">
-                       Deploy Architecture <ArrowRight size={18} />
+                     <button 
+                       onClick={handleCustomDeploy}
+                       className="w-full py-4 rounded-xl font-bold bg-primary text-white hover:scale-[1.02] transition-transform shadow-[0_0_20px_rgba(0,102,204,0.4)] flex items-center justify-center gap-2"
+                     >
+                       Deploy via WhatsApp <ArrowRight size={18} />
                      </button>
                   </div>
                 </div>

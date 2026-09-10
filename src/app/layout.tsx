@@ -13,7 +13,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "We Digitliz | Digital Transformation Agency",
+  title: "We Digitlize | Digital Transformation Agency",
   description: "We build automated systems, premium online presences, and custom applications to elevate your business.",
 };
 

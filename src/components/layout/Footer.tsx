@@ -11,10 +11,10 @@ export default function Footer() {
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 group mb-6">
               <Logo className="w-8 h-8 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
-              <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">We Digitliz</span>
+              <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">We Digitlize</span>
             </Link>
             <p className="text-[#3c3c43] text-sm leading-relaxed mb-6">
-              We digitliz your world so you can still lead in confidence. Building automated systems and premium online presences.
+              We digitlize your world so you can still lead in confidence. Building automated systems and premium online presences.
             </p>
             <div className="flex items-center gap-4">
               <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
@@ -67,10 +67,10 @@ export default function Footer() {
 
         <div className="border-t border-black/10 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-[#3c3c43] text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} We Digitliz. All rights reserved.
+            © {new Date().getFullYear()} We Digitlize. All rights reserved.
           </p>
           <div className="flex items-center gap-2 text-sm text-[#3c3c43]">
-            Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by We Digitliz
+            Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by We Digitlize
           </div>
         </div>
       </div>

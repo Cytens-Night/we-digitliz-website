@@ -36,8 +36,8 @@ export default function Contact() {
             <div className="space-y-12">
               <div>
                 <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] mb-4">Direct Inquiry</h4>
-                <a href="mailto:hello@wedigitliz.com" className="text-2xl md:text-3xl font-display font-medium text-[#1d1d1f] hover:text-black/50 transition-colors">
-                  hello@wedigitliz.com
+                <a href="mailto:info@wedigitlize.com" className="text-2xl md:text-3xl font-display font-medium text-[#1d1d1f] hover:text-black/50 transition-colors">
+                  info@wedigitlize.com
                 </a>
               </div>
               

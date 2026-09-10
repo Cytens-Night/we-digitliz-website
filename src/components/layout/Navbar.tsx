@@ -91,7 +91,7 @@ export default function Navbar() {
             <div className="w-8 h-8 rounded-lg bg-black/5 border border-black/10 flex items-center justify-center group-hover:border-black/20 transition-colors">
               <Logo className="w-5 h-5 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
             </div>
-            <span className="font-display font-bold text-lg tracking-wide text-[#1d1d1f]">We Digitliz</span>
+            <span className="font-display font-bold text-lg tracking-wide text-[#1d1d1f]">We Digitlize</span>
           </Link>
 
           {/* Desktop Nav Links */}
