@@ -154,7 +154,7 @@ export default function Industries() {
         {/* ==============================================
             LEFT: STICKY HEADER & DYNAMIC GRAPHIC
             ============================================== */}
-        <div className="w-full lg:w-5/12 sticky top-24 lg:top-32 z-20 flex flex-col gap-8">
+        <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20 flex flex-col gap-8">
            
            <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-white text-sm font-semibold mb-6 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]">
