@@ -31,7 +31,7 @@ export default function About() {
         <motion.div style={{ x }} className="flex w-[400vw] h-full items-center relative z-10 px-[10vw]">
           
           {/* Slide 1: Introduction */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col justify-center pr-10 md:pr-40 relative">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col justify-center pr-4 md:pr-40 relative">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -41,7 +41,7 @@ export default function About() {
               About The Agency
             </motion.div>
             
-            <h3 className="text-5xl md:text-8xl lg:text-[7rem] font-display font-bold text-white mb-8 leading-[1.1]">
+            <h3 className="text-[2.5rem] leading-[1.05] md:text-8xl lg:text-[7rem] font-display font-bold text-white mb-8">
               <motion.span 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -83,7 +83,7 @@ export default function About() {
           </div>
 
           {/* Slide 2: Bespoke Architecture */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-10 md:pr-40">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-4 md:pr-40">
             <div className="w-full lg:w-1/2">
               <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                 <Cpu size={40} className="text-white" />
@@ -139,7 +139,7 @@ export default function About() {
           </div>
 
           {/* Slide 3: Rapid Execution */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-10 md:pr-40">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-4 md:pr-40">
             <div className="w-full lg:w-1/2">
               <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                 <Code2 size={40} className="text-white" />
@@ -212,7 +212,7 @@ export default function About() {
           </div>
 
           {/* Slide 4: Data Driven */}
-          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-10 md:pr-40">
+          <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-4 md:pr-40">
             <div className="w-full lg:w-1/2">
               <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 shadow-lg">
                 <Network size={40} className="text-white/80" />

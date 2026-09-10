@@ -88,7 +88,7 @@ function FloatingDashboard() {
         {/* Card 1: Analytics / Traffic (Top Right - Pushed out) */}
         <motion.div 
           style={{ x: tx1, y: ty1, translateZ: 150 }}
-          className="absolute top-[5%] md:top-[10%] right-[-10%] md:right-[2%] lg:right-[5%] w-64 md:w-80 bg-[#ffffff]/80 backdrop-blur-2xl border border-black/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+          className="hidden md:block absolute top-[5%] md:top-[10%] right-[-10%] md:right-[2%] lg:right-[5%] w-64 md:w-80 bg-[#ffffff]/80 backdrop-blur-2xl border border-black/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
         >
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
@@ -118,7 +118,7 @@ function FloatingDashboard() {
         {/* Card 2: Server Architecture (Bottom Left - Pushed out) */}
         <motion.div 
           style={{ x: tx2, y: ty2, translateZ: 250 }}
-          className="absolute bottom-[5%] md:bottom-[15%] left-[-10%] md:left-[2%] lg:left-[5%] w-72 md:w-80 bg-[#ffffff]/80 backdrop-blur-2xl border border-black/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
+          className="hidden md:block absolute bottom-[5%] md:bottom-[15%] left-[-10%] md:left-[2%] lg:left-[5%] w-72 md:w-80 bg-[#ffffff]/80 backdrop-blur-2xl border border-black/10 rounded-3xl p-6 shadow-[0_20px_40px_rgba(0,0,0,0.1)]"
         >
           <div className="flex justify-between items-center mb-6 border-b border-black/10 pb-4">
             <div className="text-[#1d1d1f] font-bold text-sm">System Architecture</div>
@@ -153,7 +153,7 @@ function FloatingDashboard() {
         {/* Card 3: Floating Status Pill (Top Left - Pushed out) */}
         <motion.div 
           style={{ x: tx3, y: ty3, translateZ: 100 }}
-          className="absolute top-[20%] md:top-[25%] left-[-5%] md:left-[5%] lg:left-[15%] px-5 py-3 bg-[#ffffff]/90 backdrop-blur-xl border border-black/20 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex items-center gap-3"
+          className="hidden md:flex absolute top-[20%] md:top-[25%] left-[-5%] md:left-[5%] lg:left-[15%] px-5 py-3 bg-[#ffffff]/90 backdrop-blur-xl border border-black/20 rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.1)] items-center gap-3"
         >
           <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse shadow-[0_0_10px_#0066cc]" />
           <span className="text-[#1d1d1f] text-[10px] font-bold uppercase tracking-widest">Deployment Successful</span>
@@ -199,7 +199,7 @@ export default function Hero() {
         </motion.div>
         
         {/* Cinematic Typography */}
-        <div className="text-4xl md:text-7xl lg:text-[5.5rem] font-display font-bold text-[#1d1d1f] mb-8 leading-[1.1] max-w-5xl flex flex-col items-center tracking-tight md:tracking-normal">
+        <div className="text-[2.75rem] leading-[1.05] md:text-7xl lg:text-[5.5rem] font-display font-bold text-[#1d1d1f] mb-8 max-w-5xl flex flex-col items-center tracking-tight md:tracking-normal">
           <div className="overflow-hidden py-2">
             <motion.div custom={0} initial="hidden" animate="visible" variants={revealVariants}>
               We <span className="text-[#1d1d1f] drop-shadow-[0_0_20px_rgba(0,0,0,0.2)]">Digitliz</span> Your World.

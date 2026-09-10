@@ -134,50 +134,56 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu Panel */}
+      {/* Mobile Menu Panel (Full Screen Overlay) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-[80px] left-4 right-4 bg-[#ffffff] border border-black/10 shadow-2xl rounded-2xl py-6 px-6 md:hidden flex flex-col gap-2 z-40 overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed inset-0 bg-[#f5f5f7]/95 backdrop-blur-2xl md:hidden flex flex-col justify-center items-center z-30"
           >
             {/* Decorative background glow */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-black/5 blur-[50px] -z-10" />
+            <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-black/5 blur-[80px] -z-10 rounded-full" />
+            <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-black/5 blur-[80px] -z-10 rounded-full" />
             
-            {navLinks.map((link, i) => (
+            <div className="flex flex-col items-center gap-6 w-full px-8">
+              {navLinks.map((link, i) => (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 10 }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  key={link.name}
+                  className="w-full text-center"
+                >
+                  <Link
+                    href={link.href}
+                    className="block text-4xl font-display font-bold text-[#1d1d1f]/80 hover:text-[#1d1d1f] py-2 transition-colors"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
+              ))}
+              
               <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                key={link.name}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                transition={{ delay: navLinks.length * 0.1 + 0.1, duration: 0.4 }}
+                className="mt-8 w-full max-w-xs"
               >
                 <Link
-                  href={link.href}
-                  className="block text-xl font-display font-bold text-[#1d1d1f]/80 hover:text-[#1d1d1f] py-3 border-b border-black/5"
+                  href="/#contact"
+                  className="w-full py-4 rounded-full bg-primary text-[#1d1d1f] text-center font-bold text-lg flex items-center justify-center gap-2 shadow-[0_10px_30px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {link.name}
+                  Start Project <ArrowRight size={20} />
                 </Link>
               </motion.div>
-            ))}
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="mt-6"
-            >
-              <Link
-                href="/#contact"
-                className="w-full py-4 rounded-xl bg-primary text-[#1d1d1f] text-center font-bold flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,0,0,0.2)]"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                Start Project <ArrowRight size={18} />
-              </Link>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
