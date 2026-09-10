@@ -189,10 +189,8 @@ export default function About() {
                   <div className="w-full h-1 bg-white/10 rounded-full overflow-hidden mb-4 relative">
                     <motion.div 
                       className="absolute top-0 left-0 h-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"
-                      initial={{ width: "0%" }}
-                      whileInView={{ width: "100%" }}
-                      viewport={{ once: false, margin: "-100px" }}
-                      transition={{ duration: 1.5, ease: "circOut" }}
+                      animate={{ width: ["0%", "100%"] }}
+                      transition={{ duration: 2, ease: "circOut", repeat: Infinity, repeatDelay: 1 }}
                     />
                   </div>
                   <div className="flex justify-between font-bold text-[10px] uppercase tracking-widest">
@@ -253,10 +251,8 @@ export default function About() {
                    <motion.path 
                      d="M 0 50 L 0 40 Q 20 40, 40 20 T 70 25 T 100 5 L 100 50 Z"
                      fill="url(#chartGradient)"
-                     initial={{ opacity: 0 }}
-                     whileInView={{ opacity: 1 }}
-                     viewport={{ once: false, margin: "-100px" }}
-                     transition={{ duration: 1.5, delay: 0.5, ease: "easeInOut" }}
+                     animate={{ opacity: [0.3, 0.8, 0.3] }}
+                     transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
                    />
                    
                    <motion.path 
@@ -265,16 +261,12 @@ export default function About() {
                      stroke="#1d1d1f"
                      strokeWidth="1.5"
                      strokeLinecap="round"
-                     initial={{ pathLength: 0, opacity: 0 }}
-                     whileInView={{ pathLength: 1, opacity: 1 }}
-                     viewport={{ once: false, margin: "-100px" }}
-                     transition={{ duration: 1.5, ease: "easeInOut" }}
                    />
                    
                    {/* Data points */}
-                   <motion.circle cx="40" cy="20" r="1.5" fill="#ffffff" stroke="#1d1d1f" strokeWidth="0.5" initial={{ scale: 0 }} whileInView={{ scale: 1 }} transition={{ delay: 0.6 }} />
-                   <motion.circle cx="70" cy="25" r="1.5" fill="#ffffff" stroke="#1d1d1f" strokeWidth="0.5" initial={{ scale: 0 }} whileInView={{ scale: 1 }} transition={{ delay: 1.0 }} />
-                   <motion.circle cx="100" cy="5" r="2" fill="#1d1d1f" initial={{ scale: 0 }} whileInView={{ scale: 1 }} transition={{ delay: 1.5 }} />
+                   <motion.circle cx="40" cy="20" r="1.5" fill="#ffffff" stroke="#1d1d1f" strokeWidth="0.5" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+                   <motion.circle cx="70" cy="25" r="1.5" fill="#ffffff" stroke="#1d1d1f" strokeWidth="0.5" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, delay: 0.5, repeat: Infinity }} />
+                   <motion.circle cx="100" cy="5" r="2" fill="#1d1d1f" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, delay: 1, repeat: Infinity }} />
 
                    <defs>
                      <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
