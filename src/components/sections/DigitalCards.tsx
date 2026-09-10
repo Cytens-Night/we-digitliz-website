@@ -11,28 +11,28 @@ const CLIENTS = [
     name: "Shakur Fragrances", 
     type: "Digital Business Card & E-Commerce", 
     year: "2024",
-    image: "/images/shakur_mobile.jpg"
+    url: "https://card.shakurfragrances.co.uk/"
   },
   { 
     id: "furqan-sweets", 
     name: "Furqan Sweets", 
     type: "High-Performance Storefront", 
     year: "2024",
-    image: "/images/furqan_desktop.jpg"
+    url: "https://furqansweets.co.uk/"
   },
   { 
     id: "hesori", 
     name: "Hesori", 
     type: "Premium Brand Architecture", 
     year: "2024",
-    image: "/images/hesori_desktop.jpg"
+    url: "https://hesori.com"
   },
   { 
     id: "marshalos", 
     name: "Marshalos", 
     type: "Complete Digital Transformation", 
     year: "2023",
-    image: "/images/marshalos_desktop.jpg"
+    url: "https://marshalos.co.uk"
   }
 ];
 
@@ -66,7 +66,7 @@ export default function DigitalCards() {
         {/* Minimalist Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
            {CLIENTS.map((client, index) => (
-             <Link href="/works" key={client.id}>
+             <a href={client.url} target="_blank" rel="noreferrer" key={client.id}>
                <motion.div 
                  initial={{ opacity: 0, y: 20 }}
                  whileInView={{ opacity: 1, y: 0 }}
@@ -74,16 +74,15 @@ export default function DigitalCards() {
                  transition={{ duration: 0.6, delay: index * 0.1 }}
                  className="group relative h-[300px] md:h-[400px] rounded-3xl bg-[#161a22] overflow-hidden border border-white/10 cursor-pointer shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
                >
-                 {/* Reveal Image on Hover */}
-                 <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out">
-                    <Image 
-                      src={client.image}
-                      alt={client.name}
-                      fill
-                      className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 ease-out"
+                 {/* Reveal Live Iframe on Hover */}
+                 <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out pointer-events-none">
+                    <iframe 
+                      src={client.url}
+                      title={client.name}
+                      className="absolute inset-0 w-[120%] h-[120%] -top-[10%] -left-[10%] bg-white scale-110 group-hover:scale-100 transition-transform duration-1000 ease-out"
                     />
                     {/* Dark gradient overlay to ensure text remains perfectly readable */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
                  </div>
 
                  {/* Default Dark Background pattern */}
@@ -110,7 +109,7 @@ export default function DigitalCards() {
                     </div>
                  </div>
                </motion.div>
-             </Link>
+             </a>
            ))}
         </div>
 
