@@ -10,6 +10,7 @@ import { QRCodeSVG } from "qrcode.react";
 import ActionDrawer, { DrawerType } from "./ActionDrawer";
 import ToastContainer from "@/components/ui/ToastContainer";
 import CinematicModal, { services } from "./CinematicModal";
+import MobileDashboard from "./MobileDashboard";
 
 export default function Laptop3D() {
   const [isOpen, setIsOpen] = useState(false);
@@ -121,8 +122,8 @@ export default function Laptop3D() {
       
       {/* The Laptop Assembly */}
       <motion.div 
-        className="relative w-[300px] h-[188px] sm:w-[480px] sm:h-[300px] lg:w-[720px] lg:h-[450px] transform-style-3d cursor-pointer"
-        animate={{ y: isOpen ? 60 : 20 }}
+        className="relative w-[300px] h-[188px] sm:w-[480px] sm:h-[300px] lg:w-[720px] lg:h-[450px] transform-style-3d cursor-pointer z-10"
+        animate={{ y: isOpen ? -60 : 20, scale: isOpen ? 1 : 0.9 }}
         transition={{ type: "spring", stiffness: 40, damping: 15 }}
         style={{ 
           rotateX,
@@ -215,8 +216,8 @@ export default function Laptop3D() {
                     animate={{ rotateY: isScreenFlipped ? 180 : 0 }}
                     transition={{ type: "spring", stiffness: 60, damping: 15 }}
                   >
-                     {/* FRONT FACE (Main UI) */}
-                     <div className={`absolute inset-0 w-full h-full flex flex-col p-4 sm:p-8 md:p-12 transition-opacity duration-1000 backface-hidden ${isBooted ? 'opacity-100' : 'opacity-0'}`}>
+                     {/* FRONT FACE (Main UI) - Desktop Only */}
+                     <div className={`absolute inset-0 w-full h-full hidden md:flex flex-col p-4 sm:p-8 md:p-12 transition-opacity duration-1000 backface-hidden ${isBooted ? 'opacity-100' : 'opacity-0'}`}>
                         
                         {/* UI Header */}
                         <div className="flex justify-between items-start mb-auto">
@@ -262,8 +263,8 @@ export default function Laptop3D() {
                      </div>
                      </div>
 
-                     {/* BACK FACE (QR Code) */}
-                     <div className="absolute inset-0 w-full h-full flex flex-col p-4 sm:p-8 md:p-12 bg-black backface-hidden rotate-y-180 items-center justify-center">
+                     {/* BACK FACE (QR Code) - Desktop Only */}
+                     <div className="absolute inset-0 w-full h-full hidden md:flex flex-col p-4 sm:p-8 md:p-12 bg-black backface-hidden rotate-y-180 items-center justify-center">
                         <button onClick={() => setIsScreenFlipped(false)} className="absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
                            <ArrowLeft size={18} />
                         </button>
@@ -294,7 +295,7 @@ export default function Laptop3D() {
 
       </motion.div>
 
-      {/* Global Close Button (if open) */}
+      {/* Global Close Button (if open) - Desktop Only */}
       <AnimatePresence>
         {isOpen && (
           <motion.button
@@ -302,7 +303,7 @@ export default function Laptop3D() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             onClick={() => setIsOpen(false)}
-            className="absolute bottom-8 px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium hover:bg-white/20 transition-colors z-50 shadow-2xl"
+            className="absolute bottom-8 hidden md:block px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-medium hover:bg-white/20 transition-colors z-50 shadow-2xl"
           >
             Close Laptop
           </motion.button>
@@ -345,7 +346,7 @@ export default function Laptop3D() {
               exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
               transition={{ type: "spring", stiffness: 50, damping: 15, delay: index * 0.1 }}
               onClick={() => setActiveModalId(service.id)}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-[60] group"
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex-col items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-[60] group"
               style={{ color: service.color }}
             >
               <div className="mb-1 sm:mb-2 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">
@@ -371,6 +372,14 @@ export default function Laptop3D() {
         onSaveContact={handleSaveContact}
         onCopyEmail={handleCopyEmail}
         showToast={showToast}
+      />
+      
+      <MobileDashboard 
+        isOpen={isBooted}
+        onClose={() => setIsOpen(false)}
+        onOpenDrawer={(type) => setDrawerType(type)}
+        onSaveContact={handleSaveContact}
+        onInstall={handleInstallClick}
       />
       
       <ToastContainer message={toastMsg} />
