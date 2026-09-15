@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, ContactShadows, RoundedBox } from "@react-three/drei";
+import { Environment, ContactShadows, RoundedBox, Html } from "@react-three/drei";
 import * as THREE from "three";
 import Logo from "@/components/ui/Logo";
 import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase } from "lucide-react";
@@ -94,6 +94,21 @@ function Macbook({ scrollYProgress }: { scrollYProgress: any }) {
             <RoundedBox args={[4.5, 3, 0.1]} radius={0.05} smoothness={4} position={[0, 0, -0.05]}>
               <meshPhysicalMaterial metalness={0.9} roughness={0.3} color="#b0b0b0" />
             </RoundedBox>
+
+            {/* Glowing Brand Logo on the Back */}
+            <Html 
+              transform 
+              position={[0, 0, -0.105]} 
+              rotation={[0, Math.PI, 0]} 
+              scale={0.15}
+            >
+              <div className="flex flex-col items-center justify-center pointer-events-none drop-shadow-[0_0_20px_rgba(139,92,246,0.8)]">
+                <Logo className="w-24 h-24 text-white mb-2" />
+                <span className="font-display font-bold text-2xl tracking-[0.2em] uppercase text-white">
+                  We Digitlize
+                </span>
+              </div>
+            </Html>
             
             {/* Screen Glass (Black Bezel) */}
             <mesh position={[0, 0, 0.01]}>
