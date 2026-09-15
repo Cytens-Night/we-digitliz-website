@@ -1,13 +1,103 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect, useRef, useMemo } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { useGLTF, Environment, ContactShadows } from "@react-three/drei";
+import * as THREE from "three";
 import Logo from "@/components/ui/Logo";
-import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase, ExternalLink, Smartphone } from "lucide-react";
+import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import Link from "next/link";
 import ActionDrawer, { DrawerType } from "./ActionDrawer";
 import ToastContainer from "@/components/ui/ToastContainer";
+
+// Ensure GLTF is preloaded
+useGLTF.preload("https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf");
+
+// The 3D MacBook Model Component
+function Macbook({ scrollYProgress }: { scrollYProgress: any }) {
+  const group = useRef<THREE.Group>(null);
+  const lid = useRef<THREE.Group>(null);
+  
+  // Load the model
+  const { nodes, materials } = useGLTF("https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf") as any;
+
+  useFrame(() => {
+    if (!group.current || !lid.current) return;
+    const progress = scrollYProgress.get(); // 0 to 1
+
+    // 1. Laptop opens (0% to 30% scroll)
+    // When closed, lid rotation x is ~ Math.PI / 2 (or Math.PI depending on initial orientation)
+    // The default in the GLTF is usually open at Math.PI / 2 or 0.
+    // In this specific GLTF, the lid is open by default.
+    // Let's assume open = Math.PI / 2 (or 0), we will interpolate to open it.
+    // Actually, in the code I found, lid rotation is `[Math.PI / 2, 0, 0]`? 
+    // We will just interpolate it.
+    const closedAngle = Math.PI; // Folded down
+    const openAngle = Math.PI / 2 - 0.2; // Slightly past 90 degrees
+    let currentLidAngle = closedAngle;
+    if (progress < 0.3) {
+      currentLidAngle = closedAngle - (progress / 0.3) * (closedAngle - openAngle);
+    } else {
+      currentLidAngle = openAngle;
+    }
+    lid.current.rotation.x = currentLidAngle;
+
+    // 2. Base rotates to face camera (30% to 50% scroll)
+    // Initially, it's tilted down. Let's start at Math.PI / 6 (30 deg).
+    const startBaseX = Math.PI / 6;
+    const endBaseX = Math.PI / 2; // Flat facing camera
+    let currentBaseX = startBaseX;
+    if (progress > 0.3 && progress <= 0.5) {
+      currentBaseX = startBaseX + ((progress - 0.3) / 0.2) * (endBaseX - startBaseX);
+    } else if (progress > 0.5) {
+      currentBaseX = endBaseX;
+    }
+    group.current.rotation.x = currentBaseX;
+
+    // 3. Scale and slide out (50% to 65% scroll)
+    // When facing camera, we scale up slightly, then slide it UP (Y axis) to disappear.
+    let currentY = -1; // Base position
+    let currentScale = 1;
+    if (progress > 0.5 && progress <= 0.65) {
+      const p = (progress - 0.5) / 0.15;
+      currentScale = 1 + p * 0.5;
+      currentY = -1 + p * 10; // Slide up off screen
+    } else if (progress > 0.65) {
+      currentScale = 1.5;
+      currentY = 9;
+    }
+    
+    group.current.position.y = THREE.MathUtils.lerp(group.current.position.y, currentY, 0.1);
+    group.current.scale.setScalar(THREE.MathUtils.lerp(group.current.scale.x, currentScale, 0.1));
+  });
+
+  return (
+    <group ref={group} position={[0, -1, 0]} rotation={[Math.PI / 6, 0, 0]}>
+      {/* Hinge & Lid Group */}
+      <group position={[0, -0.04, 0.41]}>
+        <group ref={lid} position={[0, 2.96, -0.13]} rotation={[Math.PI, 0, 0]}>
+          <mesh material={materials.aluminium} geometry={nodes['Cube008'].geometry} />
+          <mesh material={materials['matte.001']} geometry={nodes['Cube008_1'].geometry} />
+          <mesh material={materials['screen.001']} geometry={nodes['Cube008_2'].geometry} />
+        </group>
+      </group>
+      
+      {/* Keyboard */}
+      <mesh material={materials.keys} geometry={nodes.keyboard.geometry} position={[1.79, 0, 3.45]} />
+      
+      {/* Base Chassis & Trackpad */}
+      <group position={[0, -0.1, 3.39]}>
+        <mesh material={materials.aluminium} geometry={nodes['Cube002'].geometry} />
+        <mesh material={materials.trackpad} geometry={nodes['Cube002_1'].geometry} />
+      </group>
+      
+      {/* Touchbar */}
+      <mesh material={materials.touchbar} geometry={nodes.touchbar.geometry} position={[0, -0.03, 1.2]} />
+    </group>
+  );
+}
 
 export default function Laptop3D() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -18,22 +108,9 @@ export default function Laptop3D() {
     offset: ["start start", "end end"]
   });
 
-  // Stage 1: Laptop opens (0% to 30% scroll)
-  const lidRotateX = useTransform(scrollYProgress, [0, 0.3], [-179.5, -90]);
-  
-  // Stage 2: Laptop rotates to face camera perfectly flat (30% to 50% scroll)
-  const baseRotateX = useTransform(scrollYProgress, [0, 0.3, 0.5], [65, 65, 90]);
-  
-  // Stage 3: Laptop flies up and fades out (50% to 65% scroll)
-  const laptopScale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
-  const laptopTranslateY = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.65], [20, 20, 0, -800]);
-  const laptopOpacity = useTransform(scrollYProgress, [0.5, 0.65], [1, 0]);
-
   // Stage 4: Business Card UI slides up and fades in (60% to 80% scroll)
   const uiTranslateY = useTransform(scrollYProgress, [0.6, 0.8], [400, 0]);
   const uiOpacity = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
-  
-  const glowOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 0.5]); 
 
   // States for interactive UI
   const [isScreenFlipped, setIsScreenFlipped] = useState(false);
@@ -99,7 +176,7 @@ export default function Laptop3D() {
     <div ref={containerRef} className="w-full h-[400vh] bg-[#020202]">
       
       {/* The Sticky Viewport */}
-      <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden perspective-[1500px]">
+      <div className="sticky top-0 w-full h-screen flex items-center justify-center overflow-hidden">
         
         {/* Helper text indicating to scroll */}
         <motion.div 
@@ -111,63 +188,15 @@ export default function Laptop3D() {
         </motion.div>
 
         {/* ====================
-            THE LAPTOP ASSEMBLY
+            THE TRUE WEBGL LAPTOP
             ==================== */}
-        <motion.div 
-          className="relative w-[340px] h-[220px] sm:w-[500px] sm:h-[320px] lg:w-[800px] lg:h-[500px] transform-style-3d z-10"
-          style={{ 
-            rotateX: baseRotateX,
-            scale: laptopScale,
-            y: laptopTranslateY,
-            opacity: laptopOpacity
-          }}
-        >
-          {/* THE BASE (KEYBOARD) */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1c1d21] to-[#121315] rounded-b-[2.5rem] border-b-[8px] border-r-[3px] border-l-[3px] border-[#0a0a0c] shadow-[0_40px_100px_rgba(0,0,0,0.9),inset_0_1px_1px_rgba(255,255,255,0.1)] transform-style-3d rounded-t-xl flex flex-col items-center p-4">
-             {/* Realistic Keyboard Well */}
-             <div className="w-[92%] h-[58%] bg-[#0a0a0c] rounded-lg shadow-[inset_0_5px_15px_rgba(0,0,0,1)] mt-[3%] p-1 sm:p-2 grid grid-cols-12 gap-0.5 sm:gap-1">
-                {Array.from({ length: 65 }).map((_, i) => {
-                   const colSpan = i === 60 ? 'col-span-5' : i === 42 || i === 54 ? 'col-span-2' : 'col-span-1';
-                   return (
-                     <div key={i} className={`${colSpan} bg-[#1a1b1e] rounded-sm sm:rounded-md shadow-[0_2px_0_#050505,inset_0_1px_0_rgba(255,255,255,0.05)] border border-white/5`} />
-                   )
-                })}
-             </div>
-             {/* Huge Glass Trackpad */}
-             <div className="w-[40%] h-[32%] bg-gradient-to-b from-[#18191c] to-[#121315] rounded-lg sm:rounded-xl mt-auto mb-2 sm:mb-4 border border-white/5 shadow-[inset_0_2px_5px_rgba(0,0,0,0.5),0_1px_0_rgba(255,255,255,0.05)]" />
-             {/* Thumb Groove */}
-             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 sm:h-3 bg-[#050505] rounded-t-full shadow-[inset_0_2px_5px_rgba(0,0,0,0.9)]" />
-          </div>
-
-          {/* THE LID (SCREEN) */}
-          <motion.div
-            className="absolute bottom-full left-0 w-full h-full transform-style-3d origin-bottom"
-            style={{ rotateX: lidRotateX }}
-          >
-             {/* BACK OF LID (Logo Side) */}
-             <div className="absolute inset-0 bg-gradient-to-t from-[#151619] to-[#1a1b1e] rounded-t-[2.5rem] border-t-[4px] border-l-2 border-r-2 border-b-2 border-[#2a2b30] flex items-center justify-center shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)] [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
-                 <div className="relative rotate-180">
-                   <Logo className="w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 text-white/80 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
-                   {/* Glow appears when lid opens */}
-                   <motion.div 
-                     style={{ opacity: glowOpacity }}
-                     className="absolute inset-0 bg-white blur-2xl" 
-                   />
-                 </div>
-             </div>
-
-             {/* FRONT OF LID (Screen Side) */}
-             <div className="absolute inset-0 bg-black rounded-t-[2.5rem] overflow-hidden flex flex-col border-[4px] sm:border-[8px] border-[#0a0a0a] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] [transform:translateZ(1px)] [backface-visibility:hidden]">
-                 {/* Premium Glass Display Area */}
-                 <div className="flex-1 relative bg-[#050505] overflow-hidden flex flex-col perspective-[1000px]">
-                    {/* Screen Glare reflection */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none z-50" />
-                    {/* Fake Desktop Wallpaper */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.15)_0%,transparent_50%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.15)_0%,transparent_50%)]" />
-                 </div>
-             </div>
-          </motion.div>
-        </motion.div>
+        <div className="absolute inset-0 z-10 pointer-events-none">
+           <Canvas camera={{ position: [0, 0, 10], fov: 40 }}>
+              <Environment preset="city" />
+              <Macbook scrollYProgress={scrollYProgress} />
+              <ContactShadows position={[0, -2.5, 0]} opacity={0.4} scale={20} blur={2} far={4.5} />
+           </Canvas>
+        </div>
 
         {/* ====================
             THE BUSINESS CARD UI
