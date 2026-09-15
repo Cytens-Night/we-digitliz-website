@@ -46,8 +46,8 @@ export default function Laptop3D() {
   const rotateX = useTransform(smoothY, [-1, 1], [65, 55]);
   const rotateZ = useTransform(smoothX, [-1, 1], [-10, 10]);
 
-  // Lid rotation: closed = 180deg (flat against base), open = 90deg (upright)
-  const lidRotateX = isOpen ? 90 : 179.5; // Slightly off 180 to avoid clipping
+  // Lid rotation: closed = -179.5deg (folded over base), open = -90deg (upright)
+  const lidRotateX = isOpen ? -90 : -179.5;
 
   return (
     <div className="w-full h-screen bg-[#050505] flex items-center justify-center overflow-hidden perspective-[2000px] relative">
@@ -99,9 +99,9 @@ export default function Laptop3D() {
           transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.5 }}
         >
            {/* BACK OF LID (Logo Side) */}
-           <div className="absolute inset-0 bg-[#1e1f23] rounded-t-[2rem] border-t-[6px] border-l-4 border-r-4 border-b-2 border-[#151619] transform-style-3d rotate-y-180 translate-z-[1px] flex items-center justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.5)]">
+           <div className="absolute inset-0 bg-[#1e1f23] rounded-t-[2rem] border-t-[6px] border-l-4 border-r-4 border-b-2 border-[#151619] transform-style-3d rotate-y-180 translate-z-[2px] flex items-center justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.5)] backface-hidden">
                {/* Glowing Logo */}
-               <div className="relative">
+               <div className="relative rotate-180">
                  <Logo className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 text-white opacity-80 transition-opacity duration-500" />
                  {/* Glow effect when on */}
                  <div className={`absolute inset-0 bg-white blur-xl transition-opacity duration-1000 ${isOpen ? 'opacity-30' : 'opacity-0'}`} />
@@ -109,7 +109,7 @@ export default function Laptop3D() {
            </div>
 
            {/* FRONT OF LID (Screen Side) */}
-           <div className="absolute inset-0 bg-black rounded-t-[2rem] overflow-hidden flex flex-col border-[6px] md:border-8 border-[#111] shadow-inner translate-z-[-1px]">
+           <div className="absolute inset-0 bg-black rounded-t-[2rem] overflow-hidden flex flex-col border-[6px] md:border-8 border-[#111] shadow-inner translate-z-[2px] backface-hidden">
                
                {/* The Bezel (Webcam / Logo) */}
                <div className="h-6 sm:h-8 w-full bg-[#111] flex items-center justify-center border-b border-white/5 relative z-20">
