@@ -57,7 +57,9 @@ export default function Laptop3D() {
       
       {/* The Laptop Assembly */}
       <motion.div 
-        className="relative w-[300px] h-[220px] sm:w-[500px] sm:h-[350px] md:w-[700px] md:h-[480px] lg:w-[900px] lg:h-[600px] transform-style-3d cursor-pointer"
+        className="relative w-[300px] h-[188px] sm:w-[480px] sm:h-[300px] lg:w-[720px] lg:h-[450px] transform-style-3d cursor-pointer"
+        animate={{ y: isOpen ? 60 : 20 }}
+        transition={{ type: "spring", stiffness: 40, damping: 15 }}
         style={{ 
           rotateX,
           rotateZ,
@@ -68,25 +70,24 @@ export default function Laptop3D() {
         {/* ====================
             THE BASE (KEYBOARD)
             ==================== */}
-        <div className="absolute inset-0 bg-[#1a1b1e] rounded-b-[2rem] border-b-8 border-r-4 border-l-4 border-[#0f1012] shadow-2xl transform-style-3d rounded-t-lg flex flex-col items-center p-4 sm:p-8">
+        <div className="absolute inset-0 bg-[#151515] rounded-b-[2rem] border-b-[10px] border-r-[4px] border-l-[4px] border-[#0a0a0a] shadow-[0_30px_60px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.05)] transform-style-3d rounded-t-lg flex flex-col items-center p-3 sm:p-6">
            
            {/* Keyboard Area */}
-           <div className="w-[90%] h-[55%] bg-[#121315] rounded-xl shadow-inner mt-[5%] p-2 grid grid-cols-12 gap-1 md:gap-2">
+           <div className="w-[90%] h-[55%] bg-[#0f0f10] rounded-xl shadow-[inset_0_4px_10px_rgba(0,0,0,0.8)] mt-[4%] p-1.5 sm:p-2.5 grid grid-cols-12 gap-0.5 sm:gap-1.5 border border-white/5">
               {/* Fake Keycaps */}
               {Array.from({ length: 60 }).map((_, i) => {
-                 // Make some keys wider (spacebar, shift)
                  const colSpan = i === 56 ? 'col-span-5' : i === 41 || i === 54 ? 'col-span-2' : 'col-span-1';
                  return (
-                   <div key={i} className={`${colSpan} bg-[#1e1f23] rounded-md shadow-[0_2px_0_#111] border border-white/5 opacity-80`} />
+                   <div key={i} className={`${colSpan} bg-[#1a1b1e] rounded-sm sm:rounded-md shadow-[0_2px_0_#0a0a0a,inset_0_1px_0_rgba(255,255,255,0.05)] border border-white/5`} />
                  )
               })}
            </div>
 
            {/* Trackpad */}
-           <div className="w-[30%] h-[25%] bg-[#18191c] rounded-lg mt-auto mb-2 border border-black/40 shadow-inner" />
+           <div className="w-[35%] h-[28%] bg-[#121212] rounded-md sm:rounded-lg mt-auto mb-1 sm:mb-2 border border-white/5 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]" />
 
            {/* Thumb Groove */}
-           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-32 h-3 bg-[#0a0b0c] rounded-t-full shadow-inner" />
+           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-2 sm:h-3 bg-[#050505] rounded-t-full shadow-[inset_0_2px_5px_rgba(0,0,0,0.9)]" />
         </div>
 
         {/* ====================
@@ -99,12 +100,12 @@ export default function Laptop3D() {
           transition={{ type: "spring", stiffness: 40, damping: 15, mass: 1.5 }}
         >
            {/* BACK OF LID (Logo Side) */}
-           <div className="absolute inset-0 bg-[#1e1f23] rounded-t-[2rem] border-t-[6px] border-l-4 border-r-4 border-b-2 border-[#151619] transform-style-3d rotate-y-180 translate-z-[2px] flex items-center justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.5)] backface-hidden">
+           <div className="absolute inset-0 bg-gradient-to-b from-[#1a1b1e] to-[#0f1012] rounded-t-[2rem] border-t-[6px] border-l-4 border-r-4 border-b-2 border-[#151619] transform-style-3d rotate-y-180 translate-z-[2px] flex items-center justify-center shadow-[0_-20px_50px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.1)] backface-hidden">
                {/* Glowing Logo */}
                <div className="relative rotate-180">
-                 <Logo className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 text-white opacity-80 transition-opacity duration-500" />
+                 <Logo className="w-12 h-12 sm:w-20 sm:h-20 lg:w-28 lg:h-28 text-white opacity-80 transition-opacity duration-500 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
                  {/* Glow effect when on */}
-                 <div className={`absolute inset-0 bg-white blur-xl transition-opacity duration-1000 ${isOpen ? 'opacity-30' : 'opacity-0'}`} />
+                 <div className={`absolute inset-0 bg-white blur-xl transition-opacity duration-1000 ${isOpen ? 'opacity-40' : 'opacity-0'}`} />
                </div>
            </div>
 
@@ -150,8 +151,8 @@ export default function Laptop3D() {
                      {/* UI Header */}
                      <div className="flex justify-between items-start mb-auto">
                         <div>
-                          <h1 className="text-2xl sm:text-4xl md:text-5xl font-display font-bold text-white mb-2 tracking-tight">We Digitlize</h1>
-                          <p className="text-white/60 text-xs sm:text-sm md:text-lg font-medium tracking-wide">Digital Dominance Architecture</p>
+                          <h1 className="text-xl sm:text-3xl lg:text-4xl font-display font-bold text-white mb-1 sm:mb-2 tracking-tight drop-shadow-md">We Digitlize</h1>
+                          <p className="text-white/70 text-[10px] sm:text-sm lg:text-base font-medium tracking-wide">Digital Dominance Architecture</p>
                         </div>
                         <div className="flex gap-2">
                            <a href="https://instagram.com/wedigitlize" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
@@ -167,29 +168,29 @@ export default function Laptop3D() {
                      </div>
 
                      {/* Action Grid */}
-                     <div className="grid grid-cols-2 gap-2 sm:gap-4 mt-8 sm:mt-12">
-                        <Link href="/" className="group bg-white/5 border border-white/10 hover:border-white/30 rounded-xl p-4 sm:p-6 transition-all backdrop-blur-md">
-                           <Globe className="text-white mb-3 sm:mb-4 w-6 h-6 sm:w-8 sm:h-8" />
-                           <h3 className="text-white font-bold text-sm sm:text-lg mb-1">Visit Website</h3>
-                           <p className="text-white/40 text-[10px] sm:text-xs">wedigitlize.com</p>
+                     <div className="grid grid-cols-2 gap-2 sm:gap-4 mt-6 sm:mt-10">
+                        <Link href="/" className="group bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-3 sm:p-5 transition-all backdrop-blur-md shadow-lg">
+                           <Globe className="text-white mb-2 sm:mb-4 w-5 h-5 sm:w-7 sm:h-7" />
+                           <h3 className="text-white font-bold text-xs sm:text-base mb-1">Visit Website</h3>
+                           <p className="text-white/40 text-[9px] sm:text-[11px]">wedigitlize.com</p>
                         </Link>
                         
-                        <a href="https://wa.me/447000000000?text=Hello%20We%20Digitlize!%20I%20want%20to%20build%20a%20project." target="_blank" rel="noreferrer" className="group bg-primary/10 border border-primary/30 hover:border-primary rounded-xl p-4 sm:p-6 transition-all backdrop-blur-md">
-                           <MessageSquare className="text-primary mb-3 sm:mb-4 w-6 h-6 sm:w-8 sm:h-8" />
-                           <h3 className="text-white font-bold text-sm sm:text-lg mb-1">WhatsApp</h3>
-                           <p className="text-white/40 text-[10px] sm:text-xs">Direct message</p>
+                        <a href="https://wa.me/447000000000?text=Hello%20We%20Digitlize!%20I%20want%20to%20build%20a%20project." target="_blank" rel="noreferrer" className="group bg-primary/10 border border-primary/30 hover:border-primary hover:bg-primary/20 rounded-xl p-3 sm:p-5 transition-all backdrop-blur-md shadow-lg">
+                           <MessageSquare className="text-primary mb-2 sm:mb-4 w-5 h-5 sm:w-7 sm:h-7" />
+                           <h3 className="text-white font-bold text-xs sm:text-base mb-1">WhatsApp</h3>
+                           <p className="text-white/40 text-[9px] sm:text-[11px]">Direct message</p>
                         </a>
                         
-                        <a href="mailto:info@wedigitlize.com" className="group bg-white/5 border border-white/10 hover:border-white/30 rounded-xl p-4 sm:p-6 transition-all backdrop-blur-md">
-                           <Mail className="text-white mb-3 sm:mb-4 w-6 h-6 sm:w-8 sm:h-8" />
-                           <h3 className="text-white font-bold text-sm sm:text-lg mb-1">Email Us</h3>
-                           <p className="text-white/40 text-[10px] sm:text-xs">info@wedigitlize.com</p>
+                        <a href="mailto:info@wedigitlize.com" className="group bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-3 sm:p-5 transition-all backdrop-blur-md shadow-lg">
+                           <Mail className="text-white mb-2 sm:mb-4 w-5 h-5 sm:w-7 sm:h-7" />
+                           <h3 className="text-white font-bold text-xs sm:text-base mb-1">Email Us</h3>
+                           <p className="text-white/40 text-[9px] sm:text-[11px]">info@wedigitlize.com</p>
                         </a>
                         
-                        <button className="group bg-white text-black hover:bg-gray-200 rounded-xl p-4 sm:p-6 transition-all flex flex-col items-start shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                           <Download className="text-black mb-3 sm:mb-4 w-6 h-6 sm:w-8 sm:h-8" />
-                           <h3 className="font-bold text-sm sm:text-lg mb-1">Save Contact</h3>
-                           <p className="text-black/60 text-[10px] sm:text-xs">Download .vcf</p>
+                        <button className="group bg-white text-black hover:bg-gray-200 rounded-xl p-3 sm:p-5 transition-all flex flex-col items-start shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+                           <Download className="text-black mb-2 sm:mb-4 w-5 h-5 sm:w-7 sm:h-7" />
+                           <h3 className="font-bold text-xs sm:text-base mb-1">Save Contact</h3>
+                           <p className="text-black/60 text-[9px] sm:text-[11px]">Download .vcf</p>
                         </button>
                      </div>
 
