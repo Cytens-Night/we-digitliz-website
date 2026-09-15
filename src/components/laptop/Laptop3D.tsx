@@ -144,7 +144,7 @@ export default function Laptop3D() {
             style={{ rotateX: lidRotateX }}
           >
              {/* BACK OF LID (Logo Side) */}
-             <div className="absolute inset-0 bg-gradient-to-t from-[#151619] to-[#1a1b1e] rounded-t-[2.5rem] border-t-[4px] border-l-2 border-r-2 border-b-2 border-[#2a2b30] transform-style-3d rotate-y-180 translate-z-[2px] flex items-center justify-center shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)] backface-hidden">
+             <div className="absolute inset-0 bg-gradient-to-t from-[#151619] to-[#1a1b1e] rounded-t-[2.5rem] border-t-[4px] border-l-2 border-r-2 border-b-2 border-[#2a2b30] flex items-center justify-center shadow-[inset_0_-1px_2px_rgba(255,255,255,0.1)] [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
                  <div className="relative rotate-180">
                    <Logo className="w-16 h-16 sm:w-24 sm:h-24 lg:w-32 lg:h-32 text-white/80 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" />
                    {/* Glow appears when lid opens */}
@@ -156,7 +156,7 @@ export default function Laptop3D() {
              </div>
 
              {/* FRONT OF LID (Screen Side) */}
-             <div className="absolute inset-0 bg-black rounded-t-[2.5rem] overflow-hidden flex flex-col border-[4px] sm:border-[8px] border-[#0a0a0a] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] translate-z-[2px] backface-hidden">
+             <div className="absolute inset-0 bg-black rounded-t-[2.5rem] overflow-hidden flex flex-col border-[4px] sm:border-[8px] border-[#0a0a0a] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] [transform:translateZ(1px)] [backface-visibility:hidden]">
                  
                  {/* Premium Glass Display Area */}
                  <div className="flex-1 relative bg-[#050505] overflow-hidden flex flex-col perspective-[1000px]">
@@ -165,13 +165,13 @@ export default function Laptop3D() {
                     
                     {/* THE "OS" UI CONTENT */}
                     <motion.div 
-                      className="absolute inset-0 w-full h-full transform-style-3d"
+                      className="absolute inset-0 w-full h-full [transform-style:preserve-3d]"
                       animate={{ rotateY: isScreenFlipped ? 180 : 0 }}
                       transition={{ type: "spring", stiffness: 60, damping: 15 }}
                       style={{ opacity: uiOpacity }}
                     >
                        {/* FRONT UI */}
-                       <div className="absolute inset-0 w-full h-full flex flex-col backface-hidden overflow-hidden">
+                       <div className="absolute inset-0 w-full h-full flex flex-col [backface-visibility:hidden] overflow-hidden [transform:translateZ(1px)]">
                           
                           {/* Top Status Bar (fake OS bar) */}
                           <div className="w-full h-6 bg-black/50 backdrop-blur-md flex items-center justify-between px-4 text-[6px] sm:text-[10px] text-white/50 border-b border-white/5">
@@ -263,7 +263,7 @@ export default function Laptop3D() {
                        </div>
 
                        {/* BACK FACE (QR Code) */}
-                       <div className="absolute inset-0 w-full h-full flex flex-col bg-black backface-hidden rotate-y-180 items-center justify-center p-4 sm:p-8">
+                       <div className="absolute inset-0 w-full h-full flex flex-col bg-black items-center justify-center p-4 sm:p-8 [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
                           <button onClick={() => setIsScreenFlipped(false)} className="absolute top-4 left-4 w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
                              <ArrowLeft className="w-3 h-3 sm:w-5 sm:h-5" />
                           </button>
