@@ -24,14 +24,14 @@ export default function Laptop3D() {
   // Stage 2: Laptop rotates to face camera perfectly flat (30% to 50% scroll)
   const baseRotateX = useTransform(scrollYProgress, [0, 0.3, 0.5], [65, 65, 90]);
   
-  // Stage 3: Laptop scales up slightly and fades out (50% to 75% scroll)
-  const scale = useTransform(scrollYProgress, [0, 0.5, 0.75], [0.8, 0.8, 2]);
-  const translateY = useTransform(scrollYProgress, [0, 0.5, 0.75], [20, 20, 100]);
-  const laptopOpacity = useTransform(scrollYProgress, [0.55, 0.75], [1, 0]);
+  // Stage 3: Laptop flies up and fades out (50% to 65% scroll)
+  const laptopScale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  const laptopTranslateY = useTransform(scrollYProgress, [0, 0.3, 0.5, 0.65], [20, 20, 0, -800]);
+  const laptopOpacity = useTransform(scrollYProgress, [0.5, 0.65], [1, 0]);
 
-  // Stage 4: Business Card UI fades in to replace it (70% to 90% scroll)
-  const uiOpacity = useTransform(scrollYProgress, [0.7, 0.9], [0, 1]);
-  // Use a derived state or transform to toggle pointer events so it doesn't block scrolling when invisible
+  // Stage 4: Business Card UI slides up and fades in (60% to 80% scroll)
+  const uiTranslateY = useTransform(scrollYProgress, [0.6, 0.8], [400, 0]);
+  const uiOpacity = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
   
   const glowOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 0.5]); 
 
@@ -117,8 +117,8 @@ export default function Laptop3D() {
           className="relative w-[340px] h-[220px] sm:w-[500px] sm:h-[320px] lg:w-[800px] lg:h-[500px] transform-style-3d z-10"
           style={{ 
             rotateX: baseRotateX,
-            scale,
-            y: translateY,
+            scale: laptopScale,
+            y: laptopTranslateY,
             opacity: laptopOpacity
           }}
         >
@@ -174,10 +174,13 @@ export default function Laptop3D() {
             ==================== */}
         <motion.div 
           className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none"
-          style={{ opacity: uiOpacity }}
+          style={{ 
+            opacity: uiOpacity,
+            y: uiTranslateY
+          }}
         >
           {/* This wrapper re-enables pointer events only when visible */}
-          <div className="w-full h-full max-w-[500px] pointer-events-auto flex flex-col perspective-[1000px]">
+          <div className="w-full h-[90vh] sm:h-[80vh] max-w-[500px] pointer-events-auto flex flex-col perspective-[1000px] mt-8 sm:mt-0">
              
              <motion.div 
                className="flex-1 w-full h-full [transform-style:preserve-3d] relative"
