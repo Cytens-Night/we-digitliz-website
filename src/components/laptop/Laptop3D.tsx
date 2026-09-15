@@ -22,18 +22,18 @@ export default function Laptop3D() {
   const lidRotateX = useTransform(scrollYProgress, [0, 0.3], [-179.5, -90]);
   
   // Stage 2: Laptop rotates to face camera perfectly flat (30% to 50% scroll)
-  // Originally it sits at rotateX: 60deg. We rotate base to 90deg, which means the lid (at -90deg) becomes 0deg relative to camera!
   const baseRotateX = useTransform(scrollYProgress, [0, 0.3, 0.5], [65, 65, 90]);
   
-  // Stage 3: Laptop scales up massively to fill screen (50% to 80% scroll)
-  // We scale it so the screen covers the viewport. 
-  // We also translate Y to keep the screen centered as it scales.
-  const scale = useTransform(scrollYProgress, [0, 0.5, 0.8], [0.8, 0.8, 6]);
-  const translateY = useTransform(scrollYProgress, [0, 0.5, 0.8], [20, 20, 150]); // Push down so screen centers
+  // Stage 3: Laptop scales up slightly and fades out (50% to 75% scroll)
+  const scale = useTransform(scrollYProgress, [0, 0.5, 0.75], [0.8, 0.8, 2]);
+  const translateY = useTransform(scrollYProgress, [0, 0.5, 0.75], [20, 20, 100]);
+  const laptopOpacity = useTransform(scrollYProgress, [0.55, 0.75], [1, 0]);
 
-  // Stage 4: UI fades in inside the screen (80% to 100% scroll)
-  const uiOpacity = useTransform(scrollYProgress, [0.75, 0.9], [0, 1]);
-  const glowOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 0.5]); // Logo glow turns on as lid opens
+  // Stage 4: Business Card UI fades in to replace it (70% to 90% scroll)
+  const uiOpacity = useTransform(scrollYProgress, [0.7, 0.9], [0, 1]);
+  // Use a derived state or transform to toggle pointer events so it doesn't block scrolling when invisible
+  
+  const glowOpacity = useTransform(scrollYProgress, [0.1, 0.3], [0, 0.5]); 
 
   // States for interactive UI
   const [isScreenFlipped, setIsScreenFlipped] = useState(false);
@@ -118,7 +118,8 @@ export default function Laptop3D() {
           style={{ 
             rotateX: baseRotateX,
             scale,
-            y: translateY
+            y: translateY,
+            opacity: laptopOpacity
           }}
         >
           {/* THE BASE (KEYBOARD) */}
@@ -157,138 +158,148 @@ export default function Laptop3D() {
 
              {/* FRONT OF LID (Screen Side) */}
              <div className="absolute inset-0 bg-black rounded-t-[2.5rem] overflow-hidden flex flex-col border-[4px] sm:border-[8px] border-[#0a0a0a] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)] [transform:translateZ(1px)] [backface-visibility:hidden]">
-                 
                  {/* Premium Glass Display Area */}
                  <div className="flex-1 relative bg-[#050505] overflow-hidden flex flex-col perspective-[1000px]">
                     {/* Screen Glare reflection */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none z-50" />
-                    
-                    {/* THE "OS" UI CONTENT */}
-                    <motion.div 
-                      className="absolute inset-0 w-full h-full [transform-style:preserve-3d]"
-                      animate={{ rotateY: isScreenFlipped ? 180 : 0 }}
-                      transition={{ type: "spring", stiffness: 60, damping: 15 }}
-                      style={{ opacity: uiOpacity }}
-                    >
-                       {/* FRONT UI */}
-                       <div className="absolute inset-0 w-full h-full flex flex-col [backface-visibility:hidden] overflow-hidden [transform:translateZ(1px)]">
-                          
-                          {/* Top Status Bar (fake OS bar) */}
-                          <div className="w-full h-6 bg-black/50 backdrop-blur-md flex items-center justify-between px-4 text-[6px] sm:text-[10px] text-white/50 border-b border-white/5">
-                             <div className="flex gap-2 items-center">
-                               <Logo className="w-3 h-3 text-white" />
-                               <span>We Digitlize OS</span>
-                             </div>
-                             <div className="flex gap-4">
-                               <span>100% Battery</span>
-                               <span>{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                             </div>
-                          </div>
-
-                          {/* Desktop Background / Content Wrapper */}
-                          <div className="flex-1 w-full bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.15)_0%,transparent_50%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.15)_0%,transparent_50%)] p-2 sm:p-4 overflow-y-auto no-scrollbar relative flex flex-col">
-                             
-                             {/* Floating Dashboard Container */}
-                             <div className="w-full max-w-[800px] mx-auto bg-black/40 backdrop-blur-2xl border border-white/10 rounded-2xl sm:rounded-[2rem] p-4 sm:p-8 flex-1 flex flex-col shadow-2xl">
-                                
-                                {/* Header */}
-                                <div className="flex justify-between items-start mb-6 sm:mb-8">
-                                   <div>
-                                     <h1 className="text-sm sm:text-2xl lg:text-4xl font-display font-bold text-white mb-1 tracking-tight">We Digitlize</h1>
-                                     <p className="text-primary text-[8px] sm:text-sm font-medium">Digital Dominance Architecture</p>
-                                   </div>
-                                   <div className="flex gap-1 sm:gap-2">
-                                      <button onClick={() => setIsScreenFlipped(true)} className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" title="QR Code">
-                                         <QrCode className="w-3 h-3 sm:w-5 sm:h-5" />
-                                      </button>
-                                      <button onClick={handleInstallClick} className="w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" title="Install App">
-                                         <Download className="w-3 h-3 sm:w-5 sm:h-5" />
-                                      </button>
-                                   </div>
-                                </div>
-
-                                {/* Quick Actions */}
-                                <div className="grid grid-cols-4 gap-2 sm:gap-4 mb-6 sm:mb-8">
-                                   <button onClick={() => setDrawerType('phone')} className="flex flex-col items-center justify-center gap-1 sm:gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl p-2 sm:p-4 transition-colors">
-                                      <div className="w-6 h-6 sm:w-12 sm:h-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center">
-                                         <MessageSquare className="w-3 h-3 sm:w-5 sm:h-5" />
-                                      </div>
-                                      <span className="text-white font-medium text-[6px] sm:text-xs">WhatsApp</span>
-                                   </button>
-                                   <button onClick={() => setDrawerType('email')} className="flex flex-col items-center justify-center gap-1 sm:gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl p-2 sm:p-4 transition-colors">
-                                      <div className="w-6 h-6 sm:w-12 sm:h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center">
-                                         <Mail className="w-3 h-3 sm:w-5 sm:h-5" />
-                                      </div>
-                                      <span className="text-white font-medium text-[6px] sm:text-xs">Email</span>
-                                   </button>
-                                   <button onClick={handleSaveContact} className="flex flex-col items-center justify-center gap-1 sm:gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl p-2 sm:p-4 transition-colors">
-                                      <div className="w-6 h-6 sm:w-12 sm:h-12 rounded-full bg-white/20 text-white flex items-center justify-center">
-                                         <Download className="w-3 h-3 sm:w-5 sm:h-5" />
-                                      </div>
-                                      <span className="text-white font-medium text-[6px] sm:text-xs">Save VCF</span>
-                                   </button>
-                                   <Link href="/" className="flex flex-col items-center justify-center gap-1 sm:gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-xl p-2 sm:p-4 transition-colors">
-                                      <div className="w-6 h-6 sm:w-12 sm:h-12 rounded-full bg-white/20 text-white flex items-center justify-center">
-                                         <Globe className="w-3 h-3 sm:w-5 sm:h-5" />
-                                      </div>
-                                      <span className="text-white font-medium text-[6px] sm:text-xs">Website</span>
-                                   </Link>
-                                </div>
-
-                                {/* Portfolio Section */}
-                                <div className="mb-2 sm:mb-4 flex items-center justify-between">
-                                  <h3 className="text-white font-display font-bold text-[10px] sm:text-lg flex items-center gap-2">
-                                    <Briefcase className="text-primary w-3 h-3 sm:w-5 sm:h-5" /> Past Dominance
-                                  </h3>
-                                </div>
-                                <div className="flex gap-2 sm:gap-4 overflow-x-auto pb-4 no-scrollbar snap-x">
-                                  {[
-                                    { title: "Shakur Fragrances", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=600&auto=format&fit=crop" },
-                                    { title: "Cytens Night", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop" },
-                                    { title: "Furqan Sweets", img: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?q=80&w=600&auto=format&fit=crop" }
-                                  ].map((item, i) => (
-                                    <div key={i} className="snap-center shrink-0 w-[120px] sm:w-[240px] bg-white/5 border border-white/10 rounded-xl overflow-hidden group hover:border-primary/50 transition-colors">
-                                      <div className="h-[70px] sm:h-[140px] overflow-hidden relative">
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
-                                        <img src={item.img} alt={item.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
-                                      </div>
-                                      <div className="p-2 sm:p-4">
-                                        <h4 className="text-white font-bold text-[8px] sm:text-sm">{item.title}</h4>
-                                      </div>
-                                    </div>
-                                  ))}
-                                </div>
-                             </div>
-                          </div>
-                       </div>
-
-                       {/* BACK FACE (QR Code) */}
-                       <div className="absolute inset-0 w-full h-full flex flex-col bg-black items-center justify-center p-4 sm:p-8 [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
-                          <button onClick={() => setIsScreenFlipped(false)} className="absolute top-4 left-4 w-6 h-6 sm:w-10 sm:h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
-                             <ArrowLeft className="w-3 h-3 sm:w-5 sm:h-5" />
-                          </button>
-                          
-                          <h2 className="text-lg sm:text-4xl font-display font-bold text-white mb-2">Scan to Connect</h2>
-                          <p className="text-white/60 text-[10px] sm:text-sm mb-4 sm:mb-8 text-center max-w-[250px]">Share this digital card instantly.</p>
-                          
-                          <div className="p-2 sm:p-6 bg-white rounded-xl sm:rounded-2xl shadow-[0_0_50px_rgba(var(--primary-rgb),0.3)]">
-                             <QRCodeSVG 
-                                value="https://wedigitlize.com/card" 
-                                size={120}
-                                fgColor="#000000"
-                                bgColor="#ffffff"
-                                level="H"
-                                imageSettings={{ src: "/favicon.svg", excavate: true, height: 24, width: 24 }}
-                                style={{ width: '100%', height: 'auto', maxWidth: '200px' }}
-                             />
-                          </div>
-                       </div>
-                    </motion.div>
+                    {/* Fake Desktop Wallpaper */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.15)_0%,transparent_50%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.15)_0%,transparent_50%)]" />
                  </div>
              </div>
           </motion.div>
-
         </motion.div>
+
+        {/* ====================
+            THE BUSINESS CARD UI
+            ==================== */}
+        <motion.div 
+          className="absolute inset-0 z-50 flex items-center justify-center pointer-events-none"
+          style={{ opacity: uiOpacity }}
+        >
+          {/* This wrapper re-enables pointer events only when visible */}
+          <div className="w-full h-full max-w-[500px] pointer-events-auto flex flex-col perspective-[1000px]">
+             
+             <motion.div 
+               className="flex-1 w-full h-full [transform-style:preserve-3d] relative"
+               animate={{ rotateY: isScreenFlipped ? 180 : 0 }}
+               transition={{ type: "spring", stiffness: 60, damping: 15 }}
+             >
+                {/* FRONT FACE (Main UI) */}
+                <div className="absolute inset-0 w-full h-full flex flex-col [backface-visibility:hidden] overflow-hidden [transform:translateZ(1px)] bg-[#050505]">
+                   {/* Top Status Bar (fake OS bar) */}
+                   <div className="w-full h-8 bg-black/50 backdrop-blur-md flex items-center justify-between px-6 text-[10px] sm:text-xs text-white/50 border-b border-white/5 shrink-0">
+                      <div className="flex gap-2 items-center">
+                        <Logo className="w-3 h-3 text-white" />
+                        <span>We Digitlize</span>
+                      </div>
+                      <div className="flex gap-4">
+                        <span>100%</span>
+                        <span>{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                      </div>
+                   </div>
+
+                   {/* Desktop Background / Content Wrapper */}
+                   <div className="flex-1 w-full bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.15)_0%,transparent_50%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.15)_0%,transparent_50%)] p-4 sm:p-6 overflow-y-auto no-scrollbar relative flex flex-col">
+                      
+                      {/* Dashboard Content */}
+                      <div className="w-full bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 sm:p-8 flex-1 flex flex-col shadow-2xl">
+                         
+                         {/* Header */}
+                         <div className="flex justify-between items-start mb-8">
+                            <div>
+                              <h1 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1 tracking-tight">We Digitlize</h1>
+                              <p className="text-primary text-xs sm:text-sm font-medium">Digital Dominance Architecture</p>
+                            </div>
+                            <div className="flex gap-2">
+                               <button onClick={() => setIsScreenFlipped(true)} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" title="QR Code">
+                                  <QrCode className="w-5 h-5" />
+                               </button>
+                               <button onClick={handleInstallClick} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" title="Install App">
+                                  <Download className="w-5 h-5" />
+                               </button>
+                            </div>
+                         </div>
+
+                         {/* Quick Actions */}
+                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+                            <button onClick={() => setDrawerType('phone')} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
+                               <div className="w-12 h-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center">
+                                  <MessageSquare className="w-5 h-5" />
+                               </div>
+                               <span className="text-white font-medium text-xs">WhatsApp</span>
+                            </button>
+                            <button onClick={() => setDrawerType('email')} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
+                               <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center">
+                                  <Mail className="w-5 h-5" />
+                               </div>
+                               <span className="text-white font-medium text-xs">Email</span>
+                            </button>
+                            <button onClick={handleSaveContact} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
+                               <div className="w-12 h-12 rounded-full bg-white/20 text-white flex items-center justify-center">
+                                  <Download className="w-5 h-5" />
+                               </div>
+                               <span className="text-white font-medium text-xs">Save VCF</span>
+                            </button>
+                            <Link href="/" className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
+                               <div className="w-12 h-12 rounded-full bg-white/20 text-white flex items-center justify-center">
+                                  <Globe className="w-5 h-5" />
+                               </div>
+                               <span className="text-white font-medium text-xs">Website</span>
+                            </Link>
+                         </div>
+
+                         {/* Portfolio Section */}
+                         <div className="mb-4 flex items-center justify-between">
+                           <h3 className="text-white font-display font-bold text-sm sm:text-base flex items-center gap-2">
+                             <Briefcase className="text-primary w-4 h-4" /> Past Dominance
+                           </h3>
+                         </div>
+                         <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x">
+                           {[
+                             { title: "Shakur Fragrances", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=600&auto=format&fit=crop" },
+                             { title: "Cytens Night", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop" },
+                             { title: "Furqan Sweets", img: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?q=80&w=600&auto=format&fit=crop" }
+                           ].map((item, i) => (
+                             <div key={i} className="snap-center shrink-0 w-[200px] sm:w-[240px] bg-white/5 border border-white/10 rounded-xl overflow-hidden group hover:border-primary/50 transition-colors">
+                               <div className="h-[120px] sm:h-[140px] overflow-hidden relative">
+                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
+                                 <img src={item.img} alt={item.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
+                               </div>
+                               <div className="p-4">
+                                 <h4 className="text-white font-bold text-xs sm:text-sm">{item.title}</h4>
+                               </div>
+                             </div>
+                           ))}
+                         </div>
+                      </div>
+                   </div>
+                </div>
+
+                {/* BACK FACE (QR Code) */}
+                <div className="absolute inset-0 w-full h-full flex flex-col bg-black items-center justify-center p-8 [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
+                   <button onClick={() => setIsScreenFlipped(false)} className="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
+                      <ArrowLeft className="w-5 h-5" />
+                   </button>
+                   
+                   <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-2">Scan to Connect</h2>
+                   <p className="text-white/60 text-sm mb-8 text-center max-w-[250px]">Share this digital card instantly.</p>
+                   
+                   <div className="p-6 bg-white rounded-2xl shadow-[0_0_50px_rgba(var(--primary-rgb),0.3)]">
+                      <QRCodeSVG 
+                         value="https://wedigitlize.com/card" 
+                         size={180}
+                         fgColor="#000000"
+                         bgColor="#ffffff"
+                         level="H"
+                         imageSettings={{ src: "/favicon.svg", excavate: true, height: 40, width: 40 }}
+                         style={{ width: '100%', height: 'auto', maxWidth: '240px' }}
+                      />
+                   </div>
+                </div>
+             </motion.div>
+          </div>
+        </motion.div>
+
       </div>
 
       {/* Drawers and Modals (Rendered outside the 3D context for stability) */}
