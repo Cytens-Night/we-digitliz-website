@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { useGLTF, Environment, ContactShadows } from "@react-three/drei";
+import { Environment, ContactShadows, RoundedBox } from "@react-three/drei";
 import * as THREE from "three";
 import Logo from "@/components/ui/Logo";
 import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase } from "lucide-react";
@@ -12,30 +12,18 @@ import Link from "next/link";
 import ActionDrawer, { DrawerType } from "./ActionDrawer";
 import ToastContainer from "@/components/ui/ToastContainer";
 
-// Ensure GLTF is preloaded
-useGLTF.preload("https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf");
-
-// The 3D MacBook Model Component
+// The 3D MacBook Model Component (Procedural to avoid 404s)
 function Macbook({ scrollYProgress }: { scrollYProgress: any }) {
   const group = useRef<THREE.Group>(null);
   const lid = useRef<THREE.Group>(null);
-  
-  // Load the model
-  const { nodes, materials } = useGLTF("https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf") as any;
 
   useFrame(() => {
     if (!group.current || !lid.current) return;
-    const progress = scrollYProgress.get(); // 0 to 1
+    const progress = scrollYProgress.get();
 
     // 1. Laptop opens (0% to 30% scroll)
-    // When closed, lid rotation x is ~ Math.PI / 2 (or Math.PI depending on initial orientation)
-    // The default in the GLTF is usually open at Math.PI / 2 or 0.
-    // In this specific GLTF, the lid is open by default.
-    // Let's assume open = Math.PI / 2 (or 0), we will interpolate to open it.
-    // Actually, in the code I found, lid rotation is `[Math.PI / 2, 0, 0]`? 
-    // We will just interpolate it.
-    const closedAngle = Math.PI; // Folded down
-    const openAngle = Math.PI / 2 - 0.2; // Slightly past 90 degrees
+    const closedAngle = Math.PI / 2; // Folded down flat
+    const openAngle = -0.2; // Opened past 90 degrees
     let currentLidAngle = closedAngle;
     if (progress < 0.3) {
       currentLidAngle = closedAngle - (progress / 0.3) * (closedAngle - openAngle);
@@ -45,7 +33,6 @@ function Macbook({ scrollYProgress }: { scrollYProgress: any }) {
     lid.current.rotation.x = currentLidAngle;
 
     // 2. Base rotates to face camera (30% to 50% scroll)
-    // Initially, it's tilted down. Let's start at Math.PI / 6 (30 deg).
     const startBaseX = Math.PI / 6;
     const endBaseX = Math.PI / 2; // Flat facing camera
     let currentBaseX = startBaseX;
@@ -57,7 +44,6 @@ function Macbook({ scrollYProgress }: { scrollYProgress: any }) {
     group.current.rotation.x = currentBaseX;
 
     // 3. Scale and slide out (50% to 65% scroll)
-    // When facing camera, we scale up slightly, then slide it UP (Y axis) to disappear.
     let currentY = -1; // Base position
     let currentScale = 1;
     if (progress > 0.5 && progress <= 0.65) {
@@ -75,26 +61,54 @@ function Macbook({ scrollYProgress }: { scrollYProgress: any }) {
 
   return (
     <group ref={group} position={[0, -1, 0]} rotation={[Math.PI / 6, 0, 0]}>
+      {/* Base Chassis */}
+      <group position={[0, -0.1, 1.5]}>
+        {/* Main Body */}
+        <RoundedBox args={[4.5, 0.15, 3]} radius={0.05} smoothness={4} position={[0, 0, 0]}>
+          <meshPhysicalMaterial metalness={0.9} roughness={0.3} color="#b0b0b0" />
+        </RoundedBox>
+        
+        {/* Keyboard Indent */}
+        <RoundedBox args={[4.1, 0.05, 1.4]} radius={0.02} smoothness={2} position={[0, 0.06, -0.6]}>
+          <meshPhysicalMaterial color="#111111" metalness={0.2} roughness={0.8} />
+        </RoundedBox>
+        
+        {/* Trackpad */}
+        <RoundedBox args={[1.5, 0.02, 0.9]} radius={0.02} smoothness={2} position={[0, 0.07, 0.8]}>
+          <meshPhysicalMaterial metalness={0.8} roughness={0.4} color="#a0a0a0" />
+        </RoundedBox>
+      </group>
+
       {/* Hinge & Lid Group */}
-      <group position={[0, -0.04, 0.41]}>
-        <group ref={lid} position={[0, 2.96, -0.13]} rotation={[Math.PI, 0, 0]}>
-          <mesh material={materials.aluminium} geometry={nodes['Cube008'].geometry} />
-          <mesh material={materials['matte.001']} geometry={nodes['Cube008_1'].geometry} />
-          <mesh material={materials['screen.001']} geometry={nodes['Cube008_2'].geometry} />
+      <group position={[0, -0.05, 0]}>
+        {/* The hinge cylinder */}
+        <mesh rotation={[0, 0, Math.PI / 2]}>
+          <cylinderGeometry args={[0.08, 0.08, 4.2, 32]} />
+          <meshPhysicalMaterial metalness={0.9} roughness={0.4} color="#222222" />
+        </mesh>
+
+        {/* The Lid, rotates around the hinge */}
+        <group ref={lid} position={[0, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
+          <group position={[0, 1.5, 0]}>
+            {/* Screen Back (Aluminum) */}
+            <RoundedBox args={[4.5, 3, 0.1]} radius={0.05} smoothness={4} position={[0, 0, -0.05]}>
+              <meshPhysicalMaterial metalness={0.9} roughness={0.3} color="#b0b0b0" />
+            </RoundedBox>
+            
+            {/* Screen Glass (Black Bezel) */}
+            <mesh position={[0, 0, 0.01]}>
+              <planeGeometry args={[4.45, 2.95]} />
+              <meshPhysicalMaterial color="#050505" metalness={0.8} roughness={0.1} clearcoat={1} clearcoatRoughness={0.1} />
+            </mesh>
+            
+            {/* Inner Screen Area */}
+            <mesh position={[0, 0, 0.02]}>
+              <planeGeometry args={[4.2, 2.7]} />
+              <meshPhysicalMaterial color="#000000" metalness={0.1} roughness={0.4} />
+            </mesh>
+          </group>
         </group>
       </group>
-      
-      {/* Keyboard */}
-      <mesh material={materials.keys} geometry={nodes.keyboard.geometry} position={[1.79, 0, 3.45]} />
-      
-      {/* Base Chassis & Trackpad */}
-      <group position={[0, -0.1, 3.39]}>
-        <mesh material={materials.aluminium} geometry={nodes['Cube002'].geometry} />
-        <mesh material={materials.trackpad} geometry={nodes['Cube002_1'].geometry} />
-      </group>
-      
-      {/* Touchbar */}
-      <mesh material={materials.touchbar} geometry={nodes.touchbar.geometry} position={[0, -0.03, 1.2]} />
     </group>
   );
 }
@@ -226,7 +240,7 @@ export default function Laptop3D() {
                       </div>
                       <div className="flex gap-4">
                         <span>100%</span>
-                        <span>{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                        <span>09:41</span>
                       </div>
                    </div>
 
