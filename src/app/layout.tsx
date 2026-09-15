@@ -15,6 +15,7 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "We Digitlize | Digital Transformation Agency",
   description: "We build automated systems, premium online presences, and custom applications to elevate your business.",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

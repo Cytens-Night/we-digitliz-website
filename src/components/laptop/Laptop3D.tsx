@@ -3,13 +3,77 @@
 import React, { useState, useEffect } from "react";
 import { motion, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import Logo from "@/components/ui/Logo";
-import { ArrowRight, Globe, Mail, MessageSquare, Download, MapPin } from "lucide-react";
+import { ArrowRight, Globe, Mail, MessageSquare, Download, MapPin, QrCode, ArrowLeft } from "lucide-react";
 import { FaInstagram, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
+import { QRCodeSVG } from "qrcode.react";
+import ActionDrawer, { DrawerType } from "./ActionDrawer";
+import ToastContainer from "@/components/ui/ToastContainer";
+import CinematicModal, { services } from "./CinematicModal";
 
 export default function Laptop3D() {
   const [isOpen, setIsOpen] = useState(false);
   const [isBooted, setIsBooted] = useState(false);
+  const [isScreenFlipped, setIsScreenFlipped] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const [drawerType, setDrawerType] = useState<DrawerType>(null);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [activeModalId, setActiveModalId] = useState<number | null>(null);
+  
+  const showToast = (msg: string) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(""), 3000);
+  };
+
+  useEffect(() => {
+    const handleBeforeInstallPrompt = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+  }, []);
+
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      try {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+      } catch (err) {
+        console.error("Install prompt failed:", err);
+      }
+      setDeferredPrompt(null);
+    } else {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      if (isIOS) {
+        showToast("To install on iOS: tap Share and select 'Add to Home Screen'.");
+      } else {
+        showToast("Tap your browser's menu and select 'Install App'.");
+      }
+    }
+  };
+
+  // Mock contact data
+  const phone = "+447000000000";
+  const email = "info@wedigitlize.com";
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(email);
+    showToast("Email copied to clipboard!");
+  };
+
+  const handleSaveContact = () => {
+    // Generate simple vCard
+    const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:We Digitlize\nORG:We Digitlize\nTEL:${phone}\nEMAIL:${email}\nURL:https://wedigitlize.com\nEND:VCARD`;
+    const blob = new Blob([vcard], { type: 'text/vcard' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'wedigitlize.vcf';
+    a.click();
+    window.URL.revokeObjectURL(url);
+    showToast("Contact downloaded!");
+  };
   
   // Mouse tracking for parallax
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
@@ -119,7 +183,7 @@ export default function Laptop3D() {
                </div>
 
                {/* The Display (Glass Screen) */}
-               <div className="flex-1 relative bg-[#0a0a0a] overflow-hidden flex flex-col">
+               <div className="flex-1 relative bg-[#0a0a0a] overflow-hidden flex flex-col perspective-[1000px]">
                   {/* Screen Glare */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none z-50" />
                   
@@ -146,26 +210,29 @@ export default function Laptop3D() {
                   </AnimatePresence>
 
                   {/* UI CONTENT - DIGITAL BUSINESS CARD */}
-                  <div className={`flex-1 flex flex-col p-4 sm:p-8 md:p-12 transition-opacity duration-1000 ${isBooted ? 'opacity-100' : 'opacity-0'}`}>
-                     
-                     {/* UI Header */}
-                     <div className="flex justify-between items-start mb-auto">
-                        <div>
-                          <h1 className="text-xl sm:text-3xl lg:text-4xl font-display font-bold text-white mb-1 sm:mb-2 tracking-tight drop-shadow-md">We Digitlize</h1>
-                          <p className="text-white/70 text-[10px] sm:text-sm lg:text-base font-medium tracking-wide">Digital Dominance Architecture</p>
+                  <motion.div 
+                    className="absolute inset-0 w-full h-full transform-style-3d"
+                    animate={{ rotateY: isScreenFlipped ? 180 : 0 }}
+                    transition={{ type: "spring", stiffness: 60, damping: 15 }}
+                  >
+                     {/* FRONT FACE (Main UI) */}
+                     <div className={`absolute inset-0 w-full h-full flex flex-col p-4 sm:p-8 md:p-12 transition-opacity duration-1000 backface-hidden ${isBooted ? 'opacity-100' : 'opacity-0'}`}>
+                        
+                        {/* UI Header */}
+                        <div className="flex justify-between items-start mb-auto">
+                           <div>
+                             <h1 className="text-xl sm:text-3xl lg:text-4xl font-display font-bold text-white mb-1 sm:mb-2 tracking-tight drop-shadow-md">We Digitlize</h1>
+                             <p className="text-white/70 text-[10px] sm:text-sm lg:text-base font-medium tracking-wide">Digital Dominance Architecture</p>
+                           </div>
+                           <div className="flex gap-2">
+                              <button onClick={() => setIsScreenFlipped(true)} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md" title="Share QR Code">
+                                 <QrCode size={14} />
+                              </button>
+                              <button onClick={handleInstallClick} className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md" title="Install App">
+                                 <Download size={14} />
+                              </button>
+                           </div>
                         </div>
-                        <div className="flex gap-2">
-                           <a href="https://instagram.com/wedigitlize" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
-                              <FaInstagram size={14} />
-                           </a>
-                           <a href="https://x.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
-                              <FaXTwitter size={14} />
-                           </a>
-                           <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
-                              <FaLinkedin size={14} />
-                           </a>
-                        </div>
-                     </div>
 
                      {/* Action Grid */}
                      <div className="grid grid-cols-2 gap-2 sm:gap-4 mt-6 sm:mt-10">
@@ -175,26 +242,52 @@ export default function Laptop3D() {
                            <p className="text-white/40 text-[9px] sm:text-[11px]">wedigitlize.com</p>
                         </Link>
                         
-                        <a href="https://wa.me/447000000000?text=Hello%20We%20Digitlize!%20I%20want%20to%20build%20a%20project." target="_blank" rel="noreferrer" className="group bg-primary/10 border border-primary/30 hover:border-primary hover:bg-primary/20 rounded-xl p-3 sm:p-5 transition-all backdrop-blur-md shadow-lg">
+                        <button onClick={() => setDrawerType('phone')} className="group text-left bg-primary/10 border border-primary/30 hover:border-primary hover:bg-primary/20 rounded-xl p-3 sm:p-5 transition-all backdrop-blur-md shadow-lg">
                            <MessageSquare className="text-primary mb-2 sm:mb-4 w-5 h-5 sm:w-7 sm:h-7" />
-                           <h3 className="text-white font-bold text-xs sm:text-base mb-1">WhatsApp</h3>
-                           <p className="text-white/40 text-[9px] sm:text-[11px]">Direct message</p>
-                        </a>
+                           <h3 className="text-white font-bold text-xs sm:text-base mb-1">Contact Us</h3>
+                           <p className="text-white/40 text-[9px] sm:text-[11px]">Call or WhatsApp</p>
+                        </button>
                         
-                        <a href="mailto:info@wedigitlize.com" className="group bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-3 sm:p-5 transition-all backdrop-blur-md shadow-lg">
+                        <button onClick={() => setDrawerType('email')} className="group text-left bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-3 sm:p-5 transition-all backdrop-blur-md shadow-lg">
                            <Mail className="text-white mb-2 sm:mb-4 w-5 h-5 sm:w-7 sm:h-7" />
                            <h3 className="text-white font-bold text-xs sm:text-base mb-1">Email Us</h3>
                            <p className="text-white/40 text-[9px] sm:text-[11px]">info@wedigitlize.com</p>
-                        </a>
+                        </button>
                         
-                        <button className="group bg-white text-black hover:bg-gray-200 rounded-xl p-3 sm:p-5 transition-all flex flex-col items-start shadow-[0_0_30px_rgba(255,255,255,0.15)]">
+                        <button onClick={handleSaveContact} className="group bg-white text-black hover:bg-gray-200 rounded-xl p-3 sm:p-5 transition-all flex flex-col items-start shadow-[0_0_30px_rgba(255,255,255,0.15)]">
                            <Download className="text-black mb-2 sm:mb-4 w-5 h-5 sm:w-7 sm:h-7" />
                            <h3 className="font-bold text-xs sm:text-base mb-1">Save Contact</h3>
                            <p className="text-black/60 text-[9px] sm:text-[11px]">Download .vcf</p>
                         </button>
                      </div>
+                     </div>
 
-                  </div>
+                     {/* BACK FACE (QR Code) */}
+                     <div className="absolute inset-0 w-full h-full flex flex-col p-4 sm:p-8 md:p-12 bg-black backface-hidden rotate-y-180 items-center justify-center">
+                        <button onClick={() => setIsScreenFlipped(false)} className="absolute top-4 left-4 sm:top-8 sm:left-8 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
+                           <ArrowLeft size={18} />
+                        </button>
+                        
+                        <h2 className="text-2xl sm:text-4xl font-display font-bold text-white mb-2">Scan to Connect</h2>
+                        <p className="text-white/60 text-xs sm:text-sm mb-8 text-center max-w-[250px]">Share this digital card instantly with anyone by scanning.</p>
+                        
+                        <div className="p-4 sm:p-6 bg-white rounded-2xl shadow-[0_0_50px_rgba(var(--primary-rgb),0.3)]">
+                           <QRCodeSVG 
+                              value="https://wedigitlize.com/card" 
+                              size={180} 
+                              fgColor="#000000"
+                              bgColor="#ffffff"
+                              level="H"
+                              imageSettings={{
+                                src: "/favicon.svg",
+                                excavate: true,
+                                height: 40,
+                                width: 40,
+                              }}
+                           />
+                        </div>
+                     </div>
+                  </motion.div>
                </div>
            </div>
         </motion.div>
@@ -229,6 +322,58 @@ export default function Laptop3D() {
           </motion.div>
         )}
       </AnimatePresence>
+      
+      {/* Orbiting Service Bubbles */}
+      <AnimatePresence>
+        {isOpen && services.map((service, index) => {
+          // Calculate orbit position based on index (distribute 4 bubbles evenly around a circle)
+          const angle = (index / services.length) * 2 * Math.PI - Math.PI / 2;
+          const radius = typeof window !== 'undefined' && window.innerWidth < 768 ? 160 : 340;
+          const x = Math.cos(angle) * radius;
+          let y = Math.sin(angle) * radius;
+          
+          if (typeof window !== 'undefined' && window.innerWidth < 768) {
+             if (index === 0) y -= 40;
+             if (index === 2) y += 40;
+          }
+
+          return (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+              animate={{ opacity: 1, scale: 1, x, y }}
+              exit={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+              transition={{ type: "spring", stiffness: 50, damping: 15, delay: index * 0.1 }}
+              onClick={() => setActiveModalId(service.id)}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 sm:w-24 sm:h-24 rounded-full bg-black/40 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-[0_10px_30px_rgba(0,0,0,0.5)] z-[60] group"
+              style={{ color: service.color }}
+            >
+              <div className="mb-1 sm:mb-2 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                {service.icon}
+              </div>
+              <span className="text-[9px] sm:text-xs font-bold text-white/80 group-hover:text-white text-center leading-tight max-w-[80%]">{service.title}</span>
+            </motion.div>
+          );
+        })}
+      </AnimatePresence>
+      
+      {/* Drawers and Modals */}
+      <CinematicModal 
+        activeId={activeModalId}
+        onClose={() => setActiveModalId(null)}
+      />
+      
+      <ActionDrawer 
+        type={drawerType}
+        onClose={() => setDrawerType(null)}
+        phone={phone}
+        email={email}
+        onSaveContact={handleSaveContact}
+        onCopyEmail={handleCopyEmail}
+        showToast={showToast}
+      />
+      
+      <ToastContainer message={toastMsg} />
     </div>
   );
 }
