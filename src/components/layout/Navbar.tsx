@@ -37,11 +37,11 @@ export default function Navbar() {
       {/* =========================================
           LEFT SIDEBAR (Desktop)
           ========================================= */}
-      <nav className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 z-50">
-        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-[2rem] py-4 px-2 flex flex-col gap-2 transition-all duration-300 ease-in-out w-14 hover:w-48 group overflow-hidden items-start">
+      <nav className="hidden md:flex fixed left-4 top-4 bottom-4 z-50">
+        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-[2rem] py-6 px-2 flex flex-col gap-2 transition-all duration-300 ease-in-out w-14 hover:w-48 group overflow-hidden items-start h-full">
           
           {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-4 px-2 mb-4 w-full" onClick={() => setActiveTab("Home")}>
+          <Link href="/" className="flex items-center gap-4 px-2 mb-8 w-full" onClick={() => setActiveTab("Home")}>
             <div className="w-6 h-6 shrink-0 flex items-center justify-center">
               <Logo className="w-5 h-5 text-white" />
             </div>
