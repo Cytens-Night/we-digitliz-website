@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Briefcase, CreditCard, Folder, LayoutGrid, GitMerge, Mail, X, Menu, Instagram } from "lucide-react";
+import { Home, Briefcase, CreditCard, Folder, LayoutGrid, GitMerge, Mail, X, Menu, Globe } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -202,7 +202,7 @@ export default function Navbar() {
               rel="noreferrer"
               className="flex flex-col items-center gap-1 text-white/50 hover:text-white transition-all"
             >
-              <Instagram size={20} />
+              <Globe size={20} />
             </a>
 
             <Link 
