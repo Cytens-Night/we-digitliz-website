@@ -79,31 +79,6 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-
-      {/* ==============================================
-          MOBILE APP TAB BAR (Sticky Bottom)
-          ============================================== */}
-      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90vw] max-w-[360px] h-16 bg-white/80 backdrop-blur-xl rounded-full border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex items-center justify-around px-4 z-50">
-        <Link href="/" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
-          <Home size={20} />
-          <span className="text-[9px] font-bold tracking-wider uppercase">Home</span>
-        </Link>
-        
-        <Link href="/works" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
-          <Briefcase size={20} />
-          <span className="text-[9px] font-bold tracking-wider uppercase">Works</span>
-        </Link>
-
-        <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
-          <FaInstagram size={20} />
-          <span className="text-[9px] font-bold tracking-wider uppercase">Social</span>
-        </a>
-
-        <Link href="/#contact" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
-          <Mail size={20} />
-          <span className="text-[9px] font-bold tracking-wider uppercase">Contact</span>
-        </Link>
-      </div>
     </>
   );
 }
