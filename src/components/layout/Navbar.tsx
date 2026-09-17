@@ -13,7 +13,7 @@ const navLinks = [
   { name: "Services", href: "/#services", icon: LayoutGrid },
   { name: "Process", href: "/#process", icon: GitMerge },
   { name: "Investment", href: "/#pricing", icon: CreditCard },
-  { name: "Projects", href: "/works", icon: Folder },
+  { name: "Projects", href: "/projects", icon: Folder },
 ];
 
 export default function Navbar() {
@@ -24,7 +24,7 @@ export default function Navbar() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (pathname === "/works") {
+    if (pathname === "/projects") {
       setActiveTab("Projects");
       return;
     }
