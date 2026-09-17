@@ -127,12 +127,14 @@
     @apply bg-[#f5f5f7] text-foreground antialiased selection:bg-primary/30 selection:text-[#1d1d1f];
     width: 100%;
     position: relative;
+    overflow-x: hidden;
   }
   html {
     @apply font-sans scroll-smooth;
     -ms-overflow-style: none;
     scrollbar-width: none;
     width: 100%;
+    overflow-x: hidden;
   }
   html::-webkit-scrollbar {
     display: none;
