@@ -132,7 +132,7 @@ export default function DigitalCards() {
         </div>
 
         {/* ==============================================
-            MOBILE LAYOUT (Native App Horizontal Carousel)
+            MOBILE LAYOUT (Native App Horizontal Carousel - Light Mode)
             ============================================== */}
         <div 
           className="md:hidden flex overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-6 px-6 gap-4 pb-8"
@@ -143,44 +143,50 @@ export default function DigitalCards() {
                key={client.id}
                initial={{ opacity: 0, scale: 0.95 }}
                whileInView={{ opacity: 1, scale: 1 }}
+               whileTap={{ scale: 0.96 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.5, delay: index * 0.1 }}
-               className="relative h-[380px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-6 active:scale-95 transition-transform shadow-2xl"
+               className="relative h-[380px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-white border border-black/5 flex flex-col justify-end p-6 shadow-[0_20px_40px_rgba(0,0,0,0.06)] group"
              >
-                <div className={`absolute inset-0 transition-colors duration-700 ${client.overlay}`} />
-                
+                {/* Subtle animated light orb background */}
+                <motion.div 
+                  animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.1, 1] }}
+                  transition={{ duration: 6 + index, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"
+                />
+
                 <div className="absolute top-6 right-6 flex gap-3">
                   <a 
-                    href={client.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20"
+                     href={client.url} 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                     className="w-10 h-10 rounded-full bg-[#f5f5f7] flex items-center justify-center border border-black/5 text-black hover:bg-black hover:text-white transition-colors z-20 shadow-sm"
                   >
-                    <ExternalLink size={16} />
+                     <ExternalLink size={16} />
                   </a>
                 </div>
 
-                <div className="relative z-10 w-full flex flex-col items-start">
-                   <div className="mb-3 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-widest uppercase text-white/70">
+                <div className="relative z-10 w-full flex flex-col items-start mt-auto">
+                   <div className="mb-3 px-3 py-1 bg-[#f5f5f7] border border-black/5 rounded-full text-[10px] font-bold tracking-widest uppercase text-black/60 shadow-sm">
                      {client.year}
                    </div>
                    
-                   <h3 className="text-2xl font-display font-bold text-white mb-1 tracking-tight">
+                   <h3 className="text-2xl font-display font-bold text-[#1d1d1f] mb-1 tracking-tight">
                      {client.name}
                    </h3>
                    
-                   <p className="text-white/60 text-xs font-medium tracking-wide mb-5">
+                   <p className="text-[#3c3c43] text-xs font-medium tracking-wide mb-5">
                      {client.type}
                    </p>
                    
-                   <button 
+                   <motion.button 
+                     whileTap={{ scale: 0.95 }}
                      onClick={() => setActivePreview(client)}
-                     className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase w-full shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                     className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#1d1d1f] text-white font-bold text-[10px] tracking-widest uppercase w-full shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:bg-[#007AFF] transition-colors"
                    >
                      <Eye size={14} /> Live Preview
-                   </button>
+                   </motion.button>
                 </div>
-
              </motion.div>
            ))}
         </div>

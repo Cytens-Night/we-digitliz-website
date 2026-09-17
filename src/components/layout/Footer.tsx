@@ -1,76 +1,109 @@
 import Link from "next/link";
 import { FaXTwitter, FaInstagram, FaLinkedin } from "react-icons/fa6";
+import { Home, Briefcase, Mail, Info } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#f5f5f7] pt-20 pb-10 border-t border-black/5">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12 mb-16">
-          
-          <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 group mb-6">
-              <Logo className="w-8 h-8 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
-              <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">We Digitlize</span>
+    <>
+      <footer className="bg-[#f5f5f7] pt-20 pb-24 md:pb-10 border-t border-black/5 relative z-10">
+        <div className="max-w-7xl mx-auto px-6">
+          {/* Desktop Footer Grid */}
+          <div className="hidden md:grid grid-cols-4 gap-x-6 gap-y-12 mb-16">
+            
+            <div className="col-span-1">
+              <Link href="/" className="flex items-center gap-2 group mb-6">
+                <Logo className="w-8 h-8 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
+                <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">We Digitlize</span>
+              </Link>
+              <p className="text-[#3c3c43] text-sm leading-relaxed mb-6">
+                We digitlize your world so you can still lead in confidence. Building automated systems and premium online presences.
+              </p>
+              <div className="flex items-center gap-4">
+                <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-black hover:text-white transition-all">
+                  <FaXTwitter className="w-4 h-4" />
+                </a>
+                <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-black hover:text-white transition-all">
+                  <FaInstagram className="w-4 h-4" />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-black hover:text-white transition-all">
+                  <FaLinkedin className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-[#1d1d1f] font-semibold mb-6">Services</h4>
+              <ul className="space-y-4">
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Automated Systems</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Web Presence</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Brand Redesign</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">App Development</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[#1d1d1f] font-semibold mb-6">Industries</h4>
+              <ul className="space-y-4">
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Retail & E-Commerce</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Healthcare</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Real Estate</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Creative Agencies</Link></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="text-[#1d1d1f] font-semibold mb-6">Company</h4>
+              <ul className="space-y-4">
+                <li><Link href="/#about" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">About Us</Link></li>
+                <li><Link href="/#process" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Our Process</Link></li>
+                <li><Link href="/works" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Works / Portfolio</Link></li>
+                <li><Link href="/#contact" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Contact</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Privacy Policy</Link></li>
+              </ul>
+            </div>
+
+          </div>
+
+          <div className="border-t border-black/10 pt-8 flex flex-col items-center md:flex-row md:justify-between text-center md:text-left">
+            <Link href="/" className="md:hidden flex items-center gap-2 group mb-6">
+               <Logo className="w-6 h-6 text-[#1d1d1f]" />
+               <span className="font-display font-bold text-xl tracking-wide text-[#1d1d1f]">We Digitlize</span>
             </Link>
-            <p className="text-[#3c3c43] text-sm leading-relaxed mb-6">
-              We digitlize your world so you can still lead in confidence. Building automated systems and premium online presences.
+            <p className="text-[#3c3c43] text-xs md:text-sm mb-4 md:mb-0">
+              © {new Date().getFullYear()} We Digitlize. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <FaXTwitter className="w-4 h-4" />
-              </a>
-              <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <FaInstagram className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-primary hover:text-[#1d1d1f] transition-all">
-                <FaLinkedin className="w-4 h-4" />
-              </a>
+            <div className="hidden md:flex items-center gap-2 text-sm text-[#3c3c43]">
+              Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by We Digitlize
             </div>
           </div>
-
-          <div>
-            <h4 className="text-[#1d1d1f] font-semibold mb-6">Services</h4>
-            <ul className="space-y-4">
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Automated Systems</Link></li>
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Web Presence</Link></li>
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Brand Redesign</Link></li>
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">App Development</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-[#1d1d1f] font-semibold mb-6">Industries</h4>
-            <ul className="space-y-4">
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Retail & E-Commerce</Link></li>
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Healthcare</Link></li>
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Real Estate</Link></li>
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Creative Agencies</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-[#1d1d1f] font-semibold mb-6">Company</h4>
-            <ul className="space-y-4">
-              <li><Link href="/#about" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">About Us</Link></li>
-              <li><Link href="/#process" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Our Process</Link></li>
-              <li><Link href="/works" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Works / Portfolio</Link></li>
-              <li><Link href="/#contact" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Contact</Link></li>
-              <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Privacy Policy</Link></li>
-            </ul>
-          </div>
-
         </div>
+      </footer>
 
-        <div className="border-t border-black/10 pt-8 flex flex-col md:flex-row items-center justify-between">
-          <p className="text-[#3c3c43] text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} We Digitlize. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2 text-sm text-[#3c3c43]">
-            Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by We Digitlize
-          </div>
-        </div>
+      {/* ==============================================
+          MOBILE APP TAB BAR (Sticky Bottom)
+          ============================================== */}
+      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90vw] max-w-[360px] h-16 bg-white/80 backdrop-blur-xl rounded-full border border-black/10 shadow-[0_20px_40px_rgba(0,0,0,0.1)] flex items-center justify-around px-4 z-50">
+        <Link href="/" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
+          <Home size={20} />
+          <span className="text-[9px] font-bold tracking-wider uppercase">Home</span>
+        </Link>
+        
+        <Link href="/works" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
+          <Briefcase size={20} />
+          <span className="text-[9px] font-bold tracking-wider uppercase">Works</span>
+        </Link>
+
+        <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
+          <FaInstagram size={20} />
+          <span className="text-[9px] font-bold tracking-wider uppercase">Social</span>
+        </a>
+
+        <Link href="/#contact" className="flex flex-col items-center gap-1 text-[#8a8d91] hover:text-[#007AFF] transition-colors active:scale-95">
+          <Mail size={20} />
+          <span className="text-[9px] font-bold tracking-wider uppercase">Contact</span>
+        </Link>
       </div>
-    </footer>
+    </>
   );
 }

@@ -269,25 +269,39 @@ export default function About() {
       </div>
 
       {/* =========================================
-          MOBILE NATIVE APP LAYOUT (Horizontal Snap Carousel)
+          MOBILE NATIVE APP LAYOUT (Light Mode + Animated)
           ========================================= */}
-      <div className="lg:hidden w-full py-16 relative z-10 overflow-hidden">
+      <div className="lg:hidden w-full py-16 relative z-10 overflow-hidden bg-[#f5f5f7]">
         
-        <div className="px-6 mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-white/60 text-[10px] font-bold border border-white/10 uppercase tracking-widest w-max">
+        <div className="px-6 mb-8 flex justify-center">
+          <motion.div 
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black/60 text-[10px] font-bold border border-black/5 uppercase tracking-widest w-max shadow-sm"
+          >
             About The Agency
-          </div>
+          </motion.div>
         </div>
 
         {/* Carousel Container */}
-        <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 pb-8 w-full gap-4 items-stretch" style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}>
+        <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 pb-12 w-full gap-4 items-stretch" style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}>
           
           {/* Slide 1: Introduction */}
-          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center relative overflow-hidden">
-            <h3 className="text-4xl leading-tight font-display font-bold text-white mb-6">
+          <motion.div 
+            whileTap={{ scale: 0.98 }}
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden group"
+          >
+            {/* Animated subtle gradient orb */}
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-20 -right-20 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
+            />
+            
+            <h3 className="text-4xl leading-tight font-display font-bold text-[#1d1d1f] mb-6 relative z-10">
               <span className="block">We don't build</span>
               <span className="relative inline-block mt-1">
-                <span className="text-white/20">websites.</span>
+                <span className="text-black/30">websites.</span>
                 <motion.div 
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -298,69 +312,86 @@ export default function About() {
               </span>
             </h3>
             
-            <p className="text-lg text-white/80 max-w-sm leading-relaxed font-medium">
-              We engineer entire <span className="font-bold underline decoration-2 underline-offset-4 decoration-[#007AFF]">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.
+            <p className="text-base text-[#3c3c43] max-w-sm leading-relaxed font-medium relative z-10">
+              We engineer entire <span className="font-bold underline decoration-2 underline-offset-4 decoration-[#007AFF] text-[#1d1d1f]">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.
             </p>
-          </div>
+          </motion.div>
 
           {/* Slide 2: Bespoke Architecture */}
-          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center relative overflow-hidden">
-            <div className="w-14 h-14 rounded-2xl bg-[#007AFF]/10 flex items-center justify-center mb-6 border border-[#007AFF]/20">
-              <Cpu size={24} className="text-[#007AFF]" />
+          <motion.div 
+            whileTap={{ scale: 0.98 }}
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+          >
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/5 rounded-full blur-2xl pointer-events-none"
+            />
+
+            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/5 relative z-10">
+              <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 3, repeat: Infinity }}>
+                <Cpu size={24} className="text-[#1d1d1f]" />
+              </motion.div>
             </div>
-            <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
+            <h3 className="text-3xl font-display font-bold text-[#1d1d1f] mb-4 leading-tight relative z-10">
               Bespoke <br/> Architecture.
             </h3>
-            <p className="text-base text-white/60 leading-relaxed mb-6">
+            <p className="text-sm text-[#3c3c43] leading-relaxed mb-6 relative z-10">
               We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
             </p>
-            <div className="w-full h-32 bg-[#0a0a0a] rounded-xl border border-white/5 relative flex items-center justify-center overflow-hidden">
-               {/* Solid grid pattern */}
-               <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')] bg-[size:1rem_1rem]" />
-               <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-white/10 rounded-full border-dashed" />
-               <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/15 rounded-full" />
-               <div className="relative w-10 h-10 bg-[#0a0a0a] rounded-lg border border-[#007AFF]/20 flex items-center justify-center rotate-45 z-10 shadow-[0_0_20px_rgba(0,122,255,0.2)]">
-                 <div className="w-3 h-3 bg-[#007AFF] rounded-md -rotate-45 flex items-center justify-center">
-                   <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
-                 </div>
+            
+            <div className="w-full h-24 bg-[#f5f5f7] rounded-xl border border-black/5 relative flex items-center justify-center overflow-hidden z-10">
+               {/* Animated rings */}
+               <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-black/10 rounded-full border-dashed" />
+               <motion.div animate={{ rotate: -360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/5 rounded-full" />
+               <div className="relative w-8 h-8 bg-white rounded-lg border border-black/10 flex items-center justify-center rotate-45 z-10 shadow-sm">
+                 <div className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
                </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Slide 3: Rapid Execution */}
-          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center">
-            <div className="w-14 h-14 rounded-2xl bg-[#007AFF]/10 flex items-center justify-center mb-6 border border-[#007AFF]/20">
-              <Code2 size={24} className="text-[#007AFF]" />
+          <motion.div 
+            whileTap={{ scale: 0.98 }}
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/5">
+              <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
+                <Code2 size={24} className="text-[#1d1d1f]" />
+              </motion.div>
             </div>
-            <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
+            <h3 className="text-3xl font-display font-bold text-[#1d1d1f] mb-4 leading-tight">
               Rapid <br/> Execution.
             </h3>
-            <p className="text-base text-white/60 leading-relaxed">
+            <p className="text-sm text-[#3c3c43] leading-relaxed">
               Time is money. Our agile methodologies and proprietary codebase allow us to execute complex SaaS builds and enterprise sites in a fraction of the traditional timeline.
             </p>
-          </div>
+          </motion.div>
 
           {/* Slide 4: Data Driven */}
-          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center">
-            <div className="w-14 h-14 rounded-2xl bg-[#007AFF]/10 flex items-center justify-center mb-6 border border-[#007AFF]/20">
-              <Network size={24} className="text-[#007AFF]" />
+          <motion.div 
+            whileTap={{ scale: 0.98 }}
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+          >
+            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/5">
+              <Network size={24} className="text-[#1d1d1f]" />
             </div>
-            <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
+            <h3 className="text-3xl font-display font-bold text-[#1d1d1f] mb-4 leading-tight">
               Data-Driven <br/> Decisions.
             </h3>
-            <p className="text-base text-white/60 leading-relaxed">
+            <p className="text-sm text-[#3c3c43] leading-relaxed">
               We don't guess. We integrate deep analytics and telemetry into every platform, ensuring every design and engineering decision is backed by cold, hard data.
             </p>
-          </div>
+          </motion.div>
 
         </div>
 
-        {/* Scroll Indicator */}
-        <div className="flex justify-center items-center gap-1.5 mt-2">
-           <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
-           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+        {/* Animated Scroll Indicator Dots */}
+        <div className="flex justify-center items-center gap-2 mt-2">
+           <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="w-1.5 h-1.5 rounded-full bg-black/40" />
+           <div className="w-1.5 h-1.5 rounded-full bg-black/10" />
+           <div className="w-1.5 h-1.5 rounded-full bg-black/10" />
+           <div className="w-1.5 h-1.5 rounded-full bg-black/10" />
         </div>
 
       </div>

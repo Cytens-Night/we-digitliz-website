@@ -221,7 +221,7 @@ export default function WorksPage() {
         </section>
 
         {/* ==============================================
-            MOBILE NATIVE APP LAYOUT (Static Snap Carousel)
+            MOBILE NATIVE APP LAYOUT (Light Mode Snap Carousel)
             ============================================== */}
         <section 
           className="lg:hidden flex overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 gap-4 pb-8 w-full"
@@ -232,37 +232,46 @@ export default function WorksPage() {
               key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              whileTap={{ scale: 0.98 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="w-[85vw] max-w-[320px] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-2xl relative overflow-hidden h-[420px]"
+              className="w-[85vw] max-w-[320px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] relative overflow-hidden h-[420px] group"
             >
-              <div className="flex items-center gap-3 mb-8">
-                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 border border-white/10 px-3 py-1 rounded-full bg-white/5">
+              {/* Animated subtle gradient orb */}
+              <motion.div 
+                animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
+                transition={{ duration: 7 + index, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute -top-16 -right-16 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl pointer-events-none"
+              />
+
+              <div className="flex items-center gap-3 mb-8 relative z-10">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-black/60 border border-black/5 px-3 py-1 rounded-full bg-[#f5f5f7]">
                   {project.year}
                 </span>
-                <span className="text-white/30 font-mono text-sm font-bold ml-auto">0{index + 1}</span>
+                <span className="text-black/20 font-mono text-sm font-bold ml-auto">0{index + 1}</span>
               </div>
               
-              <h3 className="text-3xl font-display font-bold text-white mb-2 tracking-tight">
+              <h3 className="text-3xl font-display font-bold text-[#1d1d1f] mb-2 tracking-tight relative z-10">
                 {project.name}
               </h3>
               
-              <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#007AFF] mb-6">
+              <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#007AFF] mb-6 relative z-10">
                 {project.type}
               </p>
               
-              <p className="text-white/60 text-sm leading-relaxed mb-8 flex-1">
+              <p className="text-[#3c3c43] text-sm leading-relaxed mb-8 flex-1 relative z-10">
                 {project.desc}
               </p>
 
-              <a 
+              <motion.a 
+                whileTap={{ scale: 0.95 }}
                 href={project.url} 
                 target="_blank" 
                 rel="noreferrer"
-                className="w-full py-4 bg-white text-black font-bold text-[10px] tracking-widest uppercase rounded-2xl flex items-center justify-center gap-3 active:scale-[0.98] transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)] mt-auto"
+                className="w-full py-4 bg-[#1d1d1f] text-white font-bold text-[10px] tracking-widest uppercase rounded-2xl flex items-center justify-center gap-3 shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:bg-[#007AFF] transition-colors mt-auto relative z-10"
               >
                 Live Preview <ArrowUpRight size={14} />
-              </a>
+              </motion.a>
             </motion.div>
           ))}
         </section>

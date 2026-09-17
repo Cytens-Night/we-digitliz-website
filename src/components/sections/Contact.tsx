@@ -1,10 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowRight, MessageSquare, X } from "lucide-react";
 import { FaXTwitter, FaLinkedin, FaInstagram } from "react-icons/fa6";
+import { useState } from "react";
 
 export default function Contact() {
+  const [isMobileFormOpen, setIsMobileFormOpen] = useState(false);
   return (
     <section id="contact" className="py-16 md:py-32 bg-[#ffffff] relative overflow-hidden border-t border-black/10">
       <div className="max-w-[1400px] mx-auto px-6">
@@ -162,61 +164,87 @@ export default function Contact() {
             </motion.form>
           </div>
 
-          {/* Form Column - Animated for Mobile */}
-          <div className="md:hidden lg:col-span-8 order-1 lg:order-2">
-            <motion.form 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="bg-[#f5f5f7] rounded-[2rem] p-6 shadow-sm border border-black/5 flex flex-col gap-6" 
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <h3 className="text-2xl font-bold text-[#1d1d1f] mb-2 tracking-tight">Send a message</h3>
-              
-              <div className="flex flex-col gap-4">
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="name-mobile"
-                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
-                    placeholder="Your Name"
+          {/* Form Column - Ultra Compact Mobile Drawer */}
+          <div className="md:hidden lg:col-span-8 order-1 lg:order-2 flex flex-col items-center">
+            
+            <AnimatePresence mode="wait">
+              {!isMobileFormOpen ? (
+                <motion.button
+                  key="open-btn"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setIsMobileFormOpen(true)}
+                  className="w-full max-w-[300px] bg-[#1d1d1f] text-white rounded-full py-5 flex items-center justify-center gap-3 shadow-[0_20px_40px_rgba(0,0,0,0.15)] mt-8 relative overflow-hidden group border border-black/10"
+                >
+                  <motion.div 
+                    animate={{ scale: [1, 1.2, 1], opacity: [0, 0.15, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute inset-0 bg-white/20 rounded-full blur-xl pointer-events-none"
                   />
-                </div>
+                  <MessageSquare size={18} className="text-white relative z-10" />
+                  <span className="font-bold text-sm tracking-widest uppercase relative z-10">Start a Project</span>
+                </motion.button>
+              ) : (
+                <motion.form 
+                  key="contact-form"
+                  initial={{ opacity: 0, height: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, height: "auto", scale: 1 }}
+                  exit={{ opacity: 0, height: 0, scale: 0.95 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  className="w-full bg-white rounded-[2.5rem] p-6 shadow-[0_20px_40px_rgba(0,0,0,0.1)] border border-black/5 flex flex-col gap-6 mt-8 relative overflow-hidden" 
+                  onSubmit={(e) => { e.preventDefault(); setIsMobileFormOpen(false); }}
+                >
+                  <button 
+                    type="button"
+                    onClick={() => setIsMobileFormOpen(false)}
+                    className="absolute top-6 right-6 w-8 h-8 bg-[#f5f5f7] rounded-full flex items-center justify-center text-black/50 hover:text-black hover:bg-black/5 transition-colors"
+                  >
+                    <X size={16} />
+                  </button>
+                  
+                  <h3 className="text-2xl font-bold text-[#1d1d1f] mb-2 tracking-tight pr-10">Let's build something.</h3>
+                  
+                  <div className="flex flex-col gap-4">
+                    <div className="relative">
+                      <input 
+                        type="text" 
+                        required
+                        className="w-full bg-[#f5f5f7] border border-transparent rounded-2xl px-5 py-4 text-sm font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:bg-white focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
+                        placeholder="Your Name"
+                      />
+                    </div>
 
-                <div className="relative">
-                  <input 
-                    type="email" 
-                    id="email-mobile"
-                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
-                    placeholder="Email Address"
-                  />
-                </div>
+                    <div className="relative">
+                      <input 
+                        type="email" 
+                        required
+                        className="w-full bg-[#f5f5f7] border border-transparent rounded-2xl px-5 py-4 text-sm font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:bg-white focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
+                        placeholder="Email Address"
+                      />
+                    </div>
 
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="company-mobile"
-                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
-                    placeholder="Company (Optional)"
-                  />
-                </div>
+                    <div className="relative">
+                      <textarea 
+                        required
+                        rows={3}
+                        className="w-full bg-[#f5f5f7] border border-transparent rounded-2xl px-5 py-4 text-sm font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:bg-white focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all resize-none"
+                        placeholder="Tell us about your project..."
+                      />
+                    </div>
+                  </div>
 
-                <div className="relative">
-                  <textarea 
-                    id="message-mobile"
-                    required
-                    rows={4}
-                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all resize-none"
-                    placeholder="Tell us about your project..."
-                  />
-                </div>
-              </div>
-
-              <button className="w-full mt-2 px-8 py-5 bg-[#007AFF] text-white font-bold text-base rounded-2xl active:scale-[0.98] transition-transform shadow-[0_10px_20px_rgba(0,122,255,0.2)] flex items-center justify-center gap-3">
-                Submit Inquiry <ArrowRight className="w-5 h-5" />
-              </button>
-            </motion.form>
+                  <motion.button 
+                    whileTap={{ scale: 0.95 }}
+                    type="submit"
+                    className="w-full mt-2 px-8 py-4 bg-[#007AFF] text-white font-bold text-sm rounded-2xl shadow-[0_10px_20px_rgba(0,122,255,0.2)] flex items-center justify-center gap-3"
+                  >
+                    Send Message <ArrowRight className="w-4 h-4" />
+                  </motion.button>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </div>
 
         </div>
