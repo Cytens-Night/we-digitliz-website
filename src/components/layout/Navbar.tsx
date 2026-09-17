@@ -82,18 +82,17 @@ export default function Navbar() {
           </div>
 
           {/* CTA */}
-          <div className="mt-4 w-full px-1">
+          <div className="mt-auto w-full pt-4">
             <Link
               href="/#contact"
-              className="flex items-center gap-4 px-2 py-2.5 rounded-2xl bg-primary hover:bg-primary/90 text-[#1d1d1f] transition-colors w-full overflow-hidden relative group/btn"
+              className="relative flex items-center gap-4 px-2 py-2.5 rounded-2xl transition-colors duration-300 w-full bg-white/5 hover:bg-white/15 border border-white/10 group/btn"
             >
-              <div className="w-6 h-6 shrink-0 flex items-center justify-center">
-                <Mail size={16} className="text-[#1d1d1f]" />
+              <div className="w-6 h-6 shrink-0 flex items-center justify-center relative z-10">
+                <Mail size={16} className="text-white" />
               </div>
-              <span className="text-xs font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
+              <span className="text-xs font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10 text-white">
                 Contact Us
               </span>
-              <motion.div className="absolute inset-0 bg-white/20 -translate-x-full group-hover/btn:animate-[shimmer_1.5s_infinite]" />
             </Link>
           </div>
         </div>
