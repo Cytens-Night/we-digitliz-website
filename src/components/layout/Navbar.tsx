@@ -85,7 +85,7 @@ export default function Navbar() {
           <div className="mt-auto w-full pt-4">
             <Link
               href="/#contact"
-              className="relative flex items-center gap-4 px-2 py-2.5 rounded-2xl transition-colors duration-300 w-full bg-white/5 hover:bg-white/15 border border-white/10 group/btn"
+              className="relative flex items-center gap-4 px-2 py-2.5 rounded-2xl transition-colors duration-300 w-full hover:bg-white/10 group/btn"
             >
               <div className="w-6 h-6 shrink-0 flex items-center justify-center relative z-10">
                 <Mail size={16} className="text-white" />
