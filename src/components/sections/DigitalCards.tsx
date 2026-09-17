@@ -80,8 +80,10 @@ export default function DigitalCards() {
            </div>
         </div>
 
-        {/* Minimalist Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        {/* ==============================================
+            DESKTOP LAYOUT (Animated Grid)
+            ============================================== */}
+        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
            {CLIENTS.map((client, index) => (
              <motion.div 
                key={client.id}
@@ -91,10 +93,8 @@ export default function DigitalCards() {
                transition={{ duration: 0.6, delay: index * 0.1 }}
                className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-8 hover:border-white/30 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
              >
-                {/* Dynamic Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-40 group-hover:opacity-60 transition-opacity duration-700`} />
                 
-                {/* Top Right Actions */}
                 <div className="absolute top-8 right-8 flex gap-3">
                   <a 
                     href={client.url} 
@@ -106,7 +106,6 @@ export default function DigitalCards() {
                   </a>
                 </div>
 
-                {/* Content */}
                 <div className="relative z-10 w-full flex flex-col items-start">
                    <div className="mb-4 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-white/70">
                      {client.year}
@@ -129,6 +128,53 @@ export default function DigitalCards() {
                 </div>
 
              </motion.div>
+           ))}
+        </div>
+
+        {/* ==============================================
+            MOBILE LAYOUT (Native App Horizontal Carousel)
+            ============================================== */}
+        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory hide-scrollbars -mx-6 px-6 gap-4 pb-8">
+           {CLIENTS.map((client) => (
+             <div 
+               key={client.id}
+               className="relative h-[380px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-6 active:scale-95 transition-transform shadow-2xl"
+             >
+                <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-50`} />
+                
+                <div className="absolute top-6 right-6 flex gap-3">
+                  <a 
+                    href={client.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20"
+                  >
+                    <ExternalLink size={16} />
+                  </a>
+                </div>
+
+                <div className="relative z-10 w-full flex flex-col items-start">
+                   <div className="mb-3 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-widest uppercase text-white/70">
+                     {client.year}
+                   </div>
+                   
+                   <h3 className="text-2xl font-display font-bold text-white mb-1 tracking-tight">
+                     {client.name}
+                   </h3>
+                   
+                   <p className="text-white/60 text-xs font-medium tracking-wide mb-5">
+                     {client.type}
+                   </p>
+                   
+                   <button 
+                     onClick={() => setActivePreview(client)}
+                     className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase w-full shadow-[0_0_20px_rgba(255,255,255,0.2)]"
+                   >
+                     <Eye size={14} /> Live Preview
+                   </button>
+                </div>
+
+             </div>
            ))}
         </div>
 

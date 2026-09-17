@@ -152,11 +152,11 @@ export default function Navbar() {
       </nav>
 
       {/* =========================================
-          NATIVE APP BOTTOM NAVIGATION (Fiverr Style)
+          NATIVE APP BOTTOM NAVIGATION (Fiverr Style - Scrollable)
           ========================================= */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 w-full z-50 bg-[#161a22] border-t border-white/5 pb-[env(safe-area-inset-bottom,16px)]">
-         <div className="flex items-center justify-around w-full h-16 px-2">
-           {navLinks.slice(0, 5).map((link) => {
+         <div className="flex items-center overflow-x-auto hide-scrollbars w-full h-16 px-2 snap-x">
+           {navLinks.map((link) => {
              const isActive = activeTab === link.name;
              const Icon = link.icon;
              
@@ -165,14 +165,14 @@ export default function Navbar() {
                  key={link.name} 
                  href={link.href}
                  onClick={() => setActiveTab(link.name)}
-                 className={`flex-1 flex flex-col items-center justify-center h-full gap-1 transition-colors duration-200 active:scale-95 ${isActive ? 'text-primary' : 'text-[#8a8d91] hover:text-white'}`}
+                 className={`shrink-0 w-[20vw] min-w-[72px] snap-center flex flex-col items-center justify-center h-full gap-1 transition-colors duration-200 active:scale-95 ${isActive ? 'text-primary' : 'text-[#8a8d91] hover:text-white'}`}
                >
                  <Icon 
                    size={22} 
                    strokeWidth={isActive ? 2.5 : 2} 
                    className={`transition-all duration-300 ${isActive ? 'scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]' : 'scale-100'}`} 
                  />
-                 <span className={`text-[10px] font-medium tracking-wide transition-all duration-300 ${isActive ? 'opacity-100 font-bold' : 'opacity-80'}`}>
+                 <span className={`text-[10px] font-medium tracking-wide transition-all duration-300 whitespace-nowrap ${isActive ? 'opacity-100 font-bold' : 'opacity-80'}`}>
                    {link.name}
                  </span>
                </Link>
