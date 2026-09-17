@@ -30,15 +30,27 @@ export default function Contact() {
           </motion.h2>
         </div>
 
-        {/* Mobile Static Header */}
+        {/* Mobile Animated Header */}
         <div className="md:hidden mb-16">
-          <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#3c3c43] mb-6 flex items-center gap-4">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6 }}
+            className="text-[10px] font-bold tracking-[0.3em] uppercase text-[#3c3c43] mb-6 flex items-center gap-4"
+          >
             <div className="w-8 h-px bg-black/20" />
             Initiate Project
-          </div>
-          <h2 className="text-5xl font-display font-bold text-[#1d1d1f] leading-[0.9] tracking-tight">
+          </motion.div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-5xl font-display font-bold text-[#1d1d1f] leading-[0.9] tracking-tight"
+          >
             LET'S <br /> COLLABORATE.
-          </h2>
+          </motion.h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
@@ -150,9 +162,13 @@ export default function Contact() {
             </motion.form>
           </div>
 
-          {/* Form Column - Static for Mobile */}
+          {/* Form Column - Animated for Mobile */}
           <div className="md:hidden lg:col-span-8 order-1 lg:order-2">
-            <form 
+            <motion.form 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               className="space-y-12" 
               onSubmit={(e) => e.preventDefault()}
             >
@@ -211,7 +227,7 @@ export default function Contact() {
                 Submit Inquiry
                 <div className="w-8 h-px bg-white group-hover:w-12 transition-all" />
               </button>
-            </form>
+            </motion.form>
           </div>
 
         </div>

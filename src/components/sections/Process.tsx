@@ -139,7 +139,14 @@ export default function Process() {
             ============================================== */}
         <div className="flex md:hidden flex-col gap-4 px-2 pb-12">
           {steps.map((step, index) => (
-             <div key={index} className="bg-[#1c1c1e] rounded-2xl p-6 flex flex-col gap-2 border border-white/5 active:scale-[0.98] transition-transform shadow-lg relative overflow-hidden">
+             <motion.div 
+               key={index} 
+               initial={{ opacity: 0, y: 30, scale: 0.95 }}
+               whileInView={{ opacity: 1, y: 0, scale: 1 }}
+               viewport={{ once: true, margin: "-10%" }}
+               transition={{ type: "spring", stiffness: 100, damping: 20, delay: index * 0.1 }}
+               className="bg-[#1c1c1e] rounded-2xl p-6 flex flex-col gap-2 border border-white/5 active:scale-[0.98] transition-transform shadow-lg relative overflow-hidden"
+             >
                {/* Subtle background number watermark */}
                <div className="absolute -right-4 -bottom-8 font-display font-bold text-8xl text-white/[0.03] pointer-events-none">
                  {step.num}
@@ -154,7 +161,7 @@ export default function Process() {
                <p className="text-[#98989f] text-sm leading-relaxed relative z-10">
                  {step.desc}
                </p>
-             </div>
+             </motion.div>
           ))}
         </div>
       </div>

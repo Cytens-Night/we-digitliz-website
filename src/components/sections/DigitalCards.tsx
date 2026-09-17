@@ -135,9 +135,13 @@ export default function DigitalCards() {
             MOBILE LAYOUT (Native App Horizontal Carousel)
             ============================================== */}
         <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory hide-scrollbars -mx-6 px-6 gap-4 pb-8">
-           {CLIENTS.map((client) => (
-             <div 
+           {CLIENTS.map((client, index) => (
+             <motion.div 
                key={client.id}
+               initial={{ opacity: 0, scale: 0.95 }}
+               whileInView={{ opacity: 1, scale: 1 }}
+               viewport={{ once: true, margin: "-10%" }}
+               transition={{ duration: 0.5, delay: index * 0.1 }}
                className="relative h-[380px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-6 active:scale-95 transition-transform shadow-2xl"
              >
                 <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-50`} />
@@ -174,7 +178,7 @@ export default function DigitalCards() {
                    </button>
                 </div>
 
-             </div>
+             </motion.div>
            ))}
         </div>
 

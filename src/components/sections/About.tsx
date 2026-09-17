@@ -271,7 +271,13 @@ export default function About() {
       <div className="lg:hidden flex flex-col px-6 py-16 gap-16 relative z-10">
         
         {/* Slide 1: Introduction */}
-        <div className="flex flex-col">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-white/60 text-[10px] font-bold mb-6 border border-white/10 uppercase tracking-widest w-max">
             About The Agency
           </div>
@@ -280,17 +286,29 @@ export default function About() {
             <span className="block">We don't build</span>
             <span className="relative inline-block mt-1">
               <span className="text-white/20">websites.</span>
-              <div className="absolute top-1/2 left-[-5%] right-[-5%] h-[4px] bg-[#1d1d1f] -translate-y-1/2 rotate-[-2deg]" />
+              <motion.div 
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5, ease: "circOut" }}
+                className="absolute top-1/2 left-[-5%] right-[-5%] h-[4px] bg-[#1d1d1f] origin-left -translate-y-1/2 rotate-[-2deg]" 
+              />
             </span>
           </h3>
           
           <p className="text-lg text-white max-w-sm leading-relaxed font-medium">
             We engineer entire <span className="font-bold underline decoration-2 underline-offset-4">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.
           </p>
-        </div>
+        </motion.div>
 
         {/* Slide 2: Bespoke Architecture */}
-        <div className="flex flex-col">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col"
+        >
           <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/20">
             <Cpu size={24} className="text-white" />
           </div>
@@ -302,18 +320,24 @@ export default function About() {
           </p>
           <div className="w-full h-48 bg-[#0a0a0a] rounded-3xl border border-white/5 overflow-hidden flex items-center justify-center relative">
              <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#1d1d1f_1px,transparent_1px),linear-gradient(to_bottom,#1d1d1f_1px,transparent_1px)] bg-[size:1rem_1rem]" />
-             <div className="absolute w-[80%] aspect-square border border-white/10 rounded-full border-dashed" />
-             <div className="absolute w-[50%] aspect-square border border-black/15 rounded-full" />
-             <div className="relative w-12 h-12 bg-[#0a0a0a] rounded-lg border border-white/20 flex items-center justify-center rotate-45 z-10">
+             <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-white/10 rounded-full border-dashed" />
+             <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/15 rounded-full" />
+             <div className="relative w-12 h-12 bg-[#0a0a0a] rounded-lg border border-white/20 flex items-center justify-center rotate-45 z-10 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                <div className="w-4 h-4 bg-[#1d1d1f] rounded-md -rotate-45 flex items-center justify-center">
-                 <div className="w-1 h-1 bg-white rounded-full" />
+                 <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
                </div>
              </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Slide 3: Rapid Execution */}
-        <div className="flex flex-col">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col"
+        >
           <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/20">
             <Code2 size={24} className="text-white" />
           </div>
@@ -323,10 +347,16 @@ export default function About() {
           <p className="text-base text-white/60 leading-relaxed mb-6">
             Time is money. Our agile methodologies and proprietary codebase allow us to execute complex SaaS builds and enterprise sites in a fraction of the traditional timeline.
           </p>
-        </div>
+        </motion.div>
 
         {/* Slide 4: Data Driven */}
-        <div className="flex flex-col">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col"
+        >
           <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/20">
             <Network size={24} className="text-white/80" />
           </div>
@@ -336,7 +366,7 @@ export default function About() {
           <p className="text-base text-white/60 leading-relaxed">
             We don't guess. We integrate deep analytics and telemetry into every platform, ensuring every design and engineering decision is backed by cold, hard data.
           </p>
-        </div>
+        </motion.div>
 
       </div>
     </section>
