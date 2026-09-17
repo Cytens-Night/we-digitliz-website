@@ -121,10 +121,12 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    -webkit-tap-highlight-color: transparent;
   }
   body {
     @apply bg-[#f5f5f7] text-foreground antialiased selection:bg-primary/30 selection:text-[#1d1d1f];
     overflow-x: clip;
+    overscroll-behavior-y: none; /* Prevents rubber-banding on whole page */
   }
   html {
     @apply font-sans scroll-smooth;
@@ -133,6 +135,10 @@
     scrollbar-width: none;
   }
   html::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbars globally on all scrollable containers */
+  *::-webkit-scrollbar {
     display: none;
   }
 }

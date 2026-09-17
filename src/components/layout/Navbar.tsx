@@ -99,10 +99,10 @@ export default function Navbar() {
       </nav>
 
       {/* =========================================
-          MOBILE BOTTOM APP DOCK (Mobile Only)
+          MOBILE NATIVE TAB BAR (Mobile Only)
           ========================================= */}
-      <div className="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm z-50">
-         <div className="bg-[#1d1d1f]/90 backdrop-blur-2xl border border-white/10 p-2 rounded-[2rem] shadow-[0_20px_40px_rgba(0,0,0,0.5)] flex items-center justify-between">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 w-full z-50 bg-[#1d1d1f]/85 backdrop-blur-3xl border-t border-white/10 pb-[env(safe-area-inset-bottom,20px)] pt-2 px-6 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
+         <div className="flex items-center justify-between max-w-md mx-auto">
            {navLinks.slice(0, 4).map((link) => {
              const isActive = activeTab === link.name;
              const Icon = link.icon;
@@ -112,17 +112,20 @@ export default function Navbar() {
                  key={link.name} 
                  href={link.href}
                  onClick={() => setActiveTab(link.name)}
-                 className={`relative flex flex-col items-center justify-center w-full py-2 gap-1 rounded-2xl transition-colors duration-300 ${isActive ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+                 className={`relative flex flex-col items-center justify-center w-16 py-1 gap-1 transition-all duration-300 active:scale-90 ${isActive ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
                >
+                 <Icon size={22} strokeWidth={isActive ? 2.5 : 2} className="relative z-10 transition-all duration-300" />
+                 <span className={`text-[10px] font-bold tracking-wider relative z-10 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0 translate-y-1'}`}>
+                   {link.name}
+                 </span>
+                 {/* Active Indicator Dot */}
                  {isActive && (
                    <motion.div 
-                     layoutId="mobile-dock-active"
-                     className="absolute inset-0 bg-white/10 rounded-2xl pointer-events-none"
-                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                     layoutId="mobile-dock-dot"
+                     className="absolute -top-1 w-1 h-1 bg-primary rounded-full shadow-[0_0_8px_#ff2d55]"
+                     transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
                    />
                  )}
-                 <Icon size={20} className="relative z-10" />
-                 <span className="text-[10px] font-bold tracking-wider relative z-10">{link.name}</span>
                </Link>
              )
            })}

@@ -67,7 +67,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#f5f5f7]">
+    <section className="relative w-full h-[100dvh] md:h-auto md:min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#f5f5f7]">
       
       {/* Clean Ambient Background */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
@@ -132,7 +132,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-wrap justify-center gap-3 sm:gap-4 mb-16 w-full max-w-4xl"
+          className="flex md:flex-wrap md:justify-center overflow-x-auto md:overflow-visible snap-x snap-mandatory gap-3 sm:gap-4 mb-10 md:mb-16 w-[100vw] md:w-full max-w-4xl px-6 md:px-0"
         >
           {services.map((service, i) => (
             <motion.div 
@@ -140,14 +140,14 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-              className="flex items-center gap-3 sm:gap-4 bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md hover:scale-[1.03] transition-all cursor-default w-[calc(50%-0.5rem)] sm:w-auto"
+              className="flex items-center gap-3 sm:gap-4 bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-4 shadow-sm hover:shadow-md active:scale-95 md:active:scale-100 hover:scale-[1.03] transition-all cursor-default min-w-[75vw] sm:min-w-[300px] md:min-w-0 md:w-auto snap-center shrink-0"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border border-black/5 shrink-0 shadow-inner">
-                <service.icon size={18} className="text-[#1d1d1f] sm:w-5 sm:h-5" />
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border border-black/5 shrink-0 shadow-inner">
+                <service.icon size={20} className="text-[#1d1d1f]" />
               </div>
-              <div className="text-left pr-2 sm:pr-4">
+              <div className="text-left pr-4">
                 <div className="text-sm font-bold text-[#1d1d1f] tracking-tight">{service.label}</div>
-                <div className="text-[10px] sm:text-xs text-[#3c3c43] hidden sm:block">{service.desc}</div>
+                <div className="text-xs text-[#3c3c43]">{service.desc}</div>
               </div>
             </motion.div>
           ))}
