@@ -59,7 +59,7 @@ export default function ProjectsPage() {
     <div className="bg-[#f5f5f7] lg:bg-[#0a0a0a] min-h-screen text-[#1d1d1f] lg:text-white transition-colors duration-500 selection:bg-[#ff7a00] lg:selection:bg-white selection:text-white lg:selection:text-black">
       <Navbar />
       
-      <main className="pt-32 md:pt-40 pb-16 md:pb-32 overflow-hidden">
+      <main className="pt-32 md:pt-40 pb-16 md:pb-32 overflow-x-clip">
         {/* Header - Adaptive for Mobile (Light) & Desktop (Dark) */}
         <section className="max-w-[1400px] mx-auto px-6 mb-16 md:mb-40 relative">
           {/* Desktop glow */}
