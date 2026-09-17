@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Briefcase, CreditCard, Folder, LayoutGrid, GitMerge, Mail, X, Menu } from "lucide-react";
+import { Home, Briefcase, CreditCard, Folder, LayoutGrid, GitMerge, Mail, X, Menu, Instagram } from "lucide-react";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -163,23 +163,60 @@ export default function Navbar() {
       </nav>
 
       {/* =========================================
-          MOBILE FLOATING LOGO BUTTON
+          MOBILE BOTTOM GLASS DOCK
           ========================================= */}
-      <div className="md:hidden fixed top-6 right-6 z-[60]">
-        <button 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="w-12 h-12 rounded-full bg-white/80 backdrop-blur-xl border border-black/10 shadow-[0_8px_32px_rgba(0,0,0,0.12)] flex items-center justify-center text-black active:scale-95 transition-transform"
-        >
-          {isMobileMenuOpen ? (
-             <X size={20} />
-          ) : (
-             <Logo className="w-6 h-6 text-black" />
-          )}
-        </button>
+      <div className="md:hidden fixed bottom-6 left-4 right-4 z-[60] flex justify-center">
+        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-[320px] w-full relative">
+          
+          {/* Main Logo Button (Triggers unique side menu) */}
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white active:scale-90 transition-transform relative"
+          >
+            <AnimatePresence mode="wait">
+              {isMobileMenuOpen ? (
+                 <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }}>
+                   <X size={18} />
+                 </motion.div>
+              ) : (
+                 <motion.div key="logo" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }}>
+                   <Logo className="w-5 h-5 text-white" />
+                 </motion.div>
+              )}
+            </AnimatePresence>
+          </button>
+
+          {/* Quick Links */}
+          <div className="flex items-center gap-6">
+            <Link 
+              href="/projects" 
+              onClick={() => setActiveTab("Projects")}
+              className={`flex flex-col items-center gap-1 transition-all ${activeTab === "Projects" ? "text-white" : "text-white/50 hover:text-white"}`}
+            >
+              <Folder size={20} />
+            </Link>
+            
+            <a 
+              href="https://instagram.com" 
+              target="_blank" 
+              rel="noreferrer"
+              className="flex flex-col items-center gap-1 text-white/50 hover:text-white transition-all"
+            >
+              <Instagram size={20} />
+            </a>
+
+            <Link 
+              href="/#contact"
+              className="flex flex-col items-center gap-1 text-white/50 hover:text-white transition-all"
+            >
+              <Mail size={20} />
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* =========================================
-          MOBILE SIDE MENU (Drawer)
+          UNIQUE MOBILE SIDE MENU (Drawer with staggered animation)
           ========================================= */}
       <AnimatePresence>
         {isMobileMenuOpen && (
@@ -190,49 +227,69 @@ export default function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              className="md:hidden fixed inset-0 z-[50] bg-black/60 backdrop-blur-sm"
+              className="md:hidden fixed inset-0 z-[50] bg-black/40 backdrop-blur-md"
             />
             
-            {/* Side Menu */}
+            {/* Side Menu Panel */}
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="md:hidden fixed top-0 right-0 bottom-0 w-[80vw] max-w-sm bg-white z-[55] shadow-[-20px_0_40px_rgba(0,0,0,0.1)] flex flex-col p-8 pt-24"
+              initial={{ x: "-100%", borderTopRightRadius: "50%", borderBottomRightRadius: "50%" }}
+              animate={{ x: 0, borderTopRightRadius: "0%", borderBottomRightRadius: "0%" }}
+              exit={{ x: "-100%", borderTopRightRadius: "50%", borderBottomRightRadius: "50%" }}
+              transition={{ type: "spring", damping: 22, stiffness: 150 }}
+              className="md:hidden fixed top-0 left-0 bottom-0 w-[75vw] max-w-sm bg-[#0a0a0a] border-r border-white/10 z-[55] shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col p-8 pt-24 overflow-hidden"
             >
-              <div className="flex flex-col gap-6">
-                {navLinks.map((link) => {
+              {/* Background Glow */}
+              <div className="absolute top-0 left-0 w-full h-64 bg-[#007AFF]/20 blur-[100px] pointer-events-none" />
+
+              <div className="flex flex-col gap-2 relative z-10">
+                {navLinks.map((link, index) => {
                   const isActive = activeTab === link.name;
                   const Icon = link.icon;
                   
                   return (
-                    <Link
+                    <motion.div
                       key={link.name}
-                      href={link.href}
-                      onClick={() => {
-                        setActiveTab(link.name);
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className={`flex items-center gap-4 py-3 border-b border-black/5 transition-colors ${isActive ? 'text-primary font-bold' : 'text-black/70 hover:text-black'}`}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ delay: 0.1 + index * 0.05, duration: 0.3 }}
                     >
-                      <Icon size={20} className={isActive ? 'text-primary' : 'text-black/50'} />
-                      <span className="text-lg tracking-tight">{link.name}</span>
-                    </Link>
+                      <Link
+                        href={link.href}
+                        onClick={() => {
+                          setActiveTab(link.name);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className={`group flex items-center gap-4 py-4 px-4 rounded-2xl transition-all ${isActive ? 'bg-white/10' : 'hover:bg-white/5'}`}
+                      >
+                        <div className={`p-2 rounded-full ${isActive ? 'bg-[#007AFF] text-white' : 'bg-white/5 text-white/50 group-hover:text-white group-hover:bg-white/10'}`}>
+                          <Icon size={18} />
+                        </div>
+                        <span className={`text-xl tracking-tight font-display font-bold ${isActive ? 'text-white' : 'text-white/60 group-hover:text-white'}`}>
+                          {link.name}
+                        </span>
+                      </Link>
+                    </motion.div>
                   );
                 })}
               </div>
 
-              <div className="mt-auto pt-8">
+              <motion.div 
+                className="mt-auto pt-8 relative z-10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ delay: 0.4 }}
+              >
                 <Link
                   href="/#contact"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-2 w-full py-4 rounded-2xl bg-black text-white font-bold tracking-wide active:scale-95 transition-transform"
+                  className="flex items-center justify-center gap-3 w-full py-5 rounded-2xl bg-[#007AFF] text-white font-bold tracking-widest uppercase text-xs active:scale-95 transition-transform shadow-[0_0_20px_rgba(0,122,255,0.4)]"
                 >
-                  <Mail size={18} />
-                  Get in Touch
+                  <Mail size={16} />
+                  Initiate Project
                 </Link>
-              </div>
+              </motion.div>
             </motion.div>
           </>
         )}

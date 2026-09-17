@@ -56,21 +56,20 @@ const PROJECTS = [
 
 export default function ProjectsPage() {
   return (
-    <div className="bg-[#f5f5f7] lg:bg-[#0a0a0a] min-h-screen text-[#1d1d1f] lg:text-white transition-colors duration-500 selection:bg-[#ff7a00] lg:selection:bg-white selection:text-white lg:selection:text-black">
+    <div className="bg-[#0a0a0a] min-h-screen text-white selection:bg-white selection:text-black">
       <Navbar />
       
       <main className="pt-32 md:pt-40 pb-16 md:pb-32 overflow-x-clip">
-        {/* Header - Adaptive for Mobile (Light) & Desktop (Dark) */}
+        {/* Massive Brutalist Header */}
         <section className="max-w-[1400px] mx-auto px-6 mb-16 md:mb-40 relative">
-          {/* Desktop glow */}
-          <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
           
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[10px] font-bold tracking-[0.3em] uppercase text-black/50 lg:text-white/50 mb-8 flex items-center gap-4"
+            className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/50 mb-8 flex items-center gap-4"
           >
-            <div className="w-12 h-px bg-black/20 lg:bg-white/20" />
+            <div className="w-12 h-px bg-white/20" />
             The Archive
           </motion.div>
           
@@ -87,48 +86,48 @@ export default function ProjectsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="mt-8 md:mt-16 text-xl md:text-2xl text-[#8a8d91] lg:text-white/60 max-w-2xl font-medium leading-relaxed"
+            className="mt-8 md:mt-16 text-xl md:text-2xl text-white/60 max-w-2xl font-medium leading-relaxed"
           >
             A curated selection of digital ecosystems, high-performance platforms, and cutting-edge architectures engineered by our team. Live and functional.
           </motion.p>
         </section>
 
         {/* ==============================================
-            DESKTOP LAYOUT (Dark Cinematic 3D Iframes)
+            UNIFIED LAYOUT (Live 3D Iframes - Optimized for Mobile & Desktop)
             ============================================== */}
-        <section className="hidden lg:flex px-12 max-w-[1800px] mx-auto flex-col gap-64">
+        <section className="px-6 md:px-12 max-w-[1800px] mx-auto flex flex-col gap-32 md:gap-64">
           {PROJECTS.map((project, index) => {
              const isEven = index % 2 === 0;
              const isMobile = project.device === 'mobile';
              
              return (
-               <div key={project.id} className={`flex ${isEven ? 'flex-row' : 'flex-row-reverse'} gap-24 items-center group`}>
+               <div key={project.id} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center group`}>
                  
                  {/* Text Content */}
-                 <div className="w-5/12">
+                 <div className="w-full lg:w-5/12 order-2 lg:order-none z-20 relative">
                    <motion.div 
-                     initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                     whileInView={{ opacity: 1, x: 0 }}
-                     viewport={{ once: true, margin: "-20%" }}
+                     initial={{ opacity: 0, y: 30 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true, margin: "-10%" }}
                      transition={{ duration: 0.8, ease: "easeOut" }}
                    >
                      <div className="flex items-center gap-4 mb-6">
-                       <span className="text-white/30 font-mono text-2xl font-bold">0{index + 1}</span>
+                       <span className="text-[#007AFF] font-mono text-xl md:text-2xl font-bold">0{index + 1}</span>
                        <div className="h-px w-16 bg-white/20" />
-                       <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 border border-white/10 px-3 py-1 rounded-full">
+                       <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/80 border border-[#007AFF]/30 bg-[#007AFF]/10 px-3 py-1 rounded-full">
                          {project.year}
                        </span>
                      </div>
                      
-                     <h3 className="text-6xl font-display font-bold mb-4 tracking-tight">
+                     <h3 className="text-4xl md:text-6xl font-display font-bold mb-2 md:mb-4 tracking-tight">
                        {project.name}
                      </h3>
                      
-                     <p className="text-sm font-bold tracking-[0.2em] uppercase text-white/40 mb-8">
+                     <p className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-[#007AFF] mb-6 md:mb-8">
                        {project.type}
                      </p>
                      
-                     <p className="text-white/70 text-xl max-w-md leading-relaxed mb-10">
+                     <p className="text-white/70 text-lg md:text-xl max-w-md leading-relaxed mb-8 md:mb-10">
                        {project.desc}
                      </p>
 
@@ -136,60 +135,77 @@ export default function ProjectsPage() {
                        href={project.url} 
                        target="_blank" 
                        rel="noreferrer"
-                       className="inline-flex items-center gap-4 text-white font-bold uppercase tracking-widest text-xs border-b border-white pb-2 hover:gap-6 transition-all"
+                       className="inline-flex items-center justify-center lg:justify-start gap-4 text-white font-bold uppercase tracking-widest text-xs border border-[#007AFF] bg-[#007AFF]/10 hover:bg-[#007AFF] px-8 py-4 rounded-full transition-all w-full lg:w-auto"
                      >
                        Explore Live Environment <ArrowUpRight size={16} />
                      </a>
                    </motion.div>
                  </div>
 
-                 {/* Visual Mockup */}
-                 <div className="w-7/12 flex justify-center">
+                 {/* Visual Mockup (Iframes scaled for mobile) */}
+                 <div className="w-full lg:w-7/12 flex justify-center order-1 lg:order-none pointer-events-none relative z-10">
                    <motion.div
-                     initial={{ opacity: 0, y: 100, scale: 0.95 }}
-                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                     initial={{ opacity: 0, scale: 0.9 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
                      viewport={{ once: true, margin: "-10%" }}
                      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                     className="w-full relative"
+                     className="w-full relative flex justify-center"
                    >
                      {isMobile ? (
-                       <div className="relative w-full max-w-[400px] aspect-[1/2] mx-auto perspective-[2000px]">
-                         <div className="absolute inset-0 bg-white/5 blur-[100px] rounded-full" />
+                       // Mobile Isometric Presentation
+                       <div className="relative w-full max-w-[280px] md:max-w-[400px] aspect-[1/2] perspective-[2000px] scale-90 md:scale-100">
+                         <div className="absolute inset-0 bg-[#007AFF]/20 blur-[60px] md:blur-[100px] rounded-full" />
                          <motion.div 
                            whileHover={{ rotateY: 0, rotateX: 0, scale: 1.05 }}
                            transition={{ duration: 0.6, ease: "easeOut" }}
-                           className="relative w-full h-full bg-[#111] rounded-[3.5rem] p-4 shadow-[0_0_0_2px_#333,0_0_0_8px_#111,0_40px_80px_rgba(0,0,0,0.8)] border border-[#222] rotate-y-[-15deg] rotate-x-[5deg] origin-center cursor-pointer transform-style-3d group-hover:rotate-y-[-5deg]"
+                           className="relative w-full h-full bg-[#111] rounded-[2.5rem] md:rounded-[3.5rem] p-3 md:p-4 shadow-[0_0_0_2px_#333,0_0_0_8px_#111,0_20px_40px_rgba(0,0,0,0.8)] border border-[#222] rotate-y-[-10deg] md:rotate-y-[-15deg] rotate-x-[5deg] origin-center transform-style-3d lg:group-hover:rotate-y-[-5deg]"
                          >
-                           <div className="absolute top-5 left-1/2 -translate-x-1/2 w-32 h-9 bg-black rounded-full z-20" />
-                           <div className="absolute inset-0 bg-white/5 rounded-[3.5rem] pointer-events-none z-30" />
-                           <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden bg-[#161a22]">
-                              <iframe src={project.url} title={project.name} className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none" />
+                           {/* Hardware */}
+                           <div className="absolute top-4 md:top-5 left-1/2 -translate-x-1/2 w-24 md:w-32 h-6 md:h-9 bg-black rounded-full z-20" />
+                           <div className="absolute inset-0 bg-white/5 rounded-[2.5rem] md:rounded-[3.5rem] pointer-events-none z-30" />
+                           
+                           {/* Screen */}
+                           <div className="relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-[#161a22]">
+                              <iframe 
+                                src={project.url} 
+                                title={project.name}
+                                className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none"
+                              />
                            </div>
-                           <a href={project.url} target="_blank" rel="noreferrer" className="absolute inset-0 z-40" />
                          </motion.div>
                        </div>
                      ) : (
-                       <div className="relative w-full max-w-[1000px] mx-auto perspective-[2000px]">
-                         <div className="absolute inset-0 bg-white/5 blur-[120px] rounded-full" />
+                       // Desktop Pro Presentation
+                       <div className="relative w-full max-w-[800px] md:max-w-[1000px] perspective-[2000px] scale-[0.6] sm:scale-[0.8] md:scale-100 mt-12 md:mt-0">
+                         <div className="absolute inset-0 bg-[#007AFF]/20 blur-[80px] md:blur-[120px] rounded-full" />
                          <motion.div 
                            whileHover={{ rotateY: 0, rotateX: 0, scale: 1.02 }}
                            transition={{ duration: 0.6, ease: "easeOut" }}
-                           className="relative w-full flex flex-col items-center rotate-y-[-5deg] rotate-x-[5deg] origin-center cursor-pointer transform-style-3d group-hover:rotate-y-[-2deg]"
+                           className="relative w-full flex flex-col items-center rotate-y-[-5deg] rotate-x-[5deg] origin-center transform-style-3d lg:group-hover:rotate-y-[-2deg]"
                          >
-                            <div className="relative w-full aspect-video bg-[#0a0a0a] rounded-t-2xl p-3 border-t border-l border-r border-[#333] shadow-[0_40px_80px_rgba(0,0,0,0.8)] z-10">
-                               <div className="absolute top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-[#222] rounded-full z-20" />
-                               <div className="relative w-full h-full rounded-lg overflow-hidden bg-[#161a22] border border-[#222]">
-                                  <iframe src={project.url} title={project.name} className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none" />
+                            {/* Screen */}
+                            <div className="relative w-full aspect-video bg-[#0a0a0a] rounded-t-xl md:rounded-t-2xl p-2 md:p-3 border-t border-l border-r border-[#333] shadow-[0_20px_40px_rgba(0,0,0,0.8)] z-10">
+                               <div className="absolute top-1 left-1/2 -translate-x-1/2 w-1 md:w-1.5 h-1 md:h-1.5 bg-[#222] rounded-full z-20" />
+                               
+                               <div className="relative w-full h-full rounded-md md:rounded-lg overflow-hidden bg-[#161a22] border border-[#222]">
+                                  <iframe 
+                                    src={project.url} 
+                                    title={project.name}
+                                    className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none scale-[0.8] md:scale-100 origin-top-left"
+                                    style={{ width: '125%', height: '125%' }} 
+                                  />
                                </div>
-                               <div className="absolute bottom-0 left-0 w-full h-6 bg-[#111] rounded-b-2xl border-b border-[#333]" />
+                               
+                               <div className="absolute bottom-0 left-0 w-full h-3 md:h-6 bg-[#111] rounded-b-xl md:rounded-b-2xl border-b border-[#333]" />
                             </div>
+
+                            {/* Stand */}
                             <div className="relative z-0">
-                              <div className="w-32 h-16 bg-[#222] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] border-x border-[#333]" />
-                              <div className="w-64 h-3 bg-[#222] rounded-t-md shadow-2xl relative">
-                                 <div className="absolute inset-x-0 bottom-0 h-1 bg-black rounded-b-md" />
+                              <div className="w-16 md:w-32 h-8 md:h-16 bg-[#222] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] border-x border-[#333]" />
+                              <div className="w-32 md:w-64 h-1.5 md:h-3 bg-[#222] rounded-t-sm md:rounded-t-md shadow-2xl relative">
+                                 <div className="absolute inset-x-0 bottom-0 h-0.5 md:h-1 bg-black rounded-b-sm md:rounded-b-md" />
                               </div>
                             </div>
-                            <a href={project.url} target="_blank" rel="noreferrer" className="absolute inset-0 z-40" />
                          </motion.div>
                        </div>
                      )}
@@ -200,103 +216,18 @@ export default function ProjectsPage() {
           })}
         </section>
 
-        {/* ==============================================
-            MOBILE LAYOUT (Light Mode, White Cards, Orange Gradients, Dark Buttons)
-            ============================================== */}
-        <section className="lg:hidden flex flex-col gap-6 px-6 max-w-lg mx-auto w-full pb-12">
-          {PROJECTS.map((project, index) => {
-             const isMobile = project.device === 'mobile';
-             
-             return (
-               <motion.div 
-                 key={project.id}
-                 initial={{ opacity: 0, y: 20 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true, margin: "-10%" }}
-                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                 className="w-full flex flex-col bg-white rounded-[2rem] border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.06)] overflow-hidden"
-               >
-                 {/* Top Half: Visual Showcase with Warm Gradient */}
-                 <div className="relative w-full aspect-[4/3] bg-gradient-to-br from-[#ff7a00]/10 to-[#ff4500]/5 flex items-center justify-center p-6 overflow-hidden">
-                   {/* Decorative Warm Blobs */}
-                   <div className="absolute top-0 right-0 w-48 h-48 bg-[#ff7a00]/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
-                   <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#ff4500]/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/4 pointer-events-none" />
-                   
-                   {/* 3D Iframe */}
-                   {isMobile ? (
-                     <div className="relative w-full max-w-[180px] aspect-[1/2] perspective-[2000px] z-10 scale-95 transform-origin-center shadow-2xl rounded-[1.5rem]">
-                       <div className="relative w-full h-full bg-[#111] rounded-[1.5rem] p-2 shadow-[0_0_0_1px_#333,0_10px_20px_rgba(0,0,0,0.2)] border border-[#222]">
-                         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-12 h-3 bg-black rounded-full z-20" />
-                         <div className="relative w-full h-full rounded-2xl overflow-hidden bg-[#161a22]">
-                            <iframe src={project.url} title={project.name} className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none" />
-                         </div>
-                       </div>
-                     </div>
-                   ) : (
-                     <div className="relative w-full max-w-[320px] perspective-[2000px] z-10 scale-95">
-                       <div className="relative w-full aspect-video bg-[#0a0a0a] rounded-t-xl p-1.5 border-t border-l border-r border-[#333] shadow-2xl z-10">
-                         <div className="relative w-full h-full rounded-md overflow-hidden bg-[#161a22] border border-[#222]">
-                            <iframe src={project.url} title={project.name} className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none" style={{ width: '150%', height: '150%', transform: 'scale(0.66)', transformOrigin: 'top left' }} />
-                         </div>
-                         <div className="absolute bottom-0 left-0 w-full h-2.5 bg-[#111] rounded-b-xl border-b border-[#333]" />
-                       </div>
-                       <div className="relative z-0 flex flex-col items-center">
-                         <div className="w-12 h-4 bg-[#222] shadow-[inset_0_0_10px_rgba(0,0,0,0.8)] border-x border-[#333]" />
-                         <div className="w-24 h-1 bg-[#222] rounded-t-sm shadow-2xl relative">
-                           <div className="absolute inset-x-0 bottom-0 h-0.5 bg-black rounded-b-sm" />
-                         </div>
-                       </div>
-                     </div>
-                   )}
-                 </div>
-
-                 {/* Bottom Half: Content */}
-                 <div className="p-6 md:p-8 flex flex-col">
-                   <div className="flex items-center justify-between mb-3">
-                     <h3 className="text-2xl font-display font-bold text-[#1d1d1f] tracking-tight">
-                       {project.name}
-                     </h3>
-                   </div>
-                   
-                   <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#ff7a00] mb-4">
-                     {project.type}
-                   </p>
-                   
-                   <p className="text-[#8a8d91] text-sm leading-relaxed mb-8 font-medium">
-                     {project.desc}
-                   </p>
-
-                   <div className="flex items-center justify-between mt-auto pt-4 border-t border-black/5">
-                     <span className="text-[10px] font-bold tracking-widest uppercase text-[#ff7a00] bg-[#ff7a00]/10 px-3 py-1.5 rounded-full">
-                       {project.year}
-                     </span>
-                     <a 
-                       href={project.url} 
-                       target="_blank" 
-                       rel="noreferrer"
-                       className="py-3 px-6 bg-[#1d1d1f] text-white font-bold text-xs tracking-widest uppercase rounded-full flex items-center justify-center shadow-[0_8px_16px_rgba(0,0,0,0.15)] active:scale-95 transition-transform"
-                     >
-                       Live Preview
-                     </a>
-                   </div>
-                 </div>
-               </motion.div>
-             );
-          })}
-        </section>
-
         {/* CTA Footer */}
-        <section className="max-w-[1400px] mx-auto px-6 mt-16 md:mt-64 relative z-10 pb-8">
-          <div className="py-16 md:py-32 border-t border-b border-black/10 lg:border-white/10 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 text-center md:text-left">
+        <section className="max-w-[1400px] mx-auto px-6 mt-32 md:mt-64 relative z-20">
+          <div className="py-20 md:py-32 border-t border-b border-white/10 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
             <div>
-              <h3 className="text-3xl md:text-6xl lg:text-7xl font-display font-bold text-[#1d1d1f] lg:text-white tracking-tight mb-4">
+              <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white tracking-tight mb-4">
                 Let's build your <br className="hidden md:block" /> next architecture.
               </h3>
-              <p className="text-[#ff7a00] lg:text-white/50 font-bold tracking-widest text-xs md:text-sm uppercase">Stop relying on templates. Go bespoke.</p>
+              <p className="text-[#007AFF] font-bold tracking-widest text-sm uppercase">Stop relying on templates. Go bespoke.</p>
             </div>
-            <Link href="/#contact" className="px-8 md:px-12 py-5 bg-[#1d1d1f] lg:bg-white text-white lg:text-black font-bold text-xs md:text-sm tracking-widest uppercase hover:scale-105 transition-all flex items-center justify-center gap-4 group shadow-xl lg:shadow-[0_0_40px_rgba(255,255,255,0.2)] rounded-full w-full md:w-auto">
+            <Link href="/#contact" className="px-12 py-6 bg-[#007AFF] text-white font-bold text-sm tracking-widest uppercase hover:bg-[#0056b3] hover:scale-105 transition-all flex items-center justify-center gap-4 group shadow-[0_0_40px_rgba(0,122,255,0.4)] rounded-full w-full md:w-auto">
               Initiate Project
-              <div className="w-8 h-8 rounded-full bg-white/20 lg:bg-black flex items-center justify-center text-white lg:text-white group-hover:rotate-45 transition-transform">
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#007AFF] group-hover:rotate-45 transition-transform">
                 <ArrowUpRight className="w-4 h-4" />
               </div>
             </Link>
