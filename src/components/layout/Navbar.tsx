@@ -9,8 +9,8 @@ import { usePathname } from "next/navigation";
 
 const navLinks = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Services", href: "/#services", icon: LayoutGrid },
   { name: "Industries", href: "/#industries", icon: Briefcase },
+  { name: "Services", href: "/#services", icon: LayoutGrid },
   { name: "Process", href: "/#process", icon: GitMerge },
   { name: "Investment", href: "/#pricing", icon: CreditCard },
   { name: "Projects", href: "/works", icon: Folder },
@@ -29,8 +29,8 @@ export default function Navbar() {
     }
 
     const sections = [
-      { id: "services", name: "Services" },
       { id: "industries", name: "Industries" },
+      { id: "services", name: "Services" },
       { id: "process", name: "Process" },
       { id: "pricing", name: "Investment" },
     ];
