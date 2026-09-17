@@ -256,8 +256,6 @@ export default function About() {
                      <motion.circle cx="40" cy="20" r="1.5" fill="#ffffff" stroke="#1d1d1f" strokeWidth="0.5" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, repeat: Infinity }} />
                      <motion.circle cx="70" cy="25" r="1.5" fill="#ffffff" stroke="#1d1d1f" strokeWidth="0.5" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, delay: 0.5, repeat: Infinity }} />
                      <motion.circle cx="100" cy="5" r="2" fill="#1d1d1f" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, delay: 1, repeat: Infinity }} />
-
-                     </defs>
                    </svg>
                  </div>
               </div>
