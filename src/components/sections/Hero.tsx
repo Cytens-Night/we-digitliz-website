@@ -132,7 +132,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex md:flex-wrap md:justify-center overflow-x-auto md:overflow-visible snap-x snap-mandatory gap-3 sm:gap-4 mb-10 md:mb-16 w-[100vw] md:w-full max-w-4xl px-6 md:px-0"
+          className="flex md:flex-wrap md:justify-center overflow-x-auto md:overflow-visible snap-x snap-mandatory gap-3 sm:gap-4 mb-10 md:mb-16 w-full max-w-4xl px-2 sm:px-6 md:px-0 hide-scrollbars"
         >
           {services.map((service, i) => (
             <motion.div 
