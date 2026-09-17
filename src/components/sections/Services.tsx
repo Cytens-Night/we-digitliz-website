@@ -173,11 +173,12 @@ export default function Services() {
           </motion.p>
         </div>
 
-        {/* ASYMMETRICAL BENTO GRID */}
-        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-3 gap-6 auto-rows-[minmax(220px,auto)] perspective-[2000px]">
+        {/* ==============================================
+            DESKTOP LAYOUT (Complex Asymmetrical 3D Grid)
+            ============================================== */}
+        <div className="hidden md:grid grid-cols-4 grid-rows-3 gap-6 auto-rows-[minmax(220px,auto)] perspective-[2000px]">
           {services.map((service, index) => {
             const Icon = service.icon;
-            // The large hero tile (Automated Systems) needs more padding and larger text
             const isHero = index === 0;
             
             return (
@@ -186,12 +187,10 @@ export default function Services() {
                 delay={index * 0.1}
                 className={`${service.colSpan} ${service.rowSpan}`}
               >
-                {/* Background Pattern */}
                 <div className={`absolute inset-0 ${service.bgPattern} opacity-50 z-0`} />
                 
-                {/* Content translated aggressively forward in 3D space */}
                 <div 
-                  className={`relative z-10 h-full flex flex-col justify-between ${isHero ? 'p-6 md:p-12' : 'p-6 md:p-8'}`}
+                  className={`relative z-10 h-full flex flex-col justify-between ${isHero ? 'p-12' : 'p-8'}`}
                   style={{ transform: "translateZ(60px)", transformStyle: "preserve-3d" }}
                 >
                   <div className={`
@@ -203,7 +202,7 @@ export default function Services() {
                   </div>
                   
                   <div style={{ transform: "translateZ(40px)" }}>
-                    <h4 className={`${isHero ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-xl md:text-2xl font-bold'} font-display font-bold text-[#1d1d1f] mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all`}>
+                    <h4 className={`${isHero ? 'text-4xl lg:text-5xl' : 'text-2xl'} font-display font-bold text-[#1d1d1f] mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all`}>
                       {service.title}
                     </h4>
                     <p className={`text-[#3c3c43] leading-relaxed ${isHero ? 'text-lg max-w-md' : 'text-sm'}`}>
@@ -211,7 +210,6 @@ export default function Services() {
                     </p>
                   </div>
                   
-                  {/* Subtle Interactive Element */}
                   <div className="absolute bottom-8 right-8 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0" style={{ transform: "translateZ(20px)" }}>
                     <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center text-[#1d1d1f] backdrop-blur-md">
                       <ArrowRight size={20} />
@@ -219,6 +217,33 @@ export default function Services() {
                   </div>
                 </div>
               </TiltCard>
+            );
+          })}
+        </div>
+
+        {/* ==============================================
+            MOBILE NATIVE APP LAYOUT (Tight 2-Col App Grid)
+            ============================================== */}
+        <div className="grid md:hidden grid-cols-2 gap-3 px-2">
+          {services.map((service, index) => {
+            const Icon = service.icon;
+            return (
+              <div 
+                key={index} 
+                className="bg-white rounded-3xl p-5 border border-black/5 shadow-sm active:scale-95 transition-transform flex flex-col items-start justify-between aspect-square"
+              >
+                <div className="w-12 h-12 rounded-xl bg-[#f5f5f7] flex items-center justify-center mb-4">
+                  <Icon className="w-6 h-6 text-[#1d1d1f]" />
+                </div>
+                <div>
+                  <h4 className="text-base font-bold text-[#1d1d1f] leading-tight mb-1">
+                    {service.title}
+                  </h4>
+                  <p className="text-[10px] text-[#8a8d91] leading-snug line-clamp-2">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
             );
           })}
         </div>

@@ -149,95 +149,128 @@ export default function Industries() {
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[200px] pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+      <div className="max-w-[1400px] mx-auto relative z-10">
         
         {/* ==============================================
-            LEFT: STICKY HEADER & DYNAMIC GRAPHIC
+            DESKTOP LAYOUT (Sticky + Stacked Cards)
             ============================================== */}
-        <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20 flex flex-col gap-8">
-           
-           <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-white text-sm font-semibold mb-6 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]">
-                 Custom Solutions
-              </div>
-              <h3 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
-                Architectures tailored <br/> for <span className="text-white/40">every sector.</span>
-              </h3>
-           </div>
-           
-           <p className="text-white/60 text-lg md:text-xl font-medium leading-relaxed max-w-md">
-             We don't build generic websites. We engineer bespoke, automated digital systems that solve the specific bottlenecks of your industry.
-           </p>
+        <div className="hidden lg:flex px-6 flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+          {/* Left: Sticky Header & Dynamic Graphic */}
+          <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20 flex flex-col gap-8">
+             <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-white text-sm font-semibold mb-6 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+                   Custom Solutions
+                </div>
+                <h3 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
+                  Architectures tailored <br/> for <span className="text-white/40">every sector.</span>
+                </h3>
+             </div>
+             
+             <p className="text-white/60 text-lg md:text-xl font-medium leading-relaxed max-w-md">
+               We don't build generic websites. We engineer bespoke, automated digital systems that solve the specific bottlenecks of your industry.
+             </p>
 
-           {/* Dynamic Graphic Viewport */}
-           <div className="w-full h-80 rounded-[2.5rem] bg-[#161a22] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.3)] p-8 relative flex items-center justify-center overflow-hidden">
-             
-             {/* Crosshair grid overlay */}
-             <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
-             
-             <AnimatePresence mode="wait">
+             <div className="w-full h-80 rounded-[2.5rem] bg-[#161a22] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.3)] p-8 relative flex items-center justify-center overflow-hidden">
+               <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
+               <AnimatePresence mode="wait">
+                 <motion.div 
+                   key={activeId}
+                   initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                   exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
+                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                   className="w-full relative z-10"
+                 >
+                   <ActiveGraphic />
+                 </motion.div>
+               </AnimatePresence>
+             </div>
+          </div>
+
+          {/* Right: Scrolling Industry Cards */}
+          <div className="w-full lg:w-7/12 flex flex-col gap-8 lg:gap-32 lg:pt-32 pb-32">
+             {industries.map((industry) => (
                <motion.div 
-                 key={activeId}
-                 initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                 animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                 exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                 className="w-full relative z-10"
+                 key={industry.id}
+                 onViewportEnter={() => setActiveId(industry.id)}
+                 viewport={{ margin: "-40% 0px -40% 0px" }}
+                 className="w-full relative rounded-[2.5rem] overflow-hidden bg-[#161a22] border border-white/10 shadow-2xl group flex flex-col justify-end min-h-[400px] lg:min-h-[500px] p-8 lg:p-12"
                >
-                 <ActiveGraphic />
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-105 opacity-30 grayscale group-hover:grayscale-0"
+                    style={{ backgroundImage: `url(${industry.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                  <div className="absolute top-8 right-8 font-display font-bold text-6xl text-white/10">
+                    {industry.number}
+                  </div>
+                  <div className="relative z-10">
+                     <div className="flex items-center gap-6 mb-6">
+                        <div className="shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
+                           <industry.icon size={28} />
+                        </div>
+                        <h3 className="text-3xl lg:text-5xl font-display font-bold text-white tracking-tight">
+                           {industry.title}
+                        </h3>
+                     </div>
+                     <p className="text-white/70 max-w-lg text-lg leading-relaxed mb-10">
+                        {industry.description}
+                     </p>
+                     <button className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                       View Case Studies <ArrowRight size={18} />
+                     </button>
+                  </div>
                </motion.div>
-             </AnimatePresence>
-           </div>
+             ))}
+          </div>
         </div>
 
         {/* ==============================================
-            RIGHT: SCROLLING INDUSTRY CARDS
+            MOBILE NATIVE APP LAYOUT (Horizontal Carousel)
             ============================================== */}
-        <div className="w-full lg:w-7/12 flex flex-col gap-8 lg:gap-32 lg:pt-32 pb-32">
-           {industries.map((industry) => (
-             <motion.div 
-               key={industry.id}
-               onViewportEnter={() => setActiveId(industry.id)}
-               viewport={{ margin: "-40% 0px -40% 0px" }} // Triggers when element crosses the middle of the screen
-               className="w-full relative rounded-[2.5rem] overflow-hidden bg-[#161a22] border border-white/10 shadow-2xl group flex flex-col justify-end min-h-[400px] lg:min-h-[500px] p-8 lg:p-12"
-             >
-                {/* Background Image */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-105 opacity-30 grayscale group-hover:grayscale-0"
-                  style={{ backgroundImage: `url(${industry.image})` }}
-                />
-                
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
-                
-                {/* Index Number */}
-                <div className="absolute top-8 right-8 font-display font-bold text-6xl text-white/10">
-                  {industry.number}
-                </div>
+        <div className="flex lg:hidden flex-col gap-6">
+          <div className="px-6 mb-4">
+             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 text-white text-[10px] font-bold mb-4 border border-white/20 uppercase tracking-widest">
+                Custom Solutions
+             </div>
+             <h3 className="text-3xl font-display font-bold text-white leading-tight tracking-tight">
+               Architectures tailored <br/> for <span className="text-white/40">every sector.</span>
+             </h3>
+          </div>
 
-                {/* Content Container */}
-                <div className="relative z-10">
-                   
-                   <div className="flex items-center gap-6 mb-6">
-                      <div className="shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                         <industry.icon size={28} />
-                      </div>
-                      <h3 className="text-3xl lg:text-5xl font-display font-bold text-white tracking-tight">
-                         {industry.title}
-                      </h3>
-                   </div>
-                   
-                   <p className="text-white/70 max-w-lg text-lg leading-relaxed mb-10">
-                      {industry.description}
-                   </p>
+          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbars px-6 gap-4 pb-12 w-full">
+             {industries.map((industry) => (
+               <div 
+                 key={industry.id}
+                 className="relative w-[85vw] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#161a22] border border-white/10 shadow-2xl flex flex-col justify-end min-h-[420px] p-6 active:scale-[0.98] transition-transform"
+               >
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center opacity-40 grayscale"
+                    style={{ backgroundImage: `url(${industry.image})` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                  
+                  <div className="absolute top-6 right-6 font-display font-bold text-5xl text-white/20">
+                    {industry.number}
+                  </div>
 
-                   <button className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                     View Case Studies <ArrowRight size={18} />
-                   </button>
-                   
-                </div>
-             </motion.div>
-           ))}
+                  <div className="relative z-10">
+                     <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl mb-4">
+                        <industry.icon size={20} />
+                     </div>
+                     <h3 className="text-2xl font-display font-bold text-white tracking-tight mb-3">
+                        {industry.title}
+                     </h3>
+                     <p className="text-white/70 text-sm leading-relaxed mb-6">
+                        {industry.description}
+                     </p>
+                     <button className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black font-bold text-xs tracking-widest uppercase w-full justify-center">
+                       Case Studies <ArrowRight size={14} />
+                     </button>
+                  </div>
+               </div>
+             ))}
+          </div>
         </div>
 
       </div>

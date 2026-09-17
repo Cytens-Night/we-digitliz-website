@@ -60,58 +60,51 @@ export default function Process() {
           </h3>
         </div>
 
-        {/* Timeline Container */}
-        <div ref={containerRef} className="relative pb-20">
+        {/* ==============================================
+            DESKTOP LAYOUT (Vertical Animated Timeline)
+            ============================================== */}
+        <div ref={containerRef} className="relative pb-20 hidden md:block">
           
-          {/* Background Track Line (Dim) */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
-
-          {/* Foreground Animated Line (Solid White) */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-white/10 -translate-x-1/2" />
           <motion.div 
             style={{ height: lineHeight }}
-            className="absolute left-6 md:left-1/2 top-0 w-[1px] bg-white -translate-x-1/2 origin-top z-0"
+            className="absolute left-1/2 top-0 w-[1px] bg-white -translate-x-1/2 origin-top z-0"
           />
-
-          {/* The "Comet" Head */}
           <motion.div
             style={{ top: cometY }}
-            className="absolute left-6 md:left-1/2 w-3 h-12 bg-white -translate-x-1/2 -translate-y-full blur-[1px] shadow-[0_0_20px_5px_rgba(255,255,255,0.8)] z-10"
+            className="absolute left-1/2 w-3 h-12 bg-white -translate-x-1/2 -translate-y-full blur-[1px] shadow-[0_0_20px_5px_rgba(255,255,255,0.8)] z-10"
           />
 
-          {/* Steps */}
-          <div className="flex flex-col gap-24 md:gap-40 relative z-20">
+          <div className="flex flex-col gap-40 relative z-20">
             {steps.map((step, index) => {
               const isEven = index % 2 === 0;
 
               return (
-                <div key={index} className={`flex flex-col md:flex-row items-start md:items-center w-full ${isEven ? "md:flex-row-reverse" : ""}`}>
+                <div key={index} className={`flex items-center w-full ${isEven ? "flex-row-reverse" : ""}`}>
                   
-                  {/* Content Card */}
-                  <div className="w-full md:w-[45%] pl-20 md:pl-0 flex flex-col group cursor-default relative">
+                  <div className="w-[45%] flex flex-col group cursor-default relative">
                     <motion.div 
                       initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-20%" }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
                       className={`
-                        relative z-10 bg-transparent p-0 lg:p-4
+                        relative z-10 bg-transparent p-4
                         transition-all duration-500 group-hover:-translate-y-2
-                        ${isEven ? "md:text-right" : "md:text-left"}
+                        ${isEven ? "text-right" : "text-left"}
                       `}
                     >
                       <span className="text-white/40 font-mono text-xs tracking-[0.3em] font-bold mb-4 block uppercase">Phase {step.num}</span>
-                      <h4 className="text-3xl lg:text-5xl font-display font-bold text-white mb-6 group-hover:text-white/70 transition-colors duration-500 tracking-tight">
+                      <h4 className="text-5xl font-display font-bold text-white mb-6 group-hover:text-white/70 transition-colors duration-500 tracking-tight">
                         {step.title}
                       </h4>
-                      <p className="text-white/60 leading-relaxed text-lg lg:text-xl">
+                      <p className="text-white/60 leading-relaxed text-xl">
                         {step.desc}
                       </p>
                     </motion.div>
                   </div>
 
-                  {/* Central Node (Activation Ring) */}
-                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex items-center justify-center mt-6 md:mt-0">
-                    {/* The Core Node */}
+                  <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
                     <motion.div
                       initial={{ scale: 0, opacity: 0, backgroundColor: "#000000", borderColor: "rgba(255,255,255,0.1)" }}
                       whileInView={{ 
@@ -122,26 +115,47 @@ export default function Process() {
                       }}
                       viewport={{ once: true, margin: "-50%" }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="w-4 h-4 md:w-6 md:h-6 rounded-none rotate-45 border-2 z-30 relative"
+                      className="w-6 h-6 rounded-none rotate-45 border-2 z-30 relative"
                     />
                     
-                    {/* The Explosive Ripple */}
                     <motion.div
                       initial={{ scale: 0, opacity: 0 }}
                       whileInView={{ scale: [1, 4], opacity: [1, 0] }}
                       viewport={{ once: true, margin: "-50%" }}
                       transition={{ duration: 1, ease: "easeOut" }}
-                      className="absolute w-4 h-4 md:w-6 md:h-6 rounded-none rotate-45 bg-white z-20 pointer-events-none"
+                      className="absolute w-6 h-6 rounded-none rotate-45 bg-white z-20 pointer-events-none"
                     />
                   </div>
 
-                  {/* Empty Spacer to push the card to one side */}
-                  <div className="hidden md:block md:w-[45%]" />
+                  <div className="w-[45%]" />
                 </div>
               );
             })}
           </div>
+        </div>
 
+        {/* ==============================================
+            MOBILE NATIVE APP LAYOUT (iOS Style List)
+            ============================================== */}
+        <div className="flex md:hidden flex-col gap-4 px-2 pb-12">
+          {steps.map((step, index) => (
+             <div key={index} className="bg-[#1c1c1e] rounded-2xl p-6 flex flex-col gap-2 border border-white/5 active:scale-[0.98] transition-transform shadow-lg relative overflow-hidden">
+               {/* Subtle background number watermark */}
+               <div className="absolute -right-4 -bottom-8 font-display font-bold text-8xl text-white/[0.03] pointer-events-none">
+                 {step.num}
+               </div>
+
+               <div className="flex items-center justify-between mb-2 relative z-10">
+                 <span className="text-[#0a84ff] font-bold text-[10px] tracking-widest uppercase">Phase {step.num}</span>
+               </div>
+               <h4 className="text-2xl font-display font-bold text-white tracking-tight relative z-10 leading-tight mb-2">
+                 {step.title}
+               </h4>
+               <p className="text-[#98989f] text-sm leading-relaxed relative z-10">
+                 {step.desc}
+               </p>
+             </div>
+          ))}
         </div>
       </div>
     </section>
