@@ -6,9 +6,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#f5f5f7] pt-20 pb-10 border-t border-black/5">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12 mb-16">
           
-          <div className="md:col-span-1">
+          <div className="col-span-2 md:col-span-1">
             <Link href="/" className="flex items-center gap-2 group mb-6">
               <Logo className="w-8 h-8 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
               <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">We Digitlize</span>

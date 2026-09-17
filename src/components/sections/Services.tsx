@@ -222,30 +222,34 @@ export default function Services() {
         </div>
 
         {/* ==============================================
-            MOBILE NATIVE APP LAYOUT (Tight 2-Col App Grid)
+            MOBILE NATIVE APP LAYOUT (Native iOS-Style List)
             ============================================== */}
-        <div className="grid md:hidden grid-cols-2 gap-3 px-2">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <div 
-                key={index} 
-                className="bg-white rounded-3xl p-5 border border-black/5 shadow-sm active:scale-95 transition-transform flex flex-col items-start justify-between aspect-square"
-              >
-                <div className="w-12 h-12 rounded-xl bg-[#f5f5f7] flex items-center justify-center mb-4">
-                  <Icon className="w-6 h-6 text-[#1d1d1f]" />
+        <div className="md:hidden flex flex-col gap-3 px-2">
+          <div className="bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5">
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              const isLast = index === services.length - 1;
+              return (
+                <div 
+                  key={index} 
+                  className={`flex items-center p-4 active:bg-black/5 transition-colors cursor-pointer ${!isLast ? 'border-b border-black/5' : ''}`}
+                >
+                  <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#007AFF]/10 flex items-center justify-center mr-4">
+                    <Icon className="w-6 h-6 text-[#007AFF]" />
+                  </div>
+                  <div className="flex-1 min-w-0 pr-4">
+                    <h4 className="text-base font-bold text-[#1d1d1f] mb-0.5 truncate">
+                      {service.title}
+                    </h4>
+                    <p className="text-[11px] text-[#8a8d91] line-clamp-1">
+                      {service.description}
+                    </p>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-black/20 shrink-0" />
                 </div>
-                <div>
-                  <h4 className="text-base font-bold text-[#1d1d1f] leading-tight mb-1">
-                    {service.title}
-                  </h4>
-                  <p className="text-[10px] text-[#8a8d91] leading-snug line-clamp-2">
-                    {service.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
       </div>

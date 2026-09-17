@@ -269,107 +269,99 @@ export default function About() {
       </div>
 
       {/* =========================================
-          MOBILE NATIVE APP LAYOUT (Static Vertical Stack)
+          MOBILE NATIVE APP LAYOUT (Horizontal Snap Carousel)
           ========================================= */}
-      <div className="lg:hidden flex flex-col px-6 py-16 gap-16 relative z-10">
+      <div className="lg:hidden w-full py-16 relative z-10 overflow-hidden">
         
-        {/* Slide 1: Introduction */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col"
-        >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-white/60 text-[10px] font-bold mb-6 border border-white/10 uppercase tracking-widest w-max">
+        <div className="px-6 mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 text-white/60 text-[10px] font-bold border border-white/10 uppercase tracking-widest w-max">
             About The Agency
           </div>
-          
-          <h3 className="text-4xl leading-tight font-display font-bold text-white mb-6">
-            <span className="block">We don't build</span>
-            <span className="relative inline-block mt-1">
-              <span className="text-white/20">websites.</span>
-              <motion.div 
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.5, ease: "circOut" }}
-                className="absolute top-1/2 left-[-5%] right-[-5%] h-[4px] bg-[#1d1d1f] origin-left -translate-y-1/2 rotate-[-2deg]" 
-              />
-            </span>
-          </h3>
-          
-          <p className="text-lg text-white max-w-sm leading-relaxed font-medium">
-            We engineer entire <span className="font-bold underline decoration-2 underline-offset-4">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.
-          </p>
-        </motion.div>
+        </div>
 
-        {/* Slide 2: Bespoke Architecture */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col"
-        >
-          <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/20">
-            <Cpu size={24} className="text-white" />
+        {/* Carousel Container */}
+        <div className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 pb-8 w-full gap-4 items-stretch" style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}>
+          
+          {/* Slide 1: Introduction */}
+          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center relative overflow-hidden">
+            <h3 className="text-4xl leading-tight font-display font-bold text-white mb-6">
+              <span className="block">We don't build</span>
+              <span className="relative inline-block mt-1">
+                <span className="text-white/20">websites.</span>
+                <motion.div 
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4, duration: 0.5, ease: "circOut" }}
+                  className="absolute top-1/2 left-[-5%] right-[-5%] h-[4px] bg-[#007AFF] origin-left -translate-y-1/2 rotate-[-2deg]" 
+                />
+              </span>
+            </h3>
+            
+            <p className="text-lg text-white/80 max-w-sm leading-relaxed font-medium">
+              We engineer entire <span className="font-bold underline decoration-2 underline-offset-4 decoration-[#007AFF]">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.
+            </p>
           </div>
-          <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
-            Bespoke <br/> <span className="text-white">Architecture.</span>
-          </h3>
-          <p className="text-base text-white/60 leading-relaxed mb-6">
-            We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
-          </p>
-             {/* Solid grid pattern */}
-             <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')] bg-[size:1rem_1rem]" />
-             <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-white/10 rounded-full border-dashed" />
-             <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/15 rounded-full" />
-             <div className="relative w-12 h-12 bg-[#0a0a0a] rounded-lg border border-white/20 flex items-center justify-center rotate-45 z-10 shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-               <div className="w-4 h-4 bg-[#1d1d1f] rounded-md -rotate-45 flex items-center justify-center">
-                 <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
+
+          {/* Slide 2: Bespoke Architecture */}
+          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center relative overflow-hidden">
+            <div className="w-14 h-14 rounded-2xl bg-[#007AFF]/10 flex items-center justify-center mb-6 border border-[#007AFF]/20">
+              <Cpu size={24} className="text-[#007AFF]" />
+            </div>
+            <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
+              Bespoke <br/> Architecture.
+            </h3>
+            <p className="text-base text-white/60 leading-relaxed mb-6">
+              We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
+            </p>
+            <div className="w-full h-32 bg-[#0a0a0a] rounded-xl border border-white/5 relative flex items-center justify-center overflow-hidden">
+               {/* Solid grid pattern */}
+               <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')] bg-[size:1rem_1rem]" />
+               <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-white/10 rounded-full border-dashed" />
+               <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/15 rounded-full" />
+               <div className="relative w-10 h-10 bg-[#0a0a0a] rounded-lg border border-[#007AFF]/20 flex items-center justify-center rotate-45 z-10 shadow-[0_0_20px_rgba(0,122,255,0.2)]">
+                 <div className="w-3 h-3 bg-[#007AFF] rounded-md -rotate-45 flex items-center justify-center">
+                   <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
+                 </div>
                </div>
-             </div>
+            </div>
           </div>
-        </motion.div>
 
-        {/* Slide 3: Rapid Execution */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col"
-        >
-          <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/20">
-            <Code2 size={24} className="text-white" />
+          {/* Slide 3: Rapid Execution */}
+          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#007AFF]/10 flex items-center justify-center mb-6 border border-[#007AFF]/20">
+              <Code2 size={24} className="text-[#007AFF]" />
+            </div>
+            <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
+              Rapid <br/> Execution.
+            </h3>
+            <p className="text-base text-white/60 leading-relaxed">
+              Time is money. Our agile methodologies and proprietary codebase allow us to execute complex SaaS builds and enterprise sites in a fraction of the traditional timeline.
+            </p>
           </div>
-          <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
-            Rapid <br/> Execution.
-          </h3>
-          <p className="text-base text-white/60 leading-relaxed mb-6">
-            Time is money. Our agile methodologies and proprietary codebase allow us to execute complex SaaS builds and enterprise sites in a fraction of the traditional timeline.
-          </p>
-        </motion.div>
 
-        {/* Slide 4: Data Driven */}
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col"
-        >
-          <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center mb-6 border border-white/20">
-            <Network size={24} className="text-white/80" />
+          {/* Slide 4: Data Driven */}
+          <div className="w-[85vw] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-xl justify-center">
+            <div className="w-14 h-14 rounded-2xl bg-[#007AFF]/10 flex items-center justify-center mb-6 border border-[#007AFF]/20">
+              <Network size={24} className="text-[#007AFF]" />
+            </div>
+            <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
+              Data-Driven <br/> Decisions.
+            </h3>
+            <p className="text-base text-white/60 leading-relaxed">
+              We don't guess. We integrate deep analytics and telemetry into every platform, ensuring every design and engineering decision is backed by cold, hard data.
+            </p>
           </div>
-          <h3 className="text-3xl font-display font-bold text-white mb-4 leading-tight">
-            Data-Driven <br/> Decisions.
-          </h3>
-          <p className="text-base text-white/60 leading-relaxed">
-            We don't guess. We integrate deep analytics and telemetry into every platform, ensuring every design and engineering decision is backed by cold, hard data.
-          </p>
-        </motion.div>
+
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="flex justify-center items-center gap-1.5 mt-2">
+           <div className="w-1.5 h-1.5 rounded-full bg-white/40" />
+           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+           <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+        </div>
 
       </div>
     </section>

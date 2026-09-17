@@ -169,63 +169,52 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="space-y-12" 
+              className="bg-[#f5f5f7] rounded-[2rem] p-6 shadow-sm border border-black/5 flex flex-col gap-6" 
               onSubmit={(e) => e.preventDefault()}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div className="relative group">
+              <h3 className="text-2xl font-bold text-[#1d1d1f] mb-2 tracking-tight">Send a message</h3>
+              
+              <div className="flex flex-col gap-4">
+                <div className="relative">
                   <input 
                     type="text" 
                     id="name-mobile"
-                    className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
-                    placeholder="Name"
+                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
+                    placeholder="Your Name"
                   />
-                  <label htmlFor="name-mobile" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
-                    What is your name?
-                  </label>
                 </div>
 
-                <div className="relative group">
+                <div className="relative">
                   <input 
                     type="email" 
                     id="email-mobile"
-                    className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
-                    placeholder="Email"
+                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
+                    placeholder="Email Address"
                   />
-                  <label htmlFor="email-mobile" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
-                    What is your email?
-                  </label>
+                </div>
+
+                <div className="relative">
+                  <input 
+                    type="text" 
+                    id="company-mobile"
+                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all"
+                    placeholder="Company (Optional)"
+                  />
+                </div>
+
+                <div className="relative">
+                  <textarea 
+                    id="message-mobile"
+                    required
+                    rows={4}
+                    className="w-full bg-white border border-black/10 rounded-2xl px-5 py-4 text-base font-medium text-[#1d1d1f] placeholder-[#8a8d91] focus:outline-none focus:border-[#007AFF] focus:ring-4 focus:ring-[#007AFF]/10 transition-all resize-none"
+                    placeholder="Tell us about your project..."
+                  />
                 </div>
               </div>
 
-              <div className="relative group">
-                <input 
-                  type="text" 
-                  id="company-mobile"
-                  className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors"
-                  placeholder="Company"
-                />
-                <label htmlFor="company-mobile" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
-                  Company / Organization (Optional)
-                </label>
-              </div>
-
-              <div className="relative group">
-                <textarea 
-                  id="message-mobile"
-                  required
-                  rows={3}
-                  className="w-full bg-transparent border-b border-black/20 py-4 text-xl md:text-3xl font-display text-[#1d1d1f] placeholder-transparent focus:outline-none focus:border-black peer transition-colors resize-none"
-                  placeholder="Message"
-                />
-                <label htmlFor="message-mobile" className="absolute left-0 -top-6 text-[10px] font-bold tracking-widest uppercase text-[#3c3c43] transition-all peer-placeholder-shown:text-base md:peer-placeholder-shown:text-xl peer-placeholder-shown:text-black/30 peer-placeholder-shown:top-4 peer-focus:-top-6 peer-focus:text-[10px] peer-focus:text-[#1d1d1f]">
-                  Tell us about your project
-                </label>
-              </div>
-
-              <button className="w-full md:w-auto mt-8 px-12 py-6 bg-[#1d1d1f] text-white font-bold tracking-widest uppercase text-sm active:scale-95 transition-transform flex items-center justify-center gap-4 group">
-                Submit Inquiry
-                <div className="w-8 h-px bg-white group-hover:w-12 transition-all" />
+              <button className="w-full mt-2 px-8 py-5 bg-[#007AFF] text-white font-bold text-base rounded-2xl active:scale-[0.98] transition-transform shadow-[0_10px_20px_rgba(0,122,255,0.2)] flex items-center justify-center gap-3">
+                Submit Inquiry <ArrowRight className="w-5 h-5" />
               </button>
             </motion.form>
           </div>

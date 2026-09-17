@@ -134,7 +134,10 @@ export default function DigitalCards() {
         {/* ==============================================
             MOBILE LAYOUT (Native App Horizontal Carousel)
             ============================================== */}
-        <div className="md:hidden flex overflow-x-auto snap-x snap-mandatory hide-scrollbars -mx-6 px-6 gap-4 pb-8">
+        <div 
+          className="md:hidden flex overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-6 px-6 gap-4 pb-8"
+          style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+        >
            {CLIENTS.map((client, index) => (
              <motion.div 
                key={client.id}
