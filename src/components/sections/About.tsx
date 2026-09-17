@@ -10,6 +10,7 @@ export default function About() {
   // Track scroll progress of this massive container
   const { scrollYProgress } = useScroll({
     target: targetRef,
+    offset: ["start start", "end end"]
   });
 
   // Transform vertical scroll (0 to 1) into horizontal translation (0% to -75%)
