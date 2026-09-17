@@ -150,6 +150,12 @@ export default function Navbar() {
           <div className="mt-auto w-full pt-4">
             <Link
               href="/#contact"
+              onClick={(e) => {
+                if (pathname === "/") {
+                  e.preventDefault();
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className="relative flex items-center gap-4 px-2 py-2.5 rounded-2xl transition-colors duration-300 w-full hover:bg-white/10 group/btn"
             >
               <div className="w-6 h-6 shrink-0 flex items-center justify-center relative z-10">
@@ -208,6 +214,12 @@ export default function Navbar() {
 
             <Link 
               href="/#contact"
+              onClick={(e) => {
+                if (pathname === "/") {
+                  e.preventDefault();
+                  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className="flex flex-col items-center gap-1 text-white/50 hover:text-white transition-all"
             >
               <Mail size={20} />
@@ -284,7 +296,15 @@ export default function Navbar() {
               >
                 <Link
                   href="/#contact"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={(e) => {
+                    setIsMobileMenuOpen(false);
+                    if (pathname === "/") {
+                      e.preventDefault();
+                      setTimeout(() => {
+                        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                      }, 100);
+                    }
+                  }}
                   className="flex items-center justify-center gap-3 w-full py-5 rounded-2xl bg-[#007AFF] text-white font-bold tracking-widest uppercase text-xs active:scale-95 transition-transform shadow-[0_0_20px_rgba(0,122,255,0.4)]"
                 >
                   <Mail size={16} />
