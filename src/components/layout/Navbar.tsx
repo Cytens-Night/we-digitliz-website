@@ -21,15 +21,68 @@ export default function Navbar() {
   const [activeTab, setActiveTab] = useState<string>("Home");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const hash = window.location.hash;
-      if (pathname === "/works") setActiveTab("Projects");
-      else if (hash.includes("services")) setActiveTab("Services");
-      else if (hash.includes("industries")) setActiveTab("Industries");
-      else if (hash.includes("process")) setActiveTab("Process");
-      else if (hash.includes("pricing")) setActiveTab("Investment");
-      else setActiveTab("Home");
+    if (typeof window === "undefined") return;
+
+    if (pathname === "/works") {
+      setActiveTab("Projects");
+      return;
     }
+
+    const sections = [
+      { id: "services", name: "Services" },
+      { id: "industries", name: "Industries" },
+      { id: "process", name: "Process" },
+      { id: "pricing", name: "Investment" },
+    ];
+
+    const observerOptions = {
+      root: null,
+      rootMargin: "-30% 0px -70% 0px", // Triggers when section is in top 30% of viewport
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      let currentActive = null;
+
+      // Check if we are at the very top of the page
+      if (window.scrollY < 100) {
+        setActiveTab("Home");
+        return;
+      }
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const section = sections.find((s) => s.id === entry.target.id);
+          if (section) {
+            currentActive = section.name;
+          }
+        }
+      });
+
+      if (currentActive) {
+        setActiveTab(currentActive);
+      }
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    sections.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    // Handle scroll to top explicitly
+    const handleScroll = () => {
+      if (window.scrollY < 100) {
+        setActiveTab("Home");
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [pathname]);
 
   return (
