@@ -333,7 +333,6 @@ export default function Laptop3D() {
                              </div>
                            ))}
                          </div>
-                      </div>
                           </div>
                        </div>
                     </div>
