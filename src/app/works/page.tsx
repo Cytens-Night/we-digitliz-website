@@ -93,17 +93,19 @@ export default function WorksPage() {
           </motion.p>
         </section>
 
-        {/* Project Layout */}
-        <section className="px-6 md:px-12 max-w-[1800px] mx-auto flex flex-col gap-32 md:gap-64">
+        {/* ==============================================
+            DESKTOP LAYOUT (Live 3D Iframes)
+            ============================================== */}
+        <section className="hidden lg:flex px-12 max-w-[1800px] mx-auto flex-col gap-64">
           {PROJECTS.map((project, index) => {
              const isEven = index % 2 === 0;
              const isMobile = project.device === 'mobile';
              
              return (
-               <div key={project.id} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center group`}>
+               <div key={project.id} className={`flex ${isEven ? 'flex-row' : 'flex-row-reverse'} gap-24 items-center group`}>
                  
                  {/* Text Content */}
-                 <div className="w-full lg:w-5/12">
+                 <div className="w-5/12">
                    <motion.div 
                      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                      whileInView={{ opacity: 1, x: 0 }}
@@ -118,7 +120,7 @@ export default function WorksPage() {
                        </span>
                      </div>
                      
-                     <h3 className="text-4xl md:text-6xl font-display font-bold mb-4 tracking-tight">
+                     <h3 className="text-6xl font-display font-bold mb-4 tracking-tight">
                        {project.name}
                      </h3>
                      
@@ -126,7 +128,7 @@ export default function WorksPage() {
                        {project.type}
                      </p>
                      
-                     <p className="text-white/70 text-lg md:text-xl max-w-md leading-relaxed mb-10">
+                     <p className="text-white/70 text-xl max-w-md leading-relaxed mb-10">
                        {project.desc}
                      </p>
 
@@ -142,7 +144,7 @@ export default function WorksPage() {
                  </div>
 
                  {/* Visual Mockup */}
-                 <div className="w-full lg:w-7/12 flex justify-center">
+                 <div className="w-7/12 flex justify-center">
                    <motion.div
                      initial={{ opacity: 0, y: 100, scale: 0.95 }}
                      whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -216,6 +218,53 @@ export default function WorksPage() {
                </div>
              );
           })}
+        </section>
+
+        {/* ==============================================
+            MOBILE NATIVE APP LAYOUT (Static Snap Carousel)
+            ============================================== */}
+        <section 
+          className="lg:hidden flex overflow-x-auto snap-x snap-mandatory no-scrollbar px-6 gap-4 pb-8 w-full"
+          style={{ scrollBehavior: 'smooth', WebkitOverflowScrolling: 'touch' }}
+        >
+          {PROJECTS.map((project, index) => (
+            <motion.div 
+              key={project.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="w-[85vw] max-w-[320px] shrink-0 snap-center flex flex-col bg-[#111318] rounded-[2rem] p-8 border border-white/10 shadow-2xl relative overflow-hidden h-[420px]"
+            >
+              <div className="flex items-center gap-3 mb-8">
+                <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/50 border border-white/10 px-3 py-1 rounded-full bg-white/5">
+                  {project.year}
+                </span>
+                <span className="text-white/30 font-mono text-sm font-bold ml-auto">0{index + 1}</span>
+              </div>
+              
+              <h3 className="text-3xl font-display font-bold text-white mb-2 tracking-tight">
+                {project.name}
+              </h3>
+              
+              <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#007AFF] mb-6">
+                {project.type}
+              </p>
+              
+              <p className="text-white/60 text-sm leading-relaxed mb-8 flex-1">
+                {project.desc}
+              </p>
+
+              <a 
+                href={project.url} 
+                target="_blank" 
+                rel="noreferrer"
+                className="w-full py-4 bg-white text-black font-bold text-[10px] tracking-widest uppercase rounded-2xl flex items-center justify-center gap-3 active:scale-[0.98] transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)] mt-auto"
+              >
+                Live Preview <ArrowUpRight size={14} />
+              </a>
+            </motion.div>
+          ))}
         </section>
 
         {/* CTA Footer */}
