@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowUpRight, Smartphone, Monitor } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import Link from "next/link";
@@ -14,8 +14,7 @@ const PROJECTS = [
     type: "Digital Business Card", 
     desc: "A premium 3D digital business card featuring native e-commerce and offline NFC integration.",
     year: "2024",
-    device: "mobile",
-    image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1200&auto=format&fit=crop"
+    device: "mobile"
   },
   { 
     id: "furqan-sweets", 
@@ -24,8 +23,7 @@ const PROJECTS = [
     type: "E-Commerce Architecture", 
     desc: "A high-performance e-commerce storefront optimized for conversion and rapid load times.",
     year: "2024",
-    device: "desktop",
-    image: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?q=80&w=1200&auto=format&fit=crop"
+    device: "desktop"
   },
   { 
     id: "hesori", 
@@ -34,8 +32,7 @@ const PROJECTS = [
     type: "Agency Platform", 
     desc: "A sleek, modern web architecture showcasing premium brand identity and dynamic layouts.",
     year: "2024",
-    device: "desktop",
-    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop"
+    device: "desktop"
   },
   { 
     id: "marshalos", 
@@ -44,8 +41,7 @@ const PROJECTS = [
     type: "Dashboard & UI", 
     desc: "A complete digital transformation delivering seamless user experience and robust functionality.",
     year: "2023",
-    device: "desktop",
-    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop"
+    device: "desktop"
   },
   { 
     id: "furqan-sweets-card", 
@@ -54,26 +50,27 @@ const PROJECTS = [
     type: "Digital Business Card", 
     desc: "A sleek, NFC-enabled digital business card engineered for rapid networking and brand impact.",
     year: "2024",
-    device: "mobile",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop"
+    device: "mobile"
   }
 ];
 
 export default function ProjectsPage() {
   return (
-    <div className="bg-[#f5f5f7] min-h-screen text-[#1d1d1f] selection:bg-[#007AFF] selection:text-white">
+    <div className="bg-[#0a0a0a] min-h-screen text-white selection:bg-white selection:text-black">
       <Navbar />
       
       <main className="pt-32 md:pt-40 pb-16 md:pb-32 overflow-hidden">
-        {/* Clean Header */}
-        <section className="max-w-[1400px] mx-auto px-6 mb-16 md:mb-32 relative">
+        {/* Massive Brutalist Header */}
+        <section className="max-w-[1400px] mx-auto px-6 mb-16 md:mb-40 relative">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
+          
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[10px] font-bold tracking-[0.3em] uppercase text-black/40 mb-8 flex items-center gap-4"
+            className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/50 mb-8 flex items-center gap-4"
           >
-            <div className="w-12 h-px bg-black/20" />
-            Our Portfolio
+            <div className="w-12 h-px bg-white/20" />
+            The Archive
           </motion.div>
           
           <motion.h1 
@@ -89,134 +86,154 @@ export default function ProjectsPage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="mt-8 md:mt-16 text-lg md:text-2xl text-[#3c3c43] max-w-2xl font-medium leading-relaxed"
+            className="mt-8 md:mt-16 text-xl md:text-2xl text-white/60 max-w-2xl font-medium leading-relaxed"
           >
             A curated selection of digital ecosystems, high-performance platforms, and cutting-edge architectures engineered by our team. Live and functional.
           </motion.p>
         </section>
 
         {/* ==============================================
-            DESKTOP LAYOUT (Bento Grid)
+            UNIFIED LAYOUT (Live 3D Iframes - Optimized for Mobile & Desktop)
             ============================================== */}
-        <section className="hidden lg:grid grid-cols-2 gap-8 px-12 max-w-[1400px] mx-auto">
+        <section className="px-6 md:px-12 max-w-[1800px] mx-auto flex flex-col gap-32 md:gap-64">
           {PROJECTS.map((project, index) => {
-             const isLarge = index === 0 || index === 3;
+             const isEven = index % 2 === 0;
+             const isMobile = project.device === 'mobile';
              
              return (
-               <motion.div 
-                 key={project.id}
-                 initial={{ opacity: 0, y: 40 }}
-                 whileInView={{ opacity: 1, y: 0 }}
-                 viewport={{ once: true, margin: "-10%" }}
-                 transition={{ duration: 0.6, delay: (index % 2) * 0.1 }}
-                 className={`group relative rounded-[2rem] overflow-hidden bg-white border border-black/5 shadow-sm hover:shadow-xl transition-all duration-500 ${isLarge ? 'col-span-2 aspect-[21/9]' : 'col-span-1 aspect-square'}`}
-               >
-                 <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors z-10" />
+               <div key={project.id} className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-24 items-center group`}>
                  
-                 <img 
-                   src={project.image} 
-                   alt={project.name} 
-                   className="absolute inset-0 w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-700 ease-out"
-                 />
+                 {/* Text Content */}
+                 <div className="w-full lg:w-5/12 order-2 lg:order-none">
+                   <motion.div 
+                     initial={{ opacity: 0, y: 30 }}
+                     whileInView={{ opacity: 1, y: 0 }}
+                     viewport={{ once: true, margin: "-10%" }}
+                     transition={{ duration: 0.8, ease: "easeOut" }}
+                   >
+                     <div className="flex items-center gap-4 mb-6">
+                       <span className="text-[#007AFF] font-mono text-xl md:text-2xl font-bold">0{index + 1}</span>
+                       <div className="h-px w-16 bg-white/20" />
+                       <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/80 border border-[#007AFF]/30 bg-[#007AFF]/10 px-3 py-1 rounded-full">
+                         {project.year}
+                       </span>
+                     </div>
+                     
+                     <h3 className="text-4xl md:text-6xl font-display font-bold mb-2 md:mb-4 tracking-tight">
+                       {project.name}
+                     </h3>
+                     
+                     <p className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-[#007AFF] mb-6 md:mb-8">
+                       {project.type}
+                     </p>
+                     
+                     <p className="text-white/70 text-lg md:text-xl max-w-md leading-relaxed mb-8 md:mb-10">
+                       {project.desc}
+                     </p>
 
-                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20" />
-
-                 <div className="absolute inset-0 z-30 p-10 flex flex-col justify-end">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="text-[10px] font-bold tracking-widest uppercase text-white/80 border border-white/20 px-3 py-1 rounded-full backdrop-blur-md bg-white/10">
-                        {project.year}
-                      </span>
-                      <span className="text-[10px] font-bold tracking-widest uppercase text-white/80 border border-white/20 px-3 py-1 rounded-full backdrop-blur-md bg-white/10 flex items-center gap-2">
-                        {project.device === 'mobile' ? <Smartphone size={12} /> : <Monitor size={12} />}
-                        {project.device}
-                      </span>
-                    </div>
-                    
-                    <h3 className="text-4xl md:text-5xl font-display font-bold text-white mb-2 tracking-tight">
-                      {project.name}
-                    </h3>
-                    
-                    <p className="text-white/70 text-lg max-w-xl mb-8 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                      {project.desc}
-                    </p>
-
-                    <a 
-                      href={project.url} 
-                      target="_blank" 
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-3 w-fit text-white font-bold uppercase tracking-widest text-xs bg-[#007AFF] px-6 py-3 rounded-full hover:bg-[#0056b3] transition-colors transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 duration-500 delay-100"
-                    >
-                      Live Preview <ArrowUpRight size={16} />
-                    </a>
+                     <a 
+                       href={project.url} 
+                       target="_blank" 
+                       rel="noreferrer"
+                       className="inline-flex items-center justify-center lg:justify-start gap-4 text-white font-bold uppercase tracking-widest text-xs border border-[#007AFF] bg-[#007AFF]/10 hover:bg-[#007AFF] px-8 py-4 rounded-full transition-all w-full lg:w-auto"
+                     >
+                       Explore Live Environment <ArrowUpRight size={16} />
+                     </a>
+                   </motion.div>
                  </div>
-               </motion.div>
+
+                 {/* Visual Mockup (Iframes scaled for mobile) */}
+                 <div className="w-full lg:w-7/12 flex justify-center order-1 lg:order-none overflow-visible">
+                   <motion.div
+                     initial={{ opacity: 0, scale: 0.9 }}
+                     whileInView={{ opacity: 1, scale: 1 }}
+                     viewport={{ once: true, margin: "-10%" }}
+                     transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                     className="w-full relative flex justify-center"
+                   >
+                     {isMobile ? (
+                       // Mobile Isometric Presentation
+                       <div className="relative w-full max-w-[280px] md:max-w-[400px] aspect-[1/2] perspective-[2000px] scale-[0.9] md:scale-100">
+                         <div className="absolute inset-0 bg-[#007AFF]/20 blur-[60px] md:blur-[100px] rounded-full" />
+                         <motion.div 
+                           whileHover={{ rotateY: 0, rotateX: 0, scale: 1.05 }}
+                           transition={{ duration: 0.6, ease: "easeOut" }}
+                           className="relative w-full h-full bg-[#111] rounded-[2.5rem] md:rounded-[3.5rem] p-3 md:p-4 shadow-[0_0_0_2px_#333,0_0_0_8px_#111,0_20px_40px_rgba(0,0,0,0.8)] border border-[#222] rotate-y-[-10deg] md:rotate-y-[-15deg] rotate-x-[5deg] origin-center cursor-pointer transform-style-3d lg:group-hover:rotate-y-[-5deg]"
+                         >
+                           {/* Hardware */}
+                           <div className="absolute top-4 md:top-5 left-1/2 -translate-x-1/2 w-24 md:w-32 h-6 md:h-9 bg-black rounded-full z-20" />
+                           <div className="absolute inset-0 bg-white/5 rounded-[2.5rem] md:rounded-[3.5rem] pointer-events-none z-30" />
+                           
+                           {/* Screen */}
+                           <div className="relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-[#161a22]">
+                              <iframe 
+                                src={project.url} 
+                                title={project.name}
+                                className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none"
+                              />
+                           </div>
+                           
+                           <a href={project.url} target="_blank" rel="noreferrer" className="absolute inset-0 z-40" aria-label={`Visit ${project.name}`} />
+                         </motion.div>
+                       </div>
+                     ) : (
+                       // Desktop Pro Presentation
+                       <div className="relative w-full max-w-[800px] md:max-w-[1000px] perspective-[2000px] scale-[0.6] sm:scale-[0.8] md:scale-100 mt-12 md:mt-0">
+                         <div className="absolute inset-0 bg-[#007AFF]/20 blur-[80px] md:blur-[120px] rounded-full" />
+                         <motion.div 
+                           whileHover={{ rotateY: 0, rotateX: 0, scale: 1.02 }}
+                           transition={{ duration: 0.6, ease: "easeOut" }}
+                           className="relative w-full flex flex-col items-center rotate-y-[-5deg] rotate-x-[5deg] origin-center cursor-pointer transform-style-3d lg:group-hover:rotate-y-[-2deg]"
+                         >
+                            {/* Screen */}
+                            <div className="relative w-full aspect-video bg-[#0a0a0a] rounded-t-xl md:rounded-t-2xl p-2 md:p-3 border-t border-l border-r border-[#333] shadow-[0_20px_40px_rgba(0,0,0,0.8)] z-10">
+                               <div className="absolute top-1 left-1/2 -translate-x-1/2 w-1 md:w-1.5 h-1 md:h-1.5 bg-[#222] rounded-full z-20" />
+                               
+                               <div className="relative w-full h-full rounded-md md:rounded-lg overflow-hidden bg-[#161a22] border border-[#222]">
+                                  <iframe 
+                                    src={project.url} 
+                                    title={project.name}
+                                    className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none scale-[0.8] md:scale-100 origin-top-left"
+                                    style={{ width: '125%', height: '125%' }} 
+                                  />
+                               </div>
+                               
+                               <div className="absolute bottom-0 left-0 w-full h-3 md:h-6 bg-[#111] rounded-b-xl md:rounded-b-2xl border-b border-[#333]" />
+                            </div>
+
+                            {/* Stand */}
+                            <div className="relative z-0">
+                              <div className="w-16 md:w-32 h-8 md:h-16 bg-[#222] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] border-x border-[#333]" />
+                              <div className="w-32 md:w-64 h-1.5 md:h-3 bg-[#222] rounded-t-sm md:rounded-t-md shadow-2xl relative">
+                                 <div className="absolute inset-x-0 bottom-0 h-0.5 md:h-1 bg-black rounded-b-sm md:rounded-b-md" />
+                              </div>
+                            </div>
+                            
+                            <a href={project.url} target="_blank" rel="noreferrer" className="absolute inset-0 z-40" aria-label={`Visit ${project.name}`} />
+                         </motion.div>
+                       </div>
+                     )}
+                   </motion.div>
+                 </div>
+               </div>
              );
           })}
         </section>
 
-        {/* ==============================================
-            MOBILE LAYOUT (Vertical Native Stack)
-            ============================================== */}
-        <section className="lg:hidden flex flex-col gap-6 px-6 w-full">
-          {PROJECTS.map((project, index) => (
-            <motion.div 
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              whileTap={{ scale: 0.98 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="w-full flex flex-col bg-white rounded-[2rem] p-6 sm:p-8 border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)] relative overflow-hidden group"
-            >
-              <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 relative">
-                 <img 
-                   src={project.image} 
-                   alt={project.name} 
-                   className="absolute inset-0 w-full h-full object-cover"
-                 />
-                 <div className="absolute top-4 left-4 flex gap-2">
-                    <span className="text-[9px] font-bold tracking-widest uppercase text-white border border-white/20 px-3 py-1 rounded-full backdrop-blur-md bg-black/40">
-                      {project.year}
-                    </span>
-                 </div>
-              </div>
-
-              <h3 className="text-2xl font-display font-bold text-[#1d1d1f] mb-1 tracking-tight">
-                {project.name}
-              </h3>
-              
-              <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#007AFF] mb-4">
-                {project.type}
-              </p>
-              
-              <p className="text-[#3c3c43] text-sm leading-relaxed mb-8">
-                {project.desc}
-              </p>
-
-              <a 
-                href={project.url} 
-                target="_blank" 
-                rel="noreferrer"
-                className="w-full py-4 bg-[#f5f5f7] text-[#1d1d1f] font-bold text-[10px] tracking-widest uppercase rounded-2xl flex items-center justify-center gap-3 hover:bg-[#007AFF] hover:text-white transition-colors mt-auto"
-              >
-                Live Preview <ArrowUpRight size={14} />
-              </a>
-            </motion.div>
-          ))}
-        </section>
-
         {/* CTA Footer */}
-        <section className="max-w-[1400px] mx-auto px-6 mt-24 md:mt-40 relative z-10">
-          <div className="py-16 md:py-24 border-t border-b border-black/5 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 bg-white rounded-3xl px-8 shadow-sm">
+        <section className="max-w-[1400px] mx-auto px-6 mt-32 md:mt-64 relative z-10">
+          <div className="py-20 md:py-32 border-t border-b border-white/10 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
             <div>
-              <h3 className="text-3xl md:text-5xl font-display font-bold text-[#1d1d1f] tracking-tight mb-3">
-                Let's build your next architecture.
+              <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white tracking-tight mb-4">
+                Let's build your <br className="hidden md:block" /> next architecture.
               </h3>
-              <p className="text-[#3c3c43] text-lg">Stop relying on templates. Go bespoke.</p>
+              <p className="text-[#007AFF] font-bold tracking-widest text-sm uppercase">Stop relying on templates. Go bespoke.</p>
             </div>
-            <Link href="/#contact" className="px-8 py-4 bg-[#007AFF] text-white font-bold text-sm tracking-widest uppercase hover:bg-[#0056b3] hover:scale-105 transition-all flex items-center gap-3 rounded-full shrink-0">
+            <Link href="/#contact" className="px-12 py-6 bg-[#007AFF] text-white font-bold text-sm tracking-widest uppercase hover:bg-[#0056b3] hover:scale-105 transition-all flex items-center justify-center gap-4 group shadow-[0_0_40px_rgba(0,122,255,0.4)] rounded-full w-full md:w-auto">
               Initiate Project
-              <ArrowUpRight className="w-4 h-4" />
+              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-[#007AFF] group-hover:rotate-45 transition-transform">
+                <ArrowUpRight className="w-4 h-4" />
+              </div>
             </Link>
           </div>
         </section>
