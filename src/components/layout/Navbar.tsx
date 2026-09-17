@@ -152,11 +152,11 @@ export default function Navbar() {
       </nav>
 
       {/* =========================================
-          MOBILE NATIVE TAB BAR (Mobile Only)
+          NATIVE APP BOTTOM NAVIGATION (Fiverr Style)
           ========================================= */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 w-full z-50 bg-[#1d1d1f]/85 backdrop-blur-3xl border-t border-white/10 pb-[env(safe-area-inset-bottom,20px)] pt-2 px-6 shadow-[0_-10px_40px_rgba(0,0,0,0.3)]">
-         <div className="flex items-center justify-between max-w-md mx-auto">
-           {navLinks.slice(0, 4).map((link) => {
+      <div className="md:hidden fixed bottom-0 left-0 right-0 w-full z-50 bg-[#161a22] border-t border-white/5 pb-[env(safe-area-inset-bottom,16px)]">
+         <div className="flex items-center justify-around w-full h-16 px-2">
+           {navLinks.slice(0, 5).map((link) => {
              const isActive = activeTab === link.name;
              const Icon = link.icon;
              
@@ -165,20 +165,16 @@ export default function Navbar() {
                  key={link.name} 
                  href={link.href}
                  onClick={() => setActiveTab(link.name)}
-                 className={`relative flex flex-col items-center justify-center w-16 py-1 gap-1 transition-all duration-300 active:scale-90 ${isActive ? 'text-white' : 'text-white/40 hover:text-white/70'}`}
+                 className={`flex-1 flex flex-col items-center justify-center h-full gap-1 transition-colors duration-200 active:scale-95 ${isActive ? 'text-primary' : 'text-[#8a8d91] hover:text-white'}`}
                >
-                 <Icon size={22} strokeWidth={isActive ? 2.5 : 2} className="relative z-10 transition-all duration-300" />
-                 <span className={`text-[10px] font-bold tracking-wider relative z-10 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0 translate-y-1'}`}>
+                 <Icon 
+                   size={22} 
+                   strokeWidth={isActive ? 2.5 : 2} 
+                   className={`transition-all duration-300 ${isActive ? 'scale-110 drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]' : 'scale-100'}`} 
+                 />
+                 <span className={`text-[10px] font-medium tracking-wide transition-all duration-300 ${isActive ? 'opacity-100 font-bold' : 'opacity-80'}`}>
                    {link.name}
                  </span>
-                 {/* Active Indicator Dot */}
-                 {isActive && (
-                   <motion.div 
-                     layoutId="mobile-dock-dot"
-                     className="absolute -top-1 w-1 h-1 bg-primary rounded-full shadow-[0_0_8px_#ff2d55]"
-                     transition={{ type: "spring", bounce: 0.2, duration: 0.5 }}
-                   />
-                 )}
                </Link>
              )
            })}
