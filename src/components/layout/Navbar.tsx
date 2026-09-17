@@ -172,7 +172,10 @@ export default function Navbar() {
       {/* =========================================
           MOBILE BOTTOM GLASS DOCK
           ========================================= */}
-      <div className="md:hidden fixed bottom-6 left-4 right-4 z-[60] flex justify-center">
+      <div 
+        className="md:hidden fixed left-4 right-4 z-[100] flex justify-center"
+        style={{ bottom: "calc(1.5rem + env(safe-area-inset-bottom, 0px))" }}
+      >
         <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-[320px] w-full relative">
           
           {/* Main Logo Button (Triggers unique side menu) */}
