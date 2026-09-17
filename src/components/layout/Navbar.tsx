@@ -13,7 +13,7 @@ const navLinks = [
   { name: "Industries", href: "/#industries", icon: Briefcase },
   { name: "Process", href: "/#process", icon: GitMerge },
   { name: "Investment", href: "/#pricing", icon: CreditCard },
-  { name: "Works", href: "/works", icon: Folder },
+  { name: "Projects", href: "/works", icon: Folder },
 ];
 
 export default function Navbar() {
@@ -23,7 +23,7 @@ export default function Navbar() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const hash = window.location.hash;
-      if (pathname === "/works") setActiveTab("Works");
+      if (pathname === "/works") setActiveTab("Projects");
       else if (hash.includes("services")) setActiveTab("Services");
       else if (hash.includes("industries")) setActiveTab("Industries");
       else if (hash.includes("process")) setActiveTab("Process");
