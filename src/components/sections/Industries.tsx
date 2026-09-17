@@ -171,7 +171,7 @@ export default function Industries() {
              </p>
 
              <div className="w-full h-80 rounded-[2.5rem] bg-[#161a22] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.3)] p-8 relative flex items-center justify-center overflow-hidden">
-               <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
+               <div className="absolute inset-0 opacity-5 pointer-events-none bg-white" />
                <AnimatePresence mode="wait">
                  <motion.div 
                    key={activeId}
@@ -200,7 +200,7 @@ export default function Industries() {
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-105 opacity-30 grayscale group-hover:grayscale-0"
                     style={{ backgroundImage: `url(${industry.image})` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                  <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-500" />
                   <div className="absolute top-8 right-8 font-display font-bold text-6xl text-white/10">
                     {industry.number}
                   </div>
@@ -252,7 +252,7 @@ export default function Industries() {
                     className="absolute inset-0 bg-cover bg-center opacity-40 grayscale"
                     style={{ backgroundImage: `url(${industry.image})` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
+                  <div className="absolute inset-0 bg-black/60" />
                   
                   <div className="absolute top-6 right-6 font-display font-bold text-5xl text-white/20">
                     {industry.number}

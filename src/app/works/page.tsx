@@ -161,7 +161,7 @@ export default function WorksPage() {
                          >
                            {/* Hardware */}
                            <div className="absolute top-5 left-1/2 -translate-x-1/2 w-32 h-9 bg-black rounded-full z-20" />
-                           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent rounded-[3.5rem] pointer-events-none z-30" />
+                           <div className="absolute inset-0 bg-white/5 rounded-[3.5rem] pointer-events-none z-30" />
                            
                            {/* Screen */}
                            <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden bg-[#161a22]">
@@ -201,8 +201,8 @@ export default function WorksPage() {
 
                             {/* Stand */}
                             <div className="relative z-0">
-                              <div className="w-24 md:w-32 h-12 md:h-16 bg-gradient-to-b from-[#2a2a2a] to-[#111] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] border-x border-[#333]" />
-                              <div className="w-48 md:w-64 h-2 md:h-3 bg-gradient-to-r from-[#222] via-[#333] to-[#222] rounded-t-md shadow-2xl relative">
+                              <div className="w-24 md:w-32 h-12 md:h-16 bg-[#222] shadow-[inset_0_0_20px_rgba(0,0,0,0.8)] border-x border-[#333]" />
+                              <div className="w-48 md:w-64 h-2 md:h-3 bg-[#222] rounded-t-md shadow-2xl relative">
                                  <div className="absolute inset-x-0 bottom-0 h-1 bg-black rounded-b-md" />
                               </div>
                             </div>

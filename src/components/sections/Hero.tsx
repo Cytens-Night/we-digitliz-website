@@ -71,11 +71,8 @@ export default function Hero() {
       
       {/* Clean Ambient Background */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
-        <div className="absolute w-[80vw] max-w-[1000px] h-[80vw] max-h-[1000px] bg-primary/5 rounded-full blur-[120px] -translate-y-1/4 animate-pulse" style={{ animationDuration: '8s' }} />
-        <div className="absolute w-[60vw] max-w-[800px] h-[60vw] max-h-[800px] bg-accent/5 rounded-full blur-[100px] translate-y-1/4 translate-x-1/4 animate-pulse" style={{ animationDuration: '12s' }} />
-        
         {/* Subtle Grid Pattern Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(0,0,0,1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,1)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_20%,transparent_100%)]" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(0,0,0,1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,1)_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
 
       {/* Content */}
@@ -86,7 +83,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-8 px-5 py-2 rounded-full bg-white/80 backdrop-blur-xl text-[#1d1d1f] text-xs font-bold tracking-widest uppercase border border-black/10 shadow-sm flex items-center gap-2"
+          className="mb-8 px-5 py-2 rounded-full bg-white text-[#1d1d1f] text-xs font-bold tracking-widest uppercase border border-black/10 shadow-sm flex items-center gap-2"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -108,7 +105,7 @@ export default function Hero() {
                 animate={{ opacity: 1, y: 0, rotateX: 0 }}
                 exit={{ opacity: 0, y: -40, rotateX: 90 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute text-transparent bg-clip-text bg-gradient-to-r from-primary via-accent to-primary bg-300% animate-gradientShift whitespace-nowrap drop-shadow-sm pb-2"
+                className="absolute text-primary whitespace-nowrap drop-shadow-sm pb-2"
                 style={{ transformOrigin: "50% 50% -50px" }}
               >
                 {words[index]}
@@ -142,7 +139,7 @@ export default function Hero() {
               transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
               className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md active:scale-95 md:active:scale-100 hover:scale-[1.03] transition-all cursor-default md:w-auto"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border border-black/5 shrink-0 shadow-inner">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#f5f5f7] flex items-center justify-center border border-black/5 shrink-0 shadow-inner">
                 <service.icon size={18} className="text-[#1d1d1f] sm:w-5 sm:h-5" />
               </div>
               <div className="text-left pr-2">

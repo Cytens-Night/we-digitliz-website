@@ -109,8 +109,7 @@ export default function Pricing() {
   return (
     <section id="pricing" className="py-24 md:py-32 bg-[#0a0a0a] relative overflow-hidden">
       
-      {/* Background Glow */}
-      <div className="absolute top-1/4 -right-1/4 w-[1000px] h-[1000px] bg-white/5 rounded-full blur-[200px] pointer-events-none" />
+      {/* Background Glow removed for stark B&W theme */}
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10 flex flex-col items-center">
         
@@ -308,7 +307,7 @@ export default function Pricing() {
                   <div className="w-full min-h-[400px] lg:min-h-[600px] rounded-[2.5rem] bg-[#161a22] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.3)] p-6 md:p-8 flex flex-col relative overflow-hidden">
                     
                     {/* Blueprint Background Grid */}
-                    <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:40px_40px]" />
+                    <div className="absolute inset-0 opacity-5 pointer-events-none bg-white" />
 
                     <div className="relative z-10 flex-1 flex flex-col">
                       <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-6">

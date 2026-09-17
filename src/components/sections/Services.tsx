@@ -11,7 +11,7 @@ const services = [
     description: "From intelligent cashier systems to custom internal tooling, we automate workflows to save you time and money.",
     colSpan: "col-span-1 md:col-span-2",
     rowSpan: "row-span-1 md:row-span-2",
-    bgPattern: "bg-[linear-gradient(to_right,#0066cc15_1px,transparent_1px),linear-gradient(to_bottom,#0066cc15_1px,transparent_1px)] bg-[size:24px_24px]",
+    bgPattern: "",
   },
   {
     icon: LayoutTemplate,
@@ -19,7 +19,7 @@ const services = [
     description: "Cinematic, high-performance websites built with cutting-edge architectures like Next.js and Framer Motion.",
     colSpan: "col-span-1 md:col-span-2",
     rowSpan: "row-span-1",
-    bgPattern: "bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent",
+    bgPattern: "",
   },
   {
     icon: PenTool,
@@ -43,7 +43,7 @@ const services = [
     description: "Have a business idea? We walk through it with you and bring it to life with scalable cloud architecture.",
     colSpan: "col-span-1 md:col-span-2",
     rowSpan: "row-span-1",
-    bgPattern: "bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent",
+    bgPattern: "",
   },
   {
     icon: ShieldCheck,
@@ -51,7 +51,7 @@ const services = [
     description: "Seamlessly connect your disparate systems into one unified, secure ecosystem.",
     colSpan: "col-span-1 md:col-span-2",
     rowSpan: "row-span-1",
-    bgPattern: "bg-[linear-gradient(45deg,#0066cc10_25%,transparent_25%,transparent_50%,#0066cc10_50%,#0066cc10_75%,transparent_75%,transparent_100%)] bg-[length:24px_24px]",
+    bgPattern: "",
   },
 ];
 
@@ -114,11 +114,11 @@ function TiltCard({ children, className, delay = 0 }: { children: React.ReactNod
         {/* The Card Content */}
         {children}
 
-        {/* 3D Dynamic Glare Effect */}
+        {/* 3D Dynamic Glare Effect removed per instructions */}
         <motion.div 
           className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-50 mix-blend-overlay"
           style={{
-            background: `radial-gradient(circle at center, rgba(255,255,255,0.15) 0%, transparent 50%)`,
+            background: `transparent`,
             left: glareX,
             top: glareY,
             transform: 'translate(-50%, -50%)',
@@ -202,7 +202,7 @@ export default function Services() {
                   </div>
                   
                   <div style={{ transform: "translateZ(40px)" }}>
-                    <h4 className={`${isHero ? 'text-4xl lg:text-5xl' : 'text-2xl'} font-display font-bold text-[#1d1d1f] mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-accent transition-all`}>
+                    <h4 className={`${isHero ? 'text-4xl lg:text-5xl' : 'text-2xl'} font-display font-bold text-[#1d1d1f] mb-4 group-hover:text-primary transition-colors`}>
                       {service.title}
                     </h4>
                     <p className={`text-[#3c3c43] leading-relaxed ${isHero ? 'text-lg max-w-md' : 'text-sm'}`}>

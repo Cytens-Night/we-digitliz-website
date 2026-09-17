@@ -212,8 +212,8 @@ export default function Laptop3D() {
            className="absolute bottom-12 text-white/40 text-sm tracking-widest uppercase font-bold z-0 flex flex-col items-center gap-2"
            style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
         >
-           Scroll Down
-           <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
+           {/* Center notch/camera area */}
+           <div className="w-px h-8 bg-white/20" />
         </motion.div>
 
         {/* ====================
@@ -260,7 +260,8 @@ export default function Laptop3D() {
                    </div>
 
                    {/* Desktop Background / Content Wrapper */}
-                   <div className="flex-1 w-full bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.15)_0%,transparent_50%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.15)_0%,transparent_50%)] p-4 sm:p-6 overflow-y-auto no-scrollbar relative flex flex-col">
+                   <div className="flex-1 w-full flex overflow-hidden relative">
+                   <div className="flex-1 w-full bg-white p-4 sm:p-6 overflow-y-auto no-scrollbar relative flex flex-col">
                       
                       {/* Dashboard Content */}
                       <div className="w-full bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 sm:p-8 flex-1 flex flex-col shadow-2xl">

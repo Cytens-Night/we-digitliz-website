@@ -30,10 +30,11 @@ export default function About() {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 blur-[200px] rounded-full pointer-events-none" />
 
           {/* The horizontal moving track */}
-          <motion.div style={{ x }} className="flex w-[400vw] h-full items-center relative z-10 px-[10vw]">
+          <motion.div style={{ x }} className="flex w-[400vw] h-full items-center relative z-10">
             
             {/* Slide 1: Introduction */}
-            <div className="w-[100vw] flex-shrink-0 flex flex-col justify-center pr-4 md:pr-40 relative">
+            <div className="w-[100vw] h-full flex-shrink-0 flex flex-col justify-center px-[5vw] lg:px-[10vw] relative overflow-hidden">
+              <div className="max-w-7xl mx-auto w-full">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -43,7 +44,7 @@ export default function About() {
                 About The Agency
               </motion.div>
               
-              <h3 className="text-[2.5rem] leading-[1.05] md:text-8xl lg:text-[7rem] font-display font-bold text-white mb-8">
+              <h3 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-white mb-6 md:mb-8 leading-[1.05]">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -77,27 +78,30 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 1.5, duration: 0.8 }}
-                className="text-2xl md:text-4xl text-white max-w-4xl leading-tight font-medium"
+                className="text-lg md:text-2xl lg:text-3xl text-white max-w-4xl leading-tight font-medium"
               >
-                We engineer entire <span className="font-bold underline decoration-[3px] underline-offset-8">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.
+                We engineer entire <span className="font-bold underline decoration-2 md:decoration-[3px] underline-offset-4 md:underline-offset-8">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.
               </motion.p>
+              </div>
             </div>
 
             {/* Slide 2: Bespoke Architecture */}
-            <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-4 md:pr-40">
+            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
+              <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
                 <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                   <Cpu size={40} className="text-white" />
                 </div>
-                <h3 className="text-4xl md:text-7xl font-display font-bold text-white mb-8 leading-[1.1]">
+                <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-[1.1]">
                   Bespoke <br/> <span className="text-white">Architecture.</span>
                 </h3>
-                <p className="text-xl md:text-2xl text-white/60 max-w-xl leading-relaxed">
+                <p className="text-base md:text-xl text-white/60 max-w-xl leading-relaxed">
                   We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[40vh] lg:h-[60vh] bg-[#0a0a0a] rounded-[3rem] border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden relative flex items-center justify-center group">
-                 <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#1d1d1f_1px,transparent_1px),linear-gradient(to_bottom,#1d1d1f_1px,transparent_1px)] bg-[size:2rem_2rem] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_70%)]" />
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#0a0a0a] rounded-[3rem] border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden relative flex items-center justify-center group shrink-0">
+                 {/* Grid Pattern with solid opacity instead of gradient mask */}
+                 <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')] bg-[size:2rem_2rem]" />
                  
                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] lg:w-[70%] aspect-square border border-white/10 rounded-full border-dashed" />
                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[60%] lg:w-[50%] aspect-square border border-black/15 rounded-full" />
@@ -126,34 +130,34 @@ export default function About() {
                  
                  <motion.div 
                    initial={{ top: "-10%" }}
-                   animate={{ top: "110%" }}
-                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                   className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#1d1d1f]/30 to-transparent shadow-[0_0_15px_rgba(0,0,0,0.2)] z-30"
+                   className="absolute left-0 right-0 h-[1px] bg-[#1d1d1f]/30 z-30"
                  />
+              </div>
               </div>
             </div>
 
             {/* Slide 3: Rapid Execution */}
-            <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-4 md:pr-40">
+            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
+              <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
                 <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                   <Code2 size={40} className="text-white" />
                 </div>
-                <h3 className="text-4xl md:text-7xl font-display font-bold text-white mb-8 leading-[1.1]">
+                <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-[1.1]">
                   Rapid <br/> Execution.
                 </h3>
-                <p className="text-xl md:text-2xl text-white/60 max-w-xl leading-relaxed">
+                <p className="text-base md:text-xl text-white/60 max-w-xl leading-relaxed">
                   Time is money. Our agile methodologies and proprietary codebase allow us to execute complex SaaS builds and enterprise sites in a fraction of the traditional timeline.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[40vh] lg:h-[60vh] bg-[#1d1d1f] rounded-[3rem] shadow-[0_20px_40px_rgba(0,0,0,0.2)] flex flex-col p-6 md:p-10 relative overflow-hidden text-white font-mono text-xs md:text-sm border border-black">
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#1d1d1f] rounded-[3rem] shadow-[0_20px_40px_rgba(0,0,0,0.2)] flex flex-col p-6 md:p-10 relative overflow-hidden text-white font-mono text-xs md:text-sm border border-black shrink-0">
                   <div className="flex gap-2 mb-6 opacity-50 relative z-10">
                     <div className="w-3 h-3 rounded-full bg-white/20" />
                     <div className="w-3 h-3 rounded-full bg-white/20" />
                     <div className="w-3 h-3 rounded-full bg-white/20" />
                   </div>
 
-                  <div className="flex-1 overflow-hidden relative z-10" style={{ maskImage: "linear-gradient(to bottom, black 40%, transparent 100%)", WebkitMaskImage: "linear-gradient(to bottom, black 40%, transparent 100%)" }}>
+                  <div className="flex-1 overflow-hidden relative z-10 opacity-70">
                     <motion.div 
                       initial={{ y: 0 }}
                       animate={{ y: "-50%" }}
@@ -197,22 +201,24 @@ export default function About() {
                     </div>
                   </div>
               </div>
+              </div>
             </div>
 
             {/* Slide 4: Data Driven */}
-            <div className="w-[100vw] flex-shrink-0 flex flex-col lg:flex-row items-center gap-12 lg:gap-24 pr-4 md:pr-40">
+            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
+              <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
                 <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 shadow-lg">
                   <Network size={40} className="text-white/80" />
                 </div>
-                <h3 className="text-4xl md:text-7xl font-display font-bold text-white mb-8 leading-[1.1]">
+                <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 leading-[1.1]">
                   Data-Driven <br/> Decisions.
                 </h3>
-                <p className="text-xl md:text-2xl text-white/60 max-w-xl leading-relaxed">
+                <p className="text-base md:text-xl text-white/60 max-w-xl leading-relaxed">
                   We don't guess. We integrate deep analytics and telemetry into every platform, ensuring every design and engineering decision is backed by cold, hard data.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[40vh] lg:h-[60vh] bg-[#0a0a0a] rounded-[3rem] border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-8 md:p-12 relative overflow-hidden flex flex-col justify-between group">
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#0a0a0a] rounded-[3rem] border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-6 md:p-10 relative overflow-hidden flex flex-col justify-between group shrink-0">
                  <div className="flex justify-between items-center mb-8 relative z-10">
                    <div>
                      <div className="text-[10px] font-bold tracking-widest uppercase text-white/60 mb-1">Real-time Telemetry</div>
@@ -233,7 +239,8 @@ export default function About() {
                    <svg viewBox="0 0 100 50" preserveAspectRatio="none" className="w-full h-full absolute inset-0 drop-shadow-[0_10px_10px_rgba(0,0,0,0.05)] overflow-visible">
                      <motion.path 
                        d="M 0 50 L 0 40 Q 20 40, 40 20 T 70 25 T 100 5 L 100 50 Z"
-                       fill="url(#chartGradient)"
+                       fill="#1d1d1f"
+                       fillOpacity="0.1"
                        animate={{ opacity: [0.3, 0.8, 0.3] }}
                        transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
                      />
@@ -250,14 +257,10 @@ export default function About() {
                      <motion.circle cx="70" cy="25" r="1.5" fill="#ffffff" stroke="#1d1d1f" strokeWidth="0.5" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, delay: 0.5, repeat: Infinity }} />
                      <motion.circle cx="100" cy="5" r="2" fill="#1d1d1f" animate={{ scale: [1, 1.5, 1] }} transition={{ duration: 2, delay: 1, repeat: Infinity }} />
 
-                     <defs>
-                       <linearGradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
-                         <stop offset="0%" stopColor="#1d1d1f" stopOpacity="0.1" />
-                         <stop offset="100%" stopColor="#1d1d1f" stopOpacity="0" />
-                       </linearGradient>
                      </defs>
                    </svg>
                  </div>
+              </div>
               </div>
             </div>
 
@@ -318,8 +321,8 @@ export default function About() {
           <p className="text-base text-white/60 leading-relaxed mb-6">
             We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
           </p>
-          <div className="w-full h-48 bg-[#0a0a0a] rounded-3xl border border-white/5 overflow-hidden flex items-center justify-center relative">
-             <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#1d1d1f_1px,transparent_1px),linear-gradient(to_bottom,#1d1d1f_1px,transparent_1px)] bg-[size:1rem_1rem]" />
+             {/* Solid grid pattern */}
+             <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')] bg-[size:1rem_1rem]" />
              <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-white/10 rounded-full border-dashed" />
              <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/15 rounded-full" />
              <div className="relative w-12 h-12 bg-[#0a0a0a] rounded-lg border border-white/20 flex items-center justify-center rotate-45 z-10 shadow-[0_0_20px_rgba(0,0,0,0.5)]">

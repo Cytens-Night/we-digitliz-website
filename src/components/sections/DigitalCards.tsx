@@ -12,7 +12,7 @@ const CLIENTS = [
     year: "2024",
     url: "https://card.shakurfragrances.co.uk/",
     desc: "A premium 3D digital business card featuring native e-commerce and offline NFC integration.",
-    gradient: "from-amber-500/20 via-orange-900/20 to-black"
+    overlay: "bg-black/60 group-hover:bg-primary/20"
   },
   { 
     id: "furqan-sweets", 
@@ -21,7 +21,7 @@ const CLIENTS = [
     year: "2024",
     url: "https://furqansweets.co.uk/",
     desc: "A high-performance e-commerce storefront optimized for conversion and rapid load times.",
-    gradient: "from-pink-500/20 via-rose-900/20 to-black"
+    overlay: "bg-black/60 group-hover:bg-primary/20"
   },
   { 
     id: "hesori", 
@@ -30,7 +30,7 @@ const CLIENTS = [
     year: "2024",
     url: "https://hesori.com",
     desc: "A sleek, modern web architecture showcasing premium brand identity and dynamic layouts.",
-    gradient: "from-blue-500/20 via-indigo-900/20 to-black"
+    overlay: "bg-black/60 group-hover:bg-primary/20"
   },
   { 
     id: "marshalos", 
@@ -39,7 +39,7 @@ const CLIENTS = [
     year: "2023",
     url: "https://marshalos.co.uk",
     desc: "A complete digital transformation delivering seamless user experience and robust functionality.",
-    gradient: "from-emerald-500/20 via-teal-900/20 to-black"
+    overlay: "bg-black/60 group-hover:bg-primary/20"
   }
 ];
 
@@ -93,7 +93,7 @@ export default function DigitalCards() {
                transition={{ duration: 0.6, delay: index * 0.1 }}
                className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-8 hover:border-white/30 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-40 group-hover:opacity-60 transition-opacity duration-700`} />
+                <div className={`absolute inset-0 transition-colors duration-700 ${client.overlay}`} />
                 
                 <div className="absolute top-8 right-8 flex gap-3">
                   <a 
@@ -144,7 +144,7 @@ export default function DigitalCards() {
                transition={{ duration: 0.5, delay: index * 0.1 }}
                className="relative h-[380px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-6 active:scale-95 transition-transform shadow-2xl"
              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-50`} />
+                <div className={`absolute inset-0 transition-colors duration-700 ${client.overlay}`} />
                 
                 <div className="absolute top-6 right-6 flex gap-3">
                   <a 
