@@ -125,14 +125,11 @@
   }
   body {
     @apply bg-[#f5f5f7] text-foreground antialiased selection:bg-primary/30 selection:text-[#1d1d1f];
-    overflow-x: hidden;
-    overscroll-behavior-y: none; /* Prevents rubber-banding on whole page */
     width: 100%;
     position: relative;
   }
   html {
     @apply font-sans scroll-smooth;
-    overflow-x: hidden;
     -ms-overflow-style: none;
     scrollbar-width: none;
     width: 100%;

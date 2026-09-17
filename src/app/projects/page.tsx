@@ -59,7 +59,7 @@ export default function ProjectsPage() {
     <div className="bg-[#0a0a0a] min-h-screen text-white selection:bg-white selection:text-black">
       <Navbar />
       
-      <main className="pt-32 md:pt-40 pb-16 md:pb-32 overflow-x-clip">
+      <main className="pt-32 md:pt-40 pb-16 md:pb-32">
         {/* Massive Brutalist Header */}
         <section className="max-w-[1400px] mx-auto px-6 mb-16 md:mb-40 relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-white/5 blur-[150px] rounded-full pointer-events-none" />
