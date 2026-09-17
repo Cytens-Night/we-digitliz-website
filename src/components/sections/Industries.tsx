@@ -239,9 +239,13 @@ export default function Industries() {
           </div>
 
           <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbars px-6 gap-4 pb-12 w-full">
-             {industries.map((industry) => (
-               <div 
+             {industries.map((industry, index) => (
+               <motion.div 
                  key={industry.id}
+                 initial={{ opacity: 0, scale: 0.95 }}
+                 whileInView={{ opacity: 1, scale: 1 }}
+                 viewport={{ once: true, margin: "-10%" }}
+                 transition={{ duration: 0.5, delay: index * 0.1 }}
                  className="relative w-[85vw] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#161a22] border border-white/10 shadow-2xl flex flex-col justify-end min-h-[420px] p-6 active:scale-[0.98] transition-transform"
                >
                   <div 
@@ -264,11 +268,11 @@ export default function Industries() {
                      <p className="text-white/70 text-sm leading-relaxed mb-6">
                         {industry.description}
                      </p>
-                     <button className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black font-bold text-xs tracking-widest uppercase w-full justify-center">
+                     <button className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black font-bold text-xs tracking-widest uppercase w-full justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)]">
                        Case Studies <ArrowRight size={14} />
                      </button>
                   </div>
-               </div>
+               </motion.div>
              ))}
           </div>
         </div>

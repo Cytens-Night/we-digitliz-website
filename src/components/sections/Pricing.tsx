@@ -180,14 +180,14 @@ export default function Pricing() {
                        ${isSelected ? 'bg-white text-black border-white' : 'bg-[#161a22] text-white border-white/10 hover:border-white/30'}
                      `}
                    >
-                     <div className="p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+                     <div className="p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 sm:gap-8">
                         
-                        <div className="flex items-center gap-6 lg:gap-8 flex-1">
+                        <div className="flex items-center gap-4 sm:gap-6 lg:gap-8 flex-1">
                            <div className={`text-3xl lg:text-4xl font-display font-bold opacity-20 hidden md:block ${isSelected ? 'text-black' : 'text-white'}`}>
                              0{index + 1}
                            </div>
                            <div>
-                             <div className="flex items-center gap-4 mb-2 flex-wrap">
+                             <div className="flex items-center gap-3 sm:gap-4 mb-2 flex-wrap">
                                <Icon size={24} className={isSelected ? 'text-black' : 'text-white'} />
                                <h4 className="text-2xl md:text-3xl lg:text-4xl font-display font-bold">{bundle.title}</h4>
                                {bundle.isPopular && (
@@ -202,7 +202,7 @@ export default function Pricing() {
                            </div>
                         </div>
 
-                        <div className="flex items-center gap-8 lg:gap-12 lg:w-1/3 justify-between lg:justify-end w-full lg:w-auto mt-4 lg:mt-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-current/10">
+                        <div className="flex items-center gap-6 sm:gap-8 lg:gap-12 lg:w-1/3 justify-between lg:justify-end w-full lg:w-auto mt-4 lg:mt-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-current/10">
                            <div className="text-3xl md:text-5xl font-display font-bold">
                              {bundle.priceLabel}
                            </div>
@@ -223,7 +223,7 @@ export default function Pricing() {
                            transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                            className="overflow-hidden"
                          >
-                            <div className={`px-8 lg:px-10 pb-8 pt-4 border-t ${isSelected ? 'border-black/10' : 'border-white/10'}`}>
+                            <div className={`px-6 sm:px-8 lg:px-10 pb-6 sm:pb-8 pt-4 border-t ${isSelected ? 'border-black/10' : 'border-white/10'}`}>
                               <p className={`text-xs font-bold uppercase tracking-widest mb-6 ${isSelected ? 'text-black/40' : 'text-white/30'}`}>
                                  Included Architecture
                               </p>
