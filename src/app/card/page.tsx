@@ -28,6 +28,7 @@ N:Digitlize;We;;;
 FN:We Digitlize
 ORG:We Digitlize
 TITLE:Premium Digital Agency
+NOTE:Keywords: Website Development, Web Design, Social Media Marketing, Content Creation, Logo Design, Brand Identity, SEO, Search Engine Optimization, App Development, SaaS, Automated Systems, Digital Transformation, Lead Generation, Software Engineering.
 TEL;TYPE=WORK,VOICE:+44 123 456 7890
 EMAIL;TYPE=PREF,INTERNET:info@wedigitlize.com
 URL:https://wedigitlize.com
