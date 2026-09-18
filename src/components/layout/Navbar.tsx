@@ -172,8 +172,8 @@ export default function Navbar() {
       {/* =========================================
           MOBILE BOTTOM GLASS DOCK
           ========================================= */}
-      <div className="md:hidden fixed z-[999] flex justify-center w-full" style={{ bottom: 'max(2rem, env(safe-area-inset-bottom))' }}>
-        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-[320px] w-[90%] relative">
+      <div className="md:hidden fixed z-[999] inset-x-0 flex justify-center pointer-events-none" style={{ bottom: 'max(2rem, env(safe-area-inset-bottom))' }}>
+        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-[320px] w-[90%] relative pointer-events-auto mx-auto">
           
           {/* Main Logo Button (Triggers unique side menu) */}
           <button 
