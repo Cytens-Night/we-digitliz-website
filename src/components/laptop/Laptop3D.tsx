@@ -105,7 +105,7 @@ function Macbook({ scrollYProgress }: { scrollYProgress: any }) {
               <div className="flex flex-col items-center justify-center pointer-events-none drop-shadow-[0_0_20px_rgba(139,92,246,0.8)]">
                 <Logo className="w-24 h-24 text-white mb-2" />
                 <span className="font-display font-bold text-2xl tracking-[0.2em] uppercase text-white">
-                  We Digitlize
+                  wedigitlize
                 </span>
               </div>
             </Html>
@@ -189,7 +189,7 @@ export default function Laptop3D() {
   };
 
   const handleSaveContact = () => {
-    const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:We Digitlize\nORG:We Digitlize\nTEL:${phone}\nEMAIL:${email}\nURL:https://wedigitlize.com\nEND:VCARD`;
+    const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:wedigitlize\nORG:wedigitlize\nTEL:${phone}\nEMAIL:${email}\nURL:https://wedigitlize.com\nEND:VCARD`;
     const blob = new Blob([vcard], { type: 'text/vcard' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -251,7 +251,7 @@ export default function Laptop3D() {
                    <div className="w-full h-8 bg-black/50 backdrop-blur-md flex items-center justify-between px-6 text-[10px] sm:text-xs text-white/50 border-b border-white/5 shrink-0">
                       <div className="flex gap-2 items-center">
                         <Logo className="w-3 h-3 text-white" />
-                        <span>We Digitlize</span>
+                        <span>wedigitlize</span>
                       </div>
                       <div className="flex gap-4">
                         <span>100%</span>
@@ -269,7 +269,7 @@ export default function Laptop3D() {
                          {/* Header */}
                          <div className="flex justify-between items-start mb-8">
                             <div>
-                              <h1 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1 tracking-tight">We Digitlize</h1>
+                              <h1 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1 tracking-tight">wedigitlize</h1>
                               <p className="text-primary text-xs sm:text-sm font-medium">Digital Dominance Architecture</p>
                             </div>
                             <div className="flex gap-2">

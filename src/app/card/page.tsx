@@ -24,9 +24,9 @@ export default function CardPage() {
   const handleSaveContact = () => {
     const vcard = `BEGIN:VCARD
 VERSION:3.0
-N:Digitlize;We;;;
-FN:We Digitlize
-ORG:We Digitlize
+N:wedigitlize;;;;
+FN:wedigitlize
+ORG:wedigitlize
 TITLE:Premium Digital Agency
 NOTE:Keywords: Website Development, Web Design, Social Media Marketing, Content Creation, Logo Design, Brand Identity, SEO, Search Engine Optimization, App Development, SaaS, Automated Systems, Digital Transformation, Lead Generation, Software Engineering.
 TEL;TYPE=WORK,VOICE:+44 123 456 7890
@@ -38,7 +38,7 @@ END:VCARD`;
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "we-digitlize.vcf";
+    a.download = "wedigitlize.vcf";
     a.click();
     URL.revokeObjectURL(url);
     
@@ -102,7 +102,7 @@ END:VCARD`;
         >
           <div className="flex items-center gap-3">
             <Logo className="w-6 h-6 text-white" />
-            <span className="font-display font-bold tracking-widest text-2xl text-white uppercase">We Digitliz</span>
+            <span className="font-display font-bold tracking-widest text-2xl text-white uppercase">wedigitlize</span>
           </div>
           <span className="text-[9px] uppercase tracking-[0.3em] text-white/50 font-bold">Premium Digital Agency</span>
         </motion.div>

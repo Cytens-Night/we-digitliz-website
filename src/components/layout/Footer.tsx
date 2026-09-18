@@ -14,10 +14,10 @@ export default function Footer() {
             <div className="col-span-1">
               <Link href="/" className="flex items-center gap-2 group mb-6">
                 <Logo className="w-8 h-8 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
-                <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">We Digitlize</span>
+                <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">wedigitlize</span>
               </Link>
               <p className="text-[#3c3c43] text-sm leading-relaxed mb-6">
-                We digitlize your world so you can still lead in confidence. Building automated systems and premium online presences.
+                wedigitlize your world so you can still lead in confidence. Building automated systems and premium online presences.
               </p>
               <div className="flex items-center gap-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-black hover:text-white transition-all">
@@ -68,13 +68,13 @@ export default function Footer() {
           <div className="border-t border-black/10 pt-8 flex flex-col items-center md:flex-row md:justify-between text-center md:text-left">
             <Link href="/" className="md:hidden flex items-center gap-2 group mb-6">
                <Logo className="w-6 h-6 text-[#1d1d1f]" />
-               <span className="font-display font-bold text-xl tracking-wide text-[#1d1d1f]">We Digitlize</span>
+               <span className="font-display font-bold text-xl tracking-wide text-[#1d1d1f]">wedigitlize</span>
             </Link>
             <p className="text-[#3c3c43] text-xs md:text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} We Digitlize. All rights reserved.
+              © {new Date().getFullYear()} wedigitlize. All rights reserved.
             </p>
             <div className="hidden md:flex items-center gap-2 text-sm text-[#3c3c43]">
-              Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by We Digitlize
+              Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by wedigitlize
             </div>
           </div>
         </div>

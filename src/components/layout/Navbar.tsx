@@ -111,7 +111,7 @@ export default function Navbar() {
               <Logo className="w-5 h-5 text-white" />
             </div>
             <span className="font-display font-bold text-sm tracking-wide text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              We Digitlize
+              wedigitlize
             </span>
           </Link>
 

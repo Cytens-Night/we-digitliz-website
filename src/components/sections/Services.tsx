@@ -169,7 +169,7 @@ export default function Services() {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-[#3c3c43] max-w-2xl mx-auto"
           >
-            We digitliz your world so you can scale in confidence. From full-scale automations and custom SaaS to stunning brand aesthetics.
+            wedigitlize your world so you can scale in confidence. From full-scale automations and custom SaaS to stunning brand aesthetics.
           </motion.p>
         </div>
 

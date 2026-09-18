@@ -10,7 +10,7 @@ const CLIENTS = [
     type: "Digital Business Card & E-Commerce", 
     year: "2026",
     url: "https://card.shakurfragrances.co.uk/",
-    testimonial: '"We Digitlize built us a breathtaking digital presence. Our sales doubled in the first month."',
+    testimonial: '"wedigitlize built us a breathtaking digital presence. Our sales doubled in the first month."',
     stars: 5,
   },
   { 

@@ -94,13 +94,13 @@ export default function Pricing() {
       return `- ${item?.title} (£${item?.price}${item?.monthly ? ` + £${item.monthly}/mo` : ''})`;
     }).join('%0A');
 
-    const message = `Hello We Digitlize! I would like to deploy the following custom architecture:%0A%0A${itemsList}%0A%0ATotal Upfront: £${totalUpfront}%0ATotal Monthly: £${totalMonthly}`;
+    const message = `Hello wedigitlize! I would like to deploy the following custom architecture:%0A%0A${itemsList}%0A%0ATotal Upfront: £${totalUpfront}%0ATotal Monthly: £${totalMonthly}`;
     window.open(`https://wa.me/447000000000?text=${message}`, '_blank');
   };
 
   const handleBundleDeploy = (bundle: any, e: React.MouseEvent) => {
     e.stopPropagation();
-    const message = `Hello We Digitlize! I am interested in the ${bundle.title} Package for ${bundle.priceLabel}.`;
+    const message = `Hello wedigitlize! I am interested in the ${bundle.title} Package for ${bundle.priceLabel}.`;
     window.open(`https://wa.me/447000000000?text=${message}`, '_blank');
   };
 
