@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, MessageCircle, ArrowUpRight, QrCode, X } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, MessageCircle, ArrowUpRight, QrCode, X, Download } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
@@ -12,14 +12,44 @@ export default function CardPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isFlipped, setIsFlipped] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstallable, setIsInstallable] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
 
   // Simulate a quick loading sequence for effect
   React.useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
-    return () => clearTimeout(timer);
+
+    // PWA install logic
+    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true) {
+      setIsStandalone(true);
+    }
+
+    const handleBeforeInstallPrompt = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setIsInstallable(true);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+    };
   }, []);
+
+  const handleInstallApp = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setIsInstallable(false);
+    }
+    setDeferredPrompt(null);
+  };
 
   const handleSaveContact = () => {
     const vcard = `BEGIN:VCARD
@@ -129,6 +159,18 @@ END:VCARD`;
             {/* ================= FRONT FACE ================= */}
             <div className="backface-hidden relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-6 pt-16 flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.5)] z-10 w-full">
               
+              {/* Install App Button (Top Left) */}
+              {!isStandalone && isInstallable && (
+                <button 
+                  onClick={handleInstallApp}
+                  className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#007AFF]/20 flex items-center justify-center text-[#007AFF] hover:text-white hover:bg-[#007AFF] transition-colors z-30 shadow-sm border border-[#007AFF]/30"
+                  aria-label="Install App"
+                  title="Install App"
+                >
+                  <Download size={18} />
+                </button>
+              )}
+
               {/* QR Code Flip Button (Top Right) */}
               <button 
                 onClick={() => setIsFlipped(true)}
