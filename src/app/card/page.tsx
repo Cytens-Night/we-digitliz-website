@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, MessageCircle, ArrowUpRight } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, MessageCircle, ArrowUpRight, QrCode, X } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
 import { FiInstagram, FiLinkedin } from "react-icons/fi";
@@ -10,6 +11,7 @@ import { FiInstagram, FiLinkedin } from "react-icons/fi";
 export default function CardPage() {
   const [toast, setToast] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   // Simulate a quick loading sequence for effect
   React.useEffect(() => {
@@ -116,95 +118,157 @@ END:VCARD`;
           </div>
         </motion.div>
 
-        {/* Main Card Content */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-6 pt-16 flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
-        >
-          {/* Overlapping Profile Picture/Logo */}
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full bg-[#0a0a0a] border border-white/10 shadow-[0_0_40px_rgba(0,122,255,0.2)] flex items-center justify-center p-1 z-20">
-            <div className="w-full h-full rounded-full bg-gradient-to-br from-[#007AFF]/20 to-[#8b5cf6]/20 flex items-center justify-center overflow-hidden border border-white/5">
-              <Logo className="w-10 h-10 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
-            </div>
-          </div>
-
-          {/* Titles */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl font-display font-bold text-white mb-2 tracking-wide uppercase">Digital Dominance</h1>
-            <p className="text-xs text-white/50 tracking-widest font-bold uppercase">Engineering Ecosystems</p>
-          </div>
-
-          {/* Contact Text Row */}
-          <div className="flex justify-center items-center gap-6 mb-8 text-xs font-mono text-white/70">
-            <a href="tel:+441234567890" className="flex items-center gap-2 hover:text-white transition-colors">
-              <Phone size={12} className="text-[#007AFF]" />
-              +44 123 456 7890
-            </a>
-            <div className="w-px h-3 bg-white/20" />
-            <a href="https://wedigitlize.com" className="flex items-center gap-2 hover:text-white transition-colors">
-              <Globe size={12} className="text-[#007AFF]" />
-              wedigitlize.com
-            </a>
-          </div>
-
-          {/* Primary Action Button */}
-          <button 
-            onClick={handleSaveContact}
-            className="w-full py-4 rounded-full bg-gradient-to-r from-[#007AFF] to-[#0056b3] text-white font-bold tracking-widest text-xs flex items-center justify-center gap-3 uppercase shadow-[0_0_30px_rgba(0,122,255,0.3)] hover:shadow-[0_0_40px_rgba(0,122,255,0.5)] transition-all active:scale-95 mb-4 group cursor-pointer"
+        {/* Main Card Content - 3D Perspective Container */}
+        <div style={{ perspective: "1500px" }} className="w-full relative z-20">
+          <motion.div 
+            animate={{ rotateY: isFlipped ? 180 : 0 }}
+            transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            className="transform-style-3d relative w-full"
           >
-            <UserPlus size={16} className="group-hover:scale-110 transition-transform" />
-            Save Contact
-          </button>
+            {/* ================= FRONT FACE ================= */}
+            <div className="backface-hidden relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-6 pt-16 flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.5)] z-10 w-full">
+              
+              {/* QR Code Flip Button (Top Right) */}
+              <button 
+                onClick={() => setIsFlipped(true)}
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-colors z-30 shadow-sm border border-white/10"
+                aria-label="Show QR Code"
+              >
+                <QrCode size={18} />
+              </button>
 
-          {/* Secondary Action Buttons */}
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <a 
-              href="mailto:info@wedigitlize.com"
-              className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
-            >
-              <Mail size={14} className="text-white/70" />
-              Email
-            </a>
-            <a 
-              href="https://wedigitlize.com"
-              target="_blank"
-              rel="noreferrer"
-              className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
-            >
-              <Globe size={14} className="text-white/70" />
-              Website
-            </a>
-          </div>
+              {/* Overlapping Profile Picture/Logo */}
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full bg-[#0a0a0a] border border-white/10 shadow-[0_0_40px_rgba(0,122,255,0.2)] flex items-center justify-center p-1 z-20">
+                <div className="w-full h-full rounded-full bg-gradient-to-br from-[#007AFF]/20 to-[#8b5cf6]/20 flex items-center justify-center overflow-hidden border border-white/5">
+                  <Logo className="w-10 h-10 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
+                </div>
+              </div>
 
-          {/* Features Grid */}
-          <div className="grid grid-cols-2 gap-4">
-            <Link 
-              href="/projects"
-              className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/5 p-4 flex flex-col items-center justify-center gap-3 hover:border-white/20 transition-colors h-28"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#007AFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Folder size={24} className="text-white/80 group-hover:text-white transition-colors relative z-10 group-hover:scale-110 duration-300" />
-              <span className="text-[9px] font-bold tracking-widest text-white/60 group-hover:text-white uppercase relative z-10 text-center">
-                Explore<br/>Projects
-              </span>
-              <ArrowUpRight size={12} className="absolute top-2 right-2 text-white/20 group-hover:text-white/60" />
-            </Link>
+              {/* Titles */}
+              <div className="text-center mb-8">
+                <h1 className="text-2xl font-display font-bold text-white mb-2 tracking-wide uppercase">Digital Dominance</h1>
+                <p className="text-xs text-white/50 tracking-widest font-bold uppercase">Engineering Ecosystems</p>
+              </div>
 
-            <Link 
-              href="/#services"
-              className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/5 p-4 flex flex-col items-center justify-center gap-3 hover:border-white/20 transition-colors h-28"
+              {/* Contact Text Row */}
+              <div className="flex justify-center items-center gap-6 mb-8 text-xs font-mono text-white/70">
+                <a href="tel:+441234567890" className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Phone size={12} className="text-[#007AFF]" />
+                  +44 123 456 7890
+                </a>
+                <div className="w-px h-3 bg-white/20" />
+                <a href="https://wedigitlize.com" className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Globe size={12} className="text-[#007AFF]" />
+                  wedigitlize.com
+                </a>
+              </div>
+
+              {/* Primary Action Button */}
+              <button 
+                onClick={handleSaveContact}
+                className="w-full py-4 rounded-full bg-gradient-to-r from-[#007AFF] to-[#0056b3] text-white font-bold tracking-widest text-xs flex items-center justify-center gap-3 uppercase shadow-[0_0_30px_rgba(0,122,255,0.3)] hover:shadow-[0_0_40px_rgba(0,122,255,0.5)] transition-all active:scale-95 mb-4 group cursor-pointer relative overflow-hidden"
+              >
+                <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+                <UserPlus size={16} className="group-hover:scale-110 transition-transform relative z-10" />
+                <span className="relative z-10">Save Contact</span>
+              </button>
+
+              {/* Secondary Action Buttons */}
+              <div className="grid grid-cols-2 gap-4 mb-8">
+                <a 
+                  href="mailto:info@wedigitlize.com"
+                  className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
+                >
+                  <Mail size={14} className="text-white/70" />
+                  Email
+                </a>
+                <a 
+                  href="https://wedigitlize.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
+                >
+                  <Globe size={14} className="text-white/70" />
+                  Website
+                </a>
+              </div>
+
+              {/* Features Grid */}
+              <div className="grid grid-cols-2 gap-4 mt-auto">
+                <Link 
+                  href="/projects"
+                  className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/5 p-4 flex flex-col items-center justify-center gap-3 hover:border-white/20 transition-colors h-28"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#007AFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Folder size={24} className="text-white/80 group-hover:text-white transition-colors relative z-10 group-hover:scale-110 duration-300" />
+                  <span className="text-[9px] font-bold tracking-widest text-white/60 group-hover:text-white uppercase relative z-10 text-center">
+                    Explore<br/>Projects
+                  </span>
+                  <ArrowUpRight size={12} className="absolute top-2 right-2 text-white/20 group-hover:text-white/60" />
+                </Link>
+
+                <Link 
+                  href="/#services"
+                  className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/5 p-4 flex flex-col items-center justify-center gap-3 hover:border-white/20 transition-colors h-28"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#8b5cf6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <LayoutGrid size={24} className="text-white/80 group-hover:text-white transition-colors relative z-10 group-hover:scale-110 duration-300" />
+                  <span className="text-[9px] font-bold tracking-widest text-white/60 group-hover:text-white uppercase relative z-10 text-center">
+                    Our<br/>Services
+                  </span>
+                  <ArrowUpRight size={12} className="absolute top-2 right-2 text-white/20 group-hover:text-white/60" />
+                </Link>
+              </div>
+            </div>
+
+            {/* ================= BACK FACE (QR CODE) ================= */}
+            <div 
+              className="backface-hidden absolute inset-0 bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 flex flex-col items-center justify-center shadow-[0_30px_60px_rgba(0,0,0,0.5)] z-0 w-full h-full"
+              style={{ transform: "rotateY(180deg)" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#8b5cf6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              <LayoutGrid size={24} className="text-white/80 group-hover:text-white transition-colors relative z-10 group-hover:scale-110 duration-300" />
-              <span className="text-[9px] font-bold tracking-widest text-white/60 group-hover:text-white uppercase relative z-10 text-center">
-                Our<br/>Services
-              </span>
-              <ArrowUpRight size={12} className="absolute top-2 right-2 text-white/20 group-hover:text-white/60" />
-            </Link>
-          </div>
-        </motion.div>
+              {/* Flip back button */}
+              <button 
+                onClick={() => setIsFlipped(false)}
+                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-colors border border-white/10"
+                aria-label="Back to front"
+              >
+                <X size={18} />
+              </button>
+              
+              <div className="flex flex-col items-center justify-center w-full mt-4">
+                <h2 className="text-xl font-display font-bold text-white mb-2 uppercase tracking-widest">Share Card</h2>
+                <p className="text-[10px] text-white/50 uppercase tracking-[0.2em] mb-8 text-center max-w-[200px]">Scan to download contact details instantly.</p>
+                
+                {/* QR Code Container */}
+                <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                  <QRCodeSVG 
+                    value="https://wedigitlize.com/card" 
+                    size={180}
+                    level="H"
+                    includeMargin={true}
+                    fgColor="#0a0a0a"
+                    bgColor="#ffffff"
+                    imageSettings={{
+                      src: "/favicon.svg", // This uses the existing solid logo
+                      x: undefined,
+                      y: undefined,
+                      height: 40,
+                      width: 40,
+                      excavate: true,
+                    }}
+                  />
+                </div>
+                
+                <button 
+                  onClick={() => setIsFlipped(false)}
+                  className="mt-10 px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-widest transition-colors border border-white/10"
+                >
+                  Return
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
 
         {/* Footer Socials */}
         <motion.div 
