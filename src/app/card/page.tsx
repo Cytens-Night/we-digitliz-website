@@ -9,24 +9,33 @@ import { FiInstagram, FiLinkedin } from "react-icons/fi";
 
 export default function CardPage() {
   const [toast, setToast] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate a quick loading sequence for effect
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSaveContact = () => {
     const vcard = `BEGIN:VCARD
 VERSION:3.0
-N:Digitliz;We;;;
-FN:We Digitliz
-ORG:We Digitliz
+N:Digitlize;We;;;
+FN:We Digitlize
+ORG:We Digitlize
 TITLE:Premium Digital Agency
 TEL;TYPE=WORK,VOICE:+44 123 456 7890
-EMAIL;TYPE=PREF,INTERNET:hello@wedigitliz.com
-URL:https://wedigitliz.com
+EMAIL;TYPE=PREF,INTERNET:info@wedigitlize.com
+URL:https://wedigitlize.com
 END:VCARD`;
 
     const blob = new Blob([vcard], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "we-digitliz.vcf";
+    a.download = "we-digitlize.vcf";
     a.click();
     URL.revokeObjectURL(url);
     
@@ -37,6 +46,30 @@ END:VCARD`;
   return (
     <main className="min-h-[100dvh] w-full bg-[#0a0a0a] flex items-center justify-center relative overflow-x-hidden selection:bg-primary/30 selection:text-white">
       
+      {/* Loading Screen */}
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div 
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 z-[9999] bg-[#0a0a0a] flex flex-col items-center justify-center"
+          >
+            <motion.div
+              animate={{ 
+                scale: [1, 1.1, 1],
+                opacity: [0.5, 1, 0.5]
+              }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              className="relative"
+            >
+              <div className="absolute inset-0 bg-[#007AFF] blur-[50px] opacity-20 rounded-full" />
+              <Logo className="w-16 h-16 text-white relative z-10" />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Background Ambience */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDEpIi8+PC9zdmc+')] bg-[size:30px_30px]" />
@@ -110,9 +143,9 @@ END:VCARD`;
               +44 123 456 7890
             </a>
             <div className="w-px h-3 bg-white/20" />
-            <a href="https://wedigitliz.com" className="flex items-center gap-2 hover:text-white transition-colors">
+            <a href="https://wedigitlize.com" className="flex items-center gap-2 hover:text-white transition-colors">
               <Globe size={12} className="text-[#007AFF]" />
-              wedigitliz.com
+              wedigitlize.com
             </a>
           </div>
 
@@ -128,14 +161,14 @@ END:VCARD`;
           {/* Secondary Action Buttons */}
           <div className="grid grid-cols-2 gap-4 mb-8">
             <a 
-              href="mailto:hello@wedigitliz.com"
+              href="mailto:info@wedigitlize.com"
               className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
             >
               <Mail size={14} className="text-white/70" />
               Email
             </a>
             <a 
-              href="https://wedigitliz.com"
+              href="https://wedigitlize.com"
               target="_blank"
               rel="noreferrer"
               className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
