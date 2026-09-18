@@ -180,7 +180,7 @@ export default function Laptop3D() {
     }
   };
 
-  const phone = "+447000000000";
+  const phone = "+447584296946";
   const email = "info@wedigitlize.com";
 
   const handleCopyEmail = () => {

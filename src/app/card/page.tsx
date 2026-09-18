@@ -29,7 +29,7 @@ FN:wedigitlize
 ORG:wedigitlize
 TITLE:Premium Digital Agency
 NOTE:Keywords: Website Development, Web Design, Social Media Marketing, Content Creation, Logo Design, Brand Identity, SEO, Search Engine Optimization, App Development, SaaS, Automated Systems, Digital Transformation, Lead Generation, Software Engineering.
-TEL;TYPE=WORK,VOICE:+44 123 456 7890
+TEL;TYPE=WORK,VOICE:+447584296946
 EMAIL;TYPE=PREF,INTERNET:info@wedigitlize.com
 URL:https://wedigitlize.com
 END:VCARD`;
@@ -153,9 +153,9 @@ END:VCARD`;
 
               {/* Contact Text Row */}
               <div className="flex justify-center items-center gap-6 mb-8 text-xs font-mono text-white/70">
-                <a href="tel:+441234567890" className="flex items-center gap-2 hover:text-white transition-colors">
-                  <Phone size={12} className="text-[#007AFF]" />
-                  +44 123 456 7890
+                <a href="tel:+447584296946" className="flex items-center gap-2 hover:text-white transition-colors">
+                  <Phone size={14} className="text-white/50" />
+                  +44 7584 296946
                 </a>
                 <div className="w-px h-3 bg-white/20" />
                 <a href="https://wedigitlize.com" className="flex items-center gap-2 hover:text-white transition-colors">

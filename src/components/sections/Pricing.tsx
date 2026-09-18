@@ -95,13 +95,13 @@ export default function Pricing() {
     }).join('%0A');
 
     const message = `Hello wedigitlize! I would like to deploy the following custom architecture:%0A%0A${itemsList}%0A%0ATotal Upfront: £${totalUpfront}%0ATotal Monthly: £${totalMonthly}`;
-    window.open(`https://wa.me/447000000000?text=${message}`, '_blank');
+    window.open(`https://wa.me/447584296946?text=${message}`, '_blank');
   };
 
   const handleBundleDeploy = (bundle: any, e: React.MouseEvent) => {
     e.stopPropagation();
     const message = `Hello wedigitlize! I am interested in the ${bundle.title} Package for ${bundle.priceLabel}.`;
-    window.open(`https://wa.me/447000000000?text=${message}`, '_blank');
+    window.open(`https://wa.me/447584296946?text=${message}`, '_blank');
   };
 
   const categories = Array.from(new Set(CUSTOM_ITEMS.map(i => i.category)));
