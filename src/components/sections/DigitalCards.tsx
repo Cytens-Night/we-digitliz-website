@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Briefcase, Eye, X, ExternalLink, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { Briefcase, ExternalLink, Star } from "lucide-react";
 
 const CLIENTS = [
   { 
@@ -13,7 +12,7 @@ const CLIENTS = [
     url: "https://card.shakurfragrances.co.uk/",
     testimonial: '"We Digitlize built us a breathtaking digital presence. Our sales doubled in the first month."',
     stars: 5,
-    overlay: "bg-black/60 group-hover:bg-primary/20"
+    image: "/images/shakur_mobile.jpg"
   },
   { 
     id: "furqan-sweets", 
@@ -23,7 +22,7 @@ const CLIENTS = [
     url: "https://furqansweets.co.uk/",
     testimonial: '"The speed and design of our new storefront is unmatched. Highly recommended digital agency!"',
     stars: 5,
-    overlay: "bg-black/60 group-hover:bg-primary/20"
+    image: "/images/furqan_desktop.jpg"
   },
   { 
     id: "hesori", 
@@ -33,7 +32,7 @@ const CLIENTS = [
     url: "https://hesori.com",
     testimonial: '"A seamless, premium experience from start to finish. They truly understand luxury brand architecture."',
     stars: 5,
-    overlay: "bg-black/60 group-hover:bg-primary/20"
+    image: "/images/hesori_desktop.jpg"
   },
   { 
     id: "marshalos", 
@@ -43,27 +42,11 @@ const CLIENTS = [
     url: "https://marshalos.co.uk",
     testimonial: '"Absolute perfection. They completely transformed our digital ecosystem and streamlined our workflows."',
     stars: 5,
-    overlay: "bg-black/60 group-hover:bg-primary/20"
+    image: "/images/marshalos_desktop.jpg"
   }
 ];
 
-// Prevents background scrolling when modal is open
-function useLockBodyScroll(isLocked: boolean) {
-  useEffect(() => {
-    if (isLocked) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => { document.body.style.overflow = "unset"; };
-  }, [isLocked]);
-}
-
 export default function DigitalCards() {
-  const [activePreview, setActivePreview] = useState<typeof CLIENTS[0] | null>(null);
-
-  useLockBodyScroll(activePreview !== null);
-
   return (
     <section id="portfolio" className="relative bg-[#0a0a0a] text-white py-24 md:py-32 overflow-hidden border-t border-white/5">
       
@@ -95,23 +78,29 @@ export default function DigitalCards() {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.6, delay: index * 0.1 }}
-               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-8 hover:border-white/30 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.2)]"
+               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-8 hover:border-white/30 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
+               style={{ 
+                 backgroundImage: `url(${client.image})`, 
+                 backgroundSize: 'cover', 
+                 backgroundPosition: 'center top' 
+               }}
              >
-                <div className={`absolute inset-0 transition-colors duration-700 ${client.overlay}`} />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors duration-700 mix-blend-overlay" />
                 
                 <div className="absolute top-8 right-8 flex gap-3">
                   <a 
                     href={client.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 hover:bg-white hover:text-black transition-colors"
+                    className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 hover:bg-white hover:text-black transition-colors z-20"
                   >
                     <ExternalLink size={18} />
                   </a>
                 </div>
 
-                <div className="relative z-10 w-full flex flex-col items-start">
-                   <div className="mb-4 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-white/70">
+                <div className="relative z-10 w-full flex flex-col items-start mt-auto">
+                   <div className="mb-4 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-white/90">
                      {client.year}
                    </div>
                    
@@ -125,20 +114,22 @@ export default function DigitalCards() {
                      ))}
                    </div>
                    
-                   <p className="text-white/60 text-xs font-bold tracking-widest uppercase mb-2">
+                   <p className="text-white/80 text-xs font-bold tracking-widest uppercase mb-3">
                      {client.type}
                    </p>
                    
-                   <p className="text-white/90 text-sm font-medium tracking-wide mb-6 italic leading-relaxed border-l-2 border-[#007AFF] pl-3">
+                   <p className="text-white text-sm font-medium tracking-wide mb-6 italic leading-relaxed border-l-2 border-[#007AFF] pl-3 drop-shadow-md">
                      {client.testimonial}
                    </p>
                    
-                   <button 
-                     onClick={() => setActivePreview(client)}
+                   <a 
+                     href={client.url}
+                     target="_blank"
+                     rel="noopener noreferrer"
                      className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white text-black font-bold text-xs tracking-widest uppercase hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                    >
-                     <Eye size={16} /> Live Preview
-                   </button>
+                     <ExternalLink size={16} /> Visit Website
+                   </a>
                 </div>
 
              </motion.div>
@@ -146,7 +137,7 @@ export default function DigitalCards() {
         </div>
 
         {/* ==============================================
-            MOBILE LAYOUT (Native App Horizontal Carousel - Light Mode)
+            MOBILE LAYOUT (Native App Horizontal Carousel)
             ============================================== */}
         <div 
           className="md:hidden flex overflow-x-auto snap-x snap-mandatory no-scrollbar -mx-6 px-6 gap-4 pb-8"
@@ -160,125 +151,65 @@ export default function DigitalCards() {
                whileTap={{ scale: 0.96 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.5, delay: index * 0.1 }}
-               className="relative h-[380px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-white border border-black/5 flex flex-col justify-end p-6 shadow-[0_20px_40px_rgba(0,0,0,0.06)] group"
+               className="relative h-[420px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden border border-white/10 flex flex-col justify-end p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group"
+               style={{ 
+                 backgroundImage: `url(${client.image})`, 
+                 backgroundSize: 'cover', 
+                 backgroundPosition: 'center top' 
+               }}
              >
-                {/* Subtle animated light orb background */}
-                <motion.div 
-                  animate={{ opacity: [0.2, 0.4, 0.2], scale: [1, 1.1, 1] }}
-                  transition={{ duration: 6 + index, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute -top-10 -right-10 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"
-                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/90 to-black/20" />
+                <div className="absolute inset-0 bg-black/20 mix-blend-overlay" />
 
                 <div className="absolute top-6 right-6 flex gap-3">
                   <a 
                      href={client.url} 
                      target="_blank" 
                      rel="noopener noreferrer"
-                     className="w-10 h-10 rounded-full bg-[#f5f5f7] flex items-center justify-center border border-black/5 text-black hover:bg-black hover:text-white transition-colors z-20 shadow-sm"
+                     className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 text-white hover:bg-white hover:text-black transition-colors z-20 shadow-sm"
                   >
                      <ExternalLink size={16} />
                   </a>
                 </div>
 
                 <div className="relative z-10 w-full flex flex-col items-start mt-auto">
-                   <div className="mb-3 px-3 py-1 bg-[#f5f5f7] border border-black/5 rounded-full text-[10px] font-bold tracking-widest uppercase text-black/60 shadow-sm">
+                   <div className="mb-3 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-widest uppercase text-white shadow-sm">
                      {client.year}
                    </div>
                    
-                   <h3 className="text-2xl font-display font-bold text-[#1d1d1f] mb-1 tracking-tight">
+                   <h3 className="text-2xl font-display font-bold text-white mb-1 tracking-tight">
                      {client.name}
                    </h3>
                    
-                   <div className="flex gap-1 text-[#007AFF] mb-2">
+                   <div className="flex gap-1 text-[#007AFF] mb-2 drop-shadow-sm">
                      {[...Array(client.stars)].map((_, i) => (
                        <Star key={i} size={12} fill="currentColor" />
                      ))}
                    </div>
                    
-                   <p className="text-[#3c3c43]/60 text-[10px] font-bold tracking-widest uppercase mb-2">
+                   <p className="text-white/80 text-[10px] font-bold tracking-widest uppercase mb-3">
                      {client.type}
                    </p>
                    
-                   <p className="text-[#1d1d1f]/80 text-xs font-medium tracking-wide mb-5 italic leading-relaxed border-l-2 border-[#007AFF] pl-3">
+                   <p className="text-white text-xs font-medium tracking-wide mb-5 italic leading-relaxed border-l-2 border-[#007AFF] pl-3 drop-shadow-md">
                      {client.testimonial}
                    </p>
                    
-                   <motion.button 
+                   <motion.a 
                      whileTap={{ scale: 0.95 }}
-                     onClick={() => setActivePreview(client)}
-                     className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-[#1d1d1f] text-white font-bold text-[10px] tracking-widest uppercase w-full shadow-[0_10px_20px_rgba(0,0,0,0.1)] hover:bg-[#007AFF] transition-colors"
+                     href={client.url}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white text-black font-bold text-[10px] tracking-widest uppercase w-full shadow-[0_10px_20px_rgba(255,255,255,0.1)] hover:bg-[#007AFF] hover:text-white transition-colors"
                    >
-                     <Eye size={14} /> Live Preview
-                   </motion.button>
+                     <ExternalLink size={14} /> Visit Website
+                   </motion.a>
                 </div>
              </motion.div>
            ))}
         </div>
 
       </div>
-
-      {/* ==========================================
-          FULL SCREEN LIVE PREVIEW MODAL
-          ========================================== */}
-      <AnimatePresence>
-        {activePreview && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-black/80 backdrop-blur-xl"
-          >
-            <motion.div 
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative w-full max-w-7xl h-full max-h-[900px] bg-[#0a0a0a] rounded-[2rem] border border-white/20 shadow-[0_0_100px_rgba(255,255,255,0.1)] overflow-hidden flex flex-col"
-            >
-              
-              {/* Modal Header Bar */}
-              <div className="h-16 border-b border-white/10 flex items-center justify-between px-6 bg-black/50 shrink-0">
-                <div className="flex items-center gap-4">
-                  <div className="flex gap-2">
-                    <div className="w-3 h-3 rounded-full bg-red-500/50" />
-                    <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-                    <div className="w-3 h-3 rounded-full bg-green-500/50" />
-                  </div>
-                  <div className="px-4 py-1.5 bg-white/5 rounded-md border border-white/10 text-xs font-mono text-white/50 flex items-center gap-2">
-                    <span className="text-green-400">https://</span>
-                    <span className="text-white/80">{activePreview.url.replace('https://', '')}</span>
-                  </div>
-                </div>
-                
-                <button 
-                  onClick={() => setActivePreview(null)}
-                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-colors"
-                >
-                  <X size={16} />
-                </button>
-              </div>
-
-              {/* Iframe Container */}
-              <div className="flex-1 w-full bg-white relative">
-                {/* Loading indicator that shows behind the iframe before it loads */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-black/50">
-                  <div className="w-8 h-8 border-4 border-black/10 border-t-black/50 rounded-full animate-spin" />
-                  <span className="text-xs font-bold tracking-widest uppercase">Initializing Live Instance</span>
-                </div>
-                
-                <iframe 
-                  src={activePreview.url}
-                  className="absolute inset-0 w-full h-full border-none z-10 bg-white"
-                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                  allow="fullscreen"
-                />
-              </div>
-
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
     </section>
   );
 }
