@@ -12,7 +12,7 @@ import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen w-full bg-background">
+    <main className="min-h-screen w-full bg-background pb-28 md:pb-0">
       <Navbar />
       
       <Suspense fallback={<div className="h-screen w-full flex items-center justify-center text-[#3c3c43]">Loading Experience...</div>}>
