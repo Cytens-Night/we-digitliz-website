@@ -6,7 +6,7 @@ import Logo from "@/components/ui/Logo";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-[#f5f5f7] pt-20 pb-24 md:pb-10 border-t border-black/5 relative z-10">
+      <footer className="bg-[#f5f5f7] pt-20 pb-32 md:pb-10 border-t border-black/5 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           {/* Desktop Footer Grid */}
           <div className="hidden md:grid grid-cols-4 gap-x-6 gap-y-12 mb-16">
