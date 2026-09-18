@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Briefcase, Eye, X, ExternalLink } from "lucide-react";
+import { ArrowUpRight, Briefcase, Eye, X, ExternalLink, Star } from "lucide-react";
 
 const CLIENTS = [
   { 
@@ -11,7 +11,8 @@ const CLIENTS = [
     type: "Digital Business Card & E-Commerce", 
     year: "2024",
     url: "https://card.shakurfragrances.co.uk/",
-    desc: "A premium 3D digital business card featuring native e-commerce and offline NFC integration.",
+    testimonial: '"We Digitlize built us a breathtaking digital presence. Our sales doubled in the first month."',
+    stars: 5,
     overlay: "bg-black/60 group-hover:bg-primary/20"
   },
   { 
@@ -20,7 +21,8 @@ const CLIENTS = [
     type: "High-Performance Storefront", 
     year: "2024",
     url: "https://furqansweets.co.uk/",
-    desc: "A high-performance e-commerce storefront optimized for conversion and rapid load times.",
+    testimonial: '"The speed and design of our new storefront is unmatched. Highly recommended digital agency!"',
+    stars: 5,
     overlay: "bg-black/60 group-hover:bg-primary/20"
   },
   { 
@@ -29,7 +31,8 @@ const CLIENTS = [
     type: "Premium Brand Architecture", 
     year: "2024",
     url: "https://hesori.com",
-    desc: "A sleek, modern web architecture showcasing premium brand identity and dynamic layouts.",
+    testimonial: '"A seamless, premium experience from start to finish. They truly understand luxury brand architecture."',
+    stars: 5,
     overlay: "bg-black/60 group-hover:bg-primary/20"
   },
   { 
@@ -38,7 +41,8 @@ const CLIENTS = [
     type: "Complete Digital Transformation", 
     year: "2023",
     url: "https://marshalos.co.uk",
-    desc: "A complete digital transformation delivering seamless user experience and robust functionality.",
+    testimonial: '"Absolute perfection. They completely transformed our digital ecosystem and streamlined our workflows."',
+    stars: 5,
     overlay: "bg-black/60 group-hover:bg-primary/20"
   }
 ];
@@ -115,8 +119,18 @@ export default function DigitalCards() {
                      {client.name}
                    </h3>
                    
-                   <p className="text-white/60 text-sm md:text-base font-medium tracking-wide mb-6">
+                   <div className="flex gap-1 text-[#007AFF] mb-3">
+                     {[...Array(client.stars)].map((_, i) => (
+                       <Star key={i} size={14} fill="currentColor" />
+                     ))}
+                   </div>
+                   
+                   <p className="text-white/60 text-xs font-bold tracking-widest uppercase mb-2">
                      {client.type}
+                   </p>
+                   
+                   <p className="text-white/90 text-sm font-medium tracking-wide mb-6 italic leading-relaxed border-l-2 border-[#007AFF] pl-3">
+                     {client.testimonial}
                    </p>
                    
                    <button 
@@ -175,8 +189,18 @@ export default function DigitalCards() {
                      {client.name}
                    </h3>
                    
-                   <p className="text-[#3c3c43] text-xs font-medium tracking-wide mb-5">
+                   <div className="flex gap-1 text-[#007AFF] mb-2">
+                     {[...Array(client.stars)].map((_, i) => (
+                       <Star key={i} size={12} fill="currentColor" />
+                     ))}
+                   </div>
+                   
+                   <p className="text-[#3c3c43]/60 text-[10px] font-bold tracking-widest uppercase mb-2">
                      {client.type}
+                   </p>
+                   
+                   <p className="text-[#1d1d1f]/80 text-xs font-medium tracking-wide mb-5 italic leading-relaxed border-l-2 border-[#007AFF] pl-3">
+                     {client.testimonial}
                    </p>
                    
                    <motion.button 
