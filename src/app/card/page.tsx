@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, Linkedin, MessageCircle, ArrowUpRight } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, MessageCircle, ArrowUpRight } from 'lucide-react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
-import { FiInstagram } from "react-icons/fi";
+import { FiInstagram, FiLinkedin } from "react-icons/fi";
 
 export default function CardPage() {
   const [toast, setToast] = useState<string | null>(null);
@@ -184,7 +184,7 @@ END:VCARD`;
             <FiInstagram size={16} />
           </a>
           <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-110">
-            <Linkedin size={16} />
+            <FiLinkedin size={16} />
           </a>
           <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-110">
             <MessageCircle size={16} />
