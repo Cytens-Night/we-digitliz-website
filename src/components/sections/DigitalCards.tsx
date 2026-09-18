@@ -12,7 +12,6 @@ const CLIENTS = [
     url: "https://card.shakurfragrances.co.uk/",
     testimonial: '"We Digitlize built us a breathtaking digital presence. Our sales doubled in the first month."',
     stars: 5,
-    image: "/images/shakur_mobile.jpg"
   },
   { 
     id: "furqan-sweets", 
@@ -22,7 +21,6 @@ const CLIENTS = [
     url: "https://furqansweets.co.uk/",
     testimonial: '"The speed and design of our new storefront is unmatched. Highly recommended digital agency!"',
     stars: 5,
-    image: "/images/furqan_desktop.jpg"
   },
   { 
     id: "hesori", 
@@ -32,7 +30,6 @@ const CLIENTS = [
     url: "https://hesori.com",
     testimonial: '"A seamless, premium experience from start to finish. They truly understand luxury brand architecture."',
     stars: 5,
-    image: "/images/hesori_desktop.jpg"
   },
   { 
     id: "marshalos", 
@@ -42,7 +39,6 @@ const CLIENTS = [
     url: "https://marshalos.co.uk",
     testimonial: '"Absolute perfection. They completely transformed our digital ecosystem and streamlined our workflows."',
     stars: 5,
-    image: "/images/marshalos_desktop.jpg"
   }
 ];
 
@@ -78,29 +74,35 @@ export default function DigitalCards() {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.6, delay: index * 0.1 }}
-               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#111318] border border-white/10 flex flex-col justify-end p-8 hover:border-white/30 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
-               style={{ 
-                 backgroundImage: `url(${client.image})`, 
-                 backgroundSize: 'cover', 
-                 backgroundPosition: 'center top' 
-               }}
+               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-white border border-white/10 flex flex-col justify-end p-8 hover:border-white/30 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.5)]"
              >
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent transition-opacity duration-500 group-hover:opacity-90" />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-primary/20 transition-colors duration-700 mix-blend-overlay" />
+                {/* Live Iframe Background */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                  <iframe 
+                    src={client.url}
+                    style={{ width: '300%', height: '300%', transform: 'scale(0.334)', transformOrigin: 'top left' }}
+                    className="border-none opacity-80"
+                    scrolling="no"
+                    tabIndex={-1}
+                  />
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/90 to-black/30 transition-opacity duration-500 z-0" />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-primary/30 transition-colors duration-700 mix-blend-overlay z-0" />
                 
-                <div className="absolute top-8 right-8 flex gap-3">
+                <div className="absolute top-8 right-8 flex gap-3 z-20">
                   <a 
                     href={client.url} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 hover:bg-white hover:text-black transition-colors z-20"
+                    className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center border border-white/20 hover:bg-white hover:text-black transition-colors"
                   >
                     <ExternalLink size={18} />
                   </a>
                 </div>
 
                 <div className="relative z-10 w-full flex flex-col items-start mt-auto">
-                   <div className="mb-4 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-white/90">
+                   <div className="mb-4 px-3 py-1 bg-black/50 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-white/90">
                      {client.year}
                    </div>
                    
@@ -114,7 +116,7 @@ export default function DigitalCards() {
                      ))}
                    </div>
                    
-                   <p className="text-white/80 text-xs font-bold tracking-widest uppercase mb-3">
+                   <p className="text-white/80 text-xs font-bold tracking-widest uppercase mb-3 drop-shadow-md">
                      {client.type}
                    </p>
                    
@@ -151,29 +153,35 @@ export default function DigitalCards() {
                whileTap={{ scale: 0.96 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.5, delay: index * 0.1 }}
-               className="relative h-[420px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden border border-white/10 flex flex-col justify-end p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group"
-               style={{ 
-                 backgroundImage: `url(${client.image})`, 
-                 backgroundSize: 'cover', 
-                 backgroundPosition: 'center top' 
-               }}
+               className="relative h-[420px] w-[85vw] max-w-[320px] shrink-0 snap-center rounded-[2rem] overflow-hidden border border-white/10 flex flex-col justify-end p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group bg-white"
              >
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/90 to-black/20" />
-                <div className="absolute inset-0 bg-black/20 mix-blend-overlay" />
+                {/* Live Iframe Background */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+                  <iframe 
+                    src={client.url}
+                    style={{ width: '400%', height: '400%', transform: 'scale(0.25)', transformOrigin: 'top left' }}
+                    className="border-none opacity-80"
+                    scrolling="no"
+                    tabIndex={-1}
+                  />
+                </div>
 
-                <div className="absolute top-6 right-6 flex gap-3">
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/90 to-black/30 z-0" />
+                <div className="absolute inset-0 bg-black/40 mix-blend-overlay z-0" />
+
+                <div className="absolute top-6 right-6 flex gap-3 z-20">
                   <a 
                      href={client.url} 
                      target="_blank" 
                      rel="noopener noreferrer"
-                     className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 text-white hover:bg-white hover:text-black transition-colors z-20 shadow-sm"
+                     className="w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center border border-white/20 text-white hover:bg-white hover:text-black transition-colors shadow-sm"
                   >
                      <ExternalLink size={16} />
                   </a>
                 </div>
 
                 <div className="relative z-10 w-full flex flex-col items-start mt-auto">
-                   <div className="mb-3 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-widest uppercase text-white shadow-sm">
+                   <div className="mb-3 px-3 py-1 bg-black/50 backdrop-blur-md border border-white/20 rounded-full text-[10px] font-bold tracking-widest uppercase text-white shadow-sm">
                      {client.year}
                    </div>
                    
@@ -187,7 +195,7 @@ export default function DigitalCards() {
                      ))}
                    </div>
                    
-                   <p className="text-white/80 text-[10px] font-bold tracking-widest uppercase mb-3">
+                   <p className="text-white/80 text-[10px] font-bold tracking-widest uppercase mb-3 drop-shadow-md">
                      {client.type}
                    </p>
                    
