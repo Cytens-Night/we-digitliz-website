@@ -70,9 +70,10 @@ export default function Footer() {
                <Logo className="w-6 h-6 text-[#1d1d1f]" />
                <span className="font-display font-bold text-xl tracking-wide text-[#1d1d1f]">wedigitlize</span>
             </Link>
-            <p className="text-[#3c3c43] text-xs md:text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} wedigitlize. All rights reserved.
-            </p>
+            <div className="flex flex-col text-[#3c3c43] text-xs md:text-sm mb-4 md:mb-0">
+              <span>© {new Date().getFullYear()} wedigitlize. All rights reserved.</span>
+              <span className="mt-1 opacity-75">WEDIGITLIZE LTD | Company number 17465598</span>
+            </div>
             <div className="hidden md:flex items-center gap-2 text-sm text-[#3c3c43]">
               Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by wedigitlize
             </div>
