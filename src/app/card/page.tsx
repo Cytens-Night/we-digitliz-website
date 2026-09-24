@@ -97,6 +97,7 @@ export default function CardPage() {
   const [radius, setRadius] = useState(380);
   const [scale, setScale] = useState(1);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [showWebsitePreview, setShowWebsitePreview] = useState(false);
 
   const phone = "+447584296946";
   const email = "info@wedigitlize.com";
@@ -250,9 +251,29 @@ export default function CardPage() {
 
                     {/* Action Buttons */}
                     <div className="w-full flex flex-col gap-3 mt-6">
-                      <a href="https://wedigitlize.com" target="_blank" rel="noreferrer" className="neon-button">
-                        <Globe size={16} /> Visit Website
-                      </a>
+                      <div 
+                        className="website-preview-container"
+                        onMouseEnter={() => setShowWebsitePreview(true)}
+                        onMouseLeave={() => setShowWebsitePreview(false)}
+                        onTouchStart={() => setShowWebsitePreview(true)}
+                        onTouchEnd={() => setShowWebsitePreview(false)}
+                      >
+                        <a href="https://wedigitlize.com" target="_blank" rel="noreferrer" className="neon-button w-full">
+                          <Globe size={16} /> Visit Website
+                        </a>
+                        
+                        {/* Floating Video Preview */}
+                        <div className={`website-preview-popover ${showWebsitePreview ? 'active' : ''}`}>
+                          <video 
+                            src="/website-preview.mp4" 
+                            autoPlay 
+                            loop 
+                            muted 
+                            playsInline 
+                            className="preview-video"
+                          />
+                        </div>
+                      </div>
                       <a href={`tel:${phone}`} className="neon-button">
                         <Phone size={16} /> {phone}
                       </a>
