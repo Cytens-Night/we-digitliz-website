@@ -343,7 +343,7 @@ export default function Pricing() {
                              >
                                <div className="flex flex-col">
                                  <span className="font-bold text-xs">{item.title}</span>
-                                 <span className="text-[9px] text-black/80 dark:text-white/80 font-mono font-bold uppercase tracking-wider">
+                                 <span className="text-[9px] text-white/80 dark:text-black/80 font-mono font-bold uppercase tracking-wider">
                                    {item.price > 0 && `£${item.price} `}
                                    {item.monthly > 0 && `(+£${item.monthly}/mo)`}
                                  </span>

@@ -195,7 +195,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
         className="absolute inset-0 bg-cover bg-center opacity-40 md:opacity-50 mix-blend-overlay transition-transform duration-[1.5s] ease-out group-hover:scale-105"
         style={{ backgroundImage: `url(${industry.image})` }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/30 md:bg-gradient-to-r md:from-white md:via-white/80 md:to-white/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-white/30 md:bg-gradient-to-r md:from-white md:via-white/80 md:to-white/30 dark:from-black dark:via-black/80 dark:to-transparent md:dark:from-black md:dark:via-black/80 md:dark:to-transparent" />
       
       {/* Main Content (Left) */}
       <div className="relative z-20 p-8 md:p-16 lg:p-24 flex flex-col justify-end md:justify-center w-full md:w-1/2 h-full order-2 md:order-1">

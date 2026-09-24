@@ -108,7 +108,7 @@ function TiltCard({ children, className, delay = 0 }: { children: React.ReactNod
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative w-full h-full bg-[#ffffff] hover:bg-[#fafafa] border border-black/5 dark:border-white/5 transition-colors duration-500 rounded-[2rem] overflow-hidden shadow-2xl cursor-pointer group"
+        className="relative w-full h-full bg-card hover:bg-background border border-black/5 dark:border-white/5 transition-colors duration-500 rounded-[2rem] overflow-hidden shadow-2xl cursor-pointer group"
       >
         
         {/* The Card Content */}
@@ -167,7 +167,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-[#3c3c43] max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-[#3c3c43] dark:text-white/70 max-w-2xl mx-auto"
           >
             wedigitlize your world so you can scale in confidence. From full-scale automations and custom SaaS to stunning brand aesthetics.
           </motion.p>
@@ -205,7 +205,7 @@ export default function Services() {
                     <h4 className={`${isHero ? 'text-4xl lg:text-5xl' : 'text-2xl'} font-display font-bold text-[#1d1d1f] dark:text-white mb-4 group-hover:text-primary transition-colors`}>
                       {service.title}
                     </h4>
-                    <p className={`text-[#3c3c43] leading-relaxed ${isHero ? 'text-lg max-w-md' : 'text-sm'}`}>
+                    <p className={`text-[#3c3c43] dark:text-white/70 leading-relaxed ${isHero ? 'text-lg max-w-md' : 'text-sm'}`}>
                       {service.description}
                     </p>
                   </div>

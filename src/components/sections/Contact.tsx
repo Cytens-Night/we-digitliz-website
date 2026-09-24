@@ -8,7 +8,7 @@ import { useState } from "react";
 export default function Contact() {
   const [isMobileFormOpen, setIsMobileFormOpen] = useState(false);
   return (
-    <section id="contact" className="py-16 md:py-32 bg-[#ffffff] relative overflow-hidden border-t border-black/10">
+    <section id="contact" className="py-16 md:py-32 bg-background transition-colors duration-1000 relative overflow-hidden border-t border-black/10 dark:border-white/10">
       <div className="max-w-[1400px] mx-auto px-6">
         
         {/* Desktop Animated Header */}
