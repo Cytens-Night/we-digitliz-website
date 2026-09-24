@@ -270,33 +270,33 @@ export default function Pricing() {
             >
                
                {/* RIGHT COLUMN (Mobile: Top) - AVAILABLE MODULES */}
-               <div className="w-full lg:w-7/12 flex flex-col gap-12 lg:gap-16">
+               <div className="w-full lg:w-7/12 flex flex-col gap-6 lg:gap-8">
                   {categories.map(category => (
                     <div key={category}>
-                       <h5 className="text-xs font-bold text-white/50 mb-6 uppercase tracking-widest flex items-center gap-4">
+                       <h5 className="text-[10px] font-bold text-white/50 mb-3 uppercase tracking-widest flex items-center gap-4">
                          {category} <div className="h-px bg-white/10 flex-1" />
                        </h5>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                          {CUSTOM_ITEMS.filter(i => i.category === category).map(item => {
                             const isSelected = selectedItems.includes(item.id);
-                            if (isSelected) return <div key={item.id} className="h-[92px]" />; // Placeholder to maintain grid
+                            if (isSelected) return <div key={item.id} className="h-[76px]" />; // Placeholder to maintain grid
                             
                             return (
                               <motion.div 
                                 layoutId={`item-${item.id}`}
                                 key={item.id}
                                 onClick={() => toggleItem(item.id)}
-                                className="bg-[#111] border border-white/10 p-5 rounded-2xl flex items-center justify-between cursor-pointer hover:border-white/30 hover:bg-[#161a22] transition-colors shadow-lg active:scale-95 group"
+                                className="bg-[#111] border border-white/10 p-3 md:p-4 rounded-xl flex items-center justify-between cursor-pointer hover:border-white/30 hover:bg-[#161a22] transition-colors shadow-lg active:scale-95 group"
                               >
                                 <div>
-                                  <h6 className="font-bold text-white text-sm md:text-base">{item.title}</h6>
-                                  <div className="text-xs md:text-sm text-white/50 font-mono mt-1 font-semibold">
+                                  <h6 className="font-bold text-white text-xs md:text-sm">{item.title}</h6>
+                                  <div className="text-[10px] md:text-xs text-white/50 font-mono mt-0.5 font-semibold">
                                     {item.price > 0 && `£${item.price} `}
                                     {item.monthly > 0 && `(+£${item.monthly}/mo)`}
                                   </div>
                                 </div>
-                                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/50 shrink-0 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors">
-                                  <Plus size={16} />
+                                <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center text-white/50 shrink-0 group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-colors">
+                                  <Plus size={14} />
                                 </div>
                               </motion.div>
                             )
