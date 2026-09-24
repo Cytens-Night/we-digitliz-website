@@ -28,7 +28,7 @@ export default function About() {
         <div className="sticky top-0 h-screen flex items-center overflow-hidden">
           
           {/* Background ambient glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-black/5 blur-[200px] rounded-full pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-black/10 blur-[200px] rounded-full pointer-events-none" />
 
           {/* The horizontal moving track */}
           <motion.div style={{ x }} className="flex w-[400vw] h-full items-center relative z-10">
@@ -40,7 +40,7 @@ export default function About() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/5 text-black/60 text-xs font-bold mb-10 border border-black/5 uppercase tracking-widest w-max shadow-[0_0_20px_rgba(0,0,0,0.05)]"
+                className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-black/10 text-black/80 text-xs font-bold mb-10 border border-black/15 uppercase tracking-widest w-max shadow-[0_0_20px_rgba(0,0,0,0.05)]"
               >
                 About The Agency
               </motion.div>
@@ -60,7 +60,7 @@ export default function About() {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5 }}
-                    className="text-black/30"
+                    className="text-black/70"
                   >
                     websites.
                   </motion.span>
@@ -90,28 +90,28 @@ export default function About() {
             <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
               <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
-                <div className="w-20 h-20 rounded-3xl bg-black/5 flex items-center justify-center mb-8 border border-black/10 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+                <div className="w-20 h-20 rounded-3xl bg-black/10 flex items-center justify-center mb-8 border border-black/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                   <Cpu size={40} className="text-black" />
                 </div>
                 <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-black mb-6 leading-[1.1]">
                   Bespoke <br/> <span className="text-black">Architecture.</span>
                 </h3>
-                <p className="text-base md:text-xl text-black/60 max-w-xl leading-relaxed">
+                <p className="text-base md:text-xl text-black/80 max-w-xl leading-relaxed">
                   We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#f5f5f7] rounded-[3rem] border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden relative flex items-center justify-center group shrink-0">
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#f5f5f7] rounded-[3rem] border border-black/15 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden relative flex items-center justify-center group shrink-0">
                  {/* Grid Pattern with solid opacity instead of gradient mask */}
                  <div 
                    className="absolute inset-0 opacity-10 bg-[size:2rem_2rem]" 
                    style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')" }}
                  />
                  
-                 <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] lg:w-[70%] aspect-square border border-black/5 rounded-full border-dashed" />
+                 <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] lg:w-[70%] aspect-square border border-black/15 rounded-full border-dashed" />
                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[60%] lg:w-[50%] aspect-square border border-black/15 rounded-full" />
-                 <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute w-[40%] lg:w-[30%] aspect-square border-t border-b border-black/10 rounded-full" />
+                 <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute w-[40%] lg:w-[30%] aspect-square border-t border-b border-black/20 rounded-full" />
                  
-                 <div className="relative w-16 h-16 lg:w-20 lg:h-20 bg-[#f5f5f7] rounded-xl border border-black/10 flex items-center justify-center shadow-xl rotate-45 z-10 group-hover:scale-110 transition-transform duration-500">
+                 <div className="relative w-16 h-16 lg:w-20 lg:h-20 bg-[#f5f5f7] rounded-xl border border-black/20 flex items-center justify-center shadow-xl rotate-45 z-10 group-hover:scale-110 transition-transform duration-500">
                    <div className="w-6 h-6 lg:w-8 lg:h-8 bg-white rounded-lg animate-pulse -rotate-45 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)]">
                      <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white rounded-full" />
                    </div>
@@ -120,7 +120,7 @@ export default function About() {
                  {[0, 90, 180, 270].map((deg, i) => (
                    <motion.div 
                      key={i}
-                     className="absolute w-6 h-6 lg:w-8 lg:h-8 bg-white border border-black/5 rounded-full shadow-lg z-20"
+                     className="absolute w-6 h-6 lg:w-8 lg:h-8 bg-white border border-black/15 rounded-full shadow-lg z-20"
                      initial={{ rotate: deg, x: 100 }}
                      animate={{ rotate: deg + 360, x: 100 }}
                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -144,13 +144,13 @@ export default function About() {
             <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
               <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
-                <div className="w-20 h-20 rounded-3xl bg-black/5 flex items-center justify-center mb-8 border border-black/10 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
+                <div className="w-20 h-20 rounded-3xl bg-black/10 flex items-center justify-center mb-8 border border-black/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
                   <Code2 size={40} className="text-black" />
                 </div>
                 <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-black mb-6 leading-[1.1]">
                   Rapid <br/> Execution.
                 </h3>
-                <p className="text-base md:text-xl text-black/60 max-w-xl leading-relaxed">
+                <p className="text-base md:text-xl text-black/80 max-w-xl leading-relaxed">
                   Time is money. Our agile methodologies and proprietary codebase allow us to execute complex SaaS builds and enterprise sites in a fraction of the traditional timeline.
                 </p>
               </div>
@@ -166,7 +166,7 @@ export default function About() {
                       initial={{ y: 0 }}
                       animate={{ y: "-50%" }}
                       transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                      className="absolute inset-x-0 top-0 flex flex-col gap-3 text-black/40"
+                      className="absolute inset-x-0 top-0 flex flex-col gap-3 text-black/80"
                     >
                       {[...Array(30)].map((_, i) => (
                         <div key={i} className="flex gap-4">
@@ -182,9 +182,9 @@ export default function About() {
                     </motion.div>
                   </div>
                   
-                  <div className="mt-4 pt-6 border-t border-black/5 relative z-10">
-                    <div className="text-black/60 mb-3 font-bold tracking-widest text-[10px]">DEPLOYMENT PROTOCOL</div>
-                    <div className="w-full h-1 bg-black/5 rounded-full overflow-hidden mb-4 relative">
+                  <div className="mt-4 pt-6 border-t border-black/15 relative z-10">
+                    <div className="text-black/80 mb-3 font-bold tracking-widest text-[10px]">DEPLOYMENT PROTOCOL</div>
+                    <div className="w-full h-1 bg-black/10 rounded-full overflow-hidden mb-4 relative">
                       <motion.div 
                         className="absolute top-0 left-0 h-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]"
                         animate={{ width: ["0%", "100%"] }}
@@ -201,7 +201,7 @@ export default function About() {
                         <div className="w-2 h-2 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
                         SYS_READY
                       </motion.span>
-                      <span className="text-black/40">100% SECURE</span>
+                      <span className="text-black/80">100% SECURE</span>
                     </div>
                   </div>
               </div>
@@ -212,22 +212,22 @@ export default function About() {
             <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
               <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
-                <div className="w-20 h-20 rounded-3xl bg-black/5 flex items-center justify-center mb-8 border border-black/5 shadow-lg">
+                <div className="w-20 h-20 rounded-3xl bg-black/10 flex items-center justify-center mb-8 border border-black/15 shadow-lg">
                   <Network size={40} className="text-black/80" />
                 </div>
                 <h3 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-black mb-6 leading-[1.1]">
                   Data-Driven <br/> Decisions.
                 </h3>
-                <p className="text-base md:text-xl text-black/60 max-w-xl leading-relaxed">
+                <p className="text-base md:text-xl text-black/80 max-w-xl leading-relaxed">
                   We don't guess. We integrate deep analytics and telemetry into every platform, ensuring every design and engineering decision is backed by cold, hard data.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#f5f5f7] rounded-[3rem] border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-6 md:p-10 relative overflow-hidden flex flex-col justify-between group shrink-0">
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#f5f5f7] rounded-[3rem] border border-black/15 shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-6 md:p-10 relative overflow-hidden flex flex-col justify-between group shrink-0">
                  <div className="flex justify-between items-center mb-8 relative z-10">
                    <div>
-                     <div className="text-[10px] font-bold tracking-widest uppercase text-black/60 mb-1">Real-time Telemetry</div>
+                     <div className="text-[10px] font-bold tracking-widest uppercase text-black/80 mb-1">Real-time Telemetry</div>
                      <div className="text-4xl md:text-5xl font-display font-bold text-black flex items-baseline gap-2">
-                       +240<span className="text-2xl text-black/60">.5%</span>
+                       +240<span className="text-2xl text-black/80">.5%</span>
                      </div>
                    </div>
                    <div className="w-12 h-12 rounded-full border-[3px] border-[#1d1d1f]/10 border-t-[#1d1d1f] flex items-center justify-center relative animate-spin duration-3000">
@@ -279,7 +279,7 @@ export default function About() {
           <motion.div 
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black/60 text-[10px] font-bold border border-black/5 uppercase tracking-widest w-max shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white text-black/80 text-[10px] font-bold border border-black/15 uppercase tracking-widest w-max shadow-sm"
           >
             About The Agency
           </motion.div>
@@ -291,7 +291,7 @@ export default function About() {
           {/* Slide 1: Introduction */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden group"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden group"
           >
             {/* Animated subtle gradient orb */}
             <motion.div 
@@ -303,7 +303,7 @@ export default function About() {
             <h3 className="text-4xl leading-tight font-display font-bold text-[#1d1d1f] mb-6 relative z-10">
               <span className="block">We don't build</span>
               <span className="relative inline-block mt-1">
-                <span className="text-black/30">websites.</span>
+                <span className="text-black/70">websites.</span>
                 <motion.div 
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}
@@ -322,7 +322,7 @@ export default function About() {
           {/* Slide 2: Bespoke Architecture */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
           >
             <motion.div 
               animate={{ rotate: 360 }}
@@ -330,7 +330,7 @@ export default function About() {
               className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/5 rounded-full blur-2xl pointer-events-none"
             />
 
-            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/5 relative z-10">
+            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/15 relative z-10">
               <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 3, repeat: Infinity }}>
                 <Cpu size={24} className="text-[#1d1d1f]" />
               </motion.div>
@@ -342,11 +342,11 @@ export default function About() {
               We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
             </p>
             
-            <div className="w-full h-24 bg-[#f5f5f7] rounded-xl border border-black/5 relative flex items-center justify-center overflow-hidden z-10">
+            <div className="w-full h-24 bg-[#f5f5f7] rounded-xl border border-black/15 relative flex items-center justify-center overflow-hidden z-10">
                {/* Animated rings */}
-               <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-black/10 rounded-full border-dashed" />
-               <motion.div animate={{ rotate: -360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/5 rounded-full" />
-               <div className="relative w-8 h-8 bg-white rounded-lg border border-black/10 flex items-center justify-center rotate-45 z-10 shadow-sm">
+               <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-black/20 rounded-full border-dashed" />
+               <motion.div animate={{ rotate: -360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/15 rounded-full" />
+               <div className="relative w-8 h-8 bg-white rounded-lg border border-black/20 flex items-center justify-center rotate-45 z-10 shadow-sm">
                  <div className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
                </div>
             </div>
@@ -355,9 +355,9 @@ export default function About() {
           {/* Slide 3: Rapid Execution */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/5">
+            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/15">
               <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
                 <Code2 size={24} className="text-[#1d1d1f]" />
               </motion.div>
@@ -373,9 +373,9 @@ export default function About() {
           {/* Slide 4: Data Driven */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/5 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white rounded-[2rem] p-8 border border-black/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/5">
+            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] flex items-center justify-center mb-6 border border-black/15">
               <Network size={24} className="text-[#1d1d1f]" />
             </div>
             <h3 className="text-3xl font-display font-bold text-[#1d1d1f] mb-4 leading-tight">

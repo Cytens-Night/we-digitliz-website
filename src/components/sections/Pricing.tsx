@@ -116,7 +116,7 @@ export default function Pricing() {
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
-             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 text-black text-sm font-semibold mb-6 border border-black/10 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+             className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/10 text-black text-sm font-semibold mb-6 border border-black/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
            >
               Investment
            </motion.div>
@@ -127,14 +127,14 @@ export default function Pricing() {
              transition={{ delay: 0.1 }}
              className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-black leading-tight tracking-tight mb-6"
            >
-             Select Your <span className="text-black/40">Architecture.</span>
+             Select Your <span className="text-black/80">Architecture.</span>
            </motion.h3>
            <motion.p 
              initial={{ opacity: 0 }}
              whileInView={{ opacity: 1 }}
              viewport={{ once: true }}
              transition={{ delay: 0.2 }}
-             className="text-black/60 max-w-2xl text-lg md:text-xl font-medium"
+             className="text-black/80 max-w-2xl text-lg md:text-xl font-medium"
            >
              Choose a complete, done-for-you digital dominance suite, or use our builder to engineer a bespoke custom architecture.
            </motion.p>
@@ -145,7 +145,7 @@ export default function Pricing() {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="mb-20 bg-white p-2 rounded-full border border-black/5 shadow-2xl flex items-center relative w-full max-w-[400px] mx-auto"
+          className="mb-20 bg-white p-2 rounded-full border border-black/15 shadow-2xl flex items-center relative w-full max-w-[400px] mx-auto"
         >
           {/* Active Tab Background Indicator */}
           <div 
@@ -155,13 +155,13 @@ export default function Pricing() {
           
           <button 
             onClick={() => setActiveTab('prebuilt')}
-            className={`relative z-10 flex-1 py-3.5 text-xs lg:text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${activeTab === 'prebuilt' ? 'text-black' : 'text-black/60 hover:text-black'}`}
+            className={`relative z-10 flex-1 py-3.5 text-xs lg:text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${activeTab === 'prebuilt' ? 'text-black' : 'text-black/80 hover:text-black'}`}
           >
             Pre-built Suites
           </button>
           <button 
             onClick={() => setActiveTab('custom')}
-            className={`relative z-10 flex-1 py-3.5 text-xs lg:text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${activeTab === 'custom' ? 'text-black' : 'text-black/60 hover:text-black'}`}
+            className={`relative z-10 flex-1 py-3.5 text-xs lg:text-sm font-bold uppercase tracking-widest transition-colors duration-300 ${activeTab === 'custom' ? 'text-black' : 'text-black/80 hover:text-black'}`}
           >
             Custom Builder
           </button>
@@ -194,7 +194,7 @@ export default function Pricing() {
                        relative w-full rounded-[2.5rem] overflow-hidden transition-all duration-500 flex flex-col h-full group
                        ${bundle.isPopular 
                           ? 'bg-white border-2 border-primary shadow-[0_20px_60px_-15px_rgba(0,122,255,0.4)] lg:-translate-y-4' 
-                          : 'bg-white border border-black/5 hover:border-black/20 hover:bg-white shadow-2xl'}
+                          : 'bg-white border border-black/15 hover:border-black/20 hover:bg-white shadow-2xl'}
                      `}
                    >
                      {/* Popular Badge */}
@@ -205,7 +205,7 @@ export default function Pricing() {
                      <div className="p-8 lg:p-10 flex flex-col h-full relative z-10">
                         {/* Header */}
                         <div className="flex items-center justify-between mb-8">
-                           <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border ${bundle.isPopular ? 'bg-primary/10 border-primary/20' : 'bg-black/5 border-black/5'}`}>
+                           <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border ${bundle.isPopular ? 'bg-primary/10 border-primary/20' : 'bg-black/10 border-black/15'}`}>
                               <Icon size={24} className={bundle.isPopular ? 'text-primary' : 'text-black'} />
                            </div>
                            {bundle.isPopular && (
@@ -216,23 +216,23 @@ export default function Pricing() {
                         </div>
 
                         <h4 className="text-3xl font-display font-bold text-black mb-4">{bundle.title}</h4>
-                        <p className="text-black/50 text-sm font-medium mb-10 flex-1 leading-relaxed">
+                        <p className="text-black/70 text-sm font-medium mb-10 flex-1 leading-relaxed">
                           {bundle.desc}
                         </p>
 
-                        <div className="flex items-baseline gap-2 mb-10 pb-10 border-b border-black/5">
+                        <div className="flex items-baseline gap-2 mb-10 pb-10 border-b border-black/15">
                           <span className="text-5xl font-display font-bold text-black tracking-tight">{bundle.priceLabel}</span>
-                          <span className="text-black/40 text-sm font-bold tracking-widest uppercase">/One Off</span>
+                          <span className="text-black/80 text-sm font-bold tracking-widest uppercase">/One Off</span>
                         </div>
 
                         {/* Features */}
                         <div className="flex flex-col gap-5 mb-12">
-                          <p className="text-[10px] font-bold uppercase tracking-widest text-black/30 mb-2">
+                          <p className="text-[10px] font-bold uppercase tracking-widest text-black/70 mb-2">
                              Included Architecture
                           </p>
                           {bundle.features.map((feature, i) => (
                             <div key={i} className="flex items-center gap-4">
-                              <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${bundle.isPopular ? 'bg-primary/20' : 'bg-black/5'}`}>
+                              <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 ${bundle.isPopular ? 'bg-primary/20' : 'bg-black/10'}`}>
                                 <Check size={14} className={bundle.isPopular ? 'text-primary' : 'text-black'} />
                               </div>
                               <span className="font-semibold text-sm text-black/80">
@@ -247,7 +247,7 @@ export default function Pricing() {
                           className={`mt-auto w-full py-4 rounded-xl font-bold text-sm transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95
                             ${bundle.isPopular 
                               ? 'bg-primary text-white hover:bg-[#005bb5] hover:shadow-[0_0_30px_rgba(0,122,255,0.4)]' 
-                              : 'bg-black text-white hover:bg-white hover:text-black border border-transparent hover:border-black/10'}`}
+                              : 'bg-black text-white hover:bg-white hover:text-black border border-transparent hover:border-black/20'}`}
                         >
                           Deploy Architecture <ArrowRight size={16} />
                         </button>
@@ -272,8 +272,8 @@ export default function Pricing() {
                {/* RIGHT COLUMN (Mobile: Top) - AVAILABLE MODULES */}
                <div className="w-full lg:w-7/12 flex flex-col gap-4">
                   {categories.map(category => (
-                    <div key={category} className="bg-black/[0.02] border border-black/5 rounded-2xl p-4">
-                       <h5 className="text-[10px] font-bold text-black/40 mb-3 uppercase tracking-widest">
+                    <div key={category} className="bg-black/[0.04] border border-black/15 rounded-2xl p-4">
+                       <h5 className="text-[10px] font-bold text-black/80 mb-3 uppercase tracking-widest">
                          {category}
                        </h5>
                        <div className="flex flex-wrap gap-2">
@@ -286,14 +286,14 @@ export default function Pricing() {
                                 layoutId={`item-${item.id}`}
                                 key={item.id}
                                 onClick={() => toggleItem(item.id)}
-                                className="bg-white border border-black/10 pl-3 pr-2 py-1.5 rounded-full flex items-center gap-3 cursor-pointer hover:border-black/20 hover:bg-[#f5f5f7] transition-all shadow-sm active:scale-95 group w-max"
+                                className="bg-white border border-black/20 pl-3 pr-2 py-1.5 rounded-full flex items-center gap-3 cursor-pointer hover:border-black/20 hover:bg-[#f5f5f7] transition-all shadow-sm active:scale-95 group w-max"
                               >
                                 <span className="font-bold text-black text-xs whitespace-nowrap">{item.title}</span>
-                                <span className="text-[10px] text-black/50 font-mono font-semibold whitespace-nowrap">
+                                <span className="text-[10px] text-black/70 font-mono font-semibold whitespace-nowrap">
                                   {item.price > 0 && `£${item.price}`}
                                   {item.monthly > 0 && ` (+£${item.monthly}/mo)`}
                                 </span>
-                                <div className="w-5 h-5 rounded-full bg-black/5 flex items-center justify-center text-black/50 shrink-0 group-hover:bg-primary group-hover:text-white transition-colors ml-1">
+                                <div className="w-5 h-5 rounded-full bg-black/10 flex items-center justify-center text-black/70 shrink-0 group-hover:bg-primary group-hover:text-white transition-colors ml-1">
                                   <Plus size={10} strokeWidth={3} />
                                 </div>
                               </motion.div>
@@ -306,12 +306,12 @@ export default function Pricing() {
 
                {/* LEFT COLUMN (Mobile: Bottom) - THE BLUEPRINT CART */}
                <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20">
-                  <div className="w-full min-h-[350px] lg:min-h-[450px] rounded-[2.5rem] bg-white border border-black/5 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] p-5 md:p-6 flex flex-col relative overflow-hidden">
+                  <div className="w-full min-h-[350px] lg:min-h-[450px] rounded-[2.5rem] bg-white border border-black/15 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] p-5 md:p-6 flex flex-col relative overflow-hidden">
                     
                     <div className="relative z-10 flex-1 flex flex-col">
-                      <div className="flex items-center justify-between border-b border-black/5 pb-4 mb-4">
+                      <div className="flex items-center justify-between border-b border-black/15 pb-4 mb-4">
                         <h4 className="text-xl font-display font-bold text-black tracking-wide">Your Architecture</h4>
-                        <span className="px-3 py-1 bg-black/5 rounded-full text-xs font-bold text-black">
+                        <span className="px-3 py-1 bg-black/10 rounded-full text-xs font-bold text-black">
                           {selectedItems.length} Modules
                         </span>
                       </div>
@@ -324,10 +324,10 @@ export default function Pricing() {
                                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                                className="w-full h-full flex flex-col items-center justify-center text-center px-4 py-8"
                              >
-                                <div className="w-12 h-12 rounded-full border border-dashed border-black/10 flex items-center justify-center mb-4">
-                                  <Plus size={20} className="text-black/20" />
+                                <div className="w-12 h-12 rounded-full border border-dashed border-black/20 flex items-center justify-center mb-4">
+                                  <Plus size={20} className="text-black/80" />
                                 </div>
-                                <p className="text-black/40 font-medium text-xs md:text-sm leading-relaxed max-w-[250px]">Select modules from the left to begin constructing your architecture.</p>
+                                <p className="text-black/80 font-medium text-xs md:text-sm leading-relaxed max-w-[250px]">Select modules from the left to begin constructing your architecture.</p>
                              </motion.div>
                            )}
                          </AnimatePresence>
@@ -343,12 +343,12 @@ export default function Pricing() {
                              >
                                <div className="flex flex-col">
                                  <span className="font-bold text-xs">{item.title}</span>
-                                 <span className="text-[9px] text-black/60 font-mono font-bold uppercase tracking-wider">
+                                 <span className="text-[9px] text-black/80 font-mono font-bold uppercase tracking-wider">
                                    {item.price > 0 && `£${item.price} `}
                                    {item.monthly > 0 && `(+£${item.monthly}/mo)`}
                                  </span>
                                </div>
-                               <div className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors shrink-0">
+                               <div className="w-6 h-6 rounded-full bg-black/10 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors shrink-0">
                                  <Minus size={12} />
                                </div>
                              </motion.div>
@@ -357,18 +357,18 @@ export default function Pricing() {
                       </div>
 
                       {/* Integrated Estimator */}
-                      <div className="mt-8 pt-6 border-t border-black/5 flex flex-col gap-8">
-                         <div className="flex justify-between items-end bg-black/5 p-6 rounded-2xl border border-black/5">
+                      <div className="mt-8 pt-6 border-t border-black/15 flex flex-col gap-8">
+                         <div className="flex justify-between items-end bg-black/10 p-6 rounded-2xl border border-black/15">
                            <div>
-                             <span className="block text-black/40 text-[10px] tracking-widest uppercase mb-1 font-bold">Est. Upfront</span>
+                             <span className="block text-black/80 text-[10px] tracking-widest uppercase mb-1 font-bold">Est. Upfront</span>
                              <span className="text-3xl md:text-4xl font-display font-bold text-black">
                                <AnimatedNumber value={totalUpfront} />
                              </span>
                            </div>
                            <div className="text-right">
-                             <span className="block text-black/40 text-[10px] tracking-widest uppercase mb-1 font-bold">Est. Monthly</span>
+                             <span className="block text-black/80 text-[10px] tracking-widest uppercase mb-1 font-bold">Est. Monthly</span>
                              <span className="text-xl md:text-2xl font-display font-bold text-black">
-                               <AnimatedNumber value={totalMonthly} /><span className="text-xs md:text-sm text-black/40 font-medium">/mo</span>
+                               <AnimatedNumber value={totalMonthly} /><span className="text-xs md:text-sm text-black/80 font-medium">/mo</span>
                              </span>
                            </div>
                          </div>

@@ -16,7 +16,7 @@ const RetailGraphic = () => (
           initial={{ height: 0 }}
           animate={{ height: `${h}%` }}
           transition={{ duration: 0.8, delay: i * 0.1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1, ease: "easeOut" }}
-          className="w-12 sm:w-16 bg-black/5 rounded-t-xl shadow-[0_0_30px_rgba(255,255,255,0.05)] border border-black/10 border-b-0"
+          className="w-12 sm:w-16 bg-black/10 rounded-t-xl shadow-[0_0_30px_rgba(255,255,255,0.05)] border border-black/20 border-b-0"
         />
      ))}
   </div>
@@ -44,12 +44,12 @@ const HospitalityGraphic = () => (
       initial={{ y: "100%" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5, ease: "easeOut" }}
-      className="w-48 h-56 bg-black/5 border border-black/10 rounded-t-[2rem] p-6 flex flex-col gap-4 shadow-[0_-10px_40px_rgba(255,255,255,0.05)] backdrop-blur-md"
+      className="w-48 h-56 bg-black/10 border border-black/20 rounded-t-[2rem] p-6 flex flex-col gap-4 shadow-[0_-10px_40px_rgba(255,255,255,0.05)] backdrop-blur-md"
     >
       <div className="w-full h-3 bg-white/40 rounded-full" />
       <div className="w-3/4 h-3 bg-black/10 rounded-full" />
       <div className="w-1/2 h-3 bg-black/10 rounded-full" />
-      <div className="mt-auto w-full h-16 bg-black/5 rounded-xl" />
+      <div className="mt-auto w-full h-16 bg-black/10 rounded-xl" />
     </motion.div>
   </div>
 );
@@ -70,7 +70,7 @@ const RealEstateGraphic = () => (
 );
 
 const CorporateGraphic = () => (
-  <div className="h-[250px] w-full max-w-[300px] relative border border-black/5 rounded-[2rem] bg-black/5 overflow-hidden opacity-80">
+  <div className="h-[250px] w-full max-w-[300px] relative border border-black/15 rounded-[2rem] bg-black/10 overflow-hidden opacity-80">
      <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute top-10 left-10 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
      <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} className="absolute bottom-10 left-1/2 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
      <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} className="absolute top-16 right-16 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
@@ -188,7 +188,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => { setIsHovered(false); setMousePos({ x: 0, y: 0 }); }}
-      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-black/5 shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between bg-white relative group ${index === total - 1 ? 'md:mb-[40vh]' : 'md:mb-[60vh]'} mb-12`}
+      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-black/15 shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between bg-white relative group ${index === total - 1 ? 'md:mb-[40vh]' : 'md:mb-[60vh]'} mb-12`}
     >
       {/* Background Image with Parallax/Hover */}
       <div 
@@ -200,7 +200,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       {/* Main Content (Left) */}
       <div className="relative z-20 p-8 md:p-16 lg:p-24 flex flex-col justify-end md:justify-center w-full md:w-1/2 h-full order-2 md:order-1">
          <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
-            <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-3xl bg-black/5 backdrop-blur-md flex items-center justify-center border border-black/10 shadow-2xl">
+            <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-3xl bg-black/10 backdrop-blur-md flex items-center justify-center border border-black/20 shadow-2xl">
                <industry.icon className="w-8 h-8 md:w-10 md:h-10 text-black" />
             </div>
             <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black tracking-tight">
@@ -232,7 +232,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       </div>
 
       {/* Giant Number Watermark */}
-      <div className="hidden md:block absolute top-12 right-16 font-display font-bold text-[12rem] leading-none text-black/[0.03] select-none pointer-events-none z-0">
+      <div className="hidden md:block absolute top-12 right-16 font-display font-bold text-[12rem] leading-none text-black/[0.05] select-none pointer-events-none z-0">
         {industry.number}
       </div>
     </motion.div>
@@ -256,7 +256,7 @@ export default function Industries() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/5 text-black text-sm font-semibold mb-6 md:mb-8 border border-black/10 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/10 text-black text-sm font-semibold mb-6 md:mb-8 border border-black/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
         >
            Custom Solutions
         </motion.div>
@@ -267,7 +267,7 @@ export default function Industries() {
           transition={{ delay: 0.2 }}
           className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-black leading-[1.05] tracking-tight"
         >
-          Architectures tailored <br/> for <span className="text-black/40">every sector.</span>
+          Architectures tailored <br/> for <span className="text-black/80">every sector.</span>
         </motion.h3>
       </div>
 
