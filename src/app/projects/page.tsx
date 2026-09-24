@@ -173,7 +173,7 @@ export default function ProjectsPage() {
                                 style={{
                                   width: '400px',
                                   height: '800px',
-                                  transform: 'scale(calc(100cqi / 400))'
+                                  transform: 'scale(calc(100cqi / 400px))'
                                 }}
                               />
                            </div>
@@ -200,7 +200,7 @@ export default function ProjectsPage() {
                                     style={{ 
                                       width: '1440px', 
                                       height: '810px',
-                                      transform: 'scale(calc(100cqi / 1440))'
+                                      transform: 'scale(calc(100cqi / 1440px))'
                                     }} 
                                   />
                                </div>
