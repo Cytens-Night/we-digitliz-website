@@ -28,7 +28,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-[#f5f5f7] text-foreground`}
       >
-        <main className="w-full relative max-w-[100vw] overflow-x-clip">
+        <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">
           {children}
         </main>
       </body>
