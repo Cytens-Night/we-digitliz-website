@@ -53,7 +53,7 @@ export default function DigitalCards() {
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-white/5 blur-[200px] rounded-full pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-6 md:pl-[6rem] relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
         {/* Header */}
         <div className="mb-20 flex flex-col items-center text-center gap-6">

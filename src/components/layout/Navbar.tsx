@@ -23,6 +23,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const [activeTab, setActiveTab] = useState<string>("Home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isTopNavVisible, setIsTopNavVisible] = useState(false);
+  const [isSideNavVisible, setIsSideNavVisible] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -76,16 +78,47 @@ export default function Navbar() {
       if (el) observer.observe(el);
     });
 
+    let lastScrollY = window.scrollY;
     const handleScroll = () => {
       if (window.scrollY < 100) {
         setActiveTab("Home");
+        if (window.innerWidth >= 768) setIsTopNavVisible(true);
+      } else {
+        if (window.innerWidth >= 768) {
+          if (window.scrollY < lastScrollY) {
+            setIsTopNavVisible(true);
+          } else {
+            setIsTopNavVisible(false);
+          }
+        }
       }
+      lastScrollY = window.scrollY;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (window.innerWidth < 768) return;
+
+      // Top nav trigger
+      if (e.clientY < 60) {
+        setIsTopNavVisible(true);
+      } else if (e.clientY > 150) {
+        setIsTopNavVisible(false);
+      }
+
+      // Side nav trigger
+      if (e.clientX < 40) {
+        setIsSideNavVisible(true);
+      } else if (e.clientX > 250) {
+        setIsSideNavVisible(false);
+      }
+    };
+    window.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
     };
   }, [pathname]);
 
@@ -101,30 +134,35 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
+  // Push body right when side menu is visible
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.innerWidth >= 768) {
+      if (isSideNavVisible) {
+        document.body.style.paddingLeft = '14rem';
+      } else {
+        document.body.style.paddingLeft = '0px';
+      }
+    }
+  }, [isSideNavVisible]);
+
   return (
     <>
       {/* =========================================
-          LEFT SIDEBAR (Desktop)
+          TOP NAVBAR (Desktop)
           ========================================= */}
-      <nav className="hidden md:flex fixed left-4 top-4 bottom-4 z-50">
-        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-[2rem] py-6 px-2 flex flex-col gap-2 transition-all duration-300 ease-in-out w-14 hover:w-48 group overflow-hidden items-start h-full">
-          
-          {/* Logo Section */}
-          <Link href="/" className="flex items-center gap-4 px-2 mb-8 w-full" onClick={() => setActiveTab("Home")}>
-            <div className="w-6 h-6 shrink-0 flex items-center justify-center">
-              <Logo className="w-5 h-5 text-white" />
-            </div>
-            <span className="font-display font-bold text-sm tracking-wide text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              wedigitlize
-            </span>
+      <nav 
+        className={`hidden md:flex fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ease-in-out ${isTopNavVisible && !isSideNavVisible ? 'top-6' : '-top-full'}`}
+      >
+        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-full px-6 py-3 flex items-center justify-between gap-2 lg:gap-6 w-max">
+          <Link href="/" className="flex items-center gap-2 pr-6 border-r border-white/10" onClick={() => setActiveTab("Home")}>
+            <Logo className="w-5 h-5 text-white" />
+            <span className="font-display font-bold text-xs tracking-wide text-white">wedigitlize</span>
           </Link>
 
-          {/* Links */}
-          <div className="flex flex-col gap-2 w-full relative">
-            {navLinks.map((link) => {
+          <div className="flex items-center gap-1 lg:gap-2">
+            {navLinks.filter(l => l.name !== "Home").map((link) => {
               const isActive = activeTab === link.name;
-              const Icon = link.icon;
-              
               return (
                 <Link
                   key={link.name}
@@ -137,19 +175,55 @@ export default function Navbar() {
                       document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className={`relative flex items-center gap-4 px-2 py-2.5 rounded-2xl transition-colors duration-300 w-full ${isActive ? 'text-white' : 'text-white/50 hover:text-white'}`}
+                  className={`relative flex items-center gap-2 px-3 lg:px-4 py-2 rounded-full transition-colors duration-300 text-xs font-bold tracking-wider ${isActive ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
                 >
-                  {isActive && (
-                    <motion.div
-                      layoutId="sidebar-active"
-                      className="absolute inset-0 bg-white/10 rounded-2xl pointer-events-none"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  <div className="w-6 h-6 shrink-0 flex items-center justify-center relative z-10">
+                  {link.name}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </nav>
+
+      {/* =========================================
+          LEFT SIDEBAR (Desktop)
+          ========================================= */}
+      <nav 
+        className={`hidden md:flex fixed top-4 bottom-4 z-50 transition-all duration-500 ease-in-out ${isSideNavVisible ? 'left-4' : '-left-[120%]'}`}
+      >
+        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-[2rem] py-6 px-4 flex flex-col gap-2 w-52 items-start h-full">
+          
+          <Link href="/" className="flex items-center gap-4 px-2 mb-8 w-full" onClick={() => setActiveTab("Home")}>
+            <div className="w-6 h-6 shrink-0 flex items-center justify-center">
+              <Logo className="w-5 h-5 text-white" />
+            </div>
+            <span className="font-display font-bold text-sm tracking-wide text-white">
+              wedigitlize
+            </span>
+          </Link>
+
+          <div className="flex flex-col gap-2 w-full relative">
+            {navLinks.map((link) => {
+              const isActive = activeTab === link.name;
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => {
+                    setActiveTab(link.name);
+                    if (pathname === "/" && link.href.startsWith("/#")) {
+                      e.preventDefault();
+                      const targetId = link.href.substring(2);
+                      document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  className={`relative flex items-center gap-4 px-3 py-3 rounded-2xl transition-colors duration-300 w-full ${isActive ? 'text-white bg-white/10' : 'text-white/50 hover:text-white hover:bg-white/5'}`}
+                >
+                  <div className="w-5 h-5 shrink-0 flex items-center justify-center">
                     <Icon size={18} />
                   </div>
-                  <span className="text-xs font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10">
+                  <span className="text-xs font-bold tracking-wider">
                     {link.name}
                   </span>
                 </Link>
@@ -157,7 +231,6 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* CTA */}
           <div className="mt-auto w-full pt-4">
             <Link
               href="/#contact"
@@ -167,12 +240,9 @@ export default function Navbar() {
                   document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="relative flex items-center gap-4 px-2 py-2.5 rounded-2xl transition-colors duration-300 w-full hover:bg-white/10 group/btn"
+              className="flex items-center justify-center gap-3 px-4 py-3 rounded-2xl transition-colors duration-300 w-full bg-white text-black hover:bg-[#007AFF] hover:text-white group/btn"
             >
-              <div className="w-6 h-6 shrink-0 flex items-center justify-center relative z-10">
-                <Mail size={16} className="text-white" />
-              </div>
-              <span className="text-xs font-bold tracking-wider whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 relative z-10 text-white">
+              <span className="text-xs font-bold tracking-wider">
                 Contact Us
               </span>
             </Link>
