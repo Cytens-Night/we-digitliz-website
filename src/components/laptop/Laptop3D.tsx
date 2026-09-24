@@ -321,6 +321,7 @@ export default function Laptop3D() {
                          </a>
                       </div>
                    </div>
+                </div>
 
                 {/* BACK FACE (QR Code) */}
                 <div className="absolute inset-0 w-full h-full flex flex-col bg-gradient-to-br from-[#111] to-[#050505] items-center justify-between p-8 [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
