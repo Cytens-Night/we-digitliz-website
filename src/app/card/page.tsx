@@ -1,69 +1,156 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, MessageCircle, ArrowUpRight, QrCode, X, Download } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
-import { FiInstagram, FiLinkedin } from "react-icons/fi";
+import { FiInstagram, FiLinkedin, FiTwitter } from "react-icons/fi";
+import './card.css';
 
-export default function CardPage() {
-  const [toast, setToast] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isFlipped, setIsFlipped] = useState(false);
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [isInstallable, setIsInstallable] = useState(false);
-  const [isStandalone, setIsStandalone] = useState(false);
+// ----------------------------------------------------------------------
+// SPLASH SCREEN COMPONENT
+// ----------------------------------------------------------------------
+function SplashScreen({ onComplete }: { onComplete: () => void }) {
+  const [show, setShow] = useState(true);
+  const [fading, setFading] = useState(false);
+  const [readyToTap, setReadyToTap] = useState(false);
 
-  // Simulate a quick loading sequence for effect
-  React.useEffect(() => {
+  useEffect(() => {
+    // For We Digitliz, we'll just wait for the animation to finish, then require a tap,
+    // or just automatically fade out after 2.5 seconds.
     const timer = setTimeout(() => {
-      setIsLoading(false);
+      setReadyToTap(true);
+      // Auto fade out after 3 seconds if not tapped
+      setTimeout(() => {
+        setFading(true);
+        setTimeout(() => {
+          setShow(false);
+          onComplete();
+        }, 500);
+      }, 1000);
     }, 1500);
 
-    // PWA install logic
-    if (window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone === true) {
-      setIsStandalone(true);
-    }
+    return () => clearTimeout(timer);
+  }, [onComplete]);
 
-    const handleBeforeInstallPrompt = (e: Event) => {
+  const handleTap = () => {
+    if (!readyToTap) return;
+    setFading(true);
+    setTimeout(() => {
+      setShow(false);
+      onComplete();
+    }, 500);
+  };
+
+  if (!show) return null;
+
+  return (
+    <div className={`splash-container ${fading ? 'fade-out' : ''} ${readyToTap ? 'clickable' : ''}`} onClick={handleTap}>
+      <svg viewBox="0 0 440 130" style={{ width: '80%', maxWidth: '300px', overflow: 'visible' }}>
+        <defs>
+          <linearGradient id="blueGradSplash" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#007AFF" />
+            <stop offset="50%" stopColor="#8b5cf6" />
+            <stop offset="100%" stopColor="#007AFF" />
+          </linearGradient>
+        </defs>
+        <g className="splash-path">
+          <path d="M176.1,39.44c3.59-.07,6.78.91,9.97,2.68,17.71-8.17,36.54-12.05,56.19-10.08-2.2-5.32-4.39-10.84-8.51-14.93-7.04-6.99-16.03-11.02-25.56-13.63-26.98-7.4-58.15-2.28-83.61,9.04-4.86,2.16-10.8,5.73-10.56,9.24.26,3.94,9.49,7.57,15.27,8.18l18.62,1.98c13.66,1.45,16.85,7.75,28.2,7.52ZM354.19,31.88l-12.06,6.27c-4.39,2.25-9,3.83-13.81,4.37l15.45-9.76c4.56-2.88,8.74-5.17,14.79-4.82-.81-10.2-4.05-21.06-13.55-24.13-8.94-2.88-18.56-4.28-28.09-2.9-11.07,1.6-21.12,7.6-27.63,16.35l-8.85,11.91c-3.26,4.39-8.03,7.25-13.04,10,18.41,9.01,31.47,24.19,37.69,42.99,4.16-9.4,10.67-15.84,19.68-19.29,7.94-3.79,14.98-8.31,20.89-14.76,4.11-4.91,7.76-9.95,8.53-16.24ZM114.49,111.2c-9.44,14.46-13.66,31.2-14.93,48.18-.8,19.82,3.52,38.69,13.88,55.83,36.53,9.07,77.45,5.42,112.46-8.77,30.46-12.68,56.85-34.59,70.09-65.16,6.41-14.81,8.98-30.38,6.53-46.48-6.9-45.3-51.56-66.74-93.96-54.97,17.07-.42,33.03,1.47,47.75,9.47,28.35,15.41,38.91,44.23,29.13,75.24-5.25,16.66-15.06,30.63-27.75,42.53-34.44,32.29-89.67,43.29-135.55,33.38l-7.25-14.67c-9.09-24.25-8.48-49.2-.4-74.57ZM274.49,71.97c-13.17-18.61-35.98-27.3-58.32-26.99l-7.8,15.22,28.75,15.01c12.51-1.9,24.45-3.01,37.36-3.24ZM202.76,59.36l7-14.06c-22.05,1.98-42.56,10.81-58.96,24.99l20.21,1.66c10.28-4.96,20.81-8.9,31.75-12.59ZM230.24,105.32l3.64-26.15-29.2-14.99c-10.95,3.53-20.55,7.22-30.6,12.17l-4.1,22.61c10.82,4.86,20.38,9.91,30.11,15.86l30.15-9.51ZM139.62,114.92l25.1-16.06,3.92-22.1c-8.26-1.39-15.86-1.75-23.98-.8-11.5,10.67-19.92,23.55-25.18,38.91l20.13.05ZM272.24,140.63c12.01-19.49,16.27-44.44,5.24-63.51-13.22-.21-25.73.94-38.48,2.89l-3.76,26.6c13.24,10.32,25.47,21.18,36.99,34.01ZM324.5,233.85c3.42-1.83,6.27-4.51,8.69-7.79,21.08-28.62,32.91-68.34,18.38-101.98-7.61-17.6-23.95-28.98-43.64-29.6,2.12,15.33,0,29.79-4.94,44,5.48,2.27,7.09,7.11,6.53,12.4-1.42,8.25-1.12,16.16,1.7,24.04,2.99,8.34,4.08,16.83,4.03,25.69l-.08,16.4c-.05,9.02,3.41,20,9.34,16.83ZM196.41,147.56l1.07-28.21c-9.65-6.01-19.37-11.06-29.95-16.11l-25.23,15.99-1.08,26.87,24.69,14.04,30.49-12.58ZM260.85,156.44l8.74-11.23-14.87-15.44-23.2-19.54-29,9.23-1.11,29.15c9.6,10.74,18.38,21.18,26.76,32.9,12.07-6.63,23.34-14.55,32.69-25.07ZM136.25,146.03l.89-25.97-19.25-.15c-4.35,13.35-5.6,27.42-3.66,42.17l22.02-16.05ZM165.78,198.49c.07-12.12-.69-22.88-2.39-33.85l-24.39-13.94c-8.62,5.11-16.59,10.7-23.69,17.76,2.04,10.02,5.14,18.81,10.29,27.46,13.18,2.83,26.13,3.5,40.19,2.58ZM223.45,183.75c-8.37-11.52-16.47-21.38-25.13-31.11l-29.73,12.18c1.48,11.26,2.15,21.84,2.29,33.32,18.46-2.06,36.08-6.19,52.58-14.39ZM94.86,208.97l5.86-7.53c-3.86-11.4-6.02-22.81-6.49-35.06-17.66,10.12-34.45,23.5-37.91,44.14-.12,2.52.45,5.03,2.3,6.26,1.31.87,4.27,1.17,5.86.46,13.56-6.11,20.33,4.65,30.38-8.26ZM140.71,271.6c-.83,5.45,3.02,9.69,8.42,9.51,3.18-.11,6.44-1.32,9.47-2.64,22.45-11.64,32.48-32.73,36.46-57.16-14.88,2.88-28.56,4.07-43.13,3.96-2.04,5.45-6.18,8.61-9.9,12.18-5.83,5.6-6.6,13.39-3.1,20.11,2.26,4.35,2.55,9,1.79,14.04Z"/>
+          <path d="M55.81,103.72c2.49-4.88,5.29-8.8,8.3-13.56-3.96-.42-7.76-1.28-10.88-4.69l4.32-1.69c-6.13.21-11.34-1.83-15.4-6.15l5.16-1.13c-7.13-1.03-13.34-3.6-17.7-9.31l7.2-.27c-10.08-2.65-15.99-6.04-22.46-14.9l9.68,1.57-3.58-1.9c-8.89-4.1-15.76-11.76-18-21.56,3.67,2.2,6.59,4.34,10.46,5.57C2.46,28.02-2.26,15.4,1.04,2.89c3.1,4.66,5.82,8.4,9.55,11.93,13.2,12.53,31.62,20.69,48.05,28.77,9.7,4.77,20.07,10.2,26.3,18.89,5.1,7.11,6.55,16.03,2.96,24.09-1.69,3.8-4.28,7.04-7.23,9.95l-11.85,11.66c-14.11,13.89-18.65,33.74-19.47,53.08-.45,10.56-3.21,21.66-14.33,24.81,2.41-28.7,7.68-56.65,20.8-82.35ZM53.29,49.17c-3.29-3.81-7.08-5.83-10.87-8.29l-16.75-9.18c-8.14-4.46-14.96-10.19-21.32-17.06,1.1,7.81,5.81,13.61,11.74,18.13,6.09,4.24,12.78,6.98,19.76,9.67l17.46,6.73ZM58.53,58.02c-4.98-4.36-10.75-6.77-16.84-8.61l-16.11-4.85c-5.44-1.64-10.31-3.75-15.69-6.38,11.12,15.44,32.17,13.86,48.64,19.85ZM62.42,65.29c-2.91-2-5.62-3.06-8.55-4.15-10.04-2.45-20.06-2.37-30.54-4.4,3.65,3.28,8.05,4.81,12.78,5.99,4.81.67,9.51,1.1,14.41,1.29l11.9,1.28ZM60.2,72.28l6.36-.35c-4.1-2.28-8.9-2.9-13.71-2.7l-15.39.65c3.78,2.08,7.62,3.43,11.86,3.15l10.88-.74ZM62.47,79.58l7.56-2.18c-3.58-1.36-7.24-1.22-10.73-.45l-9.68,2.15c4.18,2.1,8.46,1.73,12.84.47ZM67.98,85.63l6.24-2.85c-2.03-.59-4.35-.75-6.23,0l-7.85,3.1c2.63,1.4,5.29.93,7.83-.24Z"/>
+          <path d="M57.79,170.87c-1.99,2.55-4.45,4.3-7.88,5.08,1.48-4.92,2.28-9.73,2.52-15,.61-13.6,2.55-29.27,11.26-39.97-2,6.43-3.67,12.22-3.58,18.58,1.98-5.25,4.99-9.22,9.06-12.76,4.11-3.37,8.65-5.86,13.6-7.95,12.37-5.3,23.39-11.34,29.07-24.08,5.43-12.17,3.13-23.06,5.74-30.36,2.84-7.94,9.26-13.23,17.55-15.67l-4.48-2.33,3.25-2.97-6.44-4.42c-6.18-3.38-13.38-1.99-18,3.22-6.52,7.35-5.58,21.05-17.45,27.38-2.72-9.94-13.49-19.11-22.46-23.72l-16.96-8.7c-2.47-4.48-3.44-9.58-3.24-14.59,2.09,2.96,3.87,5.38,6.35,7.59-4.93-9.45-6.29-17.17-1.48-27.18,3.76,12.23,9.84,20.91,18.35,29.79l10.65,11.13c4.01,4.19,7.03,8.64,9.5,14.19,2-3.6,2.96-7.16,4.06-11,1.84-6.41,5.84-12.17,11.9-15.15,8.57-4.22,18.61-2.26,25.82,3.71,6.06,5.02,5.55,3.94,14.52,4.12,8,.15,15.76.65,23.57,2.23,3.96.8,7.61,1.91,11.02,4.12h-19.16c-7.78-.01-15.42,1.07-22.89,3.34-5.37,1.62-9.08,6.1-11.65,10.84-1.98,3.66-2.71,7.57-3.1,11.73l-1.07,11.43c-2.86,20.27-16.87,33.05-35.56,39.85l-10.18,3.71c-10.08,3.67-12.96,11.09-10.44,21.55,1.44,6-.4,11.78-6.2,14.91l-.13-7.2-.21-13.84c-2.12,5.11-2.85,10.54-2.45,16.14.31,4.31-.32,8.47-2.78,12.27ZM149.45,44.3c8.06-.64,15.46-.22,23.38-.02-10.8-2.2-21.86-2.15-32.93-1.79l-3.99,2.89,13.53-1.07Z"/>
+          <circle cx="122.17" cy="43.97" r="3.58"/>
+          <path d="M53.29,49.17l-17.46-6.73c-6.98-2.69-13.67-5.43-19.76-9.67-5.93-4.52-10.63-10.32-11.74-18.13,6.36,6.87,13.18,12.59,21.32,17.06l16.75,9.18c3.79,2.46,7.58,4.48,10.87,8.29Z"/>
+          <path d="M58.53,58.02c-16.47-5.98-37.52-4.41-48.64-19.85,5.38,2.63,10.24,4.74,15.69,6.38l16.11,4.85c6.09,1.84,11.86,4.25,16.84,8.61Z"/>
+          <path d="M62.42,65.29l-11.9-1.28c-4.9-.19-9.6-.62-14.41-1.29-4.73-1.17-9.12-2.71-12.78-5.99,10.48,2.03,20.5,1.95,30.54,4.4,2.93,1.09,5.64,2.15,8.55,4.15Z"/>
+          <path d="M60.2,72.28l-10.88.74c-4.24.29-8.08-1.07-11.86-3.15l15.39-.65c4.82-.2,9.62.41,13.71,2.7l-6.36.35Z"/>
+          <path d="M62.47,79.58c-4.39,1.26-8.67,1.63-12.84-.47l9.68-2.15c3.49-.78,7.15-.92,10.73.45l-7.56,2.18Z"/>
+          <path d="M67.98,85.63c-2.55,1.17-5.21,1.64-7.83.24l7.85-3.1c1.88-.74,4.2-.58,6.23,0l-6.24,2.85Z"/>
+          <path d="M149.45,44.3l-13.53,1.07,3.99-2.89c11.06-.36,22.13-.4,32.93,1.79-7.92-.2-15.33-.62-23.38.02Z"/>
+        </g>
+        
+        <line className="splash-line" x1="170" y1="108" x2="210" y2="108" />
+        <text className="splash-text" textAnchor="end" x="425" y="115">WE DIGITLIZE</text>
+      </svg>
+      {readyToTap && <div className="tap-to-enter">Tap to Enter</div>}
+    </div>
+  );
+}
+
+// ----------------------------------------------------------------------
+// MAIN CARD PAGE
+// ----------------------------------------------------------------------
+
+const services = [
+  { id: 1, title: "Web Experiences", icon: Globe },
+  { id: 2, title: "Mobile Apps", icon: Smartphone },
+  { id: 3, title: "Automation", icon: Zap },
+  { id: 4, title: "Brand Identity", icon: Palette },
+];
+
+export default function CardPage() {
+  const [splashDone, setSplashDone] = useState(false);
+  const [toast, setToast] = useState<string | null>(null);
+  const [isExploded, setIsExploded] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [radius, setRadius] = useState(380);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  const phone = "+447584296946";
+  const email = "info@wedigitlize.com";
+
+  useEffect(() => {
+    const handleResize = () => {
+      setRadius(window.innerWidth < 768 ? 140 : 320);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      setIsInstallable(true);
     };
-
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     return () => {
-      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
   }, []);
 
-  const handleInstallApp = async () => {
-    if (!deferredPrompt) return;
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      setIsInstallable(false);
+  const handleInstallClick = async () => {
+    if (deferredPrompt) {
+      try {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+      } catch (err) {
+        console.error("Install prompt failed:", err);
+      }
+      setDeferredPrompt(null);
+    } else {
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
+      if (isIOS) {
+        showToast("To install on iOS: tap Share and select 'Add to Home Screen'.");
+      } else {
+        showToast("To reinstall: tap your browser's menu and select 'Install App'.");
+      }
     }
-    setDeferredPrompt(null);
+  };
+
+  const showToast = (msg: string) => {
+    setToast(msg);
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const handleCopyEmail = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigator.clipboard.writeText(email);
+    showToast("Email copied to clipboard!");
   };
 
   const handleSaveContact = () => {
-    const vcard = `BEGIN:VCARD
-VERSION:3.0
-N:wedigitlize;;;;
-FN:wedigitlize
-ORG:wedigitlize
-TITLE:Premium Digital Agency
-NOTE:Keywords: Website Development, Web Design, Social Media Marketing, Content Creation, Logo Design, Brand Identity, SEO, Search Engine Optimization, App Development, SaaS, Automated Systems, Digital Transformation, Lead Generation, Software Engineering.
-TEL;TYPE=WORK,VOICE:+447584296946
-EMAIL;TYPE=PREF,INTERNET:info@wedigitlize.com
-URL:https://wedigitlize.com
-END:VCARD`;
-
+    const vcard = `BEGIN:VCARD\nVERSION:3.0\nN:wedigitlize;;;;\nFN:wedigitlize\nORG:wedigitlize\nTITLE:Premium Digital Agency\nTEL;TYPE=WORK,VOICE:${phone}\nEMAIL;TYPE=PREF,INTERNET:${email}\nURL:https://wedigitlize.com\nEND:VCARD`;
     const blob = new Blob([vcard], { type: "text/vcard" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -71,268 +158,177 @@ END:VCARD`;
     a.download = "wedigitlize.vcf";
     a.click();
     URL.revokeObjectURL(url);
-    
-    setToast("Contact Saved!");
-    setTimeout(() => setToast(null), 3000);
+    showToast("Contact Saved!");
   };
 
   return (
-    <main className="min-h-[100dvh] w-full bg-[#0a0a0a] flex items-center justify-center relative overflow-x-hidden selection:bg-primary/30 selection:text-white">
+    <main className="min-h-[100dvh] w-full bg-[#0a0a0a] selection:bg-primary/30 selection:text-white">
       
-      {/* Loading Screen */}
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div 
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-[9999] bg-[#0a0a0a] flex flex-col items-center justify-center"
-          >
-            <motion.div
-              animate={{ 
-                scale: [1, 1.1, 1],
-                opacity: [0.5, 1, 0.5]
-              }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative"
-            >
-              <div className="absolute inset-0 bg-[#007AFF] blur-[50px] opacity-20 rounded-full" />
-              <Logo className="w-16 h-16 text-white relative z-10" />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
 
-      {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div 
-          className="absolute inset-0 opacity-[0.05] bg-[size:30px_30px]" 
-          style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDEpIi8+PC9zdmc+')" }}
-        />
+      <div className="portfolio-container explode-layout">
         
-        {/* Glow Orbs */}
-        <motion.div 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[-20%] w-[70vw] h-[70vw] max-w-[600px] max-h-[600px] bg-[#007AFF]/15 blur-[120px] rounded-full" 
-        />
-        <motion.div 
-          animate={{ rotate: -360 }}
-          transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[-10%] right-[-20%] w-[60vw] h-[60vw] max-w-[500px] max-h-[500px] bg-[#8b5cf6]/15 blur-[120px] rounded-full" 
-        />
-      </div>
-
-      {/* Card Container (Mobile dimensions on desktop, full width on mobile) */}
-      <div className="w-full max-w-[440px] min-h-[100dvh] sm:min-h-0 sm:h-auto sm:my-12 relative z-10 flex flex-col pt-12 pb-10 px-6 overflow-hidden">
-        
-        {/* Top Logo */}
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex flex-col items-center justify-center gap-3 mb-8"
-        >
-          <div className="flex items-center gap-3">
-            <Logo className="w-6 h-6 text-white" />
-            <span className="font-display font-bold tracking-widest text-2xl text-white uppercase">wedigitlize</span>
-          </div>
-          <span className="text-[9px] uppercase tracking-[0.3em] text-white/50 font-bold">Premium Digital Agency</span>
-        </motion.div>
-
-        {/* Tech Divider */}
-        <motion.div 
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent relative mb-16 flex justify-center items-center"
-        >
-          <div className="w-3 h-3 rotate-45 border border-white/30 bg-[#0a0a0a] z-10 flex items-center justify-center">
-            <div className="w-1 h-1 bg-[#007AFF] rounded-full shadow-[0_0_10px_#007AFF]" />
-          </div>
-        </motion.div>
-
-        {/* Main Card Content - 3D Perspective Container */}
-        <div style={{ perspective: "1500px" }} className="w-full relative z-20">
-          <motion.div 
-            animate={{ rotateY: isFlipped ? 180 : 0 }}
-            transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className="transform-style-3d relative w-full"
-          >
-            {/* ================= FRONT FACE ================= */}
-            <div className="backface-hidden relative bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-6 pt-16 flex flex-col shadow-[0_30px_60px_rgba(0,0,0,0.5)] z-10 w-full">
-              
-              {/* Install App Button (Top Left) */}
-              {!isStandalone && isInstallable && (
-                <button 
-                  onClick={handleInstallApp}
-                  className="absolute top-6 left-6 w-10 h-10 rounded-full bg-[#007AFF]/20 flex items-center justify-center text-[#007AFF] hover:text-white hover:bg-[#007AFF] transition-colors z-30 shadow-sm border border-[#007AFF]/30"
-                  aria-label="Install App"
-                  title="Install App"
-                >
-                  <Download size={18} />
-                </button>
-              )}
-
-              {/* QR Code Flip Button (Top Right) */}
-              <button 
-                onClick={() => setIsFlipped(true)}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-colors z-30 shadow-sm border border-white/10"
-                aria-label="Show QR Code"
-              >
-                <QrCode size={18} />
-              </button>
-
-              {/* Overlapping Profile Picture/Logo */}
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2 w-24 h-24 rounded-full bg-[#0a0a0a] border border-white/10 shadow-[0_0_40px_rgba(0,122,255,0.2)] flex items-center justify-center p-1 z-20">
-                <div className="w-full h-full rounded-full bg-gradient-to-br from-[#007AFF]/20 to-[#8b5cf6]/20 flex items-center justify-center overflow-hidden border border-white/5">
-                  <Logo className="w-10 h-10 text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)]" />
-                </div>
-              </div>
-
-              {/* Titles */}
-              <div className="text-center mb-8">
-                <h1 className="text-2xl font-display font-bold text-white mb-2 tracking-wide uppercase">Digital Dominance</h1>
-                <p className="text-xs text-white/50 tracking-widest font-bold uppercase">Engineering Ecosystems</p>
-              </div>
-
-              {/* Contact Text Row */}
-              <div className="flex justify-center items-center gap-6 mb-8 text-xs font-mono text-white/70">
-                <a href="tel:+447584296946" className="flex items-center gap-2 hover:text-white transition-colors">
-                  <Phone size={14} className="text-white/50" />
-                  +44 7584 296946
-                </a>
-                <div className="w-px h-3 bg-white/20" />
-                <a href="https://wedigitlize.com" className="flex items-center gap-2 hover:text-white transition-colors">
-                  <Globe size={12} className="text-[#007AFF]" />
-                  wedigitlize.com
-                </a>
-              </div>
-
-              {/* Primary Action Button */}
-              <button 
-                onClick={handleSaveContact}
-                className="w-full py-4 rounded-full bg-gradient-to-r from-[#007AFF] to-[#0056b3] text-white font-bold tracking-widest text-xs flex items-center justify-center gap-3 uppercase shadow-[0_0_30px_rgba(0,122,255,0.3)] hover:shadow-[0_0_40px_rgba(0,122,255,0.5)] transition-all active:scale-95 mb-4 group cursor-pointer relative overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
-                <UserPlus size={16} className="group-hover:scale-110 transition-transform relative z-10" />
-                <span className="relative z-10">Save Contact</span>
-              </button>
-
-              {/* Secondary Action Buttons */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                <a 
-                  href="mailto:info@wedigitlize.com"
-                  className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
-                >
-                  <Mail size={14} className="text-white/70" />
-                  Email
-                </a>
-                <a 
-                  href="https://wedigitlize.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-bold tracking-widest text-[10px] flex items-center justify-center gap-2 uppercase transition-all active:scale-95"
-                >
-                  <Globe size={14} className="text-white/70" />
-                  Website
-                </a>
-              </div>
-
-              {/* Features Grid */}
-              <div className="grid grid-cols-2 gap-4 mt-auto">
-                <Link 
-                  href="/projects"
-                  className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/5 p-4 flex flex-col items-center justify-center gap-3 hover:border-white/20 transition-colors h-28"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#007AFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <Folder size={24} className="text-white/80 group-hover:text-white transition-colors relative z-10 group-hover:scale-110 duration-300" />
-                  <span className="text-[9px] font-bold tracking-widest text-white/60 group-hover:text-white uppercase relative z-10 text-center">
-                    Explore<br/>Projects
-                  </span>
-                  <ArrowUpRight size={12} className="absolute top-2 right-2 text-white/20 group-hover:text-white/60" />
-                </Link>
-
-                <Link 
-                  href="/#services"
-                  className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a] border border-white/5 p-4 flex flex-col items-center justify-center gap-3 hover:border-white/20 transition-colors h-28"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#8b5cf6]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <LayoutGrid size={24} className="text-white/80 group-hover:text-white transition-colors relative z-10 group-hover:scale-110 duration-300" />
-                  <span className="text-[9px] font-bold tracking-widest text-white/60 group-hover:text-white uppercase relative z-10 text-center">
-                    Our<br/>Services
-                  </span>
-                  <ArrowUpRight size={12} className="absolute top-2 right-2 text-white/20 group-hover:text-white/60" />
-                </Link>
-              </div>
-            </div>
-
-            {/* ================= BACK FACE (QR CODE) ================= */}
-            <div 
-              className="backface-hidden absolute inset-0 bg-white/[0.03] backdrop-blur-3xl border border-white/10 rounded-[2.5rem] p-8 flex flex-col items-center justify-center shadow-[0_30px_60px_rgba(0,0,0,0.5)] z-0 w-full h-full"
-              style={{ transform: "rotateY(180deg)" }}
-            >
-              {/* Flip back button */}
-              <button 
-                onClick={() => setIsFlipped(false)}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-colors border border-white/10"
-                aria-label="Back to front"
-              >
-                <X size={18} />
-              </button>
-              
-              <div className="flex flex-col items-center justify-center w-full mt-4">
-                <h2 className="text-xl font-display font-bold text-white mb-2 uppercase tracking-widest">Share Card</h2>
-                <p className="text-[10px] text-white/50 uppercase tracking-[0.2em] mb-8 text-center max-w-[200px]">Scan to download contact details instantly.</p>
-                
-                {/* QR Code Container */}
-                <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
-                  <QRCodeSVG 
-                    value="https://wedigitlize.com/card" 
-                    size={180}
-                    level="H"
-                    includeMargin={true}
-                    fgColor="#0a0a0a"
-                    bgColor="#ffffff"
-                    imageSettings={{
-                      src: "/favicon.svg", // This uses the existing solid logo
-                      x: undefined,
-                      y: undefined,
-                      height: 40,
-                      width: 40,
-                      excavate: true,
-                    }}
-                  />
-                </div>
-                
-                <button 
-                  onClick={() => setIsFlipped(false)}
-                  className="mt-10 px-8 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-bold uppercase tracking-widest transition-colors border border-white/10"
-                >
-                  Return
-                </button>
-              </div>
-            </div>
-          </motion.div>
+        {/* Background Ambience */}
+        <div className="bg-ambience">
+          <div className="bg-pattern" />
+          <div className="glow-orb-1" />
+          <div className="glow-orb-2" />
         </div>
 
-        {/* Footer Socials */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex justify-center items-center gap-6 mt-10"
-        >
-          <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-110">
-            <FiInstagram size={16} />
-          </a>
-          <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-110">
-            <FiLinkedin size={16} />
-          </a>
-          <a href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all hover:scale-110">
-            <MessageCircle size={16} />
-          </a>
-        </motion.div>
+        {/* Central Card Setup */}
+        <div className={`center-bottle ${isExploded ? 'shrunk' : ''}`}>
+          
+          {/* The Trigger Lid / Power Button */}
+          <button 
+            className={`perfume-lid ${isExploded ? 'active' : ''}`}
+            onClick={() => setIsExploded(!isExploded)}
+            aria-label="Toggle Core"
+          >
+            <div className="lid-body">
+              <span>{isExploded ? 'Close Core' : 'Init Core'}</span>
+            </div>
+            <div className="lid-base"></div>
+          </button>
+          
+          {/* The Body Container */}
+          <div className={`perfume-body-container ${isExploded ? 'active' : ''}`}>
+             <div className={`perfume-body ${isFlipped ? 'flipped' : ''}`}>
+                
+                {/* ================= FRONT FACE ================= */}
+                <div className="perfume-front">
+                  
+                  {/* Floating Action Buttons Top */}
+                  <button 
+                    onClick={() => setIsFlipped(true)}
+                    className="icon-btn"
+                    style={{ top: '1.5rem', right: '1.5rem' }}
+                    aria-label="Show QR Code"
+                  >
+                    <QrCode size={18} />
+                  </button>
+
+                  <button 
+                    onClick={handleInstallClick}
+                    className="icon-btn"
+                    style={{ top: '1.5rem', left: '1.5rem' }}
+                    aria-label="Install App"
+                  >
+                    <Download size={18} />
+                  </button>
+
+                  {/* Header / Brand */}
+                  <div className="flex flex-col items-center justify-center gap-3 mt-4 mb-2">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#007AFF]/20 to-[#8b5cf6]/20 flex items-center justify-center border border-white/10 shadow-[0_0_30px_rgba(0,122,255,0.3)]">
+                      <Logo className="w-8 h-8 text-white" />
+                    </div>
+                    <span className="font-display font-bold tracking-widest text-2xl text-white uppercase mt-2">wedigitlize</span>
+                    <span className="text-[9px] uppercase tracking-[0.3em] text-[#007AFF] font-bold">Premium Digital Agency</span>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="w-full flex flex-col gap-3 mt-6">
+                    <a href="https://wedigitlize.com" target="_blank" rel="noreferrer" className="neon-button">
+                      <Globe size={16} /> Visit Website
+                    </a>
+                    <a href={`tel:${phone}`} className="neon-button">
+                      <Phone size={16} /> {phone}
+                    </a>
+                    <button onClick={handleCopyEmail} className="neon-button">
+                      <Mail size={16} /> Email Us
+                    </button>
+                  </div>
+                  
+                  {/* Social Dock */}
+                  <div className="flex gap-6 mt-auto pb-4">
+                    <a href="https://instagram.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
+                      <FiInstagram size={20} />
+                    </a>
+                    <a href="https://twitter.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
+                      <FiTwitter size={20} />
+                    </a>
+                    <a href="https://linkedin.com/company/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
+                      <FiLinkedin size={20} />
+                    </a>
+                  </div>
+                </div>
+
+                {/* ================= BACK FACE (QR CODE) ================= */}
+                <div className="perfume-back">
+                  <button 
+                    onClick={() => setIsFlipped(false)}
+                    className="icon-btn"
+                    style={{ top: '1.5rem', right: '1.5rem' }}
+                    aria-label="Close QR Code"
+                  >
+                    <X size={18} />
+                  </button>
+                  
+                  <div className="flex flex-col items-center w-full mt-4">
+                    <h3 className="text-xl font-display font-bold text-white mb-2 uppercase tracking-widest text-center">
+                      Share Card
+                    </h3>
+                    <p className="text-[10px] text-white/50 uppercase tracking-[0.2em] mb-8 text-center max-w-[200px]">
+                      Scan to download contact details instantly.
+                    </p>
+                    
+                    <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                      <QRCodeSVG 
+                        value="https://wedigitlize.com/card" 
+                        size={160} 
+                        fgColor="#0a0a0a"
+                        bgColor="#ffffff"
+                        level="H"
+                        imageSettings={{
+                          src: "/favicon.svg",
+                          x: undefined,
+                          y: undefined,
+                          height: 35,
+                          width: 35,
+                          excavate: true,
+                        }}
+                      />
+                    </div>
+                    
+                    <button 
+                      onClick={handleSaveContact} 
+                      className="neon-button primary mt-12 w-full max-w-[80%]"
+                    >
+                      <UserPlus size={16} /> Save Contact
+                    </button>
+                  </div>
+                </div>
+
+             </div>
+          </div>
+        </div>
+
+        {/* Orbiting Service Bubbles */}
+        {services.map((service, index) => {
+          const angle = (index / services.length) * 2 * Math.PI - Math.PI / 2;
+          const x = Math.cos(angle) * radius;
+          let y = Math.sin(angle) * radius;
+
+          // Adjust positions on mobile to avoid overlapping the central card
+          if (typeof window !== 'undefined' && window.innerWidth < 768) {
+            if (index === 0) y -= 40;
+            if (index === 2) y += 80;
+          }
+
+          return (
+            <div 
+              key={service.id} 
+              className={`mockup-bubble ${isExploded ? 'exploded' : ''}`}
+              style={{ 
+                '--target-x': `${x}px`,
+                '--target-y': `${y}px`,
+                transitionDelay: `${index * 0.1}s`
+              } as React.CSSProperties}
+            >
+              <service.icon size={32} />
+              <span>{service.title}</span>
+            </div>
+          );
+        })}
 
       </div>
 
