@@ -22,7 +22,7 @@ const CLIENTS = [
     testimonial: '"The speed and design of our new storefront is flawless. They elevated our brand identity to a level we didn\'t know was possible."',
     stars: 5,
     gradient: "from-[#007AFF]/20 via-[#00B4DB]/10 to-transparent",
-    logoStyle: "font-display tracking-tight text-2xl md:text-4xl font-black text-black drop-shadow-[0_0_15px_rgba(0,122,255,0.5)]"
+    logoStyle: "font-display tracking-tight text-2xl md:text-4xl font-black text-black dark:text-white drop-shadow-[0_0_15px_rgba(0,122,255,0.5)]"
   },
   { 
     id: "hesori", 
@@ -32,7 +32,7 @@ const CLIENTS = [
     testimonial: '"A seamless, premium experience from start to finish. They completely understand luxury brand architecture and delivered absolute perfection."',
     stars: 5,
     gradient: "from-[#FF0080]/20 via-[#7928CA]/10 to-transparent",
-    logoStyle: "font-sans tracking-[0.4em] uppercase text-xl md:text-2xl font-light text-black"
+    logoStyle: "font-sans tracking-[0.4em] uppercase text-xl md:text-2xl font-light text-black dark:text-white"
   },
   { 
     id: "marshalos", 
@@ -42,26 +42,26 @@ const CLIENTS = [
     testimonial: '"Absolute perfection. They completely transformed our digital ecosystem, streamlined our workflows, and provided a stunning visual identity."',
     stars: 5,
     gradient: "from-[#00DFD8]/20 via-[#007AFF]/10 to-transparent",
-    logoStyle: "font-display tracking-widest uppercase text-2xl md:text-3xl font-bold italic text-black"
+    logoStyle: "font-display tracking-widest uppercase text-2xl md:text-3xl font-bold italic text-black dark:text-white"
   }
 ];
 
 export default function DigitalCards() {
   return (
-    <section id="portfolio" className="relative bg-white text-black py-24 md:py-32 overflow-hidden border-t border-black/15">
+    <section id="portfolio" className="relative bg-white dark:bg-[#161a22] text-black dark:text-white py-24 md:py-32 overflow-hidden border-t border-black/15 dark:border-white/15">
       
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-black/10 blur-[200px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-black/10 dark:bg-white/10 blur-[200px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         
         {/* Header */}
         <div className="mb-20 flex flex-col items-center text-center gap-6">
-           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/10 text-black/90 text-xs font-bold border border-black/15 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.05)]">
+           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/10 dark:bg-white/10 text-black/90 dark:text-white/90 text-xs font-bold border border-black/15 dark:border-white/15 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.05)]">
               Client Testimonials
            </div>
-           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black max-w-4xl tracking-tight leading-[1.1]">
-             What our clients <br/> <span className="text-black/80">say about us.</span>
+           <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black dark:text-white max-w-4xl tracking-tight leading-[1.1]">
+             What our clients <br/> <span className="text-black/80 dark:text-white/80">say about us.</span>
            </h2>
         </div>
 
@@ -76,7 +76,7 @@ export default function DigitalCards() {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.6, delay: index * 0.1 }}
-               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#f5f5f7] border border-black/15 flex flex-col p-8 hover:border-black/20 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_rgba(0,122,255,0.15)]"
+               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#f5f5f7] dark:bg-[#0a0a0a] border border-black/15 dark:border-white/15 flex flex-col p-8 hover:border-black/20 dark:border-white/20 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_rgba(0,122,255,0.15)]"
              >
                 {/* Dynamic Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0`} />
@@ -85,7 +85,7 @@ export default function DigitalCards() {
                 <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0 pointer-events-none mix-blend-overlay" />
                 
                 {/* Quote Icon */}
-                <div className="absolute top-8 right-8 text-black/5 group-hover:text-black/70 transition-colors duration-500 z-10">
+                <div className="absolute top-8 right-8 text-black/5 group-hover:text-black/70 dark:text-white/70 transition-colors duration-500 z-10">
                   <Quote size={80} strokeWidth={1} />
                 </div>
 
@@ -112,16 +112,16 @@ export default function DigitalCards() {
                    </div>
                    
                    {/* Testimonial */}
-                   <p className="text-xl lg:text-2xl font-display font-medium text-black/90 leading-relaxed mb-8 drop-shadow-md pr-8 group-hover:text-black transition-colors duration-300">
+                   <p className="text-xl lg:text-2xl font-display font-medium text-black/90 dark:text-white/90 leading-relaxed mb-8 drop-shadow-md pr-8 group-hover:text-black dark:text-white transition-colors duration-300">
                      {client.testimonial}
                    </p>
                    
                    {/* Footer info */}
-                   <div className="flex items-center justify-between mt-auto pt-6 border-t border-black/15">
-                     <p className="text-black/70 text-xs font-bold tracking-widest uppercase">
+                   <div className="flex items-center justify-between mt-auto pt-6 border-t border-black/15 dark:border-white/15">
+                     <p className="text-black/70 dark:text-white/70 text-xs font-bold tracking-widest uppercase">
                        {client.type}
                      </p>
-                     <div className="px-3 py-1 bg-black/10 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-black/80">
+                     <div className="px-3 py-1 bg-black/10 dark:bg-white/10 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-black/80 dark:text-white/80">
                        {client.year}
                      </div>
                    </div>
@@ -146,13 +146,13 @@ export default function DigitalCards() {
                whileTap={{ scale: 0.98 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.5, delay: index * 0.1 }}
-               className="relative h-[450px] w-[85vw] max-w-[340px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#f5f5f7] border border-black/15 flex flex-col p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group"
+               className="relative h-[450px] w-[85vw] max-w-[340px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#f5f5f7] dark:bg-[#0a0a0a] border border-black/15 dark:border-white/15 flex flex-col p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group"
              >
                 {/* Dynamic Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-50 z-0`} />
                 <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0 pointer-events-none mix-blend-overlay" />
                 
-                <div className="absolute top-6 right-6 text-black/70 z-10">
+                <div className="absolute top-6 right-6 text-black/70 dark:text-white/70 z-10">
                   <Quote size={60} strokeWidth={1} />
                 </div>
 
@@ -169,15 +169,15 @@ export default function DigitalCards() {
                      ))}
                    </div>
                    
-                   <p className="text-lg font-display font-medium text-black/90 leading-relaxed mb-6 drop-shadow-md pr-4">
+                   <p className="text-lg font-display font-medium text-black/90 dark:text-white/90 leading-relaxed mb-6 drop-shadow-md pr-4">
                      {client.testimonial}
                    </p>
                    
-                   <div className="flex flex-col gap-3 mt-auto pt-5 border-t border-black/15">
-                     <p className="text-black/80 text-[10px] font-bold tracking-widest uppercase">
+                   <div className="flex flex-col gap-3 mt-auto pt-5 border-t border-black/15 dark:border-white/15">
+                     <p className="text-black/80 dark:text-white/80 text-[10px] font-bold tracking-widest uppercase">
                        {client.type}
                      </p>
-                     <div className="w-max px-3 py-1 bg-black/10 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-black/70">
+                     <div className="w-max px-3 py-1 bg-black/10 dark:bg-white/10 rounded-full text-[10px] font-bold tracking-[0.2em] uppercase text-black/70 dark:text-white/70">
                        {client.year}
                      </div>
                    </div>

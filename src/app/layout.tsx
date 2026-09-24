@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -24,13 +25,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-[#f5f5f7] text-foreground`}
+        className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-[#f5f5f7] text-foreground dark:bg-[#0a0a0a] dark:text-white transition-colors duration-300`}
       >
-        <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">
-          {children}
-        </main>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );

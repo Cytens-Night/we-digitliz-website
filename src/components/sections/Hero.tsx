@@ -67,7 +67,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full h-[100dvh] md:h-auto md:min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#f5f5f7]">
+    <section className="relative w-full h-[100dvh] md:h-auto md:min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-[#f5f5f7] dark:bg-[#0a0a0a]">
       
       {/* Clean Ambient Background */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
@@ -83,7 +83,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-8 px-5 py-2 rounded-full bg-white text-[#1d1d1f] text-xs font-bold tracking-widest uppercase border border-black/10 shadow-sm flex items-center gap-2"
+          className="mb-8 px-5 py-2 rounded-full bg-white dark:bg-[#161a22] text-[#1d1d1f] text-xs font-bold tracking-widest uppercase border border-black/10 dark:border-white/10 shadow-sm flex items-center gap-2"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -137,9 +137,9 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 bg-white/80 backdrop-blur-xl border border-black/5 rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md active:scale-95 md:active:scale-100 hover:scale-[1.03] transition-all cursor-default md:w-auto"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-black/5 dark:border-white/5 rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md active:scale-95 md:active:scale-100 hover:scale-[1.03] transition-all cursor-default md:w-auto"
             >
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#f5f5f7] flex items-center justify-center border border-black/5 shrink-0 shadow-inner">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-[#f5f5f7] dark:bg-[#0a0a0a] flex items-center justify-center border border-black/5 dark:border-white/5 shrink-0 shadow-inner">
                 <service.icon size={18} className="text-[#1d1d1f] sm:w-5 sm:h-5" />
               </div>
               <div className="text-left pr-2">
@@ -166,7 +166,7 @@ export default function Hero() {
           
           <MagneticButton
             href="#services"
-            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-white text-[#1d1d1f] font-bold hover:bg-gray-50 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-black/10 shadow-sm"
+            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-white dark:bg-[#161a22] text-[#1d1d1f] font-bold hover:bg-gray-50 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-black/10 dark:border-white/10 shadow-sm"
           >
             Explore Services
           </MagneticButton>

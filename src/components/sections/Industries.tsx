@@ -16,7 +16,7 @@ const RetailGraphic = () => (
           initial={{ height: 0 }}
           animate={{ height: `${h}%` }}
           transition={{ duration: 0.8, delay: i * 0.1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1, ease: "easeOut" }}
-          className="w-12 sm:w-16 bg-black/10 rounded-t-xl shadow-[0_0_30px_rgba(0,0,0,0.1)] border border-black/20 border-b-0"
+          className="w-12 sm:w-16 bg-black/10 dark:bg-white/10 rounded-t-xl shadow-[0_0_30px_rgba(0,0,0,0.1)] border border-black/20 dark:border-white/20 border-b-0"
         />
      ))}
   </div>
@@ -24,7 +24,7 @@ const RetailGraphic = () => (
 
 const HealthGraphic = () => (
   <div className="h-full w-full flex items-center justify-center opacity-80">
-    <svg viewBox="0 0 100 30" className="w-full h-auto max-w-[300px] stroke-black fill-none stroke-[2px] drop-shadow-[0_0_30px_rgba(0,0,0,0.1)]">
+    <svg viewBox="0 0 100 30" className="w-full h-auto max-w-[300px] stroke-black dark:stroke-white fill-none stroke-[2px] drop-shadow-[0_0_30px_rgba(0,0,0,0.1)]">
        <motion.path 
          d="M0 15 L20 15 L25 5 L35 25 L45 5 L50 15 L100 15"
          initial={{ pathLength: 0, opacity: 0 }}
@@ -33,7 +33,7 @@ const HealthGraphic = () => (
          strokeLinecap="round"
          strokeLinejoin="round"
        />
-       <motion.circle cx="35" cy="25" r="1.5" fill="black" stroke="none" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }} />
+       <motion.circle cx="35" cy="25" r="1.5" fill="black" className="dark:fill-white" stroke="none" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }} />
     </svg>
   </div>
 );
@@ -44,19 +44,19 @@ const HospitalityGraphic = () => (
       initial={{ y: "100%" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5, ease: "easeOut" }}
-      className="w-48 h-56 bg-black/10 border border-black/20 rounded-t-[2rem] p-6 flex flex-col gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] backdrop-blur-md"
+      className="w-48 h-56 bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 rounded-t-[2rem] p-6 flex flex-col gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] backdrop-blur-md"
     >
       <div className="w-full h-3 bg-black/40 rounded-full" />
-      <div className="w-3/4 h-3 bg-black/10 rounded-full" />
-      <div className="w-1/2 h-3 bg-black/10 rounded-full" />
-      <div className="mt-auto w-full h-16 bg-black/10 rounded-xl" />
+      <div className="w-3/4 h-3 bg-black/10 dark:bg-white/10 rounded-full" />
+      <div className="w-1/2 h-3 bg-black/10 dark:bg-white/10 rounded-full" />
+      <div className="mt-auto w-full h-16 bg-black/10 dark:bg-white/10 rounded-xl" />
     </motion.div>
   </div>
 );
 
 const RealEstateGraphic = () => (
   <div className="h-full w-full flex items-center justify-center opacity-80">
-    <svg viewBox="0 0 50 50" className="w-64 h-64 stroke-black fill-none stroke-[1.5px] drop-shadow-[0_0_30px_rgba(0,0,0,0.1)]">
+    <svg viewBox="0 0 50 50" className="w-64 h-64 stroke-black dark:stroke-white fill-none stroke-[1.5px] drop-shadow-[0_0_30px_rgba(0,0,0,0.1)]">
        <motion.path 
          d="M25 5 L5 20 L5 45 L45 45 L45 20 Z M20 45 L20 30 L30 30 L30 45"
          initial={{ pathLength: 0 }}
@@ -70,7 +70,7 @@ const RealEstateGraphic = () => (
 );
 
 const CorporateGraphic = () => (
-  <div className="h-[250px] w-full max-w-[300px] relative border border-black/15 rounded-[2rem] bg-black/10 overflow-hidden opacity-80">
+  <div className="h-[250px] w-full max-w-[300px] relative border border-black/15 dark:border-white/15 rounded-[2rem] bg-black/10 dark:bg-white/10 overflow-hidden opacity-80">
      <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute top-10 left-10 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
      <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} className="absolute bottom-10 left-1/2 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
      <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} className="absolute top-16 right-16 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
@@ -188,7 +188,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => { setIsHovered(false); setMousePos({ x: 0, y: 0 }); }}
-      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-black/15 shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between bg-white relative group ${index === total - 1 ? 'md:mb-[40vh]' : 'md:mb-[60vh]'} mb-12`}
+      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-black/15 dark:border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between bg-white dark:bg-[#161a22] relative group ${index === total - 1 ? 'md:mb-[40vh]' : 'md:mb-[60vh]'} mb-12`}
     >
       {/* Background Image with Parallax/Hover */}
       <div 
@@ -200,14 +200,14 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       {/* Main Content (Left) */}
       <div className="relative z-20 p-8 md:p-16 lg:p-24 flex flex-col justify-end md:justify-center w-full md:w-1/2 h-full order-2 md:order-1">
          <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
-            <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-3xl bg-black/10 backdrop-blur-md flex items-center justify-center border border-black/20 shadow-2xl">
-               <industry.icon className="w-8 h-8 md:w-10 md:h-10 text-black" />
+            <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-3xl bg-black/10 dark:bg-white/10 backdrop-blur-md flex items-center justify-center border border-black/20 dark:border-white/20 shadow-2xl">
+               <industry.icon className="w-8 h-8 md:w-10 md:h-10 text-black dark:text-white" />
             </div>
-            <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black tracking-tight">
+            <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black dark:text-white tracking-tight">
                {industry.title}
             </h3>
          </div>
-         <p className="text-black/70 text-lg md:text-2xl lg:text-3xl max-w-4xl leading-relaxed mb-10 md:mb-12 font-medium">
+         <p className="text-black/70 dark:text-white/70 text-lg md:text-2xl lg:text-3xl max-w-4xl leading-relaxed mb-10 md:mb-12 font-medium">
             {industry.description}
          </p>
          <button className="inline-flex items-center justify-center gap-4 px-6 md:px-8 py-3 md:py-4 w-full md:w-max rounded-full bg-black text-white font-bold text-xs md:text-sm tracking-widest uppercase hover:bg-[#007AFF] hover:text-white transition-all shadow-[0_0_30px_rgba(0,0,0,0.1)]">
@@ -232,7 +232,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       </div>
 
       {/* Giant Number Watermark */}
-      <div className="hidden md:block absolute top-12 right-16 font-display font-bold text-[12rem] leading-none text-black/[0.05] select-none pointer-events-none z-0">
+      <div className="hidden md:block absolute top-12 right-16 font-display font-bold text-[12rem] leading-none text-black/[0.05] dark:text-white/[0.05] select-none pointer-events-none z-0">
         {industry.number}
       </div>
     </motion.div>
@@ -245,7 +245,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
 
 export default function Industries() {
   return (
-    <section id="industries" className="relative bg-[#f5f5f7] py-24 md:py-40">
+    <section id="industries" className="relative bg-[#f5f5f7] dark:bg-[#0a0a0a] py-24 md:py-40">
       
       {/* Ambient Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-[#007AFF]/10 rounded-full blur-[150px] pointer-events-none" />
@@ -256,7 +256,7 @@ export default function Industries() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/10 text-black text-sm font-semibold mb-6 md:mb-8 border border-black/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-black/10 dark:bg-white/10 text-black dark:text-white text-sm font-semibold mb-6 md:mb-8 border border-black/20 dark:border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
         >
            Custom Solutions
         </motion.div>
@@ -265,9 +265,9 @@ export default function Industries() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-black leading-[1.05] tracking-tight"
+          className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-black dark:text-white leading-[1.05] tracking-tight"
         >
-          Architectures tailored <br/> for <span className="text-black/80">every sector.</span>
+          Architectures tailored <br/> for <span className="text-black/80 dark:text-white/80">every sector.</span>
         </motion.h3>
       </div>
 

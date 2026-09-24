@@ -239,7 +239,7 @@ export default function Navbar() {
                   document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
                 }
               }}
-              className="flex items-center justify-center gap-3 px-4 py-3 rounded-2xl transition-colors duration-300 w-full bg-white text-black hover:bg-[#007AFF] hover:text-white group/btn"
+              className="flex items-center justify-center gap-3 px-4 py-3 rounded-2xl transition-colors duration-300 w-full bg-white dark:bg-[#161a22] text-black dark:text-white hover:bg-[#007AFF] hover:text-white group/btn"
             >
               <span className="text-xs font-bold tracking-wider">
                 Contact Us
@@ -329,7 +329,7 @@ export default function Navbar() {
               animate={{ x: 0, borderTopRightRadius: "0%", borderBottomRightRadius: "0%" }}
               exit={{ x: "-100%", borderTopRightRadius: "50%", borderBottomRightRadius: "50%" }}
               transition={{ type: "spring", damping: 22, stiffness: 150 }}
-              className="md:hidden fixed top-0 left-0 bottom-0 w-[75vw] max-w-sm bg-[#0a0a0a] border-r border-white/10 z-[55] shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col p-8 pt-24 overflow-hidden"
+              className="md:hidden fixed top-0 left-0 bottom-0 w-[75vw] max-w-sm bg-[#f5f5f7] dark:bg-[#0a0a0a] border-r border-white/10 z-[55] shadow-[20px_0_40px_rgba(0,0,0,0.5)] flex flex-col p-8 pt-24 overflow-hidden"
             >
               {/* Background Glow */}
               <div className="absolute top-0 left-0 w-full h-64 bg-[#007AFF]/20 blur-[100px] pointer-events-none" />
