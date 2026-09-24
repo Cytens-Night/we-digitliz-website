@@ -71,9 +71,9 @@ const RealEstateGraphic = () => (
 
 const CorporateGraphic = () => (
   <div className="h-[250px] w-full max-w-[300px] relative border border-black/15 dark:border-white/15 rounded-[2rem] bg-black/10 dark:bg-white/10 overflow-hidden opacity-80">
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute top-10 left-10 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} className="absolute bottom-10 left-1/2 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} className="absolute top-16 right-16 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
+     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute top-10 left-10 w-4 h-4 rounded-full bg-black dark:bg-white shadow-[0_0_20px_rgba(0,0,0,0.5)] dark:shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
+     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} className="absolute bottom-10 left-1/2 w-4 h-4 rounded-full bg-black dark:bg-white shadow-[0_0_20px_rgba(0,0,0,0.5)] dark:shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
+     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} className="absolute top-16 right-16 w-4 h-4 rounded-full bg-black dark:bg-white shadow-[0_0_20px_rgba(0,0,0,0.5)] dark:shadow-[0_0_20px_rgba(255,255,255,0.5)]" />
      
      <svg className="absolute inset-0 w-full h-full stroke-black/30 stroke-[2px] fill-none">
        <motion.path 
@@ -210,7 +210,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
          <p className="text-black/70 dark:text-white/70 text-lg md:text-2xl lg:text-3xl max-w-4xl leading-relaxed mb-10 md:mb-12 font-medium">
             {industry.description}
          </p>
-         <button className="inline-flex items-center justify-center gap-4 px-6 md:px-8 py-3 md:py-4 w-full md:w-max rounded-full bg-black text-white font-bold text-xs md:text-sm tracking-widest uppercase hover:bg-[#007AFF] hover:text-white transition-all shadow-[0_0_30px_rgba(0,0,0,0.1)]">
+         <button className="inline-flex items-center justify-center gap-4 px-6 md:px-8 py-3 md:py-4 w-full md:w-max rounded-full bg-black dark:bg-white text-white dark:text-black font-bold text-xs md:text-sm tracking-widest uppercase hover:bg-[#007AFF] hover:text-white transition-all shadow-[0_0_30px_rgba(0,0,0,0.1)]">
            View Case Studies <ArrowRight size={18} />
          </button>
       </div>

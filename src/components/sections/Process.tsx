@@ -68,11 +68,11 @@ export default function Process() {
           <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-black/10 dark:bg-white/10 -translate-x-1/2" />
           <motion.div 
             style={{ height: lineHeight }}
-            className="absolute left-1/2 top-0 w-[1px] bg-black -translate-x-1/2 origin-top z-0"
+            className="absolute left-1/2 top-0 w-[1px] bg-black dark:bg-white -translate-x-1/2 origin-top z-0"
           />
           <motion.div
             style={{ top: cometY }}
-            className="absolute left-1/2 w-3 h-12 bg-black -translate-x-1/2 -translate-y-full blur-[1px] shadow-[0_0_20px_5px_rgba(0,0,0,0.8)] z-10"
+            className="absolute left-1/2 w-3 h-12 bg-black dark:bg-white -translate-x-1/2 -translate-y-full blur-[1px] shadow-[0_0_20px_5px_rgba(0,0,0,0.8)] z-10"
           />
 
           <div className="flex flex-col gap-40 relative z-20">
@@ -123,7 +123,7 @@ export default function Process() {
                       whileInView={{ scale: [1, 4], opacity: [1, 0] }}
                       viewport={{ once: true, margin: "-50%" }}
                       transition={{ duration: 1, ease: "easeOut" }}
-                      className="absolute w-6 h-6 rounded-none rotate-45 bg-black z-20 pointer-events-none"
+                      className="absolute w-6 h-6 rounded-none rotate-45 bg-black dark:bg-white z-20 pointer-events-none"
                     />
                   </div>
 

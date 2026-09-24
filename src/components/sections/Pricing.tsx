@@ -247,7 +247,7 @@ export default function Pricing() {
                           className={`mt-auto w-full py-4 rounded-xl font-bold text-sm transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95
                             ${bundle.isPopular 
                               ? 'bg-primary text-white hover:bg-[#005bb5] hover:shadow-[0_0_30px_rgba(0,122,255,0.4)]' 
-                              : 'bg-black text-white hover:bg-card transition-colors duration-1000 hover:text-black dark:text-white border border-transparent hover:border-black/20 dark:border-white/20'}`}
+                              : 'bg-black dark:bg-white text-white dark:text-black hover:bg-card transition-colors duration-1000 hover:text-black dark:text-white border border-transparent hover:border-black/20 dark:border-white/20'}`}
                         >
                           Deploy Architecture <ArrowRight size={16} />
                         </button>
@@ -339,7 +339,7 @@ export default function Pricing() {
                                layoutId={`item-${item.id}`}
                                key={item.id}
                                onClick={() => toggleItem(item.id)}
-                               className="bg-black text-white px-3 py-2 rounded-full flex items-center gap-3 cursor-pointer group shadow-lg hover:shadow-xl active:scale-95 transition-all h-max"
+                               className="bg-black dark:bg-white text-white dark:text-black px-3 py-2 rounded-full flex items-center gap-3 cursor-pointer group shadow-lg hover:shadow-xl active:scale-95 transition-all h-max"
                              >
                                <div className="flex flex-col">
                                  <span className="font-bold text-xs">{item.title}</span>
