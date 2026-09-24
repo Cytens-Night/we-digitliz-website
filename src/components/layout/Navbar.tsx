@@ -29,59 +29,16 @@ export default function Navbar() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (pathname === "/projects") {
-      setActiveTab("Projects");
-      return;
-    }
-
-    const sections = [
-      { id: "about", name: "About" },
-      { id: "portfolio", name: "Clients" },
-      { id: "industries", name: "Industries" },
-      { id: "services", name: "Services" },
-      { id: "process", name: "Process" },
-      { id: "pricing", name: "Investment" },
-    ];
-
-    const observerOptions = {
-      root: null,
-      rootMargin: "-30% 0px -70% 0px",
-      threshold: 0,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      let currentActive = null;
-
-      if (window.scrollY < 100) {
-        setActiveTab("Home");
-        return;
-      }
-
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const section = sections.find((s) => s.id === entry.target.id);
-          if (section) {
-            currentActive = section.name;
-          }
-        }
-      });
-
-      if (currentActive) {
-        setActiveTab(currentActive);
-      }
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    sections.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
+    // --- MOUSE & SCROLL EVENT LISTENERS (ALWAYS ACTIVE) ---
     let lastScrollY = window.scrollY;
+    
     const handleScroll = () => {
-      if (window.scrollY < 100) {
+      // Don't auto-reset active tab to Home if on projects page
+      if (window.scrollY < 100 && pathname !== "/projects") {
         setActiveTab("Home");
+      }
+      
+      if (window.scrollY < 100) {
         if (window.innerWidth >= 768) setIsTopNavVisible(true);
       } else {
         if (window.innerWidth >= 768) {
@@ -115,8 +72,59 @@ export default function Navbar() {
     };
     window.addEventListener("mousemove", handleMouseMove);
 
+    // --- INTERSECTION OBSERVER (HOME PAGE ONLY) ---
+    let observer: IntersectionObserver | null = null;
+    
+    if (pathname === "/projects") {
+      setActiveTab("Projects");
+    } else {
+      const sections = [
+        { id: "about", name: "About" },
+        { id: "portfolio", name: "Clients" },
+        { id: "industries", name: "Industries" },
+        { id: "services", name: "Services" },
+        { id: "process", name: "Process" },
+        { id: "pricing", name: "Investment" },
+      ];
+
+      const observerOptions = {
+        root: null,
+        rootMargin: "-30% 0px -70% 0px",
+        threshold: 0,
+      };
+
+      const observerCallback = (entries: IntersectionObserverEntry[]) => {
+        let currentActive = null;
+
+        if (window.scrollY < 100) {
+          setActiveTab("Home");
+          return;
+        }
+
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = sections.find((s) => s.id === entry.target.id);
+            if (section) {
+              currentActive = section.name;
+            }
+          }
+        });
+
+        if (currentActive) {
+          setActiveTab(currentActive);
+        }
+      };
+
+      observer = new IntersectionObserver(observerCallback, observerOptions);
+
+      sections.forEach(({ id }) => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    }
+
     return () => {
-      observer.disconnect();
+      if (observer) observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleMouseMove);
     };
