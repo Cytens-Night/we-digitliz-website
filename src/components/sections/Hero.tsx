@@ -83,7 +83,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-8 px-5 py-2 rounded-full bg-card transition-colors duration-1000 text-[#1d1d1f] text-xs font-bold tracking-widest uppercase border border-black/10 dark:border-white/10 shadow-sm flex items-center gap-2"
+          className="mb-8 px-5 py-2 rounded-full bg-card transition-colors duration-1000 text-[#1d1d1f] dark:text-white text-xs font-bold tracking-widest uppercase border border-black/10 dark:border-white/10 shadow-sm flex items-center gap-2"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -93,7 +93,7 @@ export default function Hero() {
         </motion.div>
         
         {/* Massive Dynamic Typography */}
-        <div className="text-[8.5vw] sm:text-5xl md:text-6xl lg:text-[6rem] font-display font-bold text-[#1d1d1f] mb-8 max-w-5xl tracking-tight flex flex-col items-center">
+        <div className="text-[8.5vw] sm:text-5xl md:text-6xl lg:text-[6rem] font-display font-bold text-[#1d1d1f] dark:text-white mb-8 max-w-5xl tracking-tight flex flex-col items-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
             We engineer
           </motion.div>
@@ -119,7 +119,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-sm sm:text-base md:text-xl text-[#3c3c43] font-medium max-w-2xl mb-10 md:mb-14 leading-relaxed px-4"
+          className="text-sm sm:text-base md:text-xl text-[#3c3c43] dark:text-white/70 font-medium max-w-2xl mb-10 md:mb-14 leading-relaxed px-4"
         >
           End-to-end digital transformation. From breathtaking web experiences to seamless backend automation, we engineer growth for brands that refuse to settle.
         </motion.p>
@@ -140,11 +140,11 @@ export default function Hero() {
               className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-black/5 dark:border-white/5 rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md active:scale-95 md:active:scale-100 hover:scale-[1.03] transition-all cursor-default md:w-auto"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-background transition-colors duration-1000 flex items-center justify-center border border-black/5 dark:border-white/5 shrink-0 shadow-inner">
-                <service.icon size={18} className="text-[#1d1d1f] sm:w-5 sm:h-5" />
+                <service.icon size={18} className="text-[#1d1d1f] dark:text-white sm:w-5 sm:h-5" />
               </div>
               <div className="text-left pr-2">
-                <div className="text-xs sm:text-sm font-bold text-[#1d1d1f] tracking-tight">{service.label}</div>
-                <div className="text-[10px] sm:text-xs text-[#3c3c43] leading-tight mt-0.5">{service.desc}</div>
+                <div className="text-xs sm:text-sm font-bold text-[#1d1d1f] dark:text-white tracking-tight">{service.label}</div>
+                <div className="text-[10px] sm:text-xs text-[#3c3c43] dark:text-white/70 leading-tight mt-0.5">{service.desc}</div>
               </div>
             </motion.div>
           ))}
@@ -159,14 +159,14 @@ export default function Hero() {
         >
           <MagneticButton
             href="#contact"
-            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-[#1d1d1f] text-white hover:bg-black font-bold hover:scale-105 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider shadow-[0_10px_20px_rgba(0,0,0,0.15)] gap-2 group"
+            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-[#1d1d1f] dark:bg-white text-white dark:text-black hover:bg-black dark:hover:bg-gray-200 font-bold hover:scale-105 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider shadow-[0_10px_20px_rgba(0,0,0,0.15)] gap-2 group"
           >
             Start Your Project <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
           
           <MagneticButton
             href="#services"
-            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-card transition-colors duration-1000 text-[#1d1d1f] font-bold hover:bg-gray-50 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-black/10 dark:border-white/10 shadow-sm"
+            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-card transition-colors duration-1000 text-[#1d1d1f] dark:text-white font-bold hover:bg-gray-50 dark:hover:bg-white/10 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-black/10 dark:border-white/10 shadow-sm"
           >
             Explore Services
           </MagneticButton>
