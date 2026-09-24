@@ -145,48 +145,44 @@
 
 /* Left side buttons - MOVED TO RIGHT SIDE AS REQUESTED */
 .silent-switch {
-  right: -5px;
+  right: -18px; /* Sticks out past the 15px shadow */
   top: 90px;
   width: 5px;
   height: 28px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  transform: translateZ(-8px);
 }
 .volume-up {
-  right: -5px;
+  right: -19px;
   top: 140px;
   width: 5px;
   height: 60px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  transform: translateZ(-8px);
 }
 .volume-down {
-  right: -5px;
+  right: -19px;
   top: 220px;
   width: 5px;
   height: 60px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  transform: translateZ(-8px);
 }
 
 /* Right side buttons */
 .power-button {
-  right: -5px;
+  right: -19px;
   top: 310px;
   width: 5px;
   height: 80px;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
-  transform: translateZ(-8px);
 }
 
 /* Ejecting SIM Tray */
 .sim-tray-trigger {
   position: absolute;
-  right: -4px;
+  right: -20px;
   top: 420px;
   width: 8px; /* Slightly thicker so it's easier to click */
   height: 80px;
@@ -195,7 +191,6 @@
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
   box-shadow: 0 0 15px rgba(0, 122, 255, 0.8), inset 0 0 5px rgba(255,255,255,0.8);
-  transform: translateZ(-8px);
   cursor: pointer;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
@@ -209,13 +204,13 @@
 .sim-tray-trigger:hover {
   background: linear-gradient(135deg, #3395ff, #a78bfa);
   box-shadow: 0 0 25px rgba(0, 122, 255, 1);
-  transform: translateZ(-8px) scaleX(1.5); /* Expand slightly on hover */
+  transform: scaleX(1.5); /* Expand slightly on hover */
   transform-origin: left;
 }
 
 .sim-tray-trigger.active {
   /* Pulls out to the right */
-  transform: translateZ(-8px) translateX(60px);
+  transform: translateX(60px);
   width: 60px;
   background: linear-gradient(135deg, #007AFF, #8b5cf6);
   border: 1px solid #fff;
