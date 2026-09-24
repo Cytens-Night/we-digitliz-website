@@ -48,7 +48,7 @@ const CLIENTS = [
 
 export default function DigitalCards() {
   return (
-    <section id="portfolio" className="relative bg-white dark:bg-[#161a22] text-black dark:text-white py-24 md:py-32 overflow-hidden border-t border-black/15 dark:border-white/15">
+    <section id="portfolio" className="relative bg-card transition-colors duration-1000 text-black dark:text-white py-24 md:py-32 overflow-hidden border-t border-black/15 dark:border-white/15">
       
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-black/10 dark:bg-white/10 blur-[200px] rounded-full pointer-events-none" />
@@ -76,7 +76,7 @@ export default function DigitalCards() {
                whileInView={{ opacity: 1, y: 0 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.6, delay: index * 0.1 }}
-               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-[#f5f5f7] dark:bg-[#0a0a0a] border border-black/15 dark:border-white/15 flex flex-col p-8 hover:border-black/20 dark:border-white/20 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_rgba(0,122,255,0.15)]"
+               className="group relative h-[400px] lg:h-[450px] rounded-[2rem] overflow-hidden bg-background transition-colors duration-1000 border border-black/15 dark:border-white/15 flex flex-col p-8 hover:border-black/20 dark:border-white/20 transition-all duration-500 shadow-[0_20px_40px_rgba(0,0,0,0.5)] hover:shadow-[0_30px_60px_rgba(0,122,255,0.15)]"
              >
                 {/* Dynamic Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0`} />
@@ -146,7 +146,7 @@ export default function DigitalCards() {
                whileTap={{ scale: 0.98 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ duration: 0.5, delay: index * 0.1 }}
-               className="relative h-[450px] w-[85vw] max-w-[340px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#f5f5f7] dark:bg-[#0a0a0a] border border-black/15 dark:border-white/15 flex flex-col p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group"
+               className="relative h-[450px] w-[85vw] max-w-[340px] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-background transition-colors duration-1000 border border-black/15 dark:border-white/15 flex flex-col p-6 shadow-[0_20px_40px_rgba(0,0,0,0.5)] group"
              >
                 {/* Dynamic Gradient Background */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${client.gradient} opacity-50 z-0`} />

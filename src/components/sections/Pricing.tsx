@@ -103,7 +103,7 @@ export default function Pricing() {
   const categories = Array.from(new Set(CUSTOM_ITEMS.map(i => i.category)));
 
   return (
-    <section id="pricing" className="py-24 md:py-32 bg-[#f5f5f7] dark:bg-[#0a0a0a] relative overflow-hidden">
+    <section id="pricing" className="py-24 md:py-32 bg-background transition-colors duration-1000 relative overflow-hidden">
       
       {/* Background Ambience */}
       <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 blur-[150px] rounded-full pointer-events-none" />
@@ -145,11 +145,11 @@ export default function Pricing() {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="mb-20 bg-white dark:bg-[#161a22] p-2 rounded-full border border-black/15 dark:border-white/15 shadow-2xl flex items-center relative w-full max-w-[400px] mx-auto"
+          className="mb-20 bg-card transition-colors duration-1000 p-2 rounded-full border border-black/15 dark:border-white/15 shadow-2xl flex items-center relative w-full max-w-[400px] mx-auto"
         >
           {/* Active Tab Background Indicator */}
           <div 
-            className="absolute top-2 bottom-2 w-[calc(50%-8px)] rounded-full bg-white dark:bg-[#161a22] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-md"
+            className="absolute top-2 bottom-2 w-[calc(50%-8px)] rounded-full bg-card transition-colors duration-1000 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] shadow-md"
             style={{ left: activeTab === 'prebuilt' ? '8px' : 'calc(50% + 0px)' }}
           />
           
@@ -193,8 +193,8 @@ export default function Pricing() {
                      className={`
                        relative w-full rounded-[2.5rem] overflow-hidden transition-all duration-500 flex flex-col h-full group
                        ${bundle.isPopular 
-                          ? 'bg-white dark:bg-[#161a22] border-2 border-primary shadow-[0_20px_60px_-15px_rgba(0,122,255,0.4)] lg:-translate-y-4' 
-                          : 'bg-white dark:bg-[#161a22] border border-black/15 dark:border-white/15 hover:border-black/20 dark:border-white/20 hover:bg-white dark:bg-[#161a22] shadow-2xl'}
+                          ? 'bg-card transition-colors duration-1000 border-2 border-primary shadow-[0_20px_60px_-15px_rgba(0,122,255,0.4)] lg:-translate-y-4' 
+                          : 'bg-card transition-colors duration-1000 border border-black/15 dark:border-white/15 hover:border-black/20 dark:border-white/20 hover:bg-card transition-colors duration-1000 shadow-2xl'}
                      `}
                    >
                      {/* Popular Badge */}
@@ -247,7 +247,7 @@ export default function Pricing() {
                           className={`mt-auto w-full py-4 rounded-xl font-bold text-sm transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95
                             ${bundle.isPopular 
                               ? 'bg-primary text-white hover:bg-[#005bb5] hover:shadow-[0_0_30px_rgba(0,122,255,0.4)]' 
-                              : 'bg-black text-white hover:bg-white dark:bg-[#161a22] hover:text-black dark:text-white border border-transparent hover:border-black/20 dark:border-white/20'}`}
+                              : 'bg-black text-white hover:bg-card transition-colors duration-1000 hover:text-black dark:text-white border border-transparent hover:border-black/20 dark:border-white/20'}`}
                         >
                           Deploy Architecture <ArrowRight size={16} />
                         </button>
@@ -286,7 +286,7 @@ export default function Pricing() {
                                 layoutId={`item-${item.id}`}
                                 key={item.id}
                                 onClick={() => toggleItem(item.id)}
-                                className="bg-white dark:bg-[#161a22] border border-black/20 dark:border-white/20 pl-3 pr-2 py-1.5 rounded-full flex items-center gap-3 cursor-pointer hover:border-black/20 dark:border-white/20 hover:bg-[#f5f5f7] dark:bg-[#0a0a0a] transition-all shadow-sm active:scale-95 group w-max"
+                                className="bg-card transition-colors duration-1000 border border-black/20 dark:border-white/20 pl-3 pr-2 py-1.5 rounded-full flex items-center gap-3 cursor-pointer hover:border-black/20 dark:border-white/20 hover:bg-background transition-colors duration-1000 transition-all shadow-sm active:scale-95 group w-max"
                               >
                                 <span className="font-bold text-black dark:text-white text-xs whitespace-nowrap">{item.title}</span>
                                 <span className="text-[10px] text-black/70 dark:text-white/70 font-mono font-semibold whitespace-nowrap">
@@ -306,7 +306,7 @@ export default function Pricing() {
 
                {/* LEFT COLUMN (Mobile: Bottom) - THE BLUEPRINT CART */}
                <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20">
-                  <div className="w-full min-h-[350px] lg:min-h-[450px] rounded-[2.5rem] bg-white dark:bg-[#161a22] border border-black/15 dark:border-white/15 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] p-5 md:p-6 flex flex-col relative overflow-hidden">
+                  <div className="w-full min-h-[350px] lg:min-h-[450px] rounded-[2.5rem] bg-card transition-colors duration-1000 border border-black/15 dark:border-white/15 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] p-5 md:p-6 flex flex-col relative overflow-hidden">
                     
                     <div className="relative z-10 flex-1 flex flex-col">
                       <div className="flex items-center justify-between border-b border-black/15 dark:border-white/15 pb-4 mb-4">

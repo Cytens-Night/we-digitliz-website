@@ -9,7 +9,10 @@ export function ThemeProvider({
   ...props
 }: React.ComponentProps<typeof NextThemesProvider>) {
   return (
-    <NextThemesProvider {...props}>
+    <NextThemesProvider 
+      themes={['theme-morning', 'theme-day', 'theme-sunset', 'theme-night', 'light', 'dark']}
+      {...props}
+    >
       <TimeAmbientOverlay />
       {children}
     </NextThemesProvider>

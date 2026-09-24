@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-[#f5f5f7] text-foreground dark:bg-[#0a0a0a] dark:text-white transition-colors duration-300`}
+        className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-background text-foreground transition-colors duration-1000`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">

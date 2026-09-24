@@ -188,7 +188,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => { setIsHovered(false); setMousePos({ x: 0, y: 0 }); }}
-      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-black/15 dark:border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between bg-white dark:bg-[#161a22] relative group ${index === total - 1 ? 'md:mb-[40vh]' : 'md:mb-[60vh]'} mb-12`}
+      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-black/15 dark:border-white/15 shadow-[0_20px_50px_rgba(0,0,0,0.1)] flex flex-col md:flex-row items-center justify-between bg-card transition-colors duration-1000 relative group ${index === total - 1 ? 'md:mb-[40vh]' : 'md:mb-[60vh]'} mb-12`}
     >
       {/* Background Image with Parallax/Hover */}
       <div 
@@ -245,7 +245,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
 
 export default function Industries() {
   return (
-    <section id="industries" className="relative bg-[#f5f5f7] dark:bg-[#0a0a0a] py-24 md:py-40">
+    <section id="industries" className="relative bg-background transition-colors duration-1000 py-24 md:py-40">
       
       {/* Ambient Background Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-[#007AFF]/10 rounded-full blur-[150px] pointer-events-none" />

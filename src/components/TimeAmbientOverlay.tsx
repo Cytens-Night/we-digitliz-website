@@ -24,12 +24,8 @@ export function TimeAmbientOverlay() {
       setTimeOfDay(current);
 
       // Force HTML class for next-themes to sync the base light/dark mode
-      // Morning/Day = Light Mode
-      // Sunset/Night = Dark Mode
-      const isDark = current === "sunset" || current === "night";
-      
-      // Try to sync with next-themes safely (don't force if user manually overrode, but here we force for demo)
-      setTheme(isDark ? "dark" : "light");
+      // Set the exact time theme to completely change CSS variables in globals.css
+      setTheme(`theme-${current}`);
     };
 
     updateTime();

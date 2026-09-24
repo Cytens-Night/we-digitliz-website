@@ -19,7 +19,7 @@ export default function About() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-75%"]);
 
   return (
-    <section id="about" className="relative bg-[#f5f5f7] dark:bg-[#0a0a0a]">
+    <section id="about" className="relative bg-background transition-colors duration-1000">
       
       {/* =========================================
           DESKTOP LAYOUT (Horizontal Scroll Automation)
@@ -69,7 +69,7 @@ export default function About() {
                     whileInView={{ scaleX: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 1, duration: 0.4, ease: "circOut" }}
-                    className="absolute top-1/2 left-[-5%] right-[-5%] h-[8px] md:h-[12px] bg-white dark:bg-[#161a22] origin-left -translate-y-1/2 rotate-[-2deg]"
+                    className="absolute top-1/2 left-[-5%] right-[-5%] h-[8px] md:h-[12px] bg-card transition-colors duration-1000 origin-left -translate-y-1/2 rotate-[-2deg]"
                   />
                 </span>
               </h3>
@@ -100,7 +100,7 @@ export default function About() {
                   We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#f5f5f7] dark:bg-[#0a0a0a] rounded-[3rem] border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden relative flex items-center justify-center group shrink-0">
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-background transition-colors duration-1000 rounded-[3rem] border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden relative flex items-center justify-center group shrink-0">
                  {/* Grid Pattern with solid opacity instead of gradient mask */}
                  <div 
                    className="absolute inset-0 opacity-10 bg-[size:2rem_2rem]" 
@@ -111,16 +111,16 @@ export default function About() {
                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[60%] lg:w-[50%] aspect-square border border-black/15 dark:border-white/15 rounded-full" />
                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute w-[40%] lg:w-[30%] aspect-square border-t border-b border-black/20 dark:border-white/20 rounded-full" />
                  
-                 <div className="relative w-16 h-16 lg:w-20 lg:h-20 bg-[#f5f5f7] dark:bg-[#0a0a0a] rounded-xl border border-black/20 dark:border-white/20 flex items-center justify-center shadow-xl rotate-45 z-10 group-hover:scale-110 transition-transform duration-500">
-                   <div className="w-6 h-6 lg:w-8 lg:h-8 bg-white dark:bg-[#161a22] rounded-lg animate-pulse -rotate-45 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-                     <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-white dark:bg-[#161a22] rounded-full" />
+                 <div className="relative w-16 h-16 lg:w-20 lg:h-20 bg-background transition-colors duration-1000 rounded-xl border border-black/20 dark:border-white/20 flex items-center justify-center shadow-xl rotate-45 z-10 group-hover:scale-110 transition-transform duration-500">
+                   <div className="w-6 h-6 lg:w-8 lg:h-8 bg-card transition-colors duration-1000 rounded-lg animate-pulse -rotate-45 flex items-center justify-center shadow-[0_0_20px_rgba(0,0,0,0.5)]">
+                     <div className="w-1.5 h-1.5 lg:w-2 lg:h-2 bg-card transition-colors duration-1000 rounded-full" />
                    </div>
                  </div>
 
                  {[0, 90, 180, 270].map((deg, i) => (
                    <motion.div 
                      key={i}
-                     className="absolute w-6 h-6 lg:w-8 lg:h-8 bg-white dark:bg-[#161a22] border border-black/15 dark:border-white/15 rounded-full shadow-lg z-20"
+                     className="absolute w-6 h-6 lg:w-8 lg:h-8 bg-card transition-colors duration-1000 border border-black/15 dark:border-white/15 rounded-full shadow-lg z-20"
                      initial={{ rotate: deg, x: 100 }}
                      animate={{ rotate: deg + 360, x: 100 }}
                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -154,7 +154,7 @@ export default function About() {
                   Time is money. Our agile methodologies and proprietary codebase allow us to execute complex SaaS builds and enterprise sites in a fraction of the traditional timeline.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-white dark:bg-[#161a22] rounded-[3rem] shadow-[0_20px_40px_rgba(0,0,0,0.2)] flex flex-col p-6 md:p-10 relative overflow-hidden text-black dark:text-white font-mono text-xs md:text-sm border border-black dark:border-white/20 shrink-0">
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-card transition-colors duration-1000 rounded-[3rem] shadow-[0_20px_40px_rgba(0,0,0,0.2)] flex flex-col p-6 md:p-10 relative overflow-hidden text-black dark:text-white font-mono text-xs md:text-sm border border-black dark:border-white/20 shrink-0">
                   <div className="flex gap-2 mb-6 opacity-50 relative z-10">
                     <div className="w-3 h-3 rounded-full bg-black/10 dark:bg-white/10" />
                     <div className="w-3 h-3 rounded-full bg-black/10 dark:bg-white/10" />
@@ -186,7 +186,7 @@ export default function About() {
                     <div className="text-black/80 dark:text-white/80 mb-3 font-bold tracking-widest text-[10px]">DEPLOYMENT PROTOCOL</div>
                     <div className="w-full h-1 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden mb-4 relative">
                       <motion.div 
-                        className="absolute top-0 left-0 h-full bg-white dark:bg-[#161a22] shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+                        className="absolute top-0 left-0 h-full bg-card transition-colors duration-1000 shadow-[0_0_10px_rgba(255,255,255,0.8)]"
                         animate={{ width: ["0%", "100%"] }}
                         transition={{ duration: 2, ease: "circOut", repeat: Infinity, repeatDelay: 1 }}
                       />
@@ -198,7 +198,7 @@ export default function About() {
                         transition={{ duration: 1, repeat: Infinity }}
                         className="text-black dark:text-white flex items-center gap-2"
                       >
-                        <div className="w-2 h-2 rounded-full bg-white dark:bg-[#161a22] shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
+                        <div className="w-2 h-2 rounded-full bg-card transition-colors duration-1000 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
                         SYS_READY
                       </motion.span>
                       <span className="text-black/80 dark:text-white/80">100% SECURE</span>
@@ -222,7 +222,7 @@ export default function About() {
                   We don't guess. We integrate deep analytics and telemetry into every platform, ensuring every design and engineering decision is backed by cold, hard data.
                 </p>
               </div>
-              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#f5f5f7] dark:bg-[#0a0a0a] rounded-[3rem] border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-6 md:p-10 relative overflow-hidden flex flex-col justify-between group shrink-0">
+              <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-background transition-colors duration-1000 rounded-[3rem] border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.1)] p-6 md:p-10 relative overflow-hidden flex flex-col justify-between group shrink-0">
                  <div className="flex justify-between items-center mb-8 relative z-10">
                    <div>
                      <div className="text-[10px] font-bold tracking-widest uppercase text-black/80 dark:text-white/80 mb-1">Real-time Telemetry</div>
@@ -231,13 +231,13 @@ export default function About() {
                      </div>
                    </div>
                    <div className="w-12 h-12 rounded-full border-[3px] border-[#1d1d1f]/10 border-t-[#1d1d1f] flex items-center justify-center relative animate-spin duration-3000">
-                      <div className="w-2 h-2 bg-white dark:bg-[#161a22] rounded-full absolute top-[-2.5px] left-1/2 -translate-x-1/2" />
+                      <div className="w-2 h-2 bg-card transition-colors duration-1000 rounded-full absolute top-[-2.5px] left-1/2 -translate-x-1/2" />
                    </div>
                  </div>
 
                  <div className="flex-1 relative w-full h-full flex items-end">
                    <div className="absolute inset-0 flex flex-col justify-between opacity-10 pointer-events-none">
-                     {[1,2,3,4].map(i => <div key={i} className="w-full h-px bg-white dark:bg-[#161a22]" />)}
+                     {[1,2,3,4].map(i => <div key={i} className="w-full h-px bg-card transition-colors duration-1000" />)}
                    </div>
                    
                    <svg viewBox="0 0 100 50" preserveAspectRatio="none" className="w-full h-full absolute inset-0 drop-shadow-[0_10px_10px_rgba(0,0,0,0.05)] overflow-visible">
@@ -273,13 +273,13 @@ export default function About() {
       {/* =========================================
           MOBILE NATIVE APP LAYOUT (Light Mode + Animated)
           ========================================= */}
-      <div className="md:hidden w-full py-16 relative z-10 overflow-hidden bg-[#f5f5f7] dark:bg-[#0a0a0a]">
+      <div className="md:hidden w-full py-16 relative z-10 overflow-hidden bg-background transition-colors duration-1000">
         
         <div className="px-6 mb-8 flex justify-center">
           <motion.div 
             animate={{ y: [0, -4, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-[#161a22] text-black/80 dark:text-white/80 text-[10px] font-bold border border-black/15 dark:border-white/15 uppercase tracking-widest w-max shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-card transition-colors duration-1000 text-black/80 dark:text-white/80 text-[10px] font-bold border border-black/15 dark:border-white/15 uppercase tracking-widest w-max shadow-sm"
           >
             About The Agency
           </motion.div>
@@ -291,7 +291,7 @@ export default function About() {
           {/* Slide 1: Introduction */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white dark:bg-[#161a22] rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden group"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-card transition-colors duration-1000 rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden group"
           >
             {/* Animated subtle gradient orb */}
             <motion.div 
@@ -322,7 +322,7 @@ export default function About() {
           {/* Slide 2: Bespoke Architecture */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white dark:bg-[#161a22] rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-card transition-colors duration-1000 rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
           >
             <motion.div 
               animate={{ rotate: 360 }}
@@ -330,7 +330,7 @@ export default function About() {
               className="absolute -bottom-20 -left-20 w-40 h-40 bg-purple-500/5 rounded-full blur-2xl pointer-events-none"
             />
 
-            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] dark:bg-[#0a0a0a] flex items-center justify-center mb-6 border border-black/15 dark:border-white/15 relative z-10">
+            <div className="w-14 h-14 rounded-2xl bg-background transition-colors duration-1000 flex items-center justify-center mb-6 border border-black/15 dark:border-white/15 relative z-10">
               <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 3, repeat: Infinity }}>
                 <Cpu size={24} className="text-[#1d1d1f]" />
               </motion.div>
@@ -342,11 +342,11 @@ export default function About() {
               We completely abandon clunky templates and generic platforms. Every system we build is architected from the ground up to solve your specific scaling bottlenecks.
             </p>
             
-            <div className="w-full h-24 bg-[#f5f5f7] dark:bg-[#0a0a0a] rounded-xl border border-black/15 dark:border-white/15 relative flex items-center justify-center overflow-hidden z-10">
+            <div className="w-full h-24 bg-background transition-colors duration-1000 rounded-xl border border-black/15 dark:border-white/15 relative flex items-center justify-center overflow-hidden z-10">
                {/* Animated rings */}
                <motion.div animate={{ rotate: 360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] aspect-square border border-black/20 dark:border-white/20 rounded-full border-dashed" />
                <motion.div animate={{ rotate: -360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="absolute w-[50%] aspect-square border border-black/15 dark:border-white/15 rounded-full" />
-               <div className="relative w-8 h-8 bg-white dark:bg-[#161a22] rounded-lg border border-black/20 dark:border-white/20 flex items-center justify-center rotate-45 z-10 shadow-sm">
+               <div className="relative w-8 h-8 bg-card transition-colors duration-1000 rounded-lg border border-black/20 dark:border-white/20 flex items-center justify-center rotate-45 z-10 shadow-sm">
                  <div className="w-2 h-2 bg-[#007AFF] rounded-full animate-pulse" />
                </div>
             </div>
@@ -355,9 +355,9 @@ export default function About() {
           {/* Slide 3: Rapid Execution */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white dark:bg-[#161a22] rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-card transition-colors duration-1000 rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] dark:bg-[#0a0a0a] flex items-center justify-center mb-6 border border-black/15 dark:border-white/15">
+            <div className="w-14 h-14 rounded-2xl bg-background transition-colors duration-1000 flex items-center justify-center mb-6 border border-black/15 dark:border-white/15">
               <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}>
                 <Code2 size={24} className="text-[#1d1d1f]" />
               </motion.div>
@@ -373,9 +373,9 @@ export default function About() {
           {/* Slide 4: Data Driven */}
           <motion.div 
             whileTap={{ scale: 0.98 }}
-            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-white dark:bg-[#161a22] rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
+            className="w-[85vw] max-w-[340px] shrink-0 snap-center flex flex-col bg-card transition-colors duration-1000 rounded-[2rem] p-8 border border-black/15 dark:border-white/15 shadow-[0_20px_40px_rgba(0,0,0,0.06)] justify-center relative overflow-hidden"
           >
-            <div className="w-14 h-14 rounded-2xl bg-[#f5f5f7] dark:bg-[#0a0a0a] flex items-center justify-center mb-6 border border-black/15 dark:border-white/15">
+            <div className="w-14 h-14 rounded-2xl bg-background transition-colors duration-1000 flex items-center justify-center mb-6 border border-black/15 dark:border-white/15">
               <Network size={24} className="text-[#1d1d1f]" />
             </div>
             <h3 className="text-3xl font-display font-bold text-[#1d1d1f] mb-4 leading-tight">

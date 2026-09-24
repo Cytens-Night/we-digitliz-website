@@ -42,7 +42,7 @@ export default function Process() {
   const cometY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="process" ref={sectionRef} className="py-16 md:py-32 bg-[#f5f5f7] dark:bg-[#0a0a0a] relative overflow-hidden border-t border-black/15 dark:border-white/15">
+    <section id="process" ref={sectionRef} className="py-16 md:py-32 bg-background transition-colors duration-1000 relative overflow-hidden border-t border-black/15 dark:border-white/15">
       
       {/* Brutalist Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[1px] bg-black/10 dark:bg-white/10 pointer-events-none" />
@@ -145,7 +145,7 @@ export default function Process() {
                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                viewport={{ once: true, margin: "-10%" }}
                transition={{ type: "spring", stiffness: 100, damping: 20, delay: index * 0.1 }}
-               className="bg-[#f5f5f7] dark:bg-[#0a0a0a] rounded-2xl p-6 flex flex-col gap-2 border border-black/15 dark:border-white/15 active:scale-[0.98] transition-transform shadow-lg relative overflow-hidden"
+               className="bg-background transition-colors duration-1000 rounded-2xl p-6 flex flex-col gap-2 border border-black/15 dark:border-white/15 active:scale-[0.98] transition-transform shadow-lg relative overflow-hidden"
              >
                {/* Subtle background number watermark */}
                <div className="absolute -right-4 -bottom-8 font-display font-bold text-8xl text-black/[0.05] dark:text-white/[0.05] pointer-events-none">
