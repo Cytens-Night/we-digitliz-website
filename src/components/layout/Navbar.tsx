@@ -134,17 +134,8 @@ export default function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
-  // Push body right when side menu is visible
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (window.innerWidth >= 768) {
-      if (isSideNavVisible) {
-        document.body.style.paddingLeft = '14rem';
-      } else {
-        document.body.style.paddingLeft = '0px';
-      }
-    }
-  }, [isSideNavVisible]);
+  // Remove the body push effect because it created a weird white background gap
+  // The user requested it to just slide out cleanly over the content like the top nav
 
   return (
     <>
