@@ -95,6 +95,7 @@ export default function CardPage() {
   const [isExploded, setIsExploded] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [radius, setRadius] = useState(380);
+  const [scale, setScale] = useState(1);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   const phone = "+447584296946";
@@ -103,6 +104,13 @@ export default function CardPage() {
   useEffect(() => {
     const handleResize = () => {
       setRadius(window.innerWidth < 768 ? 140 : 320);
+      
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      // Phone is 360x740. Fit within 85% height and 90% width. Max scale 1.2.
+      const heightScale = (vh * 0.85) / 740;
+      const widthScale = (vw * 0.90) / 360;
+      setScale(Math.min(heightScale, widthScale, 1.2));
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -176,7 +184,10 @@ export default function CardPage() {
         </div>
 
         {/* Central Card Setup */}
-        <div className={`center-bottle ${isExploded ? 'shrunk' : ''}`}>
+        <div 
+          className={`center-bottle ${isExploded ? 'shrunk' : ''}`}
+          style={{ '--dynamic-scale': scale } as React.CSSProperties}
+        >
           
           {/* The Body Container (tilted in CSS) */}
           <div className={`perfume-body-container ${isExploded ? 'active' : ''}`}>
