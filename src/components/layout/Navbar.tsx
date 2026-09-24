@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Briefcase, CreditCard, Folder, LayoutGrid, GitMerge, Mail, X, Menu } from "lucide-react";
+import { Home, Briefcase, CreditCard, Folder, LayoutGrid, GitMerge, Mail, X, Menu, Info, Star } from "lucide-react";
 import { FiInstagram } from "react-icons/fi";
 import Logo from "@/components/ui/Logo";
 import Link from "next/link";
@@ -10,6 +10,8 @@ import { usePathname } from "next/navigation";
 
 const navLinks = [
   { name: "Home", href: "/", icon: Home },
+  { name: "About", href: "/#about", icon: Info },
+  { name: "Clients", href: "/#portfolio", icon: Star },
   { name: "Industries", href: "/#industries", icon: Briefcase },
   { name: "Services", href: "/#services", icon: LayoutGrid },
   { name: "Process", href: "/#process", icon: GitMerge },
@@ -31,6 +33,8 @@ export default function Navbar() {
     }
 
     const sections = [
+      { id: "about", name: "About" },
+      { id: "portfolio", name: "Clients" },
       { id: "industries", name: "Industries" },
       { id: "services", name: "Services" },
       { id: "process", name: "Process" },
