@@ -24,7 +24,7 @@ export default function About() {
       {/* =========================================
           DESKTOP LAYOUT (Horizontal Scroll Automation)
           ========================================= */}
-      <div ref={targetRef} className="hidden lg:block relative h-[400vh]">
+      <div ref={targetRef} className="hidden md:block relative h-[400vh]">
         <div className="sticky top-0 h-screen flex items-center overflow-hidden">
           
           {/* Background ambient glow */}
@@ -270,7 +270,7 @@ export default function About() {
       {/* =========================================
           MOBILE NATIVE APP LAYOUT (Light Mode + Animated)
           ========================================= */}
-      <div className="lg:hidden w-full py-16 relative z-10 overflow-hidden bg-[#f5f5f7]">
+      <div className="md:hidden w-full py-16 relative z-10 overflow-hidden bg-[#f5f5f7]">
         
         <div className="px-6 mb-8 flex justify-center">
           <motion.div 

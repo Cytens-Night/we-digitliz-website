@@ -154,7 +154,7 @@ export default function Industries() {
         {/* ==============================================
             DESKTOP LAYOUT (Sticky + Stacked Cards)
             ============================================== */}
-        <div className="hidden lg:flex px-6 flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+        <div className="hidden md:flex px-6 flex-col lg:flex-row gap-16 lg:gap-24 items-start">
           {/* Left: Sticky Header & Dynamic Graphic */}
           <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20 flex flex-col gap-8">
              <div>
@@ -228,7 +228,7 @@ export default function Industries() {
         {/* ==============================================
             MOBILE NATIVE APP LAYOUT (Horizontal Carousel)
             ============================================== */}
-        <div className="flex lg:hidden flex-col gap-6">
+        <div className="flex md:hidden flex-col gap-6">
           <div className="px-6 mb-4">
              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 text-white text-[10px] font-bold mb-4 border border-white/20 uppercase tracking-widest">
                 Custom Solutions
