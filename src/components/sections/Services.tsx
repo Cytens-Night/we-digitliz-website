@@ -142,7 +142,7 @@ export default function Services() {
       {/* Decorative blurred blob */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-[800px] h-[800px] bg-black/5 rounded-full blur-[150px] pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 md:pl-[6rem] relative z-10">
         
         <div className="text-center max-w-4xl mx-auto mb-24">
           <motion.div 

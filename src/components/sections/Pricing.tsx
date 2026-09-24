@@ -111,7 +111,7 @@ export default function Pricing() {
       
       {/* Background Glow removed for stark B&W theme */}
 
-      <div className="max-w-[1400px] mx-auto px-6 relative z-10 flex flex-col items-center">
+      <div className="max-w-[1400px] mx-auto px-6 md:pl-[6rem] relative z-10 flex flex-col items-center">
         
         {/* Unified Header */}
         <div className="mb-12 flex flex-col items-center text-center">

@@ -9,7 +9,7 @@ export default function Contact() {
   const [isMobileFormOpen, setIsMobileFormOpen] = useState(false);
   return (
     <section id="contact" className="py-16 md:py-32 bg-[#ffffff] relative overflow-hidden border-t border-black/10">
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6 md:pl-[6rem]">
         
         {/* Desktop Animated Header */}
         <div className="hidden md:block mb-24">

@@ -34,7 +34,7 @@ export default function About() {
           <motion.div style={{ x }} className="flex w-[400vw] h-full items-center relative z-10">
             
             {/* Slide 1: Introduction */}
-            <div className="w-[100vw] h-full flex-shrink-0 flex flex-col justify-center px-[5vw] lg:px-[10vw] relative overflow-hidden">
+            <div className="w-[100vw] h-full flex-shrink-0 flex flex-col justify-center px-[5vw] md:pl-[6rem] lg:px-[10vw] relative overflow-hidden">
               <div className="max-w-7xl mx-auto w-full">
               <motion.div 
                 initial={{ opacity: 0, y: 30 }}
@@ -87,7 +87,7 @@ export default function About() {
             </div>
 
             {/* Slide 2: Bespoke Architecture */}
-            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
+            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] md:pl-[6rem] lg:px-[10vw]">
               <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
                 <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
@@ -138,7 +138,7 @@ export default function About() {
             </div>
 
             {/* Slide 3: Rapid Execution */}
-            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
+            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] md:pl-[6rem] lg:px-[10vw]">
               <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
                 <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]">
@@ -206,7 +206,7 @@ export default function About() {
             </div>
 
             {/* Slide 4: Data Driven */}
-            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] lg:px-[10vw]">
+            <div className="w-[100vw] h-full flex-shrink-0 flex items-center justify-center px-[5vw] md:pl-[6rem] lg:px-[10vw]">
               <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
               <div className="w-full lg:w-1/2">
                 <div className="w-20 h-20 rounded-3xl bg-white/5 flex items-center justify-center mb-8 border border-white/10 shadow-lg">

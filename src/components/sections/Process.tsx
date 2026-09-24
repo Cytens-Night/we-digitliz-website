@@ -48,7 +48,7 @@ export default function Process() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[1px] bg-white/5 pointer-events-none" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-white/5 pointer-events-none" />
 
-      <div className="max-w-[1200px] mx-auto px-6 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-6 md:pl-[6rem] relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16 md:mb-32">
