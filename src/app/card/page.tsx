@@ -178,21 +178,27 @@ export default function CardPage() {
         {/* Central Card Setup */}
         <div className={`center-bottle ${isExploded ? 'shrunk' : ''}`}>
           
-          {/* The SIM Tray / Power Button */}
-          <button 
-            className={`sim-tray-trigger ${isExploded ? 'active' : ''}`}
-            onClick={() => setIsExploded(!isExploded)}
-            aria-label="Toggle Core"
-          >
-            <div className="sim-tray-body">
-              <div className="sim-pinhole" />
-              <span>{isExploded ? 'Insert' : 'Eject'}</span>
-            </div>
-          </button>
-          
-          {/* The Body Container */}
+          {/* The Body Container (tilted in CSS) */}
           <div className={`perfume-body-container ${isExploded ? 'active' : ''}`}>
              <div className={`phone-body ${isFlipped ? 'flipped' : ''}`}>
+                
+                {/* Hardware Buttons (Left) */}
+                <div className="hardware-button silent-switch" />
+                <div className="hardware-button volume-up" />
+                <div className="hardware-button volume-down" />
+
+                {/* Hardware Buttons (Right) */}
+                <div className="hardware-button power-button" />
+                
+                {/* Ejecting SIM Tray */}
+                <button 
+                  className={`sim-tray-trigger ${isExploded ? 'active' : ''}`}
+                  onClick={() => setIsExploded(!isExploded)}
+                  aria-label="Toggle SIM Tray"
+                >
+                  <div className="sim-pinhole" />
+                  <span>{isExploded ? 'INSERT' : ''}</span>
+                </button>
                 
                 {/* ================= FRONT FACE (SCREEN) ================= */}
                 <div className="phone-front">

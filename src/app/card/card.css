@@ -14,6 +14,7 @@
   min-height: 100dvh; 
   background-color: #0a0a0a;
   overflow: hidden;
+  perspective: 2000px;
 }
 
 /* Background Ambience */
@@ -66,7 +67,7 @@
   position: relative;
   z-index: 100;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -81,83 +82,27 @@
   }
 }
 
-/* SIM Tray Trigger (Top) */
-.sim-tray-trigger {
-  position: relative;
-  z-index: 101;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin-bottom: 2px; /* Flush with phone */
-}
-
-.sim-tray-trigger:hover {
-  transform: translateY(-4px);
-}
-
-.sim-tray-trigger.active {
-  transform: translateY(-60px);
-}
-
-.sim-tray-body {
-  width: 100px;
-  height: 40px;
-  background: linear-gradient(to bottom, #444, #222);
-  border: 1px solid #555;
-  border-bottom: none;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1), 0 5px 15px rgba(0,0,0,0.5);
-}
-
-.sim-pinhole {
-  width: 4px;
-  height: 4px;
-  background: #000;
-  border-radius: 50%;
-  position: absolute;
-  left: 10px;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.2);
-}
-
-.sim-tray-body span {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  color: #aaa;
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-left: 10px;
-}
-
 /* Phone Body Flip Container */
 .perfume-body-container {
-  perspective: 2000px;
+  transform-style: preserve-3d;
   position: relative;
   z-index: 99;
-  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
+  /* Permanent isometric tilt to showcase the side */
+  transform: rotateY(-20deg) rotateX(5deg);
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
 }
 
 .perfume-body-container.active {
-  transform: translateY(30px);
-  opacity: 0.85;
+  transform: rotateY(-25deg) rotateX(10deg) translateZ(-40px);
+  opacity: 0.9;
 }
 
 @media (max-width: 768px) {
-  .sim-tray-trigger.active {
-    transform: translateY(-60px);
+  .perfume-body-container {
+    transform: rotateY(-15deg) rotateX(5deg);
   }
   .perfume-body-container.active {
-    transform: translateY(40px);
+    transform: rotateY(-20deg) rotateX(10deg) translateZ(-20px);
   }
 }
 
@@ -166,13 +111,140 @@
   height: 740px;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   border-radius: 48px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 4px #222, 0 0 0 6px #111; /* Metallic rim */
+  /* 3D Thickness using layered box shadows extending to the right */
+  box-shadow: 
+    1px 0 0 #333, 2px 0 0 #333, 3px 0 0 #333, 4px 0 0 #333, 
+    5px 0 0 #2a2a2a, 6px 0 0 #2a2a2a, 7px 0 0 #2a2a2a, 8px 0 0 #2a2a2a,
+    9px 0 0 #1a1a1a, 10px 0 0 #1a1a1a, 11px 0 0 #1a1a1a, 12px 0 0 #1a1a1a,
+    13px 0 0 #111, 14px 0 0 #111, 15px 0 0 #0a0a0a,
+    30px 20px 50px rgba(0,0,0,0.9);
 }
 
 .phone-body.flipped {
   transform: rotateY(180deg);
+  /* Reverse shadow direction when flipped so thickness is on left */
+  box-shadow: 
+    -1px 0 0 #333, -2px 0 0 #333, -3px 0 0 #333, -4px 0 0 #333, 
+    -5px 0 0 #2a2a2a, -6px 0 0 #2a2a2a, -7px 0 0 #2a2a2a, -8px 0 0 #2a2a2a,
+    -9px 0 0 #1a1a1a, -10px 0 0 #1a1a1a, -11px 0 0 #1a1a1a, -12px 0 0 #1a1a1a,
+    -13px 0 0 #111, -14px 0 0 #111, -15px 0 0 #0a0a0a,
+    -30px 20px 50px rgba(0,0,0,0.9);
+}
+
+/* Hardware Buttons */
+.hardware-button {
+  position: absolute;
+  background: linear-gradient(to right, #444, #222);
+  border: 1px solid #111;
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.1);
+  transform-style: preserve-3d;
+  z-index: 90;
+}
+
+/* Left side buttons */
+.silent-switch {
+  left: -4px;
+  top: 130px;
+  width: 4px;
+  height: 28px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.volume-up {
+  left: -5px;
+  top: 190px;
+  width: 5px;
+  height: 60px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.volume-down {
+  left: -5px;
+  top: 270px;
+  width: 5px;
+  height: 60px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+/* Right side buttons (need translation to sit on the thick 3D edge) */
+.power-button {
+  right: -5px;
+  top: 210px;
+  width: 5px;
+  height: 80px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  transform: translateZ(-8px); /* pushes it back to the edge thickness */
+}
+
+/* Ejecting SIM Tray */
+.sim-tray-trigger {
+  position: absolute;
+  right: -4px;
+  top: 400px;
+  width: 4px;
+  height: 70px;
+  background: linear-gradient(to right, #555, #222);
+  border: 1px solid #111;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
+  transform: translateZ(-8px); /* aligns with right edge thickness */
+  cursor: pointer;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 2px;
+  z-index: 150;
+  overflow: hidden;
+}
+
+.sim-tray-trigger:hover {
+  background: linear-gradient(to right, #666, #333);
+}
+
+.sim-tray-trigger.active {
+  /* Pulls out to the right */
+  transform: translateZ(-8px) translateX(60px);
+  width: 60px;
+  background: #2a2a2a;
+  border: 1px solid #444;
+  justify-content: center;
+  padding-right: 0;
+}
+
+.sim-pinhole {
+  width: 3px;
+  height: 3px;
+  background: #000;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2);
+  flex-shrink: 0;
+}
+
+.sim-tray-trigger span {
+  display: none;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.5rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+.sim-tray-trigger.active span {
+  display: block;
+  animation: fade-in 0.3s forwards 0.3s;
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  to { opacity: 1; }
 }
 
 /* Phone Faces */
@@ -190,15 +262,17 @@
 .phone-front {
   background: #000;
   border: 12px solid #000; /* Inner screen bezel */
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.1);
+  box-shadow: inset 0 0 0 2px #333;
 }
 
 .phone-back {
-  transform: rotateY(180deg);
-  background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+  transform: rotateY(180deg) translateZ(15px); /* push back face to end of thickness */
+  background: linear-gradient(135deg, #111, #050505);
   border: 1px solid rgba(255,255,255,0.1);
   box-shadow: inset 0 0 40px rgba(255,255,255,0.05);
 }
+
+/* Wait, if phone-back is translated Z by 15px, the 3D transforms will place it properly behind the front face! */
 
 /* Screen Content Area (Front) */
 .phone-screen {
@@ -211,32 +285,33 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  padding: 3rem 1.5rem;
+  padding: 3.5rem 1.5rem 2rem;
 }
 
 /* Dynamic Island (Front) */
 .dynamic-island {
   position: absolute;
-  top: 10px;
+  top: 8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 28px;
+  width: 110px;
+  height: 32px;
   background: #000;
   border-radius: 20px;
-  z-index: 50;
+  z-index: 150;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 8px;
+  padding: 0 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 .dynamic-island-lens {
-  width: 12px;
-  height: 12px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: radial-gradient(circle at center, #111 0%, #050505 80%, #222 100%);
-  box-shadow: inset 0 0 2px rgba(255,255,255,0.1);
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.2);
 }
 .dynamic-island-sensor {
   width: 8px;
@@ -249,65 +324,75 @@
 /* Camera Bump (Back) */
 .camera-bump {
   position: absolute;
-  top: 30px;
-  left: 30px;
-  width: 120px;
-  height: 120px;
-  background: rgba(255,255,255,0.05);
+  top: 35px;
+  left: 35px;
+  width: 140px;
+  height: 140px;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 24px;
-  box-shadow: 2px 5px 15px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.2);
-  display: flex;
-  flex-wrap: wrap;
-  padding: 10px;
-  gap: 8px;
-  justify-content: space-between;
+  border-radius: 32px;
+  box-shadow: 5px 10px 20px rgba(0,0,0,0.6), inset 0 1px 2px rgba(255,255,255,0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  padding: 12px;
+  gap: 10px;
+  z-index: 10;
 }
 
 .camera-lens {
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: #000;
-  border: 2px solid #333;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.8), 0 2px 4px rgba(0,0,0,0.5);
+  border: 2px solid #222;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 4px 8px rgba(0,0,0,0.5);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.camera-lens:nth-child(1) { grid-column: 1; grid-row: 1; }
+.camera-lens:nth-child(2) { grid-column: 1; grid-row: 2; }
+.camera-lens:nth-child(3) { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+
 .camera-lens::after {
   content: '';
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #444 0%, #111 50%, #000 100%);
-  box-shadow: 0 0 2px rgba(0, 122, 255, 0.2);
-}
-
-.camera-flash {
   width: 20px;
   height: 20px;
   border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #555 0%, #111 50%, #000 100%);
+  box-shadow: 0 0 3px rgba(0, 122, 255, 0.3);
+}
+
+.camera-sensors {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  pointer-events: none;
+}
+
+.camera-flash {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   background: #fdfce0;
-  box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
-  position: absolute;
-  right: 15px;
-  top: 50px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.4), 0 0 10px rgba(253, 252, 224, 0.2);
 }
 
 .camera-lidar {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   background: #111;
-  position: absolute;
-  right: 17px;
-  bottom: 15px;
-  box-shadow: inset 0 0 3px rgba(0,0,0,0.8);
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.9);
 }
-
 
 @media (max-width: 400px) {
   .phone-body {
