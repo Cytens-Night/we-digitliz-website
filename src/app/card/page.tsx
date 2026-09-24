@@ -178,82 +178,99 @@ export default function CardPage() {
         {/* Central Card Setup */}
         <div className={`center-bottle ${isExploded ? 'shrunk' : ''}`}>
           
-          {/* The Trigger Lid / Power Button */}
+          {/* The SIM Tray / Power Button */}
           <button 
-            className={`perfume-lid ${isExploded ? 'active' : ''}`}
+            className={`sim-tray-trigger ${isExploded ? 'active' : ''}`}
             onClick={() => setIsExploded(!isExploded)}
             aria-label="Toggle Core"
           >
-            <div className="lid-body">
-              <span>{isExploded ? 'Close Core' : 'Init Core'}</span>
+            <div className="sim-tray-body">
+              <div className="sim-pinhole" />
+              <span>{isExploded ? 'Insert' : 'Eject'}</span>
             </div>
-            <div className="lid-base"></div>
           </button>
           
           {/* The Body Container */}
           <div className={`perfume-body-container ${isExploded ? 'active' : ''}`}>
-             <div className={`perfume-body ${isFlipped ? 'flipped' : ''}`}>
+             <div className={`phone-body ${isFlipped ? 'flipped' : ''}`}>
                 
-                {/* ================= FRONT FACE ================= */}
-                <div className="perfume-front">
-                  
-                  {/* Floating Action Buttons Top */}
-                  <button 
-                    onClick={() => setIsFlipped(true)}
-                    className="icon-btn"
-                    style={{ top: '1.5rem', right: '1.5rem' }}
-                    aria-label="Show QR Code"
-                  >
-                    <QrCode size={18} />
-                  </button>
-
-                  <button 
-                    onClick={handleInstallClick}
-                    className="icon-btn"
-                    style={{ top: '1.5rem', left: '1.5rem' }}
-                    aria-label="Install App"
-                  >
-                    <Download size={18} />
-                  </button>
-
-                  {/* Header / Brand */}
-                  <div className="flex flex-col items-center justify-center gap-3 mt-4 mb-2">
-                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#007AFF]/20 to-[#8b5cf6]/20 flex items-center justify-center border border-white/10 shadow-[0_0_30px_rgba(0,122,255,0.3)]">
-                      <Logo className="w-8 h-8 text-white" />
-                    </div>
-                    <span className="font-display font-bold tracking-widest text-2xl text-white uppercase mt-2">wedigitlize</span>
-                    <span className="text-[9px] uppercase tracking-[0.3em] text-[#007AFF] font-bold">Premium Digital Agency</span>
+                {/* ================= FRONT FACE (SCREEN) ================= */}
+                <div className="phone-front">
+                  {/* Dynamic Island Notch */}
+                  <div className="dynamic-island">
+                    <div className="dynamic-island-lens" />
+                    <div className="dynamic-island-sensor" />
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="w-full flex flex-col gap-3 mt-6">
-                    <a href="https://wedigitlize.com" target="_blank" rel="noreferrer" className="neon-button">
-                      <Globe size={16} /> Visit Website
-                    </a>
-                    <a href={`tel:${phone}`} className="neon-button">
-                      <Phone size={16} /> {phone}
-                    </a>
-                    <button onClick={handleCopyEmail} className="neon-button">
-                      <Mail size={16} /> Email Us
+                  <div className="phone-screen">
+                    {/* Floating Action Buttons Top */}
+                    <button 
+                      onClick={() => setIsFlipped(true)}
+                      className="icon-btn"
+                      style={{ top: '1.5rem', right: '1.5rem' }}
+                      aria-label="Show QR Code"
+                    >
+                      <QrCode size={18} />
                     </button>
-                  </div>
-                  
-                  {/* Social Dock */}
-                  <div className="flex gap-6 mt-auto pb-4">
-                    <a href="https://instagram.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
-                      <FiInstagram size={20} />
-                    </a>
-                    <a href="https://twitter.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
-                      <FiTwitter size={20} />
-                    </a>
-                    <a href="https://linkedin.com/company/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
-                      <FiLinkedin size={20} />
-                    </a>
+
+                    <button 
+                      onClick={handleInstallClick}
+                      className="icon-btn"
+                      style={{ top: '1.5rem', left: '1.5rem' }}
+                      aria-label="Install App"
+                    >
+                      <Download size={18} />
+                    </button>
+
+                    {/* Header / Brand */}
+                    <div className="flex flex-col items-center justify-center gap-3 mt-10 mb-2">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#007AFF]/20 to-[#8b5cf6]/20 flex items-center justify-center border border-white/10 shadow-[0_0_30px_rgba(0,122,255,0.3)]">
+                        <Logo className="w-8 h-8 text-white" />
+                      </div>
+                      <span className="font-display font-bold tracking-widest text-2xl text-white uppercase mt-2">wedigitlize</span>
+                      <span className="text-[9px] uppercase tracking-[0.3em] text-[#007AFF] font-bold">Premium Digital Agency</span>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="w-full flex flex-col gap-3 mt-6">
+                      <a href="https://wedigitlize.com" target="_blank" rel="noreferrer" className="neon-button">
+                        <Globe size={16} /> Visit Website
+                      </a>
+                      <a href={`tel:${phone}`} className="neon-button">
+                        <Phone size={16} /> {phone}
+                      </a>
+                      <button onClick={handleCopyEmail} className="neon-button">
+                        <Mail size={16} /> Email Us
+                      </button>
+                    </div>
+                    
+                    {/* Social Dock */}
+                    <div className="flex gap-6 mt-auto pb-4">
+                      <a href="https://instagram.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
+                        <FiInstagram size={20} />
+                      </a>
+                      <a href="https://twitter.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
+                        <FiTwitter size={20} />
+                      </a>
+                      <a href="https://linkedin.com/company/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/10 bg-black/40 flex items-center justify-center text-white/70 hover:text-[#007AFF] hover:border-[#007AFF] hover:bg-[#007AFF]/10 transition-all hover:-translate-y-1">
+                        <FiLinkedin size={20} />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
-                {/* ================= BACK FACE (QR CODE) ================= */}
-                <div className="perfume-back">
+                {/* ================= BACK FACE (CHASSIS) ================= */}
+                <div className="phone-back">
+                  
+                  {/* Camera Bump */}
+                  <div className="camera-bump">
+                    <div className="camera-lens" />
+                    <div className="camera-lens" />
+                    <div className="camera-lens" style={{ marginLeft: '25px' }} />
+                    <div className="camera-flash" />
+                    <div className="camera-lidar" />
+                  </div>
+
                   <button 
                     onClick={() => setIsFlipped(false)}
                     className="icon-btn"
@@ -263,7 +280,7 @@ export default function CardPage() {
                     <X size={18} />
                   </button>
                   
-                  <div className="flex flex-col items-center w-full mt-4">
+                  <div className="flex flex-col items-center justify-center h-full w-full px-6 pt-20">
                     <h3 className="text-xl font-display font-bold text-white mb-2 uppercase tracking-widest text-center">
                       Share Card
                     </h3>
