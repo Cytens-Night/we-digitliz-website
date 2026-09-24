@@ -246,8 +246,8 @@ export default function Pricing() {
                           onClick={(e) => handleBundleDeploy(bundle, e)} 
                           className={`mt-auto w-full py-4 rounded-xl font-bold text-sm transition-all shadow-xl flex items-center justify-center gap-3 active:scale-95
                             ${bundle.isPopular 
-                              ? 'bg-primary text-white hover:bg-[#005bb5] hover:shadow-[0_0_30px_rgba(0,122,255,0.4)]' 
-                              : 'bg-black dark:bg-white text-white dark:text-black hover:bg-card transition-colors duration-1000 hover:text-black dark:text-white border border-transparent hover:border-black/20 dark:border-white/20'}`}
+                              ? 'bg-primary text-white hover:bg-[#005bb5] hover:shadow-[0_0_30px_rgba(0,122,255,0.4)] hover:-translate-y-1' 
+                              : 'bg-black dark:bg-white text-white dark:text-black hover:bg-[#333] dark:hover:bg-gray-200 hover:shadow-xl hover:-translate-y-1'}`}
                         >
                           Deploy Architecture <ArrowRight size={16} />
                         </button>
