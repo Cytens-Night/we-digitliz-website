@@ -1,90 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ShoppingBag, Stethoscope, Utensils, Building2, Briefcase, ArrowRight } from "lucide-react";
-
-// ==========================================
-// MASSIVE SCALED MOTION GRAPHICS
-// ==========================================
-
-const RetailGraphic = () => (
-  <div className="flex items-end gap-4 h-64 w-full">
-     {[40, 70, 50, 100, 80].map((h, i) => (
-        <motion.div 
-          key={i}
-          initial={{ height: 0 }}
-          animate={{ height: `${h}%` }}
-          transition={{ duration: 0.8, delay: i * 0.1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1, ease: "easeOut" }}
-          className="flex-1 bg-white/10 rounded-t-xl shadow-[0_0_30px_rgba(255,255,255,0.05)] border border-white/20 border-b-0"
-        />
-     ))}
-  </div>
-);
-
-const HealthGraphic = () => (
-  <div className="h-64 w-full flex items-center">
-    <svg viewBox="0 0 100 30" className="w-full h-full stroke-white fill-none stroke-[2px] drop-shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-       <motion.path 
-         d="M0 15 L20 15 L25 5 L35 25 L45 5 L50 15 L100 15"
-         initial={{ pathLength: 0, opacity: 0 }}
-         animate={{ pathLength: 1, opacity: 1 }}
-         transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-         strokeLinecap="round"
-         strokeLinejoin="round"
-       />
-       <motion.circle cx="35" cy="25" r="1.5" fill="white" stroke="none" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }} />
-    </svg>
-  </div>
-);
-
-const HospitalityGraphic = () => (
-  <div className="h-64 w-full relative overflow-hidden flex items-end justify-center">
-    <motion.div 
-      initial={{ y: "100%" }}
-      animate={{ y: "0%" }}
-      transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5, ease: "easeOut" }}
-      className="w-40 h-48 bg-white/5 border border-white/20 rounded-t-[2rem] p-6 flex flex-col gap-4 shadow-[0_-10px_40px_rgba(255,255,255,0.05)] backdrop-blur-md"
-    >
-      <div className="w-full h-2 bg-white/40 rounded-full" />
-      <div className="w-3/4 h-2 bg-white/20 rounded-full" />
-      <div className="w-1/2 h-2 bg-white/20 rounded-full" />
-      <div className="mt-auto w-full h-12 bg-white/10 rounded-xl" />
-    </motion.div>
-  </div>
-);
-
-const RealEstateGraphic = () => (
-  <div className="h-64 w-full flex items-center justify-center">
-    <svg viewBox="0 0 50 50" className="w-48 h-48 stroke-white fill-none stroke-[1.5px] drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
-       <motion.path 
-         d="M25 5 L5 20 L5 45 L45 45 L45 20 Z M20 45 L20 30 L30 30 L30 45"
-         initial={{ pathLength: 0 }}
-         animate={{ pathLength: 1 }}
-         transition={{ duration: 2, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }}
-         strokeLinecap="round"
-         strokeLinejoin="round"
-       />
-    </svg>
-  </div>
-);
-
-const CorporateGraphic = () => (
-  <div className="h-64 w-full relative border border-white/10 rounded-[2rem] bg-white/5 overflow-hidden">
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute top-10 left-10 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} className="absolute bottom-10 left-1/2 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} className="absolute top-16 right-16 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
-     
-     <svg className="absolute inset-0 w-full h-full stroke-white/30 stroke-[2px] fill-none">
-       <motion.path 
-         d="M40 40 L160 210 L300 100"
-         initial={{ pathLength: 0 }}
-         animate={{ pathLength: 1 }}
-         transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5, ease: "easeInOut" }}
-       />
-     </svg>
-  </div>
-);
 
 // ==========================================
 // DATA
@@ -98,185 +16,146 @@ const industries = [
     description: "We build high-converting, native shopping experiences that keep your customers locked in your brand's ecosystem without relying on clunky third-party checkout redirects.",
     icon: ShoppingBag,
     image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1200",
-    Graphic: RetailGraphic
   },
   {
-    id: "healthcare",
+    id: "health",
     number: "02",
     title: "Healthcare",
-    description: "Secure, HIPAA-compliant patient portals and automated booking systems designed to reduce administrative overhead and improve patient experience.",
+    description: "HIPAA-compliant patient portals, automated appointment scheduling, and secure telehealth infrastructures designed for modern medical practices.",
     icon: Stethoscope,
-    image: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&q=80&w=1200",
-    Graphic: HealthGraphic
+    image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80&w=1200",
   },
   {
     id: "hospitality",
     number: "03",
-    title: "Hospitality",
-    description: "From custom restaurant ordering systems to boutique hotel reservation platforms, we engineer digital hospitality that rivals your physical service.",
+    title: "Hospitality & Food",
+    description: "QR-code ordering systems, automated kitchen routing, and digital loyalty programs that reduce wait times and skyrocket customer retention.",
     icon: Utensils,
     image: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&q=80&w=1200",
-    Graphic: HospitalityGraphic
   },
   {
     id: "realestate",
     number: "04",
     title: "Real Estate",
-    description: "Immersive 3D property tours, automated lead generation drawers, and CRM integrations that turn passive browsers into scheduled viewings.",
+    description: "Immersive 3D property tours, automated lead assignment, and unified broker dashboards that close deals faster than ever before.",
     icon: Building2,
     image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1200",
-    Graphic: RealEstateGraphic
   },
   {
     id: "corporate",
     number: "05",
-    title: "Corporate Services",
-    description: "Bespoke internal tooling, automated workflows, and modern intranet architectures that shatter bottlenecks and scale with your enterprise.",
+    title: "Corporate & SaaS",
+    description: "B2B client portals, automated invoicing flows, and bespoke CRM integrations that eliminate manual data entry from your daily operations.",
     icon: Briefcase,
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200",
-    Graphic: CorporateGraphic
-  },
+    image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=1200",
+  }
 ];
 
-export default function Industries() {
-  const [activeId, setActiveId] = useState(industries[0].id);
+// ==========================================
+// CARD COMPONENT (Scroll Animation Logic)
+// ==========================================
 
-  const activeIndustry = industries.find(i => i.id === activeId) || industries[0];
-  const ActiveGraphic = activeIndustry.Graphic;
+const Card = ({ industry, index, total }: { industry: any, index: number, total: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
+  
+  // Track this specific card's progress relative to the viewport
+  const { scrollYProgress: exitProgress } = useScroll({
+    target: cardRef,
+    offset: ["start start", "end start"]
+  });
+
+  // As the user scrolls past the stuck card, it scales down and fades out smoothly
+  const scale = useTransform(exitProgress, [0, 1], [1, 0.9]);
+  const opacity = useTransform(exitProgress, [0, 1], [1, 0.4]);
+
+  // Calculate dynamic sticky top position so cards stack like a deck
+  const topOffset = `calc(12vh + ${index * 30}px)`;
 
   return (
-    <section id="industries" className="py-24 md:py-32 bg-[#0a0a0a] relative">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white/5 rounded-full blur-[200px] pointer-events-none" />
+    <motion.div
+      ref={cardRef}
+      style={{ 
+        scale, 
+        opacity,
+        top: topOffset
+      }}
+      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex items-center justify-center bg-[#161a22] relative group ${index === total - 1 ? 'md:mb-0' : 'md:mb-[60vh]'} mb-12`}
+    >
+      {/* Background Image with Parallax/Hover */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-40 md:opacity-50 mix-blend-overlay transition-transform duration-[1.5s] ease-out group-hover:scale-105"
+        style={{ backgroundImage: `url(${industry.image})` }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/70 to-[#0a0a0a]/20" />
+      
+      {/* Main Content */}
+      <div className="relative z-10 p-8 md:p-16 lg:p-24 flex flex-col justify-end w-full h-full">
+         <div className="flex flex-col md:flex-row md:items-center gap-6 mb-8">
+            <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-3xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-2xl">
+               <industry.icon className="w-8 h-8 md:w-10 md:h-10 text-white" />
+            </div>
+            <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white tracking-tight">
+               {industry.title}
+            </h3>
+         </div>
+         <p className="text-white/70 text-lg md:text-2xl lg:text-3xl max-w-4xl leading-relaxed mb-10 md:mb-12 font-medium">
+            {industry.description}
+         </p>
+         <button className="inline-flex items-center justify-center gap-4 px-6 md:px-8 py-3 md:py-4 w-full md:w-max rounded-full bg-white text-black font-bold text-xs md:text-sm tracking-widest uppercase hover:bg-[#007AFF] hover:text-white transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+           View Case Studies <ArrowRight size={18} />
+         </button>
+      </div>
 
-      <div className="max-w-[1400px] mx-auto relative z-10">
-        
-        {/* ==============================================
-            DESKTOP LAYOUT (Sticky + Stacked Cards)
-            ============================================== */}
-        <div className="hidden md:flex px-6 flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-          {/* Left: Sticky Header & Dynamic Graphic */}
-          <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20 flex flex-col gap-8">
-             <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-white text-sm font-semibold mb-6 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]">
-                   Custom Solutions
-                </div>
-                <h3 className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight">
-                  Architectures tailored <br/> for <span className="text-white/40">every sector.</span>
-                </h3>
-             </div>
-             
-             <p className="text-white/60 text-lg md:text-xl font-medium leading-relaxed max-w-md">
-               We don't build generic websites. We engineer bespoke, automated digital systems that solve the specific bottlenecks of your industry.
-             </p>
+      {/* Giant Number Watermark */}
+      <div className="hidden md:block absolute top-12 right-16 font-display font-bold text-[12rem] leading-none text-white/[0.03] select-none pointer-events-none">
+        {industry.number}
+      </div>
+    </motion.div>
+  );
+};
 
-             <div className="w-full h-80 rounded-[2.5rem] bg-[#161a22] border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.3)] p-8 relative flex items-center justify-center overflow-hidden">
-               <div className="absolute inset-0 opacity-5 pointer-events-none bg-white" />
-               <AnimatePresence mode="wait">
-                 <motion.div 
-                   key={activeId}
-                   initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-                   animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                   exit={{ opacity: 0, scale: 1.1, filter: "blur(10px)" }}
-                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                   className="w-full relative z-10"
-                 >
-                   <ActiveGraphic />
-                 </motion.div>
-               </AnimatePresence>
-             </div>
-          </div>
+// ==========================================
+// MAIN SECTION
+// ==========================================
 
-          {/* Right: Scrolling Industry Cards */}
-          <div className="w-full lg:w-7/12 flex flex-col gap-8 lg:gap-32 lg:pt-32 pb-32">
-             {industries.map((industry) => (
-               <motion.div 
-                 key={industry.id}
-                 onViewportEnter={() => setActiveId(industry.id)}
-                 viewport={{ margin: "-40% 0px -40% 0px" }}
-                 className="w-full relative rounded-[2.5rem] overflow-hidden bg-[#161a22] border border-white/10 shadow-2xl group flex flex-col justify-end min-h-[400px] lg:min-h-[500px] p-8 lg:p-12"
-               >
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out group-hover:scale-105 opacity-30 grayscale group-hover:grayscale-0"
-                    style={{ backgroundImage: `url(${industry.image})` }}
-                  />
-                  <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors duration-500" />
-                  <div className="absolute top-8 right-8 font-display font-bold text-6xl text-white/10">
-                    {industry.number}
-                  </div>
-                  <div className="relative z-10">
-                     <div className="flex items-center gap-6 mb-6">
-                        <div className="shrink-0 w-16 h-16 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl">
-                           <industry.icon size={28} />
-                        </div>
-                        <h3 className="text-3xl lg:text-5xl font-display font-bold text-white tracking-tight">
-                           {industry.title}
-                        </h3>
-                     </div>
-                     <p className="text-white/70 max-w-lg text-lg leading-relaxed mb-10">
-                        {industry.description}
-                     </p>
-                     <button className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white text-black font-bold text-sm tracking-widest uppercase hover:scale-105 transition-all shadow-[0_0_30px_rgba(255,255,255,0.2)]">
-                       View Case Studies <ArrowRight size={18} />
-                     </button>
-                  </div>
-               </motion.div>
-             ))}
-          </div>
-        </div>
+export default function Industries() {
+  return (
+    <section id="industries" className="relative bg-[#0a0a0a] py-24 md:py-40">
+      
+      {/* Ambient Background Glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1000px] h-[500px] bg-[#007AFF]/10 rounded-full blur-[150px] pointer-events-none" />
 
-        {/* ==============================================
-            MOBILE NATIVE APP LAYOUT (Horizontal Carousel)
-            ============================================== */}
-        <div className="flex md:hidden flex-col gap-6">
-          <div className="px-6 mb-4">
-             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 text-white text-[10px] font-bold mb-4 border border-white/20 uppercase tracking-widest">
-                Custom Solutions
-             </div>
-             <h3 className="text-3xl font-display font-bold text-white leading-tight tracking-tight">
-               Architectures tailored <br/> for <span className="text-white/40">every sector.</span>
-             </h3>
-          </div>
+      {/* Section Header */}
+      <div className="max-w-7xl mx-auto px-6 mb-16 md:mb-32 relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-white text-sm font-semibold mb-6 md:mb-8 border border-white/20 uppercase tracking-widest shadow-[0_0_20px_rgba(0,0,0,0.2)]"
+        >
+           Custom Solutions
+        </motion.div>
+        <motion.h3 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white leading-[1.05] tracking-tight"
+        >
+          Architectures tailored <br/> for <span className="text-white/40">every sector.</span>
+        </motion.h3>
+      </div>
 
-          <div className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbars px-6 gap-4 pb-12 w-full">
-             {industries.map((industry, index) => (
-               <motion.div 
-                 key={industry.id}
-                 initial={{ opacity: 0, scale: 0.95 }}
-                 whileInView={{ opacity: 1, scale: 1 }}
-                 viewport={{ once: true, margin: "-10%" }}
-                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                 className="relative w-[85vw] shrink-0 snap-center rounded-[2rem] overflow-hidden bg-[#161a22] border border-white/10 shadow-2xl flex flex-col justify-end min-h-[420px] p-6 active:scale-[0.98] transition-transform"
-               >
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-40 grayscale"
-                    style={{ backgroundImage: `url(${industry.image})` }}
-                  />
-                  <div className="absolute inset-0 bg-black/60" />
-                  
-                  <div className="absolute top-6 right-6 font-display font-bold text-5xl text-white/20">
-                    {industry.number}
-                  </div>
-
-                  <div className="relative z-10">
-                     <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-xl mb-4">
-                        <industry.icon size={20} />
-                     </div>
-                     <h3 className="text-2xl font-display font-bold text-white tracking-tight mb-3">
-                        {industry.title}
-                     </h3>
-                     <p className="text-white/70 text-sm leading-relaxed mb-6">
-                        {industry.description}
-                     </p>
-                     <button className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white text-black font-bold text-xs tracking-widest uppercase w-full justify-center shadow-[0_0_20px_rgba(255,255,255,0.2)]">
-                       Case Studies <ArrowRight size={14} />
-                     </button>
-                  </div>
-               </motion.div>
-             ))}
-          </div>
-        </div>
-
+      {/* Stacking Cards Container */}
+      <div className="max-w-6xl mx-auto px-6 relative z-10 pb-12 md:pb-32">
+        {industries.map((industry, index) => (
+          <Card 
+            key={industry.id} 
+            industry={industry} 
+            index={index} 
+            total={industries.length} 
+          />
+        ))}
       </div>
     </section>
   );
