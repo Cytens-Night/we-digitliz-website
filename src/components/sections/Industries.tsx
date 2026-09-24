@@ -16,7 +16,7 @@ const RetailGraphic = () => (
           initial={{ height: 0 }}
           animate={{ height: `${h}%` }}
           transition={{ duration: 0.8, delay: i * 0.1, repeat: Infinity, repeatType: 'reverse', repeatDelay: 1, ease: "easeOut" }}
-          className="w-12 sm:w-16 bg-black/10 rounded-t-xl shadow-[0_0_30px_rgba(255,255,255,0.05)] border border-black/20 border-b-0"
+          className="w-12 sm:w-16 bg-black/10 rounded-t-xl shadow-[0_0_30px_rgba(0,0,0,0.1)] border border-black/20 border-b-0"
         />
      ))}
   </div>
@@ -24,7 +24,7 @@ const RetailGraphic = () => (
 
 const HealthGraphic = () => (
   <div className="h-full w-full flex items-center justify-center opacity-80">
-    <svg viewBox="0 0 100 30" className="w-full h-auto max-w-[300px] stroke-white fill-none stroke-[2px] drop-shadow-[0_0_30px_rgba(0,0,0,0.1)]">
+    <svg viewBox="0 0 100 30" className="w-full h-auto max-w-[300px] stroke-black fill-none stroke-[2px] drop-shadow-[0_0_30px_rgba(0,0,0,0.1)]">
        <motion.path 
          d="M0 15 L20 15 L25 5 L35 25 L45 5 L50 15 L100 15"
          initial={{ pathLength: 0, opacity: 0 }}
@@ -33,7 +33,7 @@ const HealthGraphic = () => (
          strokeLinecap="round"
          strokeLinejoin="round"
        />
-       <motion.circle cx="35" cy="25" r="1.5" fill="white" stroke="none" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }} />
+       <motion.circle cx="35" cy="25" r="1.5" fill="black" stroke="none" animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ duration: 1, repeat: Infinity }} />
     </svg>
   </div>
 );
@@ -44,9 +44,9 @@ const HospitalityGraphic = () => (
       initial={{ y: "100%" }}
       animate={{ y: "0%" }}
       transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.5, ease: "easeOut" }}
-      className="w-48 h-56 bg-black/10 border border-black/20 rounded-t-[2rem] p-6 flex flex-col gap-4 shadow-[0_-10px_40px_rgba(255,255,255,0.05)] backdrop-blur-md"
+      className="w-48 h-56 bg-black/10 border border-black/20 rounded-t-[2rem] p-6 flex flex-col gap-4 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] backdrop-blur-md"
     >
-      <div className="w-full h-3 bg-white/40 rounded-full" />
+      <div className="w-full h-3 bg-black/40 rounded-full" />
       <div className="w-3/4 h-3 bg-black/10 rounded-full" />
       <div className="w-1/2 h-3 bg-black/10 rounded-full" />
       <div className="mt-auto w-full h-16 bg-black/10 rounded-xl" />
@@ -56,7 +56,7 @@ const HospitalityGraphic = () => (
 
 const RealEstateGraphic = () => (
   <div className="h-full w-full flex items-center justify-center opacity-80">
-    <svg viewBox="0 0 50 50" className="w-64 h-64 stroke-white fill-none stroke-[1.5px] drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]">
+    <svg viewBox="0 0 50 50" className="w-64 h-64 stroke-black fill-none stroke-[1.5px] drop-shadow-[0_0_30px_rgba(0,0,0,0.1)]">
        <motion.path 
          d="M25 5 L5 20 L5 45 L45 45 L45 20 Z M20 45 L20 30 L30 30 L30 45"
          initial={{ pathLength: 0 }}
@@ -71,11 +71,11 @@ const RealEstateGraphic = () => (
 
 const CorporateGraphic = () => (
   <div className="h-[250px] w-full max-w-[300px] relative border border-black/15 rounded-[2rem] bg-black/10 overflow-hidden opacity-80">
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute top-10 left-10 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} className="absolute bottom-10 left-1/2 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
-     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} className="absolute top-16 right-16 w-4 h-4 rounded-full bg-white shadow-[0_0_20px_#fff]" />
+     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2 }} className="absolute top-10 left-10 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
+     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 0.5 }} className="absolute bottom-10 left-1/2 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
+     <motion.div animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }} transition={{ repeat: Infinity, duration: 2, delay: 1 }} className="absolute top-16 right-16 w-4 h-4 rounded-full bg-black shadow-[0_0_20px_rgba(0,0,0,0.5)]" />
      
-     <svg className="absolute inset-0 w-full h-full stroke-white/30 stroke-[2px] fill-none">
+     <svg className="absolute inset-0 w-full h-full stroke-black/30 stroke-[2px] fill-none">
        <motion.path 
          d="M40 40 L160 210 L300 100"
          initial={{ pathLength: 0 }}
