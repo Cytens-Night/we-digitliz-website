@@ -60,7 +60,7 @@ export default function About() {
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.5 }}
-                    className="text-black/20"
+                    className="text-white/30"
                   >
                     websites.
                   </motion.span>
