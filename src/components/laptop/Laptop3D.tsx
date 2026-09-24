@@ -6,7 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, ContactShadows, RoundedBox, Html } from "@react-three/drei";
 import * as THREE from "three";
 import Logo from "@/components/ui/Logo";
-import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase } from "lucide-react";
+import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase, Instagram, Twitter, Linkedin, Phone } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import Link from "next/link";
 import ActionDrawer, { DrawerType } from "./ActionDrawer";
@@ -259,105 +259,99 @@ export default function Laptop3D() {
                       </div>
                    </div>
 
-                   {/* Desktop Background / Content Wrapper */}
-                   <div className="flex-1 w-full flex overflow-hidden relative">
-                   <div className="flex-1 w-full bg-white p-4 sm:p-6 overflow-y-auto no-scrollbar relative flex flex-col">
+                   {/* Desktop Background / Content Wrapper (Front Face) */}
+                   <div className="flex-1 w-full bg-gradient-to-br from-[#111] to-[#050505] p-6 sm:p-8 flex flex-col justify-between items-center relative overflow-hidden">
+                      {/* Noise Texture */}
+                      <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay" />
                       
-                      {/* Dashboard Content */}
-                      <div className="w-full bg-black/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 sm:p-8 flex-1 flex flex-col shadow-2xl">
+                      {/* Top Action Buttons */}
+                      <button onClick={handleInstallClick} className="absolute top-6 left-6 z-20 text-white/50 hover:text-white transition-all hover:scale-110" title="Install App">
+                         <Download className="w-6 h-6" />
+                      </button>
+                      <button onClick={() => setIsScreenFlipped(true)} className="absolute top-6 right-6 z-20 text-white/50 hover:text-white transition-all hover:scale-110" title="QR Code">
+                         <QrCode className="w-6 h-6" />
+                      </button>
+
+                      {/* Header Logo Graphic */}
+                      <div className="mt-8 mb-8 flex flex-col items-center justify-center relative z-10 w-full">
+                         {/* We Digitliz Glowing Logo Text */}
+                         <div className="text-4xl sm:text-5xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-300 to-gray-500 tracking-tighter mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+                           WEDIGITLIZE
+                         </div>
+                         <div className="h-px w-24 bg-gradient-to-r from-transparent via-primary to-transparent" />
+                         <p className="text-primary tracking-[0.3em] uppercase text-[9px] sm:text-[10px] mt-3 font-bold">Digital Architecture</p>
+                      </div>
+
+                      {/* Stacked Neon Buttons */}
+                      <div className="w-full flex flex-col gap-4 relative z-10 max-w-[280px] mx-auto mb-10">
+                         <a 
+                           href="https://wedigitlize.com" 
+                           target="_blank" 
+                           rel="noreferrer"
+                           className="w-full flex items-center justify-center gap-3 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/50 text-white font-medium rounded-xl transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] backdrop-blur-md group"
+                         >
+                            <Globe className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" /> Visit Website
+                         </a>
                          
-                         {/* Header */}
-                         <div className="flex justify-between items-start mb-8">
-                            <div>
-                              <h1 className="text-2xl sm:text-3xl font-display font-bold text-white mb-1 tracking-tight">wedigitlize</h1>
-                              <p className="text-primary text-xs sm:text-sm font-medium">Digital Dominance Architecture</p>
-                            </div>
-                            <div className="flex gap-2">
-                               <button onClick={() => setIsScreenFlipped(true)} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" title="QR Code">
-                                  <QrCode className="w-5 h-5" />
-                               </button>
-                               <button onClick={handleInstallClick} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors" title="Install App">
-                                  <Download className="w-5 h-5" />
-                               </button>
-                            </div>
-                         </div>
+                         <button 
+                           onClick={() => setDrawerType('phone')}
+                           className="w-full flex items-center justify-center gap-3 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/50 text-white font-medium rounded-xl transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] backdrop-blur-md group"
+                         >
+                            <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" /> View Contact Options
+                         </button>
 
-                         {/* Quick Actions */}
-                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
-                            <button onClick={() => setDrawerType('phone')} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
-                               <div className="w-12 h-12 rounded-full bg-green-500/20 text-green-400 flex items-center justify-center">
-                                  <MessageSquare className="w-5 h-5" />
-                               </div>
-                               <span className="text-white font-medium text-xs">WhatsApp</span>
-                            </button>
-                            <button onClick={() => setDrawerType('email')} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
-                               <div className="w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center">
-                                  <Mail className="w-5 h-5" />
-                               </div>
-                               <span className="text-white font-medium text-xs">Email</span>
-                            </button>
-                            <button onClick={handleSaveContact} className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
-                               <div className="w-12 h-12 rounded-full bg-white/20 text-white flex items-center justify-center">
-                                  <Download className="w-5 h-5" />
-                               </div>
-                               <span className="text-white font-medium text-xs">Save VCF</span>
-                            </button>
-                            <Link href="/" className="flex flex-col items-center justify-center gap-2 bg-white/5 hover:bg-white/10 border border-white/5 rounded-2xl p-4 transition-colors">
-                               <div className="w-12 h-12 rounded-full bg-white/20 text-white flex items-center justify-center">
-                                  <Globe className="w-5 h-5" />
-                               </div>
-                               <span className="text-white font-medium text-xs">Website</span>
-                            </Link>
-                         </div>
+                         <button 
+                           onClick={() => setDrawerType('email')}
+                           className="w-full flex items-center justify-center gap-3 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/50 text-white font-medium rounded-xl transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] backdrop-blur-md group"
+                         >
+                            <Mail className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" /> hello@wedigitliz.com
+                         </button>
+                      </div>
 
-                         {/* Portfolio Section */}
-                         <div className="mb-4 flex items-center justify-between">
-                           <h3 className="text-white font-display font-bold text-sm sm:text-base flex items-center gap-2">
-                             <Briefcase className="text-primary w-4 h-4" /> Past Dominance
-                           </h3>
-                         </div>
-                         <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar snap-x">
-                           {[
-                             { title: "Shakur Fragrances", img: "https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=600&auto=format&fit=crop" },
-                             { title: "Cytens Night", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop" },
-                             { title: "Furqan Sweets", img: "https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?q=80&w=600&auto=format&fit=crop" }
-                           ].map((item, i) => (
-                             <div key={i} className="snap-center shrink-0 w-[200px] sm:w-[240px] bg-white/5 border border-white/10 rounded-xl overflow-hidden group hover:border-primary/50 transition-colors">
-                               <div className="h-[120px] sm:h-[140px] overflow-hidden relative">
-                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
-                                 <img src={item.img} alt={item.title} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" />
-                               </div>
-                               <div className="p-4">
-                                 <h4 className="text-white font-bold text-xs sm:text-sm">{item.title}</h4>
-                               </div>
-                             </div>
-                           ))}
-                         </div>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
+                      {/* Social Dock */}
+                      <div className="flex gap-6 relative z-10 mt-auto">
+                         <a href="https://instagram.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 bg-black/40 flex items-center justify-center text-white/80 hover:text-primary hover:border-primary hover:bg-primary/10 transition-all hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)]">
+                           <Instagram className="w-5 h-5" />
+                         </a>
+                         <a href="https://twitter.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 bg-black/40 flex items-center justify-center text-white/80 hover:text-primary hover:border-primary hover:bg-primary/10 transition-all hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)]">
+                           <Twitter className="w-5 h-5" />
+                         </a>
+                         <a href="https://linkedin.com/company/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 bg-black/40 flex items-center justify-center text-white/80 hover:text-primary hover:border-primary hover:bg-primary/10 transition-all hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)]">
+                           <Linkedin className="w-5 h-5" />
+                         </a>
+                      </div>
+                   </div>
 
                 {/* BACK FACE (QR Code) */}
-                <div className="absolute inset-0 w-full h-full flex flex-col bg-black items-center justify-center p-8 [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
-                   <button onClick={() => setIsScreenFlipped(false)} className="absolute top-6 left-6 w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-colors backdrop-blur-md">
-                      <ArrowLeft className="w-5 h-5" />
+                <div className="absolute inset-0 w-full h-full flex flex-col bg-gradient-to-br from-[#111] to-[#050505] items-center justify-between p-8 [transform:rotateY(180deg)_translateZ(1px)] [backface-visibility:hidden]">
+                   <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] pointer-events-none mix-blend-overlay" />
+                   
+                   <button onClick={() => setIsScreenFlipped(false)} className="absolute top-6 left-6 z-20 text-white/50 hover:text-white transition-all hover:scale-110" title="Go Back">
+                      <ArrowLeft className="w-6 h-6" />
                    </button>
                    
-                   <h2 className="text-2xl sm:text-3xl font-display font-bold text-white mb-2">Scan to Connect</h2>
-                   <p className="text-white/60 text-sm mb-8 text-center max-w-[250px]">Share this digital card instantly.</p>
+                   <h3 className="text-2xl sm:text-3xl font-display font-bold text-primary mb-4 mt-12 tracking-tight">Scan to Connect</h3>
                    
-                   <div className="p-6 bg-white rounded-2xl shadow-[0_0_50px_rgba(var(--primary-rgb),0.3)]">
-                      <QRCodeSVG 
-                         value="https://wedigitlize.com/card" 
-                         size={180}
-                         fgColor="#000000"
-                         bgColor="#ffffff"
-                         level="H"
-                         imageSettings={{ src: "/favicon.svg", excavate: true, height: 40, width: 40 }}
-                         style={{ width: '100%', height: 'auto', maxWidth: '240px' }}
-                      />
+                   <div className="p-6 bg-gradient-to-br from-[#2a2a2a] to-black rounded-3xl border border-primary/30 shadow-[0_10px_30px_rgba(0,0,0,0.8),inset_0_0_15px_rgba(var(--primary-rgb),0.15)] mb-8 relative z-10">
+                      <div className="p-2 bg-white rounded-xl">
+                         <QRCodeSVG 
+                            value="https://wedigitlize.com/card" 
+                            size={160}
+                            fgColor="#000000"
+                            bgColor="#ffffff"
+                            level="H"
+                            imageSettings={{ src: "/favicon.svg", excavate: true, height: 35, width: 35 }}
+                         />
+                      </div>
                    </div>
+                   
+                   <p className="text-white/50 text-xs sm:text-sm text-center max-w-[200px] mb-8 relative z-10">
+                      Share this digital business card seamlessly with a quick scan.
+                   </p>
+
+                   <button onClick={handleSaveContact} className="w-full max-w-[280px] flex items-center justify-center gap-3 py-4 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primary/50 text-white font-medium rounded-xl transition-all shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.3)] backdrop-blur-md relative z-10 group">
+                      <Phone className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" /> Save Contact
+                   </button>
                 </div>
              </motion.div>
           </div>
