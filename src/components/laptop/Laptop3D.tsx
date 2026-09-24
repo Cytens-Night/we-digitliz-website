@@ -6,7 +6,8 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, ContactShadows, RoundedBox, Html } from "@react-three/drei";
 import * as THREE from "three";
 import Logo from "@/components/ui/Logo";
-import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase, Instagram, Twitter, Linkedin, Phone } from "lucide-react";
+import { ArrowRight, Globe, Mail, MessageSquare, Download, QrCode, ArrowLeft, Briefcase, Phone } from "lucide-react";
+import { FiInstagram, FiTwitter, FiLinkedin } from "react-icons/fi";
 import { QRCodeSVG } from "qrcode.react";
 import Link from "next/link";
 import ActionDrawer, { DrawerType } from "./ActionDrawer";
@@ -311,13 +312,13 @@ export default function Laptop3D() {
                       {/* Social Dock */}
                       <div className="flex gap-6 relative z-10 mt-auto">
                          <a href="https://instagram.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 bg-black/40 flex items-center justify-center text-white/80 hover:text-primary hover:border-primary hover:bg-primary/10 transition-all hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)]">
-                           <Instagram className="w-5 h-5" />
+                           <FiInstagram className="w-5 h-5" />
                          </a>
                          <a href="https://twitter.com/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 bg-black/40 flex items-center justify-center text-white/80 hover:text-primary hover:border-primary hover:bg-primary/10 transition-all hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)]">
-                           <Twitter className="w-5 h-5" />
+                           <FiTwitter className="w-5 h-5" />
                          </a>
                          <a href="https://linkedin.com/company/wedigitliz" target="_blank" rel="noreferrer" className="w-12 h-12 rounded-full border border-white/20 bg-black/40 flex items-center justify-center text-white/80 hover:text-primary hover:border-primary hover:bg-primary/10 transition-all hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.4)]">
-                           <Linkedin className="w-5 h-5" />
+                           <FiLinkedin className="w-5 h-5" />
                          </a>
                       </div>
                    </div>
