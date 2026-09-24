@@ -101,9 +101,20 @@ export default function CardPage() {
   const [showEmailMenu, setShowEmailMenu] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const phone = "+447584296946";
   const email = "info@wedigitlize.com";
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    // Only apply parallax on desktop
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+    
+    // Normalize mouse position between -1 and 1
+    const x = (e.clientX / window.innerWidth) * 2 - 1;
+    const y = (e.clientY / window.innerHeight) * 2 - 1;
+    setMousePos({ x, y });
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -192,17 +203,35 @@ export default function CardPage() {
   };
 
   return (
-    <main className="min-h-[100dvh] w-full bg-[#0a0a0a] selection:bg-primary/30 selection:text-white">
+    <main 
+      className="min-h-[100dvh] w-full bg-[#0a0a0a] selection:bg-primary/30 selection:text-white"
+      onMouseMove={handleMouseMove}
+    >
       
       {!splashDone && <SplashScreen onComplete={() => setSplashDone(true)} />}
 
-      <div className="portfolio-container explode-layout">
+      <div 
+        className="portfolio-container explode-layout"
+        style={{
+          transform: `rotateX(${mousePos.y * -5}deg) rotateY(${mousePos.x * 5}deg)`,
+        } as React.CSSProperties}
+      >
         
         {/* Background Ambience */}
         <div className="bg-ambience">
           <div className="bg-pattern" />
-          <div className="glow-orb-1" />
-          <div className="glow-orb-2" />
+          <div 
+            className="orb-wrapper orb-1-wrapper"
+            style={{ transform: `translate3d(${mousePos.x * -30}px, ${mousePos.y * -30}px, 0)` }}
+          >
+            <div className="glow-orb-1" />
+          </div>
+          <div 
+            className="orb-wrapper orb-2-wrapper"
+            style={{ transform: `translate3d(${mousePos.x * 40}px, ${mousePos.y * 40}px, 0)` }}
+          >
+            <div className="glow-orb-2" />
+          </div>
         </div>
 
         {/* Central Card Setup */}
@@ -241,7 +270,13 @@ export default function CardPage() {
                     <div className="dynamic-island-sensor" />
                   </div>
 
-                  <div className="phone-screen">
+                  <div 
+                    className="phone-screen"
+                    style={{
+                      '--glare-x': `${mousePos.x * 100}%`,
+                      '--glare-y': `${mousePos.y * 100}%`,
+                    } as React.CSSProperties}
+                  >
                     {/* Floating Action Buttons Top */}
                     <button 
                       onClick={() => setIsFlipped(true)}
@@ -447,6 +482,9 @@ export default function CardPage() {
             const angle = (index / services.length) * 2 * Math.PI - Math.PI / 2;
             const x = Math.cos(angle) * radius;
             let y = Math.sin(angle) * radius;
+            // Provide different depths to bubbles: some in front, some behind
+            const zValues = [-150, 100, -80, 150];
+            const z = isExploded ? zValues[index] : 0;
 
             return (
               <div 
@@ -455,6 +493,7 @@ export default function CardPage() {
                 style={{ 
                   '--target-x': `${x}px`,
                   '--target-y': `${y}px`,
+                  '--target-z': `${z}px`,
                   transitionDelay: `${index * 0.1}s`
                 } as React.CSSProperties}
               >
