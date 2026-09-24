@@ -6,76 +6,76 @@ import Logo from "@/components/ui/Logo";
 export default function Footer() {
   return (
     <>
-      <footer className="bg-[#f5f5f7] pt-20 pb-32 md:pb-10 border-t border-black/5 relative z-10">
+      <footer className="bg-background transition-colors duration-1000 pt-20 pb-32 md:pb-10 border-t border-black/5 dark:border-white/5 relative z-10">
         <div className="max-w-7xl mx-auto px-6">
           {/* Desktop Footer Grid */}
           <div className="hidden md:grid grid-cols-4 gap-x-6 gap-y-12 mb-16">
             
             <div className="col-span-1">
               <Link href="/" className="flex items-center gap-2 group mb-6">
-                <Logo className="w-8 h-8 text-[#1d1d1f] group-hover:text-[#1d1d1f] transition-colors" />
-                <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f]">wedigitlize</span>
+                <Logo className="w-8 h-8 text-[#1d1d1f] dark:text-white group-hover:text-[#1d1d1f] dark:hover:text-white dark:text-white transition-colors" />
+                <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f] dark:text-white">wedigitlize</span>
               </Link>
-              <p className="text-[#3c3c43] text-sm leading-relaxed mb-6">
+              <p className="text-[#3c3c43] dark:text-white/70 text-sm leading-relaxed mb-6">
                 wedigitlize your world so you can still lead in confidence. Building automated systems and premium online presences.
               </p>
               <div className="flex items-center gap-4">
-                <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-black hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-[#3c3c43] dark:text-white/70 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all">
                   <FaXTwitter className="w-4 h-4" />
                 </a>
-                <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-black hover:text-white transition-all">
+                <a href="https://www.instagram.com/wedigitlize" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-[#3c3c43] dark:text-white/70 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all">
                   <FaInstagram className="w-4 h-4" />
                 </a>
-                <a href="#" className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-[#3c3c43] hover:bg-black hover:text-white transition-all">
+                <a href="#" className="w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 flex items-center justify-center text-[#3c3c43] dark:text-white/70 hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black transition-all">
                   <FaLinkedin className="w-4 h-4" />
                 </a>
               </div>
             </div>
 
             <div>
-              <h4 className="text-[#1d1d1f] font-semibold mb-6">Services</h4>
+              <h4 className="text-[#1d1d1f] dark:text-white font-semibold mb-6">Services</h4>
               <ul className="space-y-4">
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Automated Systems</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Web Presence</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Brand Redesign</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">App Development</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Automated Systems</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Web Presence</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Brand Redesign</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">App Development</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-[#1d1d1f] font-semibold mb-6">Industries</h4>
+              <h4 className="text-[#1d1d1f] dark:text-white font-semibold mb-6">Industries</h4>
               <ul className="space-y-4">
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Retail & E-Commerce</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Healthcare</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Real Estate</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Creative Agencies</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Retail & E-Commerce</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Healthcare</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Real Estate</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Creative Agencies</Link></li>
               </ul>
             </div>
 
             <div>
-              <h4 className="text-[#1d1d1f] font-semibold mb-6">Company</h4>
+              <h4 className="text-[#1d1d1f] dark:text-white font-semibold mb-6">Company</h4>
               <ul className="space-y-4">
-                <li><Link href="/#about" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">About Us</Link></li>
-                <li><Link href="/#process" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Our Process</Link></li>
-                <li><Link href="/projects" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Projects</Link></li>
-                <li><Link href="/#contact" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Contact</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] hover:text-[#1d1d1f] transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/#about" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">About Us</Link></li>
+                <li><Link href="/#process" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Our Process</Link></li>
+                <li><Link href="/projects" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Projects</Link></li>
+                <li><Link href="/#contact" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Contact</Link></li>
+                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
 
           </div>
 
-          <div className="border-t border-black/10 pt-8 flex flex-col items-center md:flex-row md:justify-between text-center md:text-left">
+          <div className="border-t border-black/10 dark:border-white/10 pt-8 flex flex-col items-center md:flex-row md:justify-between text-center md:text-left">
             <Link href="/" className="md:hidden flex items-center gap-2 group mb-6">
-               <Logo className="w-6 h-6 text-[#1d1d1f]" />
-               <span className="font-display font-bold text-xl tracking-wide text-[#1d1d1f]">wedigitlize</span>
+               <Logo className="w-6 h-6 text-[#1d1d1f] dark:text-white" />
+               <span className="font-display font-bold text-xl tracking-wide text-[#1d1d1f] dark:text-white">wedigitlize</span>
             </Link>
-            <div className="flex flex-col text-[#3c3c43] text-xs md:text-sm mb-4 md:mb-0">
+            <div className="flex flex-col text-[#3c3c43] dark:text-white/70 text-xs md:text-sm mb-4 md:mb-0">
               <span>© {new Date().getFullYear()} wedigitlize. All rights reserved.</span>
               <span className="mt-1 opacity-75">WEDIGITLIZE LTD | Company number 17465598</span>
             </div>
-            <div className="hidden md:flex items-center gap-2 text-sm text-[#3c3c43]">
-              Made with <Logo className="w-4 h-4 text-[#1d1d1f]" /> by wedigitlize
+            <div className="hidden md:flex items-center gap-2 text-sm text-[#3c3c43] dark:text-white/70">
+              Made with <Logo className="w-4 h-4 text-[#1d1d1f] dark:text-white" /> by wedigitlize
             </div>
           </div>
         </div>
