@@ -270,33 +270,31 @@ export default function Pricing() {
             >
                
                {/* RIGHT COLUMN (Mobile: Top) - AVAILABLE MODULES */}
-               <div className="w-full lg:w-7/12 flex flex-col gap-6 lg:gap-8">
+               <div className="w-full lg:w-7/12 flex flex-col gap-4">
                   {categories.map(category => (
-                    <div key={category}>
-                       <h5 className="text-[10px] font-bold text-black/50 mb-3 uppercase tracking-widest flex items-center gap-4">
-                         {category} <div className="h-px bg-black/5 flex-1" />
+                    <div key={category} className="bg-black/[0.02] border border-black/5 rounded-2xl p-4">
+                       <h5 className="text-[10px] font-bold text-black/40 mb-3 uppercase tracking-widest">
+                         {category}
                        </h5>
-                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                       <div className="flex flex-wrap gap-2">
                          {CUSTOM_ITEMS.filter(i => i.category === category).map(item => {
                             const isSelected = selectedItems.includes(item.id);
-                            if (isSelected) return <div key={item.id} className="h-[76px]" />; // Placeholder to maintain grid
+                            if (isSelected) return null;
                             
                             return (
                               <motion.div 
                                 layoutId={`item-${item.id}`}
                                 key={item.id}
                                 onClick={() => toggleItem(item.id)}
-                                className="bg-white border border-black/5 p-3 md:p-4 rounded-xl flex items-center justify-between cursor-pointer hover:border-black/20 hover:bg-white transition-colors shadow-lg active:scale-95 group"
+                                className="bg-white border border-black/10 pl-3 pr-2 py-1.5 rounded-full flex items-center gap-3 cursor-pointer hover:border-black/20 hover:bg-[#f5f5f7] transition-all shadow-sm active:scale-95 group w-max"
                               >
-                                <div>
-                                  <h6 className="font-bold text-black text-xs md:text-sm">{item.title}</h6>
-                                  <div className="text-[10px] md:text-xs text-black/50 font-mono mt-0.5 font-semibold">
-                                    {item.price > 0 && `£${item.price} `}
-                                    {item.monthly > 0 && `(+£${item.monthly}/mo)`}
-                                  </div>
-                                </div>
-                                <div className="w-8 h-8 rounded-full border border-black/10 flex items-center justify-center text-black/50 shrink-0 group-hover:bg-primary group-hover:text-black group-hover:border-primary transition-colors">
-                                  <Plus size={14} />
+                                <span className="font-bold text-black text-xs whitespace-nowrap">{item.title}</span>
+                                <span className="text-[10px] text-black/50 font-mono font-semibold whitespace-nowrap">
+                                  {item.price > 0 && `£${item.price}`}
+                                  {item.monthly > 0 && ` (+£${item.monthly}/mo)`}
+                                </span>
+                                <div className="w-5 h-5 rounded-full bg-black/5 flex items-center justify-center text-black/50 shrink-0 group-hover:bg-primary group-hover:text-white transition-colors ml-1">
+                                  <Plus size={10} strokeWidth={3} />
                                 </div>
                               </motion.div>
                             )
