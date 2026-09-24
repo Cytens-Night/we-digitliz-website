@@ -165,11 +165,16 @@ export default function ProjectsPage() {
                            <div className="absolute inset-0 bg-white/5 rounded-[2.5rem] md:rounded-[3.5rem] pointer-events-none z-30" />
                            
                            {/* Screen */}
-                           <div className="relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-[#161a22]">
+                           <div className="relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-[#161a22]" style={{ containerType: 'inline-size' }}>
                               <iframe 
                                 src={project.url} 
                                 title={project.name}
-                                className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none"
+                                className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
+                                style={{
+                                  width: '400px',
+                                  height: '800px',
+                                  transform: 'scale(calc(100cqi / 400))'
+                                }}
                               />
                            </div>
                          </motion.div>
@@ -187,12 +192,16 @@ export default function ProjectsPage() {
                             <div className="relative w-full aspect-video bg-[#0a0a0a] rounded-t-xl md:rounded-t-2xl p-2 md:p-3 border-t border-l border-r border-[#333] shadow-[0_20px_40px_rgba(0,0,0,0.8)] z-10">
                                <div className="absolute top-1 left-1/2 -translate-x-1/2 w-1 md:w-1.5 h-1 md:h-1.5 bg-[#222] rounded-full z-20" />
                                
-                               <div className="relative w-full h-full rounded-md md:rounded-lg overflow-hidden bg-[#161a22] border border-[#222]">
+                               <div className="relative w-full h-full rounded-md md:rounded-lg overflow-hidden bg-[#161a22] border border-[#222]" style={{ containerType: 'inline-size' }}>
                                   <iframe 
                                     src={project.url} 
                                     title={project.name}
-                                    className="absolute inset-0 w-full h-full z-10 bg-white pointer-events-none scale-[0.8] md:scale-100 origin-top-left"
-                                    style={{ width: '125%', height: '125%' }} 
+                                    className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
+                                    style={{ 
+                                      width: '1440px', 
+                                      height: '810px',
+                                      transform: 'scale(calc(100cqi / 1440))'
+                                    }} 
                                   />
                                </div>
                                
