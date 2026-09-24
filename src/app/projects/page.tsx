@@ -169,6 +169,8 @@ export default function ProjectsPage() {
                               <iframe 
                                 src={project.url} 
                                 title={project.name}
+                                loading="lazy"
+                                sandbox="allow-scripts allow-same-origin"
                                 className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
                                 style={{
                                   width: '400px',
@@ -196,6 +198,8 @@ export default function ProjectsPage() {
                                   <iframe 
                                     src={project.url} 
                                     title={project.name}
+                                    loading="lazy"
+                                    sandbox="allow-scripts allow-same-origin"
                                     className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
                                     style={{ 
                                       width: '1440px', 
