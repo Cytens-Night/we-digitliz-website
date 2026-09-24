@@ -308,10 +308,10 @@ export default function Pricing() {
 
                {/* LEFT COLUMN (Mobile: Bottom) - THE BLUEPRINT CART */}
                <div className="w-full lg:w-5/12 relative lg:sticky lg:top-32 z-20">
-                  <div className="w-full min-h-[400px] lg:min-h-[600px] rounded-[2.5rem] bg-[#161a22] border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] p-6 md:p-8 flex flex-col relative overflow-hidden">
+                  <div className="w-full min-h-[350px] lg:min-h-[450px] rounded-[2.5rem] bg-[#161a22] border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] p-5 md:p-6 flex flex-col relative overflow-hidden">
                     
                     <div className="relative z-10 flex-1 flex flex-col">
-                      <div className="flex items-center justify-between border-b border-white/10 pb-6 mb-6">
+                      <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                         <h4 className="text-xl font-display font-bold text-white tracking-wide">Your Architecture</h4>
                         <span className="px-3 py-1 bg-white/10 rounded-full text-xs font-bold text-white">
                           {selectedItems.length} Modules
@@ -319,17 +319,17 @@ export default function Pricing() {
                       </div>
 
                       {/* Selected Items List */}
-                      <div className="flex-1 flex flex-col gap-3 min-h-[200px] lg:min-h-[300px]">
+                      <div className="flex-1 flex flex-wrap content-start gap-2 min-h-[150px] lg:min-h-[200px]">
                          <AnimatePresence>
                            {selectedItems.length === 0 && (
                              <motion.div 
                                initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                               className="flex-1 flex flex-col items-center justify-center text-center px-4 md:px-8 py-8"
+                               className="w-full h-full flex flex-col items-center justify-center text-center px-4 py-8"
                              >
-                                <div className="w-16 h-16 rounded-full border border-dashed border-white/20 flex items-center justify-center mb-6">
-                                  <Plus size={24} className="text-white/20" />
+                                <div className="w-12 h-12 rounded-full border border-dashed border-white/20 flex items-center justify-center mb-4">
+                                  <Plus size={20} className="text-white/20" />
                                 </div>
-                                <p className="text-white/40 font-medium text-sm md:text-base leading-relaxed">Select modules from the left to begin constructing your bespoke architecture.</p>
+                                <p className="text-white/40 font-medium text-xs md:text-sm leading-relaxed max-w-[250px]">Select modules from the left to begin constructing your architecture.</p>
                              </motion.div>
                            )}
                          </AnimatePresence>
@@ -341,17 +341,17 @@ export default function Pricing() {
                                layoutId={`item-${item.id}`}
                                key={item.id}
                                onClick={() => toggleItem(item.id)}
-                               className="bg-white text-black p-4 md:p-5 rounded-2xl flex items-center justify-between cursor-pointer group shadow-[0_10px_20px_rgba(255,255,255,0.1)] active:scale-95 transition-transform"
+                               className="bg-white text-black px-3 py-2 rounded-full flex items-center gap-3 cursor-pointer group shadow-lg hover:shadow-xl active:scale-95 transition-all h-max"
                              >
-                               <div>
-                                 <h6 className="font-bold text-sm md:text-base">{item.title}</h6>
-                                 <div className="text-xs md:text-sm text-black/60 font-mono mt-1 font-bold">
+                               <div className="flex flex-col">
+                                 <span className="font-bold text-xs">{item.title}</span>
+                                 <span className="text-[9px] text-black/60 font-mono font-bold uppercase tracking-wider">
                                    {item.price > 0 && `£${item.price} `}
                                    {item.monthly > 0 && `(+£${item.monthly}/mo)`}
-                                 </div>
+                                 </span>
                                </div>
-                               <div className="w-8 h-8 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors shrink-0">
-                                 <Minus size={14} />
+                               <div className="w-6 h-6 rounded-full bg-black/5 flex items-center justify-center group-hover:bg-red-500 group-hover:text-white transition-colors shrink-0">
+                                 <Minus size={12} />
                                </div>
                              </motion.div>
                            )
