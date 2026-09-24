@@ -270,9 +270,9 @@ export default function CardPage() {
                   
                   {/* Camera Bump */}
                   <div className="camera-bump">
-                    <div className="camera-lens" />
-                    <div className="camera-lens" />
-                    <div className="camera-lens" style={{ marginLeft: '25px' }} />
+                    <div className="camera-lens lens-1" />
+                    <div className="camera-lens lens-2" />
+                    <div className="camera-lens lens-3" />
                     <div className="camera-flash" />
                     <div className="camera-lidar" />
                   </div>
