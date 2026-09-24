@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss, Star } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
@@ -99,6 +99,8 @@ export default function CardPage() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showWebsitePreview, setShowWebsitePreview] = useState(false);
   const [showEmailMenu, setShowEmailMenu] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const phone = "+447584296946";
   const email = "info@wedigitlize.com";
@@ -145,6 +147,15 @@ export default function CardPage() {
       } else {
         showToast("To reinstall: tap your browser's menu and select 'Install App'.");
       }
+    }
+  };
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const scrollPosition = scrollContainerRef.current.scrollLeft;
+      const width = scrollContainerRef.current.offsetWidth;
+      const newSlide = Math.round(scrollPosition / width);
+      setActiveSlide(newSlide);
     }
   };
 
@@ -335,38 +346,87 @@ export default function CardPage() {
                     <X size={18} />
                   </button>
                   
-                  <div className="flex flex-col items-center justify-center h-full w-full px-6 pt-20">
-                    <h3 className="text-xl font-display font-bold text-white mb-2 uppercase tracking-widest text-center">
-                      Share Card
-                    </h3>
-                    <p className="text-[10px] text-white/50 uppercase tracking-[0.2em] mb-8 text-center max-w-[200px]">
-                      Scan to download contact details instantly.
-                    </p>
-                    
-                    <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
-                      <QRCodeSVG 
-                        value="https://wedigitlize.com/card" 
-                        size={160} 
-                        fgColor="#0a0a0a"
-                        bgColor="#ffffff"
-                        level="H"
-                        imageSettings={{
-                          src: "/favicon.svg",
-                          x: undefined,
-                          y: undefined,
-                          height: 35,
-                          width: 35,
-                          excavate: true,
-                        }}
-                      />
+                  <div className="flex flex-col items-center justify-center h-full w-full pt-16">
+                    {/* Dynamic Header */}
+                    <div className="h-[60px] flex flex-col justify-center items-center px-4 w-full">
+                      <h3 className="text-xl font-display font-bold text-white mb-1 uppercase tracking-widest text-center transition-all">
+                        {activeSlide === 0 ? "Share Card" : activeSlide === 1 ? "Instagram" : "Review Us"}
+                      </h3>
+                      <p className="text-[10px] text-white/50 uppercase tracking-[0.2em] text-center max-w-[220px] transition-all">
+                        {activeSlide === 0 ? "Scan to download contact details." : activeSlide === 1 ? "Scan to follow our latest updates." : "Scan to leave us a review."}
+                      </p>
+                    </div>
+
+                    {/* QR Code Horizontal Slider */}
+                    <div className="relative w-full overflow-hidden mt-2">
+                      <div 
+                        ref={scrollContainerRef}
+                        onScroll={handleScroll}
+                        className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 pt-2"
+                        style={{ scrollBehavior: 'smooth' }}
+                      >
+                        {/* Slide 0: Contact */}
+                        <div className="min-w-full flex justify-center snap-center px-12">
+                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                            <QRCodeSVG 
+                              value="https://wedigitlize.com/card" 
+                              size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
+                              imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Slide 1: Instagram */}
+                        <div className="min-w-full flex justify-center snap-center px-12">
+                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                            <QRCodeSVG 
+                              value="https://instagram.com/wedigitliz" 
+                              size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
+                              imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Slide 2: Google Reviews */}
+                        <div className="min-w-full flex justify-center snap-center px-12">
+                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                            <QRCodeSVG 
+                              value="https://g.page/r/placeholder" 
+                              size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
+                              imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Slide Indicators */}
+                    <div className="flex gap-2 mb-6">
+                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${activeSlide === 0 ? 'bg-white w-4' : 'bg-white/30'}`} />
+                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${activeSlide === 1 ? 'bg-white w-4' : 'bg-white/30'}`} />
+                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${activeSlide === 2 ? 'bg-white w-4' : 'bg-white/30'}`} />
                     </div>
                     
-                    <button 
-                      onClick={handleSaveContact} 
-                      className="neon-button primary mt-12 w-full max-w-[80%]"
-                    >
-                      <UserPlus size={16} /> Save Contact
-                    </button>
+                    {/* Dynamic Action Button */}
+                    <div className="h-12 w-full flex justify-center px-8 relative">
+                      <div className={`absolute w-full px-8 transition-all duration-300 ${activeSlide === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}>
+                        <button onClick={handleSaveContact} className="w-full bg-[#007AFF] text-white py-3 rounded-full font-display font-semibold text-sm tracking-wide shadow-[0_0_20px_rgba(0,122,255,0.4)] hover:shadow-[0_0_30px_rgba(0,122,255,0.6)] transition-all flex items-center justify-center gap-2">
+                          <UserPlus size={16} /> SAVE CONTACT
+                        </button>
+                      </div>
+                      
+                      <div className={`absolute w-full px-8 transition-all duration-300 ${activeSlide === 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}>
+                        <a href="https://instagram.com/wedigitliz" target="_blank" rel="noreferrer" className="w-full bg-gradient-to-r from-[#833AB4] via-[#FD1D1D] to-[#F56040] text-white py-3 rounded-full font-display font-semibold text-sm tracking-wide shadow-[0_0_20px_rgba(225,48,108,0.4)] hover:shadow-[0_0_30px_rgba(225,48,108,0.6)] transition-all flex items-center justify-center gap-2">
+                          <FiInstagram size={16} /> FOLLOW US
+                        </a>
+                      </div>
+                      
+                      <div className={`absolute w-full px-8 transition-all duration-300 ${activeSlide === 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-90 pointer-events-none'}`}>
+                        <a href="https://g.page/r/placeholder" target="_blank" rel="noreferrer" className="w-full bg-white text-[#0a0a0a] py-3 rounded-full font-display font-bold text-sm tracking-wide shadow-[0_0_20px_rgba(255,255,255,0.4)] hover:shadow-[0_0_30px_rgba(255,255,255,0.6)] transition-all flex items-center justify-center gap-2">
+                          <Star size={16} className="fill-[#FBBC05] text-[#FBBC05]" /> LEAVE A REVIEW
+                        </a>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
