@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
@@ -98,6 +98,7 @@ export default function CardPage() {
   const [scale, setScale] = useState(1);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showWebsitePreview, setShowWebsitePreview] = useState(false);
+  const [showEmailMenu, setShowEmailMenu] = useState(false);
 
   const phone = "+447584296946";
   const email = "info@wedigitlize.com";
@@ -277,9 +278,25 @@ export default function CardPage() {
                       <a href={`tel:${phone}`} className="neon-button">
                         <Phone size={16} /> {phone}
                       </a>
-                      <button onClick={handleCopyEmail} className="neon-button">
-                        <Mail size={16} /> Email Us
-                      </button>
+                      
+                      {/* Email Action Menu */}
+                      <div className="relative w-full z-20">
+                        <button onClick={() => setShowEmailMenu(!showEmailMenu)} className="neon-button w-full">
+                          <Mail size={16} /> Email Us
+                        </button>
+                        
+                        <div className={`email-dropdown-menu ${showEmailMenu ? 'active' : ''}`}>
+                          <a href="mailto:info@wedigitlize.com" onClick={() => setShowEmailMenu(false)} className="email-dropdown-item">
+                            <Mail size={14} /> Email Us Directly
+                          </a>
+                          <button onClick={(e) => { handleCopyEmail(e); setShowEmailMenu(false); }} className="email-dropdown-item">
+                            <Copy size={14} /> Copy Email Address
+                          </button>
+                          <a href="mailto:info@wedigitlize.com?subject=Subscribe to Email Marketing" onClick={() => setShowEmailMenu(false)} className="email-dropdown-item">
+                            <Rss size={14} /> Subscribe to Marketing
+                          </a>
+                        </div>
+                      </div>
                     </div>
                     
                     {/* Social Dock */}
