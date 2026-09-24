@@ -107,13 +107,22 @@ export default function CardPage() {
 
   useEffect(() => {
     const handleResize = () => {
-      setRadius(window.innerWidth < 768 ? 140 : 320);
+      const isMobile = window.innerWidth < 768;
+      const currentRadius = isMobile ? 240 : 380;
+      setRadius(currentRadius);
       
       const vh = window.innerHeight;
       const vw = window.innerWidth;
-      // Phone is 360x740. Fit within 85% height and 90% width. Max scale 1.2.
-      const heightScale = (vh * 0.85) / 740;
-      const widthScale = (vw * 0.90) / 360;
+      
+      // Calculate total required width and height including bubbles
+      const bubbleSize = isMobile ? 100 : 160;
+      const sceneWidth = (currentRadius + bubbleSize / 2) * 2;
+      const sceneHeight = Math.max(740, (currentRadius + bubbleSize / 2) * 2);
+      
+      // Fit within 90% of screen width and 85% of screen height
+      const heightScale = (vh * 0.85) / sceneHeight;
+      const widthScale = (vw * 0.90) / sceneWidth;
+      
       setScale(Math.min(heightScale, widthScale, 1.2));
     };
     handleResize();
@@ -432,35 +441,29 @@ export default function CardPage() {
 
              </div>
           </div>
+
+          {/* Orbiting Service Bubbles */}
+          {services.map((service, index) => {
+            const angle = (index / services.length) * 2 * Math.PI - Math.PI / 2;
+            const x = Math.cos(angle) * radius;
+            let y = Math.sin(angle) * radius;
+
+            return (
+              <div 
+                key={service.id} 
+                className={`mockup-bubble pointer-events-auto ${isExploded ? 'exploded' : ''}`}
+                style={{ 
+                  '--target-x': `${x}px`,
+                  '--target-y': `${y}px`,
+                  transitionDelay: `${index * 0.1}s`
+                } as React.CSSProperties}
+              >
+                <service.icon size={32} />
+                <span>{service.title}</span>
+              </div>
+            );
+          })}
         </div>
-
-        {/* Orbiting Service Bubbles */}
-        {services.map((service, index) => {
-          const angle = (index / services.length) * 2 * Math.PI - Math.PI / 2;
-          const x = Math.cos(angle) * radius;
-          let y = Math.sin(angle) * radius;
-
-          // Adjust positions on mobile to avoid overlapping the central card
-          if (typeof window !== 'undefined' && window.innerWidth < 768) {
-            if (index === 0) y -= 40;
-            if (index === 2) y += 80;
-          }
-
-          return (
-            <div 
-              key={service.id} 
-              className={`mockup-bubble ${isExploded ? 'exploded' : ''}`}
-              style={{ 
-                '--target-x': `${x}px`,
-                '--target-y': `${y}px`,
-                transitionDelay: `${index * 0.1}s`
-              } as React.CSSProperties}
-            >
-              <service.icon size={32} />
-              <span>{service.title}</span>
-            </div>
-          );
-        })}
 
       </div>
 
