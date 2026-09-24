@@ -693,3 +693,15 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Fix floating buttons when the phone is flipped (shadow thickness changes) */
+.phone-body.flipped .silent-switch,
+.phone-body.flipped .volume-up,
+.phone-body.flipped .volume-down,
+.phone-body.flipped .power-button {
+  right: -4px;
+}
+
+.phone-body.flipped .sim-tray-trigger {
+  right: -6px; /* slightly thicker */
+}
