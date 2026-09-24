@@ -194,7 +194,7 @@ export default function Navbar() {
           </Link>
 
           <div className="flex flex-col gap-2 w-full relative">
-            {navLinks.map((link) => {
+            {navLinks.filter(link => link.name !== "Home").map((link) => {
               const isActive = activeTab === link.name;
               const Icon = link.icon;
               return (
