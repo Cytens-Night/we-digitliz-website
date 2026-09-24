@@ -42,7 +42,7 @@ export default function Process() {
   const cometY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section id="process" ref={sectionRef} className="py-16 md:py-32 bg-black relative overflow-hidden border-t border-black/15">
+    <section id="process" ref={sectionRef} className="py-16 md:py-32 bg-[#f5f5f7] relative overflow-hidden border-t border-black/15">
       
       {/* Brutalist Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[1px] bg-black/10 pointer-events-none" />
