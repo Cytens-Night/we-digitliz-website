@@ -102,7 +102,10 @@ export default function About() {
               </div>
               <div className="w-full lg:w-1/2 h-[35vh] lg:h-[50vh] bg-[#0a0a0a] rounded-[3rem] border border-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.1)] overflow-hidden relative flex items-center justify-center group shrink-0">
                  {/* Grid Pattern with solid opacity instead of gradient mask */}
-                 <div className="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')] bg-[size:2rem_2rem]" />
+                 <div 
+                   className="absolute inset-0 opacity-10 bg-[size:2rem_2rem]" 
+                   style={{ backgroundImage: "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+PHBhdGggZD0iTTAgMGg0MHY0MEgweiIgZmlsbD0ibm9uZSIvPPHBhdGggZD0iTTAgMGg0MHYxSDB6TTAgMHY0MGgxVjB6IiBmaWxsPSJyZ2JhKDI5LCAyOSwgMzEsIDEpIi8+PC9zdmc+')" }}
+                 />
                  
                  <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} className="absolute w-[80%] lg:w-[70%] aspect-square border border-white/10 rounded-full border-dashed" />
                  <motion.div animate={{ rotate: -360 }} transition={{ duration: 15, repeat: Infinity, ease: "linear" }} className="absolute w-[60%] lg:w-[50%] aspect-square border border-black/15 rounded-full" />
