@@ -188,7 +188,7 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => { setIsHovered(false); setMousePos({ x: 0, y: 0 }); }}
-      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center justify-between bg-[#161a22] relative group ${index === total - 1 ? 'md:mb-0' : 'md:mb-[60vh]'} mb-12`}
+      className={`md:sticky md:h-[75vh] w-full rounded-[2.5rem] md:rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row items-center justify-between bg-[#161a22] relative group ${index === total - 1 ? 'md:mb-[40vh]' : 'md:mb-[60vh]'} mb-12`}
     >
       {/* Background Image with Parallax/Hover */}
       <div 
