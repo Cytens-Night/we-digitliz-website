@@ -1,9 +1,22 @@
+"use client";
+
 import Link from "next/link";
+import React, { useState } from "react";
 import { FaXTwitter, FaInstagram, FaLinkedin } from "react-icons/fa6";
 import { Home, Briefcase, Mail, Info } from "lucide-react";
 import Logo from "@/components/ui/Logo";
+import LegalModal, { LegalTab } from "@/components/ui/LegalModal";
 
 export default function Footer() {
+  const [isLegalModalOpen, setIsLegalModalOpen] = useState(false);
+  const [activeLegalTab, setActiveLegalTab] = useState<LegalTab>('privacy');
+
+  const openLegalModal = (tab: LegalTab, e: React.MouseEvent) => {
+    e.preventDefault();
+    setActiveLegalTab(tab);
+    setIsLegalModalOpen(true);
+  };
+
   return (
     <>
       <footer className="bg-background transition-colors duration-1000 pt-20 pb-32 md:pb-10 border-t border-black/5 dark:border-white/5 relative z-10">
@@ -13,7 +26,7 @@ export default function Footer() {
             
             <div className="col-span-1">
               <Link href="/" className="flex items-center gap-2 group mb-6">
-                <Logo className="w-8 h-8 text-[#1d1d1f] dark:text-white group-hover:text-[#1d1d1f] dark:hover:text-white dark:text-white transition-colors" />
+                <Logo className="w-8 h-8 text-[#1d1d1f] dark:text-white group-hover:text-[#1d1d1f] dark:hover:text-white transition-colors" />
                 <span className="font-display font-bold text-2xl tracking-wide text-[#1d1d1f] dark:text-white">wedigitlize</span>
               </Link>
               <p className="text-[#3c3c43] dark:text-white/70 text-sm leading-relaxed mb-6">
@@ -73,11 +86,11 @@ export default function Footer() {
               <span>© {new Date().getFullYear()} wedigitlize. All rights reserved.</span>
               <span className="mt-1 opacity-75">WEDIGITLIZE LTD | Company number 17465598</span>
               <div className="flex items-center gap-3 mt-3 justify-center md:justify-start flex-wrap">
-                <Link href="/privacy-policy" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Privacy Policy</Link>
+                <button onClick={(e) => openLegalModal('privacy', e)} className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-inherit font-inherit text-xs md:text-sm">Privacy & Data</button>
                 <span className="opacity-50 hidden sm:inline">•</span>
-                <Link href="/terms-of-service" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Terms of Service</Link>
+                <button onClick={(e) => openLegalModal('terms', e)} className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-inherit font-inherit text-xs md:text-sm">Terms of Service</button>
                 <span className="opacity-50 hidden sm:inline">•</span>
-                <Link href="/cookie-policy" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Cookie Policy</Link>
+                <button onClick={(e) => openLegalModal('cookies', e)} className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-inherit font-inherit text-xs md:text-sm">Cookie Policy</button>
               </div>
             </div>
             <div className="hidden md:flex items-center gap-2 text-sm text-[#3c3c43] dark:text-white/70">
@@ -86,6 +99,12 @@ export default function Footer() {
           </div>
         </div>
       </footer>
+      
+      <LegalModal 
+        isOpen={isLegalModalOpen} 
+        onClose={() => setIsLegalModalOpen(false)} 
+        defaultTab={activeLegalTab} 
+      />
     </>
   );
 }

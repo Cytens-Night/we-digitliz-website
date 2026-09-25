@@ -4,10 +4,18 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Mail, ArrowRight } from 'lucide-react';
 
+import { usePathname } from 'next/navigation';
+
 export default function NewsletterPopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const pathname = usePathname();
+
+  // Don't render on business card page
+  if (pathname?.startsWith('/card')) {
+    return null;
+  }
 
   useEffect(() => {
     // Check if user has already dismissed or signed up
