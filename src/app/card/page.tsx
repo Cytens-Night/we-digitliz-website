@@ -603,7 +603,7 @@ export default function CardPage() {
                   '--target-y': `${finalY}px`,
                   '--target-z': `${z}px`,
                   transitionDelay: `${index * 0.1}s`,
-                  viewTransitionName: selectedProject === service.id ? 'project-title' : 'none'
+                  viewTransitionName: selectedProject === service.id ? 'none' : `project-title-${service.id}`
                 } as React.CSSProperties}
                 aria-label={service.title}
               >
@@ -647,7 +647,7 @@ export default function CardPage() {
             >
               <X size={32} />
             </button>
-            <h1 className="text-5xl font-bold mb-4" style={{ viewTransitionName: 'project-title' }}>
+            <h1 className="text-5xl font-bold mb-4" style={{ viewTransitionName: `project-title-${selectedProject}` }}>
               {services.find(s => s.id === selectedProject)?.title}
             </h1>
             <p className="text-xl text-white/60 mb-12">Detailed case studies and interactive galleries coming soon.</p>
