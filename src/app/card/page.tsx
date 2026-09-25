@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss, Star } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
@@ -483,16 +483,40 @@ export default function CardPage() {
                     </div>
 
                     {/* QR Code Horizontal Slider */}
-                    <div className="relative w-full overflow-hidden mt-2">
+                    <div className="relative w-full overflow-hidden mt-2 group">
+                      
+                      {/* Navigation Arrows (Desktop) */}
+                      <button 
+                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex hover:bg-white/40"
+                        onClick={() => {
+                          if (scrollContainerRef.current) {
+                            scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
+                          }
+                        }}
+                      >
+                        <ChevronLeft size={20} />
+                      </button>
+                      
+                      <button 
+                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex hover:bg-white/40"
+                        onClick={() => {
+                          if (scrollContainerRef.current) {
+                            scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
+                          }
+                        }}
+                      >
+                        <ChevronRight size={20} />
+                      </button>
+
                       <div 
                         ref={scrollContainerRef}
                         onScroll={handleScroll}
-                        className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 pt-2"
+                        className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 pt-2 px-[10%]"
                         style={{ scrollBehavior: 'smooth' }}
                       >
                         {/* Slide 0: Contact */}
-                        <div className="min-w-full flex justify-center snap-center px-12">
-                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                        <div className="min-w-[100%] sm:min-w-[80%] flex justify-center snap-center px-2">
+                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-transform duration-300 hover:scale-105">
                             <QRCodeSVG 
                               value="https://wedigitlize.com/card" 
                               size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
@@ -502,8 +526,8 @@ export default function CardPage() {
                         </div>
 
                         {/* Slide 1: Instagram */}
-                        <div className="min-w-full flex justify-center snap-center px-12">
-                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                        <div className="min-w-[100%] sm:min-w-[80%] flex justify-center snap-center px-2">
+                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-transform duration-300 hover:scale-105">
                             <QRCodeSVG 
                               value="https://instagram.com/wedigitliz" 
                               size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
@@ -513,8 +537,8 @@ export default function CardPage() {
                         </div>
 
                         {/* Slide 2: Google Reviews */}
-                        <div className="min-w-full flex justify-center snap-center px-12">
-                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+                        <div className="min-w-[100%] sm:min-w-[80%] flex justify-center snap-center px-2">
+                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-transform duration-300 hover:scale-105">
                             <QRCodeSVG 
                               value="https://g.page/r/placeholder" 
                               size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
