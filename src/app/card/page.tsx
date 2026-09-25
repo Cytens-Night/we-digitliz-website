@@ -96,7 +96,7 @@ export default function CardPage() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [radius, setRadius] = useState(380);
   const [scale, setScale] = useState(1);
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const deferredPromptRef = useRef<any>(null);
   const [isAppInstalled, setIsAppInstalled] = useState(false);
   const [showWebsitePreview, setShowWebsitePreview] = useState(false);
   const [showEmailMenu, setShowEmailMenu] = useState(false);
@@ -198,7 +198,7 @@ export default function CardPage() {
 
     const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+      deferredPromptRef.current = e;
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
@@ -209,7 +209,7 @@ export default function CardPage() {
     
     const handleAppInstalled = () => {
       setIsAppInstalled(true);
-      setDeferredPrompt(null);
+      deferredPromptRef.current = null;
     };
     window.addEventListener('appinstalled', handleAppInstalled);
 
@@ -221,14 +221,14 @@ export default function CardPage() {
   }, []);
 
   const handleInstallClick = async () => {
-    if (deferredPrompt) {
+    if (deferredPromptRef.current) {
       try {
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
+        deferredPromptRef.current.prompt();
+        await deferredPromptRef.current.userChoice;
       } catch (err) {
         console.error("Install prompt failed:", err);
       }
-      setDeferredPrompt(null);
+      deferredPromptRef.current = null;
     } else {
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
       if (isIOS) {

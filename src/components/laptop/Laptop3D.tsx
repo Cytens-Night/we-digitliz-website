@@ -156,21 +156,21 @@ export default function Laptop3D() {
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: any) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+      deferredPromptRef.current = e;
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
   }, []);
 
   const handleInstallClick = async () => {
-    if (deferredPrompt) {
+    if (deferredPromptRef.current) {
       try {
-        deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
+        deferredPromptRef.current.prompt();
+        await deferredPromptRef.current.userChoice;
       } catch (err) {
         console.error("Install prompt failed:", err);
       }
-      setDeferredPrompt(null);
+      deferredPromptRef.current = null;
     } else {
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
       if (isIOS) {
