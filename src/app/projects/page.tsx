@@ -11,6 +11,7 @@ const PROJECTS = [
     id: "shakur", 
     name: "Shakur Fragrances", 
     url: "https://card.shakurfragrances.co.uk/", 
+    image: "/images/projects/shakur_mobile.jpg",
     type: "Digital Business Card", 
     desc: "A premium 3D digital business card featuring native e-commerce and offline NFC integration.",
     year: "2024",
@@ -20,6 +21,7 @@ const PROJECTS = [
     id: "furqan-sweets", 
     name: "Furqan Sweets", 
     url: "https://furqansweets.co.uk/", 
+    image: "/images/projects/furqan_desktop.jpg",
     type: "E-Commerce Architecture", 
     desc: "A high-performance e-commerce storefront optimized for conversion and rapid load times.",
     year: "2024",
@@ -29,6 +31,7 @@ const PROJECTS = [
     id: "hesori", 
     name: "Hesori", 
     url: "https://hesori.com", 
+    image: "/images/projects/hesori_desktop.jpg",
     type: "Agency Platform", 
     desc: "A sleek, modern web architecture showcasing premium brand identity and dynamic layouts.",
     year: "2024",
@@ -38,6 +41,7 @@ const PROJECTS = [
     id: "marshalos", 
     name: "Marshalos", 
     url: "https://marshalos.co.uk", 
+    image: "/images/projects/marshalos_desktop.jpg",
     type: "Dashboard & UI", 
     desc: "A complete digital transformation delivering seamless user experience and robust functionality.",
     year: "2023",
@@ -166,18 +170,26 @@ export default function ProjectsPage() {
                            
                            {/* Screen */}
                            <div className="relative w-full h-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-[#161a22]" style={{ containerType: 'inline-size' }}>
-                              <iframe 
-                                src={project.url} 
-                                title={project.name}
-                                loading="lazy"
-                                sandbox="allow-scripts allow-same-origin"
-                                className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
-                                style={{
-                                  width: '400px',
-                                  height: '800px',
-                                  transform: 'scale(calc(100cqi / 400px))'
-                                }}
-                              />
+                               {project.image ? (
+                                  <img 
+                                    src={project.image} 
+                                    alt={project.name}
+                                    className="absolute inset-0 w-full h-full object-cover origin-top"
+                                  />
+                               ) : (
+                                  <iframe 
+                                    src={project.url} 
+                                    title={project.name}
+                                    loading="lazy"
+                                    sandbox="allow-scripts allow-same-origin"
+                                    className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
+                                    style={{
+                                      width: '400px',
+                                      height: '800px',
+                                      transform: 'scale(calc(100cqi / 400px))'
+                                    }}
+                                  />
+                               )}
                            </div>
                          </motion.div>
                        </div>
@@ -195,18 +207,26 @@ export default function ProjectsPage() {
                                <div className="absolute top-1 left-1/2 -translate-x-1/2 w-1 md:w-1.5 h-1 md:h-1.5 bg-[#222] rounded-full z-20" />
                                
                                <div className="relative w-full h-full rounded-md md:rounded-lg overflow-hidden bg-[#161a22] border border-[#222]" style={{ containerType: 'inline-size' }}>
-                                  <iframe 
-                                    src={project.url} 
-                                    title={project.name}
-                                    loading="lazy"
-                                    sandbox="allow-scripts allow-same-origin"
-                                    className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
-                                    style={{ 
-                                      width: '1440px', 
-                                      height: '810px',
-                                      transform: 'scale(calc(100cqi / 1440px))'
-                                    }} 
-                                  />
+                                  {project.image ? (
+                                    <img 
+                                      src={project.image} 
+                                      alt={project.name}
+                                      className="absolute inset-0 w-full h-full object-cover origin-top"
+                                    />
+                                  ) : (
+                                    <iframe 
+                                      src={project.url} 
+                                      title={project.name}
+                                      loading="lazy"
+                                      sandbox="allow-scripts allow-same-origin"
+                                      className="absolute top-0 left-0 bg-white pointer-events-none origin-top-left"
+                                      style={{ 
+                                        width: '1440px', 
+                                        height: '810px',
+                                        transform: 'scale(calc(100cqi / 1440px))'
+                                      }} 
+                                    />
+                                  )}
                                </div>
                                
                                <div className="absolute bottom-0 left-0 w-full h-3 md:h-6 bg-[#111] rounded-b-xl md:rounded-b-2xl border-b border-[#333]" />
