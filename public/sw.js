@@ -8,6 +8,7 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // Pass through all requests to network
-  e.respondWith(fetch(e.request));
+  // Empty fetch handler to satisfy PWA installability criteria
+  // without interfering with the browser's default network behavior
+  // and avoiding unhandled promise rejections on network errors.
 });
