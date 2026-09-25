@@ -292,7 +292,7 @@ export default function CardPage() {
       >
         
         {/* SVG Filters */}
-        <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+        <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
           <filter id="plasma">
             <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
             <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 15 -3" in="noise" result="coloredNoise" />
@@ -612,7 +612,7 @@ export default function CardPage() {
             return (
               <button 
                 key={service.id} 
-                className={`mockup-bubble pointer-events-auto ${isExploded ? 'exploded' : ''}`}
+                className={`mockup-bubble ${isExploded ? 'exploded' : ''}`}
                 onMouseEnter={() => {
                   setHoveredService(service.id);
                   playSpatialAudio(finalX);
