@@ -633,6 +633,7 @@ export default function CardPage() {
             );
           })}
         </div>
+      </div>
 
       {/* Toast Notification */}
       <AnimatePresence>
