@@ -425,14 +425,19 @@ export default function CardPage() {
                         </a>
                         
                         {/* Floating Video Preview */}
-                        <div className={`website-preview-popover ${showWebsitePreview ? 'active' : ''}`}>
-                          <video 
-                            src="/website-preview.mp4" 
-                            autoPlay 
-                            loop 
-                            muted 
-                            playsInline 
-                            className="preview-video"
+                        <div className={`website-preview-popover ${showWebsitePreview ? 'active' : ''} overflow-hidden`}>
+                          <iframe 
+                            src="/" 
+                            className="preview-iframe"
+                            style={{
+                              width: '1040px',
+                              height: '640px',
+                              border: 'none',
+                              pointerEvents: 'none',
+                              transform: 'scale(0.25)',
+                              transformOrigin: 'top left',
+                              borderRadius: '56px' /* 14px / 0.25 */
+                            }}
                           />
                         </div>
                       </div>
