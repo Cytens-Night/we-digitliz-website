@@ -203,9 +203,9 @@ const Card = ({ industry, index, total }: { industry: any, index: number, total:
             <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-2xl md:rounded-3xl bg-black/10 dark:bg-white/10 backdrop-blur-md flex items-center justify-center border border-black/20 dark:border-white/20 shadow-2xl">
                <industry.icon className="w-8 h-8 md:w-10 md:h-10 text-black dark:text-white" />
             </div>
-            <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black dark:text-white tracking-tight">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black dark:text-white tracking-tight">
                {industry.title}
-            </h3>
+            </h2>
          </div>
          <p className="text-black/70 dark:text-white/70 text-lg md:text-2xl lg:text-3xl max-w-4xl leading-relaxed mb-10 md:mb-12 font-medium">
             {industry.description}

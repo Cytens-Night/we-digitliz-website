@@ -55,9 +55,9 @@ export default function Process() {
           <div className="inline-flex items-center gap-2 px-6 py-2 bg-transparent text-black dark:text-white text-xs font-bold mb-6 border border-black/20 dark:border-white/20 uppercase tracking-[0.2em]">
              Our Process
           </div>
-          <h3 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black dark:text-white mb-6 leading-tight tracking-tight md:tracking-tighter">
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-black dark:text-white mb-6 leading-tight tracking-tight md:tracking-tighter">
             WE EXECUTE WITH <br/> <span className="text-black/80 dark:text-white/80">PRECISION.</span>
-          </h3>
+          </h2>
         </div>
 
         {/* ==============================================
@@ -95,9 +95,9 @@ export default function Process() {
                       `}
                     >
                       <span className="text-black/80 dark:text-white/80 font-mono text-xs tracking-[0.3em] font-bold mb-4 block uppercase">Phase {step.num}</span>
-                      <h4 className="text-5xl font-display font-bold text-black dark:text-white mb-6 group-hover:text-black/70 dark:text-white/70 transition-colors duration-500 tracking-tight">
+                      <h3 className="text-5xl font-display font-bold text-black dark:text-white mb-6 group-hover:text-black/70 dark:text-white/70 transition-colors duration-500 tracking-tight">
                         {step.title}
-                      </h4>
+                      </h3>
                       <p className="text-black/80 dark:text-white/80 leading-relaxed text-xl">
                         {step.desc}
                       </p>

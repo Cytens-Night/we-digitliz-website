@@ -120,7 +120,7 @@ export default function Pricing() {
            >
               Investment
            </motion.div>
-           <motion.h3 
+           <motion.h2 
              initial={{ opacity: 0, y: 20 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
@@ -128,7 +128,7 @@ export default function Pricing() {
              className="text-4xl md:text-5xl lg:text-7xl font-display font-bold text-black dark:text-white leading-tight tracking-tight mb-6"
            >
              Select Your <span className="text-black/80 dark:text-white/80">Architecture.</span>
-           </motion.h3>
+           </motion.h2>
            <motion.p 
              initial={{ opacity: 0 }}
              whileInView={{ opacity: 1 }}
@@ -215,7 +215,7 @@ export default function Pricing() {
                            )}
                         </div>
 
-                        <h4 className="text-3xl font-display font-bold text-black dark:text-white mb-4">{bundle.title}</h4>
+                        <h3 className="text-3xl font-display font-bold text-black dark:text-white mb-4">{bundle.title}</h3>
                         <p className="text-black/70 dark:text-white/70 text-sm font-medium mb-10 flex-1 leading-relaxed">
                           {bundle.desc}
                         </p>
@@ -273,9 +273,9 @@ export default function Pricing() {
                <div className="w-full lg:w-7/12 flex flex-col gap-4">
                   {categories.map(category => (
                     <div key={category} className="bg-black/[0.04] dark:bg-white/[0.04] border border-black/15 dark:border-white/15 rounded-2xl p-4">
-                       <h5 className="text-[10px] font-bold text-black/80 dark:text-white/80 mb-3 uppercase tracking-widest">
+                       <h4 className="text-[10px] font-bold text-black/80 dark:text-white/80 mb-3 uppercase tracking-widest">
                          {category}
-                       </h5>
+                       </h4>
                        <div className="flex flex-wrap gap-2">
                          {CUSTOM_ITEMS.filter(i => i.category === category).map(item => {
                             const isSelected = selectedItems.includes(item.id);
@@ -310,7 +310,7 @@ export default function Pricing() {
                     
                     <div className="relative z-10 flex-1 flex flex-col">
                       <div className="flex items-center justify-between border-b border-black/15 dark:border-white/15 pb-4 mb-4">
-                        <h4 className="text-xl font-display font-bold text-black dark:text-white tracking-wide">Your Architecture</h4>
+                        <h3 className="text-xl font-display font-bold text-black dark:text-white tracking-wide">Your Architecture</h3>
                         <span className="px-3 py-1 bg-black/10 dark:bg-white/10 rounded-full text-xs font-bold text-black dark:text-white">
                           {selectedItems.length} Modules
                         </span>

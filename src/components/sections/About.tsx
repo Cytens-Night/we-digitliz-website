@@ -45,7 +45,7 @@ export default function About() {
                 About The Agency
               </motion.div>
               
-              <h3 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-black dark:text-white mb-6 md:mb-8 leading-[1.05]">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold text-black dark:text-white mb-6 md:mb-8 leading-[1.05]">
                 <motion.span 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -72,7 +72,7 @@ export default function About() {
                     className="absolute top-1/2 left-[-5%] right-[-5%] h-[8px] md:h-[12px] bg-card transition-colors duration-1000 origin-left -translate-y-1/2 rotate-[-2deg]"
                   />
                 </span>
-              </h3>
+              </h2>
               
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -300,7 +300,7 @@ export default function About() {
               className="absolute -top-20 -right-20 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"
             />
             
-            <h3 className="text-4xl leading-tight font-display font-bold text-[#1d1d1f] mb-6 relative z-10">
+            <h2 className="text-4xl leading-tight font-display font-bold text-[#1d1d1f] mb-6 relative z-10">
               <span className="block">We don't build</span>
               <span className="relative inline-block mt-1">
                 <span className="text-black/70 dark:text-white/70">websites.</span>
@@ -312,7 +312,7 @@ export default function About() {
                   className="absolute top-1/2 left-[-5%] right-[-5%] h-[4px] bg-[#007AFF] origin-left -translate-y-1/2 rotate-[-2deg]" 
                 />
               </span>
-            </h3>
+            </h2>
             
             <p className="text-base text-[#3c3c43] max-w-sm leading-relaxed font-medium relative z-10">
               We engineer entire <span className="font-bold underline decoration-2 underline-offset-4 decoration-[#007AFF] text-[#1d1d1f]">digital ecosystems.</span> From raw infrastructure to stunning user interfaces.

@@ -93,7 +93,7 @@ export default function Hero() {
         </motion.div>
         
         {/* Massive Dynamic Typography */}
-        <div className="text-[8.5vw] sm:text-5xl md:text-6xl lg:text-[6rem] font-display font-bold text-[#1d1d1f] dark:text-white mb-8 max-w-5xl tracking-tight flex flex-col items-center">
+        <h1 className="text-[8.5vw] sm:text-5xl md:text-6xl lg:text-[6rem] font-display font-bold text-[#1d1d1f] dark:text-white mb-8 max-w-5xl tracking-tight flex flex-col items-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
             We engineer
           </motion.div>
@@ -112,7 +112,7 @@ export default function Hero() {
               </motion.div>
             </AnimatePresence>
           </div>
-        </div>
+        </h1>
 
         {/* Subtitle */}
         <motion.p

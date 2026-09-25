@@ -61,14 +61,14 @@ export default function Contact() {
           <div className="lg:col-span-4 flex flex-col justify-between order-2 lg:order-1">
             <div className="space-y-12">
               <div>
-                <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] dark:text-white/70 mb-4">Direct Inquiry</h4>
+                <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] dark:text-white/70 mb-4">Direct Inquiry</h3>
                 <a href="mailto:info@wedigitlize.com" className="text-2xl md:text-3xl font-display font-medium text-[#1d1d1f] dark:text-white hover:text-black/50 dark:hover:text-white/50 transition-colors">
                   info@wedigitlize.com
                 </a>
               </div>
               
               <div>
-                <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] dark:text-white/70 mb-4">Global Headquarters</h4>
+                <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] dark:text-white/70 mb-4">Global Headquarters</h3>
                 <p className="text-xl font-medium text-[#1d1d1f] dark:text-white">
                   Remote / Distributed<br/>
                   Worldwide
@@ -76,7 +76,7 @@ export default function Contact() {
               </div>
 
               <div>
-                <h4 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] dark:text-white/70 mb-4">Socials</h4>
+                <h3 className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#3c3c43] dark:text-white/70 mb-4">Socials</h3>
                 <div className="flex flex-col gap-2">
                   {[
                     { name: 'Twitter / X', href: '#', icon: FaXTwitter },
@@ -204,7 +204,7 @@ export default function Contact() {
                     <X size={16} />
                   </button>
                   
-                  <h3 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-2 tracking-tight pr-10">Let's build something.</h3>
+                  <h2 className="text-2xl font-bold text-[#1d1d1f] dark:text-white mb-2 tracking-tight pr-10">Let's build something.</h2>
                   
                   <div className="flex flex-col gap-4">
                     <div className="relative">
