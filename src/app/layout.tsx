@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -31,11 +30,9 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-background text-foreground transition-colors duration-1000`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SmoothScrollProvider>
-            <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">
-              {children}
-            </main>
-          </SmoothScrollProvider>
+          <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

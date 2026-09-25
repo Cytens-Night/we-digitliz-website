@@ -67,28 +67,10 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="relative w-full h-[100dvh] md:h-auto md:min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-background transition-colors duration-1000">
+    <section className="relative w-full h-[100dvh] md:h-auto md:min-h-[100svh] flex flex-col items-center justify-center overflow-hidden bg-background transition-colors duration-1000">
       
       {/* Clean Ambient Background */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none hero-bg-grid">
-        <motion.div
-          animate={{
-            x: [0, 100, 0, -100, 0],
-            y: [0, 50, -50, 0, 0],
-            scale: [1, 1.2, 1, 1.1, 1],
-          }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute w-[600px] h-[600px] rounded-full bg-primary/20 blur-[120px] mix-blend-screen dark:mix-blend-lighten"
-        />
-        <motion.div
-          animate={{
-            x: [0, -120, 0, 120, 0],
-            y: [0, -80, 80, 0, 0],
-            scale: [1, 1.3, 1, 1.2, 1],
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute w-[500px] h-[500px] rounded-full bg-purple-500/10 blur-[100px] mix-blend-screen dark:mix-blend-lighten"
-        />
+      <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
         {/* Subtle Grid Pattern Overlay */}
         <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(rgba(0,0,0,1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,1)_1px,transparent_1px)] bg-[size:40px_40px]" />
       </div>
@@ -111,7 +93,7 @@ export default function Hero() {
         </motion.div>
         
         {/* Massive Dynamic Typography */}
-        <div className="hero-heading font-display font-bold text-[#1d1d1f] dark:text-white mb-8 max-w-5xl tracking-tight flex flex-col items-center">
+        <div className="text-[8.5vw] sm:text-5xl md:text-6xl lg:text-[6rem] font-display font-bold text-[#1d1d1f] dark:text-white mb-8 max-w-5xl tracking-tight flex flex-col items-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}>
             We engineer
           </motion.div>
@@ -147,7 +129,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex overflow-x-auto snap-x snap-mandatory md:flex-wrap md:justify-center gap-4 mb-10 md:mb-16 w-full max-w-4xl px-4 sm:px-6 md:px-0 pb-4 md:pb-0 scrollbar-hide"
+          className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-2 sm:gap-4 mb-10 md:mb-16 w-full max-w-4xl px-2 sm:px-6 md:px-0"
         >
           {services.map((service, i) => (
             <motion.div 
@@ -155,7 +137,7 @@ export default function Hero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.5 + i * 0.1 }}
-              className="snap-center shrink-0 w-[80vw] sm:w-[40vw] md:w-auto flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-black/5 dark:border-white/5 rounded-2xl p-4 shadow-sm hover:shadow-md active:scale-95 md:active:scale-100 hover:scale-[1.03] transition-all cursor-default"
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-black/5 dark:border-white/5 rounded-2xl p-3 sm:p-4 shadow-sm hover:shadow-md active:scale-95 md:active:scale-100 hover:scale-[1.03] transition-all cursor-default md:w-auto"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-background transition-colors duration-1000 flex items-center justify-center border border-black/5 dark:border-white/5 shrink-0 shadow-inner">
                 <service.icon size={18} className="text-[#1d1d1f] dark:text-white sm:w-5 sm:h-5" />
@@ -177,14 +159,14 @@ export default function Hero() {
         >
           <MagneticButton
             href="#contact"
-            className="cta-primary w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-[#1d1d1f]/90 dark:bg-white/90 text-white dark:text-black hover:bg-black dark:hover:bg-white font-bold hover:scale-105 flex items-center justify-center text-sm md:text-base uppercase tracking-wider gap-2 group relative overflow-hidden"
+            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-[#1d1d1f] dark:bg-white text-white dark:text-black hover:bg-black dark:hover:bg-gray-200 font-bold hover:scale-105 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider shadow-[0_10px_20px_rgba(0,0,0,0.15)] gap-2 group"
           >
-            <span className="relative z-10 flex items-center gap-2">Start Your Project <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" /></span>
+            Start Your Project <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </MagneticButton>
           
           <MagneticButton
             href="#services"
-            className="cta-primary w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-white/20 dark:bg-white/5 backdrop-blur-md text-[#1d1d1f] dark:text-white font-bold hover:bg-white/30 dark:hover:bg-white/10 flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-black/10 dark:border-white/10"
+            className="w-full sm:w-auto px-10 py-4 sm:py-5 rounded-full bg-card transition-colors duration-1000 text-[#1d1d1f] dark:text-white font-bold hover:bg-gray-50 dark:hover:bg-white/10 transition-all flex items-center justify-center text-sm md:text-base uppercase tracking-wider border border-black/10 dark:border-white/10 shadow-sm"
           >
             Explore Services
           </MagneticButton>

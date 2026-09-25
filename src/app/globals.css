@@ -173,11 +173,6 @@
   }
 }
 
-@keyframes text-reveal {
-  0% { clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); transform: translateY(20px); opacity: 0; }
-  100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); transform: translateY(0); opacity: 1; }
-}
-
 @layer utilities {
   .glassmorphism {
     @apply bg-black/5 backdrop-blur-xl border border-black/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)];
@@ -187,52 +182,6 @@
   }
   .backface-hidden {
     backface-visibility: hidden;
-  }
-
-  /* Optimized Heading Typography */
-  .hero-heading {
-    font-size: clamp(2.5rem, 8vw, 6rem);
-    text-wrap: balance;
-    line-height: 1.1;
-  }
-
-  .dark .hero-heading, .theme-sunset .hero-heading, .theme-night .hero-heading {
-    background: linear-gradient(to bottom, #ffffff 40%, rgba(255, 255, 255, 0.7));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  :root:not(.dark):not(.theme-sunset):not(.theme-night) .hero-heading {
-    background: linear-gradient(to bottom, #1d1d1f 40%, rgba(29, 29, 31, 0.7));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Atmospheric Background Depth */
-  .hero-bg-grid {
-    mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-  }
-
-  /* Premium Button Interactions */
-  .cta-primary {
-    backdrop-filter: blur(12px);
-    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.1), 
-      0 10px 30px -10px rgba(0, 0, 0, 0.5);
-  }
-
-  .dark .cta-primary {
-    box-shadow: 
-      0 4px 6px -1px rgba(0, 0, 0, 0.2), 
-      0 10px 30px -10px rgba(0, 0, 0, 0.7);
-  }
-
-  /* Reveal Animation */
-  .reveal-text {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-    animation: text-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
   }
 }
 

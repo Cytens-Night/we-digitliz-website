@@ -179,7 +179,7 @@ export default function CardPage() {
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
-      const currentRadius = isMobile ? Math.min(240, window.innerWidth * 0.45) : Math.max(380, window.innerWidth * 0.25);
+      const currentRadius = isMobile ? 240 : 380;
       setRadius(currentRadius);
       
       const vh = window.innerHeight;
@@ -403,13 +403,15 @@ export default function CardPage() {
                           <Globe size={16} /> Visit Website
                         </a>
                         
-                        {/* Floating Website Preview */}
+                        {/* Floating Video Preview */}
                         <div className={`website-preview-popover ${showWebsitePreview ? 'active' : ''}`}>
-                          <iframe 
-                            src="https://wedigitlize.com" 
+                          <video 
+                            src="/website-preview.mp4" 
+                            autoPlay 
+                            loop 
+                            muted 
+                            playsInline 
                             className="preview-video"
-                            style={{ border: 'none', background: '#fff' }}
-                            title="wedigitlize preview"
                           />
                         </div>
                       </div>
@@ -603,7 +605,7 @@ export default function CardPage() {
                   '--target-y': `${finalY}px`,
                   '--target-z': `${z}px`,
                   transitionDelay: `${index * 0.1}s`,
-                  viewTransitionName: selectedProject === service.id ? 'none' : `project-title-${service.id}`
+                  viewTransitionName: selectedProject === service.id ? 'project-title' : 'none'
                 } as React.CSSProperties}
                 aria-label={service.title}
               >
@@ -647,7 +649,7 @@ export default function CardPage() {
             >
               <X size={32} />
             </button>
-            <h1 className="text-5xl font-bold mb-4" style={{ viewTransitionName: `project-title-${selectedProject}` }}>
+            <h1 className="text-5xl font-bold mb-4" style={{ viewTransitionName: 'project-title' }}>
               {services.find(s => s.id === selectedProject)?.title}
             </h1>
             <p className="text-xl text-white/60 mb-12">Detailed case studies and interactive galleries coming soon.</p>

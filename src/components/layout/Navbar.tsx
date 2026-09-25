@@ -25,7 +25,6 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isTopNavVisible, setIsTopNavVisible] = useState(false);
   const [isSideNavVisible, setIsSideNavVisible] = useState(false);
-  const [isHeroIntersecting, setIsHeroIntersecting] = useState(true);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -124,25 +123,8 @@ export default function Navbar() {
       });
     }
 
-      const heroObserverOptions = {
-        root: null,
-        rootMargin: "-10% 0px 0px 0px",
-        threshold: 0,
-      };
-
-      const heroObserverCallback = (entries: IntersectionObserverEntry[]) => {
-        entries.forEach(entry => {
-          setIsHeroIntersecting(entry.isIntersecting);
-        });
-      };
-
-      const heroObserver = new IntersectionObserver(heroObserverCallback, heroObserverOptions);
-      const heroEl = document.getElementById("hero");
-      if (heroEl) heroObserver.observe(heroEl);
-
     return () => {
       if (observer) observer.disconnect();
-      if (heroObserver) heroObserver.disconnect();
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("mousemove", handleMouseMove);
     };
@@ -163,22 +145,6 @@ export default function Navbar() {
   // Remove the body push effect because it created a weird white background gap
   // The user requested it to just slide out cleanly over the content like the top nav
 
-  const navBgClass = isHeroIntersecting 
-    ? "bg-[#1d1d1f]/80 border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)]" 
-    : "bg-white/80 dark:bg-[#1d1d1f]/80 border-black/10 dark:border-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.1)]";
-  
-  const navTextClass = isHeroIntersecting
-    ? "text-white"
-    : "text-[#1d1d1f] dark:text-white";
-
-  const navLinkClass = isHeroIntersecting
-    ? "text-white/60 hover:text-white hover:bg-white/5"
-    : "text-[#1d1d1f]/60 hover:text-[#1d1d1f] hover:bg-black/5 dark:text-white/60 dark:hover:text-white dark:hover:bg-white/5";
-
-  const activeLinkClass = isHeroIntersecting
-    ? "text-white bg-white/10"
-    : "text-[#1d1d1f] bg-black/10 dark:text-white dark:bg-white/10";
-
   return (
     <>
       {/* =========================================
@@ -187,10 +153,10 @@ export default function Navbar() {
       <nav 
         className={`hidden md:flex fixed left-1/2 -translate-x-1/2 z-[100] transition-all duration-500 ease-in-out ${isTopNavVisible && !isSideNavVisible ? 'top-6' : '-top-full'}`}
       >
-        <div className={`backdrop-blur-2xl rounded-full px-6 py-3 flex items-center justify-between gap-2 lg:gap-6 w-max transition-colors duration-500 ${navBgClass}`}>
-          <Link href="/" className={`flex items-center gap-2 pr-6 border-r ${isHeroIntersecting ? 'border-white/10' : 'border-black/10 dark:border-white/10'}`} onClick={() => setActiveTab("Home")}>
-            <Logo className={`w-5 h-5 ${navTextClass} transition-colors`} />
-            <span className={`font-display font-bold text-xs tracking-wide ${navTextClass} transition-colors`}>wedigitlize</span>
+        <div className="bg-[#1d1d1f]/80 backdrop-blur-2xl border border-white/10 shadow-[0_20px_40px_rgba(0,0,0,0.5)] rounded-full px-6 py-3 flex items-center justify-between gap-2 lg:gap-6 w-max">
+          <Link href="/" className="flex items-center gap-2 pr-6 border-r border-white/10" onClick={() => setActiveTab("Home")}>
+            <Logo className="w-5 h-5 text-white" />
+            <span className="font-display font-bold text-xs tracking-wide text-white">wedigitlize</span>
           </Link>
 
           <div className="flex items-center gap-1 lg:gap-2">
@@ -208,7 +174,7 @@ export default function Navbar() {
                       document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
                     }
                   }}
-                  className={`relative flex items-center gap-2 px-3 lg:px-4 py-2 rounded-full transition-colors duration-300 text-xs font-bold tracking-wider ${isActive ? activeLinkClass : navLinkClass}`}
+                  className={`relative flex items-center gap-2 px-3 lg:px-4 py-2 rounded-full transition-colors duration-300 text-xs font-bold tracking-wider ${isActive ? 'text-white bg-white/10' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
                 >
                   {link.name}
                 </Link>
