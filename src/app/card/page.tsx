@@ -220,10 +220,12 @@ export default function CardPage() {
     };
   }, []);
 
-  const handleInstallClick = async () => {
+  const handleInstallClick = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
     if (deferredPromptRef.current) {
       try {
-        deferredPromptRef.current.prompt();
+        await deferredPromptRef.current.prompt();
         await deferredPromptRef.current.userChoice;
       } catch (err) {
         console.error("Install prompt failed:", err);
@@ -232,9 +234,9 @@ export default function CardPage() {
     } else {
       const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
       if (isIOS) {
-        showToast("To install on iOS: tap Share and select 'Add to Home Screen'.");
+        alert("To install the App on iOS:\n\n1. Tap the Share button at the bottom of Safari.\n2. Scroll down and select 'Add to Home Screen'.");
       } else {
-        showToast("To reinstall: tap your browser's menu and select 'Install App'.");
+        alert("To install the App:\n\nTap your browser's menu (three dots) and select 'Install App' or 'Add to Home Screen'.");
       }
     }
   };

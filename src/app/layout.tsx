@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
-
+import NewsletterPopup from "@/components/ui/NewsletterPopup";
 const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
@@ -33,6 +33,7 @@ export default function RootLayout({
           <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">
             {children}
           </main>
+          <NewsletterPopup />
         </ThemeProvider>
         <script
           dangerouslySetInnerHTML={{

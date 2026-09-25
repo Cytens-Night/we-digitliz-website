@@ -59,7 +59,6 @@ export default function Footer() {
                 <li><Link href="/#process" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Our Process</Link></li>
                 <li><Link href="/projects" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Projects</Link></li>
                 <li><Link href="/#contact" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Contact</Link></li>
-                <li><Link href="#" className="text-sm text-[#3c3c43] dark:text-white/70 hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Privacy Policy</Link></li>
               </ul>
             </div>
 
@@ -73,6 +72,13 @@ export default function Footer() {
             <div className="flex flex-col text-[#3c3c43] dark:text-white/70 text-xs md:text-sm mb-4 md:mb-0">
               <span>© {new Date().getFullYear()} wedigitlize. All rights reserved.</span>
               <span className="mt-1 opacity-75">WEDIGITLIZE LTD | Company number 17465598</span>
+              <div className="flex items-center gap-3 mt-3 justify-center md:justify-start flex-wrap">
+                <Link href="/privacy-policy" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Privacy Policy</Link>
+                <span className="opacity-50 hidden sm:inline">•</span>
+                <Link href="/terms-of-service" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Terms of Service</Link>
+                <span className="opacity-50 hidden sm:inline">•</span>
+                <Link href="/cookie-policy" className="hover:text-[#1d1d1f] dark:hover:text-white transition-colors">Cookie Policy</Link>
+              </div>
             </div>
             <div className="hidden md:flex items-center gap-2 text-sm text-[#3c3c43] dark:text-white/70">
               Made with <Logo className="w-4 h-4 text-[#1d1d1f] dark:text-white" /> by wedigitlize
