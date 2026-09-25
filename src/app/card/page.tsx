@@ -179,7 +179,7 @@ export default function CardPage() {
   useEffect(() => {
     const handleResize = () => {
       const isMobile = window.innerWidth < 768;
-      const currentRadius = isMobile ? Math.min(200, window.innerWidth * 0.38) : Math.min(380, window.innerWidth * 0.22);
+      const currentRadius = isMobile ? Math.min(240, window.innerWidth * 0.45) : Math.max(380, window.innerWidth * 0.25);
       setRadius(currentRadius);
       
       const vh = window.innerHeight;
