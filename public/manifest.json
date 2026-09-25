@@ -1,11 +1,11 @@
 {
-  "name": "We Digitlize",
-  "short_name": "WeDigitlize",
+  "name": "Wedigitlize",
+  "short_name": "Wedigitlize",
   "description": "We Digitlize Your World - Digital Dominance Architecture",
   "start_url": "/card",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "/favicon.svg",
@@ -14,14 +14,21 @@
       "purpose": "any maskable"
     },
     {
-      "src": "/favicon.svg",
+      "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml"
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
-      "src": "/favicon.svg",
+      "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml"
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
     }
   ]
 }

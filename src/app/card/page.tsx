@@ -515,7 +515,7 @@ export default function CardPage() {
                           <QRCodeSVG 
                             value={activeSlide === 0 ? "https://wedigitlize.com/card" : activeSlide === 1 ? "https://instagram.com/wedigitliz" : "https://g.page/r/placeholder"} 
                             size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
-                            imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
+                            imageSettings={{ src: "/logo-black.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
                           />
                         </motion.div>
                       </AnimatePresence>
