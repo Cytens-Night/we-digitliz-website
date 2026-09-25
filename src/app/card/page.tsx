@@ -564,17 +564,17 @@ export default function CardPage() {
                           <Star size={16} className="fill-[#FBBC05] text-[#FBBC05]" /> LEAVE A REVIEW
                         </a>
                       </div>
-                        <EmailActionDrawer 
-                          isOpen={showEmailMenu}
-                          onClose={() => setShowEmailMenu(false)}
-                          email="info@wedigitlize.com"
-                          onCopy={() => {
-                            navigator.clipboard.writeText('info@wedigitlize.com');
-                            showToast("Email copied to clipboard!");
-                          }}
-                        />
-                      </div>
                     </div>
+
+                    <EmailActionDrawer 
+                      isOpen={showEmailMenu}
+                      onClose={() => setShowEmailMenu(false)}
+                      email="info@wedigitlize.com"
+                      onCopy={() => {
+                        navigator.clipboard.writeText('info@wedigitlize.com');
+                        showToast("Email copied to clipboard!");
+                      }}
+                    />
                   </div>
                 </div>
              </div>
@@ -611,7 +611,7 @@ export default function CardPage() {
             return (
               <button 
                 key={service.id} 
-                className={`mockup-bubble ${isExploded ? 'exploded' : ''}`}
+                className={`mockup-bubble ${isExploded ? 'exploded' : 'invisible pointer-events-none'}`}
                 onMouseEnter={() => {
                   setHoveredService(service.id);
                   playSpatialAudio(finalX);

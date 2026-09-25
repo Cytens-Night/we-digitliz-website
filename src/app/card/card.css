@@ -22,7 +22,7 @@
 .bg-ambience {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   overflow: hidden;
 }
 
@@ -37,7 +37,7 @@
 .orb-wrapper {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   transition: transform 0.3s ease-out;
 }
 
@@ -147,6 +147,7 @@
   box-shadow: inset 0 0 2px rgba(255,255,255,0.1);
   transform-style: preserve-3d;
   z-index: 90;
+  pointer-events: auto !important;
   transition: transform 0.2s, background 0.2s;
 }
 
@@ -295,7 +296,7 @@
 .circuit-board-bg {
   position: absolute;
   inset: 0;
-  pointer-events: none;
+  pointer-events: none !important;
   background-image: 
     radial-gradient(circle at 50% 50%, rgba(0,255,255,0.15) 0%, transparent 60%),
     linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
@@ -364,7 +365,7 @@
   top: -50%; left: -50%; right: -50%; bottom: -50%;
   background: linear-gradient(105deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.05) 45%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 55%, rgba(255,255,255,0) 70%);
   transform: translateX(var(--glare-x, 0)) translateY(var(--glare-y, 0));
-  pointer-events: none;
+  pointer-events: none !important;
   z-index: 90; /* Above most screen content */
   transition: transform 0.1s linear;
 }
