@@ -3,6 +3,9 @@
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: visible; /* Prevents clipping on mobile */
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 /* Explode Layout */
@@ -13,7 +16,7 @@
   position: relative;
   min-height: 100dvh; 
   background-color: #0a0a0a;
-  overflow: hidden;
+  overflow: visible; /* Prevents mobile clipping */
   perspective: 2000px;
   transform-style: preserve-3d;
 }
@@ -48,7 +51,7 @@
 .glow-orb-1, .glow-orb-2 {
   position: absolute;
   border-radius: 50%;
-  filter: blur(120px);
+  filter: blur(120px) url(#plasma);
   animation: rotate-orb linear infinite;
 }
 
@@ -83,17 +86,19 @@
   transform: scale(var(--dynamic-scale, 1));
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform-style: preserve-3d;
+  will-change: transform;
+  z-index: 10;
 }
 
 .center-bottle.shrunk {
-  transform: scale(calc(var(--dynamic-scale, 1) * 0.65));
+  transform: scale(calc(var(--dynamic-scale, 1) * 0.45));
 }
 
 /* Phone Body Flip Container */
 .perfume-body-container {
   transform-style: preserve-3d;
   position: relative;
-  z-index: 99;
+  z-index: 10;
   /* Permanent isometric tilt to showcase the side */
   transform: rotateY(-20deg) rotateX(5deg);
   transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s ease;
@@ -148,6 +153,12 @@
   box-shadow: inset 0 0 2px rgba(255,255,255,0.1);
   transform-style: preserve-3d;
   z-index: 90;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.hardware-button.toggled {
+  transform: translateY(4px) scaleX(0.9);
+  background: #8b5cf6;
 }
 
 /* Left side buttons - MOVED TO RIGHT SIDE AS REQUESTED */
@@ -215,10 +226,10 @@
   transform-origin: left;
 }
 
-.sim-tray-trigger.active {
+.sim-tray-trigger.active-easter-egg {
   /* Pulls out to the right */
-  transform: translateX(60px);
-  width: 60px;
+  transform: translateX(100px);
+  width: 100px;
   background: linear-gradient(135deg, #007AFF, #8b5cf6);
   border: 1px solid #fff;
   justify-content: center;
@@ -235,18 +246,17 @@
   flex-shrink: 0;
 }
 
-.sim-tray-trigger span {
+.easter-egg-text {
   display: none;
   font-family: 'Inter', sans-serif;
   font-size: 0.6rem;
   color: #fff;
-  text-transform: uppercase;
   letter-spacing: 1px;
   margin-left: 6px;
   font-weight: 800;
 }
 
-.sim-tray-trigger.active span {
+.sim-tray-trigger.active-easter-egg .easter-egg-text {
   display: block;
   animation: fade-in 0.3s forwards 0.3s;
   opacity: 0;
@@ -268,19 +278,53 @@
   flex-direction: column;
 }
 
+/* Screen Content Area (Front) */
+/* Screen Content Area (Front) */
 .phone-front {
   background: #000;
   border: 12px solid #000; /* Inner screen bezel */
   box-shadow: inset 0 0 0 2px #333;
   transform: translateZ(1px); /* Ensures it's fully above the background body for clicking */
   pointer-events: auto;
+  overflow: hidden;
 }
 
-.phone-back {
-  transform: rotateY(180deg); /* Removed translateZ to prevent parallax clipping of buttons */
-  background: linear-gradient(135deg, #111, #050505);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: inset 0 0 40px rgba(255,255,255,0.05);
+/* X-Ray Mode */
+.circuit-board-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(0,255,255,0.15) 0%, transparent 60%),
+    linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 100% 100%, 30px 30px, 30px 30px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 0;
+}
+
+.phone-front.x-ray-mode .circuit-board-bg {
+  opacity: 1;
+}
+
+.phone-front.x-ray-mode .phone-screen {
+  opacity: 0.15;
+  backdrop-filter: blur(8px);
+}
+
+.phone-screen {
+  flex: 1;
+  position: relative;
+  background: linear-gradient(180deg, #0f172a 0%, #000000 100%);
+  border-radius: 32px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 3.5rem 1.5rem 2rem;
+  transition: all 0.5s ease;
+  z-index: 10;
 }
 
 /* Wait, if phone-back is translated Z by 15px, the 3D transforms will place it properly behind the front face! */
@@ -297,6 +341,17 @@
   align-items: center;
   justify-content: space-evenly;
   padding: 3.5rem 1.5rem 2rem;
+}
+
+/* Haptic Pulse Animation */
+@keyframes haptic-pulse {
+  0% { transform: scale(1); box-shadow: inset 0 0 0 rgba(255,255,255,0); }
+  50% { transform: scale(0.98); box-shadow: inset 0 0 40px rgba(255,255,255,0.1); }
+  100% { transform: scale(1); box-shadow: inset 0 0 0 rgba(255,255,255,0); }
+}
+
+.phone-screen.haptic-pulse {
+  animation: haptic-pulse 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 /* Glass Screen Glare Effect */
@@ -327,6 +382,18 @@
   justify-content: space-between;
   padding: 0 10px;
   box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+.dynamic-island.expanded {
+  width: 220px;
+  height: 40px;
+  border-radius: 20px;
+  padding: 0;
+  background-color: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .dynamic-island-lens {
@@ -457,20 +524,38 @@
   border-radius: 50%;
   cursor: pointer;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), inset 0 0 20px rgba(0, 122, 255, 0.2);
-  background: rgba(10, 10, 10, 0.6);
-  backdrop-filter: blur(12px);
-  
+  z-index: 20;
+
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
   transform: translate3d(0, 0, 0) scale(0);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
+
+  will-change: transform, opacity;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.8s ease, 
+              backdrop-filter 0.5s ease;
+}
+
+/* Internal Glass Reflection */
+.mockup-bubble::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 40%);
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {
@@ -514,6 +599,20 @@
 @media (max-width: 768px) {
   .mockup-bubble span {
     font-size: 0.6rem;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .mockup-bubble, .center-bottle, .perfume-body-container {
+    transition-duration: 0.1s !important;
+    animation: none !important;
+  }
+  .mockup-bubble.exploded {
+    animation: none !important;
+  }
+  .glow-orb-1, .glow-orb-2 {
+    animation: none !important;
   }
 }
 

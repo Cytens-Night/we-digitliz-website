@@ -83,10 +83,10 @@ function SplashScreen({ onComplete }: { onComplete: () => void }) {
 // ----------------------------------------------------------------------
 
 const services = [
-  { id: 1, title: "Web Experiences", icon: Globe },
-  { id: 2, title: "Mobile Apps", icon: Smartphone },
-  { id: 3, title: "Automation", icon: Zap },
-  { id: 4, title: "Brand Identity", icon: Palette },
+  { id: 1, title: "Web Experiences", icon: Globe, stat: "15+ Launched" },
+  { id: 2, title: "Mobile Apps", icon: Smartphone, stat: "99% Uptime" },
+  { id: 3, title: "Automation", icon: Zap, stat: "10x Faster" },
+  { id: 4, title: "Brand Identity", icon: Palette, stat: "Premium" },
 ];
 
 export default function CardPage() {
@@ -102,19 +102,79 @@ export default function CardPage() {
   const [activeSlide, setActiveSlide] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [hoveredService, setHoveredService] = useState<number | null>(null);
+  const [isHapticPulse, setIsHapticPulse] = useState(false);
+  const [isEasterEgg, setIsEasterEgg] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<number | null>(null);
+  const [isXRayMode, setIsXRayMode] = useState(false);
 
   const phone = "+447584296946";
   const email = "info@wedigitlize.com";
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    // Only apply parallax on desktop
     if (typeof window !== 'undefined' && window.innerWidth < 768) return;
-    
-    // Normalize mouse position between -1 and 1
     const x = (e.clientX / window.innerWidth) * 2 - 1;
     const y = (e.clientY / window.innerHeight) * 2 - 1;
     setMousePos({ x, y });
   };
+
+  const handleVolumeClick = () => {
+    setIsHapticPulse(true);
+    setTimeout(() => setIsHapticPulse(false), 300);
+  };
+
+  const handleXRayToggle = () => setIsXRayMode(!isXRayMode);
+
+  const playSpatialAudio = (x: number) => {
+    try {
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      if (!AudioCtx) return;
+      const ctx = new AudioCtx();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(600, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 0.1);
+      
+      gain.gain.setValueAtTime(0, ctx.currentTime);
+      gain.gain.linearRampToValueAtTime(0.1, ctx.currentTime + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+      
+      if (ctx.createStereoPanner) {
+        const panner = ctx.createStereoPanner();
+        const panValue = Math.max(-1, Math.min(1, x / 400));
+        panner.pan.value = panValue;
+        osc.connect(panner);
+        panner.connect(gain);
+      } else {
+        osc.connect(gain);
+      }
+      
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + 0.2);
+    } catch (e) {
+      console.log("Audio skipped", e);
+    }
+  };
+
+  const handleBubbleClick = (id: number) => {
+    if (!document.startViewTransition) {
+      setSelectedProject(id);
+      return;
+    }
+    document.startViewTransition(() => {
+      setSelectedProject(id);
+    });
+  };
+
+  useEffect(() => {
+    if (splashDone) {
+      const t = setTimeout(() => setIsExploded(true), 600);
+      return () => clearTimeout(t);
+    }
+  }, [splashDone]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -212,13 +272,24 @@ export default function CardPage() {
 
       <div 
         className="portfolio-container explode-layout"
+        role="region"
+        aria-label="Interactive Portfolio Showcase"
         style={{
           transform: `rotateX(${mousePos.y * -5}deg) rotateY(${mousePos.x * 5}deg)`,
         } as React.CSSProperties}
       >
         
+        {/* SVG Filters */}
+        <svg style={{ position: 'absolute', width: 0, height: 0 }}>
+          <filter id="plasma">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" result="noise" />
+            <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 15 -3" in="noise" result="coloredNoise" />
+            <feComposite operator="in" in="SourceGraphic" in2="coloredNoise" />
+          </filter>
+        </svg>
+
         {/* Background Ambience */}
-        <div className="bg-ambience">
+        <div className="bg-ambience" aria-hidden="true">
           <div className="bg-pattern" />
           <div 
             className="orb-wrapper orb-1-wrapper"
@@ -245,33 +316,47 @@ export default function CardPage() {
              <div className={`phone-body ${isFlipped ? 'flipped' : ''}`}>
                 
                 {/* Hardware Buttons (Left) */}
-                <div className="hardware-button silent-switch" />
-                <div className="hardware-button volume-up" />
-                <div className="hardware-button volume-down" />
+                <div 
+                  className={`hardware-button silent-switch cursor-pointer ${isXRayMode ? 'toggled' : ''}`} 
+                  onClick={handleXRayToggle} 
+                  title="Toggle X-Ray Mode"
+                />
+                <div className="hardware-button volume-up cursor-pointer" onClick={handleVolumeClick} />
+                <div className="hardware-button volume-down cursor-pointer" onClick={handleVolumeClick} />
 
                 {/* Hardware Buttons (Right) */}
                 <div className="hardware-button power-button" />
                 
                 {/* Ejecting SIM Tray */}
                 <button 
-                  className={`sim-tray-trigger ${isExploded ? 'active' : ''}`}
-                  onClick={() => setIsExploded(!isExploded)}
+                  className={`sim-tray-trigger ${isEasterEgg ? 'active-easter-egg' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); setIsEasterEgg(!isEasterEgg); }}
                   aria-label="Toggle SIM Tray"
                 >
                   <div className="sim-pinhole" />
-                  <span>{isExploded ? 'INSERT' : ''}</span>
+                  {isEasterEgg && <span className="easter-egg-text">CODE: DIGI10</span>}
                 </button>
                 
                 {/* ================= FRONT FACE (SCREEN) ================= */}
-                <div className="phone-front">
+                <div className={`phone-front ${isXRayMode ? 'x-ray-mode' : ''}`}>
+                  <div className="circuit-board-bg" />
                   {/* Dynamic Island Notch */}
-                  <div className="dynamic-island">
-                    <div className="dynamic-island-lens" />
-                    <div className="dynamic-island-sensor" />
+                  <div className={`dynamic-island ${hoveredService ? 'expanded' : ''}`}>
+                    {hoveredService ? (
+                      <div className="flex items-center justify-between w-full px-3 h-full text-white text-[10px] sm:text-xs">
+                        <span className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis">{services.find(s => s.id === hoveredService)?.title}</span>
+                        <span className="text-primary font-bold whitespace-nowrap ml-2">{services.find(s => s.id === hoveredService)?.stat}</span>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="dynamic-island-lens" />
+                        <div className="dynamic-island-sensor" />
+                      </>
+                    )}
                   </div>
 
                   <div 
-                    className="phone-screen"
+                    className={`phone-screen ${isHapticPulse ? 'haptic-pulse' : ''}`}
                     style={{
                       '--glare-x': `${mousePos.x * 100}%`,
                       '--glare-y': `${mousePos.y * 100}%`,
@@ -318,15 +403,13 @@ export default function CardPage() {
                           <Globe size={16} /> Visit Website
                         </a>
                         
-                        {/* Floating Video Preview */}
+                        {/* Floating Website Preview */}
                         <div className={`website-preview-popover ${showWebsitePreview ? 'active' : ''}`}>
-                          <video 
-                            src="/website-preview.mp4" 
-                            autoPlay 
-                            loop 
-                            muted 
-                            playsInline 
+                          <iframe 
+                            src="https://wedigitlize.com" 
                             className="preview-video"
+                            style={{ border: 'none', background: '#fff' }}
+                            title="wedigitlize preview"
                           />
                         </div>
                       </div>
@@ -480,26 +563,53 @@ export default function CardPage() {
           {/* Orbiting Service Bubbles */}
           {services.map((service, index) => {
             const angle = (index / services.length) * 2 * Math.PI - Math.PI / 2;
-            const x = Math.cos(angle) * radius;
-            let y = Math.sin(angle) * radius;
+            const baseX = Math.cos(angle) * radius;
+            let baseY = Math.sin(angle) * radius;
+            
+            // Magnetic cursor math
+            let offsetX = 0;
+            let offsetY = 0;
+            if (typeof window !== 'undefined' && isExploded) {
+              const cursorX = mousePos.x * (window.innerWidth / 2);
+              const cursorY = mousePos.y * (window.innerHeight / 2);
+              const dx = cursorX - baseX;
+              const dy = cursorY - baseY;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              if (distance < 200) {
+                offsetX = dx * 0.15;
+                offsetY = dy * 0.15;
+              }
+            }
+            
+            const finalX = baseX + offsetX;
+            const finalY = baseY + offsetY;
+
             // Provide different depths to bubbles: some in front, some behind
             const zValues = [-150, 100, -80, 150];
             const z = isExploded ? zValues[index] : 0;
 
             return (
-              <div 
+              <button 
                 key={service.id} 
                 className={`mockup-bubble pointer-events-auto ${isExploded ? 'exploded' : ''}`}
+                onMouseEnter={() => {
+                  setHoveredService(service.id);
+                  playSpatialAudio(finalX);
+                }}
+                onMouseLeave={() => setHoveredService(null)}
+                onClick={() => handleBubbleClick(service.id)}
                 style={{ 
-                  '--target-x': `${x}px`,
-                  '--target-y': `${y}px`,
+                  '--target-x': `${finalX}px`,
+                  '--target-y': `${finalY}px`,
                   '--target-z': `${z}px`,
-                  transitionDelay: `${index * 0.1}s`
+                  transitionDelay: `${index * 0.1}s`,
+                  viewTransitionName: selectedProject === service.id ? 'project-title' : 'none'
                 } as React.CSSProperties}
+                aria-label={service.title}
               >
                 <service.icon size={32} />
                 <span>{service.title}</span>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -519,7 +629,36 @@ export default function CardPage() {
             {toast}
           </motion.div>
         )}
-      </AnimatePresence>
+    </AnimatePresence>
+
+      {/* View Transition Project Overlay */}
+      {selectedProject && (
+        <div className="fixed inset-0 z-[999] bg-[#050505] text-white overflow-y-auto">
+          <div className="max-w-4xl mx-auto p-8 pt-20">
+            <button 
+              className="absolute top-8 left-8 text-white/50 hover:text-white"
+              onClick={() => {
+                if (document.startViewTransition) {
+                  document.startViewTransition(() => setSelectedProject(null));
+                } else {
+                  setSelectedProject(null);
+                }
+              }}
+            >
+              <X size={32} />
+            </button>
+            <h1 className="text-5xl font-bold mb-4" style={{ viewTransitionName: 'project-title' }}>
+              {services.find(s => s.id === selectedProject)?.title}
+            </h1>
+            <p className="text-xl text-white/60 mb-12">Detailed case studies and interactive galleries coming soon.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[1,2,3,4].map(i => (
+                <div key={i} className="bg-white/5 border border-white/10 rounded-2xl aspect-video animate-pulse" />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
     </main>
   );
