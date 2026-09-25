@@ -222,7 +222,7 @@
   transform-origin: left;
 }
 
-.sim-tray-trigger.active-easter-egg {
+.sim-tray-trigger.active-sim-tray {
   /* Pulls out to the right */
   transform: translateX(100px);
   width: 100px;
@@ -252,7 +252,7 @@
   font-weight: 800;
 }
 
-.sim-tray-trigger.active-easter-egg .easter-egg-text {
+.sim-tray-trigger.active-sim-tray .easter-egg-text {
   display: block;
   animation: fade-in 0.3s forwards 0.3s;
   opacity: 0;

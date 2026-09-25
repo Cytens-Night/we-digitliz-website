@@ -104,7 +104,6 @@ export default function CardPage() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [hoveredService, setHoveredService] = useState<number | null>(null);
   const [isHapticPulse, setIsHapticPulse] = useState(false);
-  const [isEasterEgg, setIsEasterEgg] = useState(false);
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const [isXRayMode, setIsXRayMode] = useState(false);
 
@@ -170,10 +169,7 @@ export default function CardPage() {
   };
 
   useEffect(() => {
-    if (splashDone) {
-      const t = setTimeout(() => setIsExploded(true), 600);
-      return () => clearTimeout(t);
-    }
+    // Intentionally blank. SIM tray click will trigger the explosion.
   }, [splashDone]);
 
   useEffect(() => {
@@ -329,12 +325,12 @@ export default function CardPage() {
                 
                 {/* Ejecting SIM Tray */}
                 <button 
-                  className={`sim-tray-trigger ${isEasterEgg ? 'active-easter-egg' : ''}`}
-                  onClick={(e) => { e.stopPropagation(); setIsEasterEgg(!isEasterEgg); }}
+                  className={`sim-tray-trigger ${isExploded ? 'active-sim-tray' : ''}`}
+                  onClick={(e) => { e.stopPropagation(); setIsExploded(!isExploded); }}
                   aria-label="Toggle SIM Tray"
                 >
                   <div className="sim-pinhole" />
-                  {isEasterEgg && <span className="easter-egg-text">CODE: DIGI10</span>}
+                  {isExploded && <span className="easter-egg-text">SERVICES</span>}
                 </button>
                 
                 {/* ================= FRONT FACE (SCREEN) ================= */}
