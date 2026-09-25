@@ -146,7 +146,7 @@ export default function Laptop3D() {
   const [isScreenFlipped, setIsScreenFlipped] = useState(false);
   const [toastMsg, setToastMsg] = useState("");
   const [drawerType, setDrawerType] = useState<DrawerType>(null);
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const deferredPromptRef = useRef<any>(null);
 
   const showToast = (msg: string) => {
     setToastMsg(msg);

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss, Star, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
+import EmailActionDrawer from '@/components/ui/EmailActionDrawer';
 import Link from 'next/link';
 import { FiInstagram, FiLinkedin, FiTwitter } from "react-icons/fi";
 import './card.css';
@@ -445,23 +446,11 @@ export default function CardPage() {
                         <Phone size={16} /> {phone}
                       </a>
                       
-                      {/* Email Action Menu */}
+                      {/* Email Action Button */}
                       <div className="relative w-full z-20">
-                        <button onClick={() => setShowEmailMenu(!showEmailMenu)} className="neon-button w-full">
+                        <button onClick={() => setShowEmailMenu(true)} className="neon-button w-full">
                           <Mail size={16} /> Email Us
                         </button>
-                        
-                        <div className={`email-dropdown-menu ${showEmailMenu ? 'active' : ''}`}>
-                          <a href="mailto:info@wedigitlize.com" onClick={() => setShowEmailMenu(false)} className="email-dropdown-item">
-                            <Mail size={14} /> Email Us Directly
-                          </a>
-                          <button onClick={(e) => { handleCopyEmail(e); setShowEmailMenu(false); }} className="email-dropdown-item">
-                            <Copy size={14} /> Copy Email Address
-                          </button>
-                          <a href="mailto:info@wedigitlize.com?subject=Subscribe to Email Marketing" onClick={() => setShowEmailMenu(false)} className="email-dropdown-item">
-                            <Rss size={14} /> Subscribe to Marketing
-                          </a>
-                        </div>
                       </div>
                     </div>
                     
@@ -575,6 +564,16 @@ export default function CardPage() {
                           <Star size={16} className="fill-[#FBBC05] text-[#FBBC05]" /> LEAVE A REVIEW
                         </a>
                       </div>
+                      
+                      <EmailActionDrawer 
+                        isOpen={showEmailMenu}
+                        onClose={() => setShowEmailMenu(false)}
+                        email="info@wedigitlize.com"
+                        onCopy={() => {
+                          navigator.clipboard.writeText('info@wedigitlize.com');
+                          showToast("Email copied to clipboard!");
+                        }}
+                      />
                     </div>
                   </div>
                 </div>
