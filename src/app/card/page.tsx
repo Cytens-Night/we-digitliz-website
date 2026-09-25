@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Mail, Globe, Phone, UserPlus, Folder, LayoutGrid, ArrowUpRight, QrCode, X, Download, Smartphone, Zap, Palette, Copy, Rss, Star, ChevronLeft, ChevronRight, Check } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import Logo from '@/components/ui/Logo';
 import Link from 'next/link';
@@ -97,6 +97,7 @@ export default function CardPage() {
   const [radius, setRadius] = useState(380);
   const [scale, setScale] = useState(1);
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isAppInstalled, setIsAppInstalled] = useState(false);
   const [showWebsitePreview, setShowWebsitePreview] = useState(false);
   const [showEmailMenu, setShowEmailMenu] = useState(false);
   const [activeSlide, setActiveSlide] = useState(0);
@@ -201,9 +202,21 @@ export default function CardPage() {
     };
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone) {
+      setIsAppInstalled(true);
+    }
+    
+    const handleAppInstalled = () => {
+      setIsAppInstalled(true);
+      setDeferredPrompt(null);
+    };
+    window.addEventListener('appinstalled', handleAppInstalled);
+
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      window.removeEventListener('appinstalled', handleAppInstalled);
     };
   }, []);
 
@@ -368,14 +381,24 @@ export default function CardPage() {
                       <QrCode size={18} />
                     </button>
 
-                    <button 
-                      onClick={handleInstallClick}
-                      className="icon-btn"
-                      style={{ top: '1.5rem', left: '1.5rem' }}
-                      aria-label="Install App"
-                    >
-                      <Download size={18} />
-                    </button>
+                    {!isAppInstalled ? (
+                      <button 
+                        onClick={handleInstallClick}
+                        className="icon-btn"
+                        style={{ top: '1.5rem', left: '1.5rem' }}
+                        aria-label="Install App"
+                      >
+                        <Download size={18} />
+                      </button>
+                    ) : (
+                      <div 
+                        className="icon-btn opacity-50 cursor-default"
+                        style={{ top: '1.5rem', left: '1.5rem' }}
+                        title="App Installed"
+                      >
+                        <Check size={18} />
+                      </div>
+                    )}
 
                     {/* Header / Brand */}
                     <div className="flex flex-col items-center justify-center gap-3 mt-10 mb-2">

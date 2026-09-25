@@ -14,15 +14,7 @@ const nextConfig: NextConfig = {
       {
         source: '/assets/:path*',
         destination: 'https://card.shakurfragrances.co.uk/assets/:path*',
-      },
-      {
-        source: '/registerSW.js',
-        destination: 'https://card.shakurfragrances.co.uk/registerSW.js',
-      },
-      {
-        source: '/manifest.webmanifest',
-        destination: 'https://card.shakurfragrances.co.uk/manifest.webmanifest',
-      },
+      }
     ];
   },
   async headers() {
