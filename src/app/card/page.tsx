@@ -482,79 +482,49 @@ export default function CardPage() {
                       </p>
                     </div>
 
-                    {/* QR Code Horizontal Slider */}
-                    <div className="relative w-full overflow-hidden mt-2 group">
-                      
-                      {/* Navigation Arrows (Desktop) */}
-                      <button 
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex hover:bg-white/40"
-                        onClick={() => {
-                          if (scrollContainerRef.current) {
-                            scrollContainerRef.current.scrollBy({ left: -200, behavior: 'smooth' });
-                          }
-                        }}
-                      >
-                        <ChevronLeft size={20} />
-                      </button>
-                      
-                      <button 
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-2 bg-white/20 text-white rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity hidden md:flex hover:bg-white/40"
-                        onClick={() => {
-                          if (scrollContainerRef.current) {
-                            scrollContainerRef.current.scrollBy({ left: 200, behavior: 'smooth' });
-                          }
-                        }}
-                      >
-                        <ChevronRight size={20} />
-                      </button>
-
-                      <div 
-                        ref={scrollContainerRef}
-                        onScroll={handleScroll}
-                        className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar pb-6 pt-2 px-[10%]"
-                        style={{ scrollBehavior: 'smooth' }}
-                      >
-                        {/* Slide 0: Contact */}
-                        <div className="min-w-[100%] sm:min-w-[80%] flex justify-center snap-center px-2">
-                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-transform duration-300 hover:scale-105">
-                            <QRCodeSVG 
-                              value="https://wedigitlize.com/card" 
-                              size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
-                              imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Slide 1: Instagram */}
-                        <div className="min-w-[100%] sm:min-w-[80%] flex justify-center snap-center px-2">
-                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-transform duration-300 hover:scale-105">
-                            <QRCodeSVG 
-                              value="https://instagram.com/wedigitliz" 
-                              size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
-                              imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
-                            />
-                          </div>
-                        </div>
-
-                        {/* Slide 2: Google Reviews */}
-                        <div className="min-w-[100%] sm:min-w-[80%] flex justify-center snap-center px-2">
-                          <div className="p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)] transition-transform duration-300 hover:scale-105">
-                            <QRCodeSVG 
-                              value="https://g.page/r/placeholder" 
-                              size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
-                              imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
-                            />
-                          </div>
-                        </div>
-                      </div>
+                    {/* QR Code Viewer (Fade In/Out) */}
+                    <div className="relative w-full h-[190px] flex items-center justify-center mt-2">
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeSlide}
+                          initial={{ opacity: 0, scale: 0.95, filter: 'blur(5px)' }}
+                          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                          exit={{ opacity: 0, scale: 0.95, filter: 'blur(5px)' }}
+                          transition={{ duration: 0.25 }}
+                          className="absolute p-4 bg-white rounded-3xl shadow-[0_0_40px_rgba(255,255,255,0.2)]"
+                        >
+                          <QRCodeSVG 
+                            value={activeSlide === 0 ? "https://wedigitlize.com/card" : activeSlide === 1 ? "https://instagram.com/wedigitliz" : "https://g.page/r/placeholder"} 
+                            size={150} fgColor="#0a0a0a" bgColor="#ffffff" level="H"
+                            imageSettings={{ src: "/favicon.svg", x: undefined, y: undefined, height: 35, width: 35, excavate: true }}
+                          />
+                        </motion.div>
+                      </AnimatePresence>
                     </div>
 
-                    {/* Slide Indicators */}
-                    <div className="flex gap-2 mb-6">
-                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${activeSlide === 0 ? 'bg-white w-4' : 'bg-white/30'}`} />
-                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${activeSlide === 1 ? 'bg-white w-4' : 'bg-white/30'}`} />
-                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${activeSlide === 2 ? 'bg-white w-4' : 'bg-white/30'}`} />
+                    {/* Segmented Control Navigation */}
+                    <div className="flex items-center gap-1 mt-6 mb-8 bg-white/5 p-1 rounded-full backdrop-blur-md border border-white/10">
+                      <button 
+                        onClick={() => setActiveSlide(0)} 
+                        className={`px-4 py-2 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 ${activeSlide === 0 ? 'bg-white text-black shadow-md' : 'text-white/60 hover:text-white hover:bg-white/10'}`}
+                      >
+                        Contact
+                      </button>
+                      <button 
+                        onClick={() => setActiveSlide(1)} 
+                        className={`px-4 py-2 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 ${activeSlide === 1 ? 'bg-white text-black shadow-md' : 'text-white/60 hover:text-white hover:bg-white/10'}`}
+                      >
+                        Social
+                      </button>
+                      <button 
+                        onClick={() => setActiveSlide(2)} 
+                        className={`px-4 py-2 rounded-full text-[10px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-300 ${activeSlide === 2 ? 'bg-white text-black shadow-md' : 'text-white/60 hover:text-white hover:bg-white/10'}`}
+                      >
+                        Review
+                      </button>
                     </div>
+
+                    {/* (Replaced by segmented controls) */}
                     
                     {/* Dynamic Action Button */}
                     <div className="h-12 w-full flex justify-center px-8 relative">
