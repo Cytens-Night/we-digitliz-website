@@ -86,9 +86,7 @@
   will-change: transform;
 }
 
-.center-bottle.shrunk {
-  transform: scale(calc(var(--dynamic-scale, 1) * 0.65));
-}
+/* Removed .shrunk so the scene doesn't shrink, only the phone shrinks */
 
 /* Phone Body Flip Container */
 .perfume-body-container {
@@ -101,7 +99,7 @@
 }
 
 .perfume-body-container.active {
-  transform: rotateY(-25deg) rotateX(10deg) translateZ(-40px);
+  transform: rotateY(-25deg) rotateX(10deg) translateZ(-40px) scale(0.65);
   opacity: 0.9;
 }
 
@@ -110,7 +108,7 @@
     transform: rotateY(-15deg) rotateX(5deg);
   }
   .perfume-body-container.active {
-    transform: rotateY(-20deg) rotateX(10deg) translateZ(-20px);
+    transform: rotateY(-20deg) rotateX(10deg) translateZ(-20px) scale(0.5);
   }
 }
 
