@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/lib/business";
-export default function DigitalCards() {
-  return <section id="portfolio" className="wd-section"><div className="wd-shell"><div className="wd-section-heading"><div><p className="wd-eyebrow">Selected work</p><h2>Built to feel<br />like your brand.</h2></div><Link href="/projects" className="wd-text-link">View all projects</Link></div><div className="wd-work-grid">{projects.slice(0,2).map((project) => <article className="wd-work" key={project.id}><Link href={`/projects#${project.id}`} className="wd-work-image"><Image src={project.image} alt={`${project.name} website project by wedigitlize`} width={1363} height={936} sizes="(max-width: 700px) 100vw, 50vw" /></Link><div className="wd-work-caption"><h3>{project.name}</h3><p>{project.type}</p></div></article>)}</div></div></section>;
-}
+export default function DigitalCards(){const colours=["#bf903c33","#007aff30","#c2327a26","#00dfd823"];return <section id="portfolio" className="un-work"><div className="wd-shell"><header className="un-work-heading"><p className="wd-eyebrow">SELECTED WORK</p><h2>Distinctive brands.<br/>Digital experiences to match.</h2></header><div className="un-work-grid">{projects.slice(0,4).map((project,index)=><article key={project.id} className="un-work-card" data-brand={project.id} style={{"--project-glow":colours[index]} as React.CSSProperties}><h3>{project.name}</h3><p>{project.description}</p><footer><span>{project.type}</span><Link href={`/projects#${project.id}`}>View live project<ArrowUpRight size={16}/></Link></footer></article>)}</div></div></section>;}

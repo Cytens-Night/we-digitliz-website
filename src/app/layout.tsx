@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
 import "./studio.css";
+import "./refinements.css";
+import ThemeProvider from "@/components/ThemeProvider";
 import { business } from "@/lib/business";
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
 const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"], display: "swap" });
@@ -17,5 +19,5 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: "#101218" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
  const schema = { "@context": "https://schema.org", "@type": "Organization", name: business.name, url: business.url, email: business.email, telephone: business.phone, logo: `${business.url}/logo-black.svg` };
- return <html lang="en" className={`${inter.variable} ${outfit.variable}`}><body><a className="wd-skip" href="#main-content">Skip to content</a>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}/></body></html>;
+ return <html lang="en" suppressHydrationWarning className={`${inter.variable} ${outfit.variable}`}><body><ThemeProvider><a className="wd-skip" href="#main-content">Skip to content</a>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}/></ThemeProvider></body></html>;
 }
