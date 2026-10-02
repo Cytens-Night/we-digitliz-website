@@ -157,3 +157,71 @@
 @keyframes un-intro-exit { to{opacity:0;visibility:hidden} }
 @media(max-width:767px) { .un-phone-shell{width:min(330px,calc(100vw - 96px));height:700px}.un-phone-shell .un-side-key{left:-30px;width:44px;height:52px}.un-phone-shell .sim-tray-trigger{right:-9px;width:24px}.un-phone-shell .sim-tray-trigger.active-sim-tray{width:30px;transform:translateX(4px)}.unique-card .phone-screen{gap:9px;padding:61px 13px 12px}.un-phone-mark{width:52px;height:52px;border-radius:17px}.un-phone-brand{gap:6px}.un-phone-brand>p{font-size:12px;line-height:1.45;margin-top:1px}.un-phone-brand h1{font-size:25px}.unique-card .neon-button{font-size:12px}.un-phone-explore{font-size:10px}.un-qr-content{padding:120px 12px 18px;gap:11px}.un-qr-content h2{font-size:20px}.un-qr-slide p{font-size:10px}.un-action-dialog{padding:20px 23px 25px;border-radius:25px}.un-action-options>*{padding:14px;gap:11px}.un-action-options>* >span{font-size:14px}.un-website-dialog{padding:15px;max-height:96dvh;height:96dvh}.un-website-title h2{font-size:23px}.un-website-title a{font-size:11px} }
 @media(prefers-reduced-motion:reduce) { .un-card-intro{display:none}.un-qr-gallery{scroll-behavior:auto}.un-intro-brand>*{animation:none} }
+
+.unique-card .camera-bump { top:20px;left:20px;width:96px;height:104px;border-radius:25px;backdrop-filter:none;pointer-events:none; }
+.unique-card .camera-lens { width:31px;height:31px; }
+.unique-card .camera-lens.lens-1 { top:10px;left:10px; }
+.unique-card .camera-lens.lens-2 { bottom:10px;left:10px; }
+.unique-card .camera-lens.lens-3 { right:10px; }
+.unique-card .camera-lens::after { width:13px;height:13px; }
+.unique-card .camera-flash { width:11px;height:11px;top:16px;right:20px; }
+.unique-card .camera-lidar { width:10px;height:10px;bottom:16px;right:20px; }
+.un-qr-content { padding-top:143px; }
+@media(max-width:767px) { .un-qr-content{padding-top:140px;gap:9px}.un-qr-content h2{font-size:19px}.un-qr-slide{gap:8px}.un-phone-qr-code svg{width:145px;height:145px} }
+/* Compact single-phone card layout: every persistent action stays inside the chassis. */
+.un-card-brand { display:flex; align-items:center; gap:10px; min-height:44px; font-family:var(--font-outfit); font-size:17px; font-weight:650; }
+.unique-card .un-card-scene { min-height:780px; height:calc(100svh - 88px); }
+.unique-card .center-bottle { width:100%; max-width:none; height:760px; }
+.unique-card .un-phone-shell { width:360px; height:740px; }
+.unique-card .un-phone-shell.un-shell-active { width:360px; height:740px; }
+.unique-card .un-phone-parallax { width:100%; height:100%; display:grid; place-items:center; }
+.unique-card .perfume-body-container,.unique-card .perfume-body-container.active { transform:rotateY(-8deg) rotateX(3deg); opacity:1; }
+.unique-card .phone-screen { gap:10px; }
+.unique-card .phone-screen.services-mode { padding-top:67px; }
+.un-phone-services { display:flex; flex-direction:column; gap:14px; width:100%; height:100%; min-height:0; overflow:auto; padding:8px 2px 4px; scrollbar-width:none; }
+.un-phone-services::-webkit-scrollbar { display:none; }
+.un-phone-services-head { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.un-phone-services-head > div > span { color:#77b2ff; font-size:9px; letter-spacing:.16em; font-weight:650; }
+.un-phone-services-head h2 { font-family:var(--font-outfit); font-size:24px; line-height:1.05; margin-top:7px; }
+.un-phone-services-head button { display:grid; place-items:center; flex:0 0 44px; width:44px; height:44px; border-radius:50%; border:1px solid #ffffff20; background:#ffffff0b; color:#d9e6fb; cursor:pointer; }
+.un-phone-services > p { color:#aebbd0; font-size:12px; line-height:1.5; margin:0; }
+.un-phone-service-grid { display:grid; gap:9px; }
+.un-phone-service-grid > button { display:grid; grid-template-columns:25px 1fr 16px; align-items:center; gap:9px; min-height:56px; padding:10px 12px; color:white; text-align:left; border:1px solid #314158; border-radius:14px; background:#15213585; cursor:pointer; }
+.un-phone-service-grid > button:hover,.un-phone-service-grid > button:focus-visible { border-color:#70a9ff; background:#007aff25; }
+.un-phone-service-grid > button > span { font-size:12px; line-height:1.2; }
+.un-phone-service-grid > button > svg:last-child { color:#92baff; }
+.un-phone-back { display:flex; align-items:center; justify-content:center; gap:5px; min-height:44px; color:#9cc3ff; font-size:11px; cursor:pointer; margin-top:auto; }
+.un-card-footer { padding:3px 24px 34px; font-size:11px; color:#8290a6; text-align:center; }
+.un-card-footer p { margin:0; }
+.un-card-status { width:100%; color:#a8ceff; font-size:11px; line-height:1.4; text-align:center; }
+.un-card-manual { display:block; text-align:left; margin-top:8px; }
+.un-card-manual input { display:block; width:100%; margin-top:5px; background:#162235; border:1px solid #385277; border-radius:9px; color:white; padding:9px; font-size:12px; }
+@media(max-width:767px) {
+ .un-card-header { padding:18px 18px 8px; }
+ .unique-card .un-card-scene { min-height:0; height:auto; padding:57px 0 8px; }
+ .un-card-scene-hint { top:7px; }
+ .un-card-scene-hint p { font-size:12px; margin-top:5px; }
+ .unique-card .center-bottle { height:auto; }
+ .unique-card .un-phone-shell,.unique-card .un-phone-shell.un-shell-active { width:min(342px,calc(100vw - 34px)); height:700px; }
+ .unique-card .phone-body { width:100%; height:700px; }
+ .unique-card .perfume-body-container,.unique-card .perfume-body-container.active { transform:rotateY(-3deg) rotateX(1deg); }
+ .unique-card .phone-screen { padding:61px 14px 11px; gap:8px; }
+ .unique-card .phone-screen.services-mode { padding-top:61px; }
+ .un-phone-brand { margin:1px 0 0; gap:5px; }
+ .un-phone-mark { width:53px; height:53px; border-radius:17px; }
+ .un-phone-brand h1 { font-size:25px; }
+ .un-phone-brand > span { font-size:8px; }
+ .un-phone-brand > p { font-size:12px; line-height:1.35; margin-top:1px; }
+ .un-phone-links { gap:7px; }
+ .unique-card .neon-button { min-height:49px; padding:10px 7px; font-size:12px; }
+ .un-phone-dock { gap:10px; }
+ .un-phone-dock > * { width:43px; min-height:43px; }
+ .un-phone-explore { min-height:40px; }
+ .un-phone-services { gap:11px; }
+ .un-phone-services-head h2 { font-size:22px; }
+ .un-phone-services > p { font-size:11px; }
+ .un-phone-service-grid { gap:7px; }
+ .un-phone-service-grid > button { min-height:53px; padding:8px 10px; }
+ .un-phone-service-grid > button > span { font-size:11px; }
+ .un-card-footer { padding-bottom:27px; }
+}
