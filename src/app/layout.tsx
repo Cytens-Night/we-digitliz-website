@@ -1,54 +1,21 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import NewsletterPopup from "@/components/ui/NewsletterPopup";
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
-const outfit = Outfit({
-  variable: "--font-display",
-  subsets: ["latin"],
-});
-
+import "./studio.css";
+import { business } from "@/lib/business";
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"], display: "swap" });
+const outfit = Outfit({ variable: "--font-outfit", subsets: ["latin"], display: "swap" });
 export const metadata: Metadata = {
-  title: "wedigitlize | Digital Transformation Agency",
-  description: "We build automated systems, premium online presences, and custom applications to elevate your business.",
+  metadataBase: new URL(business.url),
+  title: { default: "wedigitlize | Websites, Apps & Branding", template: "%s | wedigitlize" },
+  description: "London digital studio creating custom websites, apps, branding, social content and digital business cards. Explore our work and discuss your project.",
+  alternates: { canonical: "/" },
+  openGraph: { type: "website", locale: "en_GB", siteName: "wedigitlize", title: "wedigitlize — Design. Build. Connect.", description: "Websites, apps, branding and digital experiences built around your business.", url: business.url, images: [{ url: "/social-preview.png", width: 1200, height: 630, alt: "wedigitlize digital studio" }] },
+  twitter: { card: "summary_large_image" },
   manifest: "/manifest.json",
 };
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
-      <body
-        className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-background text-foreground transition-colors duration-1000`}
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <main className="w-full relative max-w-[100vw] overflow-x-clip md:overflow-visible">
-            {children}
-          </main>
-          <NewsletterPopup />
-        </ThemeProvider>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').catch(function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                  });
-                });
-              }
-            `,
-          }}
-        />
-      </body>
-    </html>
-  );
+export const viewport: Viewport = { themeColor: "#101218" };
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+ const schema = { "@context": "https://schema.org", "@type": "Organization", name: business.name, url: business.url, email: business.email, telephone: business.phone, logo: `${business.url}/logo-black.svg` };
+ return <html lang="en" className={`${inter.variable} ${outfit.variable}`}><body><a className="wd-skip" href="#main-content">Skip to content</a>{children}<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema).replace(/</g, "\\u003c") }}/></body></html>;
 }

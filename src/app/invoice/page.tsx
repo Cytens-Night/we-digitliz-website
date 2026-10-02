@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useSyncExternalStore } from "react";
 import Link from "next/link";
 import { ArrowLeft, Download, Plus, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -12,8 +12,12 @@ interface LineItem {
   rate: number;
 }
 
+const subscribe = () => () => {};
+const clientSnapshot = () => true;
+const serverSnapshot = () => false;
+
 export default function InvoiceGenerator() {
-  const [invoiceData, setInvoiceData] = useState({
+  const [invoiceData, setInvoiceData] = useState(() => ({
     invoiceNumber: "INV-2024-001",
     issueDate: new Date().toISOString().split("T")[0],
     dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split("T")[0], // 14 days
@@ -21,19 +25,15 @@ export default function InvoiceGenerator() {
     clientEmail: "billing@acmecorp.com",
     clientAddress: "123 Business Rd\nLondon, UK\nSW1A 1AA",
     notes: "Thank you for doing business with wedigitlize. Payment is due within 14 days.",
-    taxRate: 20, // UK VAT 20%
-  });
+    taxRate: 0, // Confirm any applicable tax before issuing an invoice.
+  }));
 
   const [items, setItems] = useState<LineItem[]>([
     { id: "1", description: "Premium Web App Development", quantity: 1, rate: 3500 },
     { id: "2", description: "Advanced SEO & Copywriting", quantity: 1, rate: 500 },
   ]);
 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useSyncExternalStore(subscribe, clientSnapshot, serverSnapshot);
 
   const handleDataChange = (field: string, value: string | number) => {
     setInvoiceData((prev) => ({ ...prev, [field]: value }));
@@ -170,7 +170,7 @@ export default function InvoiceGenerator() {
             <div className="bg-[#fafafa] border border-black/10 rounded-2xl p-6">
               <h2 className="text-xl font-bold mb-6">Line Items</h2>
               <div className="space-y-4">
-                {items.map((item, index) => (
+                {items.map((item) => (
                   <motion.div 
                     layout
                     initial={{ opacity: 0, y: -10 }}
@@ -279,7 +279,7 @@ export default function InvoiceGenerator() {
                     </tr>
                   </thead>
                   <tbody>
-                    {items.map((item, index) => (
+                    {items.map((item) => (
                       <tr key={item.id} className="border-b border-gray-100">
                         <td className="py-4 text-sm text-gray-800">{item.description || "—"}</td>
                         <td className="text-right py-4 text-sm text-gray-600">{item.quantity}</td>

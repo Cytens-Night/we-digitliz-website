@@ -1,0 +1,14 @@
+[build]
+command = "npm run build"
+publish = ".next"
+[build.environment]
+NODE_VERSION = "22"
+[[headers]]
+for = "/__forms.html"
+[headers.values]
+X-Robots-Tag = "noindex"
+[[headers]]
+for = "/wedigitlize.vcf"
+[headers.values]
+Content-Type = "text/vcard; charset=utf-8"
+Content-Disposition = "attachment; filename=wedigitlize.vcf"

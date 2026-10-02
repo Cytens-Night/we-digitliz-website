@@ -1,11 +1,11 @@
 {
   "name": "Wedigitlize",
   "short_name": "Wedigitlize",
-  "description": "We Digitlize Your World - Digital Dominance Architecture",
+  "description": "wedigitlize \u2014 Websites, apps, branding and digital experiences",
   "start_url": "/card",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#101218",
+  "theme_color": "#101218",
   "icons": [
     {
       "src": "/favicon.svg",

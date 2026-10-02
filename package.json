@@ -1,12 +1,13 @@
 {
-  "name": "temp-app",
+  "name": "wedigitlize",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint src next.config.ts eslint.config.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
