@@ -28,16 +28,20 @@ export default function CardExperience() {
   const [showServices, setShowServices] = useState(false);
   const [service, setService] = useState<typeof services[number] | null>(null);
   const [flipped, setFlipped] = useState(false);
+  const [turning, setTurning] = useState(false);
   const [circuit, setCircuit] = useState(false);
   const [qr, setQr] = useState(0);
   const [status, setStatus] = useState("");
   const [manualLink, setManualLink] = useState(false);
   const qrGallery = useRef<HTMLDivElement>(null);
+  const qrContent = useRef<HTMLDivElement>(null);
+  const servicePane = useRef<HTMLDivElement>(null);
   const returnFocus = useRef<string>("");
   const frontScreen = useRef<HTMLDivElement>(null);
   const servicesBack = useRef<HTMLButtonElement>(null);
   const qrBack = useRef<HTMLButtonElement>(null);
   const qrTrigger = useRef<HTMLButtonElement>(null);
+  const restoreQrFocus = useRef(false);
   const reduced = useReducedMotion();
 
   function openAction(type: CardAction, trigger: HTMLElement) {
@@ -53,17 +57,35 @@ export default function CardExperience() {
     setShowServices(true);
   }
   function flip(value: boolean) {
+    if (turning) return;
+    setTurning(!reduced);
+    restoreQrFocus.current = !value;
     setStatus(""); setManualLink(false); setFlipped(value);
   }
 
   useEffect(() => {
-    if (showServices) servicesBack.current?.focus({ preventScroll: true });
-  }, [showServices]);
+    if (showServices) {
+      servicePane.current?.scrollTo({ top: 0, behavior: "auto" });
+      servicesBack.current?.focus({ preventScroll: true });
+    }
+  }, [showServices, service]);
   useEffect(() => {
-    if (!flipped) return;
-    const timer = setTimeout(() => qrBack.current?.focus({ preventScroll: true }), reduced ? 0 : 600);
+    if (turning) return;
+    if (!flipped) {
+      if (restoreQrFocus.current) {
+        qrTrigger.current?.focus({ preventScroll: true });
+        restoreQrFocus.current = false;
+      }
+      return;
+    }
+    qrContent.current?.scrollTo({ top: 0, behavior: "auto" });
+    qrBack.current?.focus({ preventScroll: true });
+  }, [flipped, turning]);
+  useEffect(() => {
+    if (!turning) return;
+    const timer = setTimeout(() => setTurning(false), 850);
     return () => clearTimeout(timer);
-  }, [flipped, reduced]);
+  }, [turning]);
   useEffect(() => {
     if (!status || manualLink) return;
     const timer = setTimeout(() => setStatus(""), 4500);
@@ -96,7 +118,7 @@ export default function CardExperience() {
   function selectQr(index: number) {
     setQr(index);
     const gallery = qrGallery.current;
-    if (gallery) gallery.scrollTo({ left: index * gallery.clientWidth, behavior: reduced ? "instant" : "smooth" });
+    if (gallery) gallery.scrollTo({ left: index * gallery.clientWidth, behavior: reduced ? "auto" : "smooth" });
   }
 
   const feedback = (status || manualLink) && <div className="un-card-feedback" role="status" aria-live="polite">
@@ -107,7 +129,7 @@ export default function CardExperience() {
 
   return <main id="main-content" className="unique-card" onKeyDown={event => {
     if (event.key !== "Escape") return;
-    if (flipped) { flip(false); requestAnimationFrame(() => qrTrigger.current?.focus({ preventScroll: true })); }
+    if (flipped) flip(false);
     else if (showServices && service) setService(null);
     else if (showServices || action) closeView();
   }}>
@@ -117,14 +139,14 @@ export default function CardExperience() {
       <div className="un-phone-shell">
         <div className="un-phone-parallax" data-screen-open={!!action || showServices || flipped}>
           <div className="perfume-body-container">
-            <div className={`phone-body ${flipped ? "flipped" : ""}`}>
-              <div className={`phone-front ${circuit ? "un-circuit-on" : ""}`} inert={flipped} aria-hidden={flipped}>
+            <div className={`phone-body ${flipped ? "flipped" : ""}`} inert={turning} aria-busy={turning} onTransitionEnd={event => { if (event.target === event.currentTarget && event.propertyName === "transform") setTurning(false); }}>
+              <div className={`phone-front ${circuit ? "un-circuit-on" : ""}`} inert={flipped} aria-hidden={flipped || turning}>
                 <div className="circuit-board-bg" aria-hidden="true"/>
                 <div className="dynamic-island" aria-hidden="true"><i/><i/></div>
                 <div ref={frontScreen} className="phone-screen">
                   {action ? <CardActions key={action} type={action} onClose={closeView}/> : showServices ? <section className="un-card-view" aria-labelledby="un-service-title">
                     <header className="un-view-toolbar"><button ref={servicesBack} onClick={() => service ? setService(null) : closeView()} aria-label={service ? "Back to services" : "Back to card"}><ArrowLeft size={18}/><span>{service ? "Services" : "Back"}</span></button><Logo className="un-view-logo"/></header>
-                    <div className="un-card-pane">
+                    <div ref={servicePane} className="un-card-pane">
                       <div className="un-view-heading"><span className="un-card-eyebrow">WHAT WE CREATE</span><h2 id="un-service-title">{service ? service.title : "Your next chapter,\ndigitally crafted."}</h2><p>{service ? service.detail : "From a first website to connected business tools. Tap a service to explore."}</p></div>
                       {service ? <><div className="un-service-symbol"><service.icon size={34}/></div><p className="un-service-scope">{service.scope}</p><a href={whatsappUrl(`Hello wedigitlize, I’d like to discuss ${service.title}.`)} className="un-card-button un-card-primary" target="_blank" rel="noopener noreferrer">Discuss your project<ArrowUpRight size={17}/></a><p className="un-action-note">We confirm the scope, price and delivery plan before work begins.</p></> : <div className="un-phone-service-grid">{services.map(item => <button key={item.id} onClick={() => setService(item)}><span className="un-service-icon"><item.icon size={20}/></span><span>{item.title}<small>{item.scope}</small></span><ArrowUpRight size={15}/></button>)}</div>}
                     </div>
@@ -151,10 +173,10 @@ export default function CardExperience() {
                   <div className="un-home-indicator" aria-hidden="true"/>
                 </div>
               </div>
-              <div className="phone-back" inert={!flipped} aria-hidden={!flipped}>
+              <div className="phone-back" inert={!flipped} aria-hidden={!flipped || turning}>
                 <div className="camera-bump" aria-hidden="true"><i/><i/><i/><b/></div>
-                <button ref={qrBack} className="un-icon-button un-qr-back" onClick={() => { flip(false); requestAnimationFrame(() => qrTrigger.current?.focus({ preventScroll: true })); }} aria-label="Return to the front of the card"><ArrowLeft size={19}/></button>
-                <div className="un-qr-content">
+                <button ref={qrBack} className="un-icon-button un-qr-back" onClick={() => flip(false)} aria-label="Return to the front of the card"><ArrowLeft size={19}/></button>
+                <div ref={qrContent} className="un-qr-content">
                   <div className="un-qr-heading"><Logo className="un-view-logo"/><h2>Scan. Connect. Explore.</h2><p>Swipe or choose where to go.</p></div>
                   <div className="un-qr-gallery" ref={qrGallery} aria-label="Scrollable QR code gallery" tabIndex={0}>{qrTargets.map((target, index) => <section className="un-qr-slide" key={target.label} data-index={index} aria-label={target.label}><div className="un-phone-qr-code"><QRCodeSVG value={target.url} size={180} marginSize={4} level="M" title={`QR code for ${target.label}`}/></div><h3>{target.title}</h3><p>{target.description}</p></section>)}</div>
                   <div className="un-qr-tabs" role="group" aria-label="QR destination">{qrTargets.map((target, index) => <button key={target.label} aria-pressed={qr === index} onClick={() => selectQr(index)}>{target.label}</button>)}</div>

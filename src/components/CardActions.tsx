@@ -11,13 +11,17 @@ export type CardAction = "website" | "email" | "phone";
 /** Every action is a view inside the phone, rather than a page-level modal. */
 export default function CardActions({ type, onClose }: { type: CardAction; onClose: () => void }) {
   const back = useRef<HTMLButtonElement>(null);
+  const pane = useRef<HTMLDivElement>(null);
   const [subscribe, setSubscribe] = useState(false);
   const [pending, setPending] = useState(false);
   const [message, setMessage] = useState("");
   const [copied, setCopied] = useState(false);
   const [manual, setManual] = useState(false);
 
-  useEffect(() => { back.current?.focus({ preventScroll: true }); }, []);
+  useEffect(() => {
+    pane.current?.scrollTo({ top: 0, behavior: "auto" });
+    back.current?.focus({ preventScroll: true });
+  }, [subscribe]);
 
   async function copyEmail() {
     try {
@@ -73,7 +77,7 @@ export default function CardActions({ type, onClose }: { type: CardAction; onClo
       <div className="un-view-heading"><span className="un-card-eyebrow">THE DIGITAL STUDIO</span><h2 id="un-action-title">Explore our world.</h2><p>A live look at our work and services.</p></div>
       <div className="un-website-frame"><iframe src="/" title="wedigitlize website preview" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads" allow="clipboard-write"/></div>
       <a className="un-card-button un-card-primary" href="/" target="_blank" rel="noopener noreferrer">Open full website<ArrowUpRight size={17}/></a>
-    </> : <div className="un-card-pane">
+    </> : <div ref={pane} className="un-card-pane">
       {type === "phone" ? <>
         <div className="un-view-heading"><span className="un-card-eyebrow">LET’S CONNECT</span><h2 id="un-action-title">Your next project<br/>starts here.</h2><p>{business.phoneLabel}</p></div>
         <div className="un-action-options">
