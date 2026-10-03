@@ -27,6 +27,7 @@
 .un-phone-shell { position: relative; width: var(--phone-width); height: var(--phone-height); flex-shrink: 0; }
 .un-phone-parallax, .unique-card .perfume-body-container, .unique-card .phone-body { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
 .unique-card .perfume-body-container { transform: rotateY(-12deg) rotateX(3deg); }
+.unique-card .un-phone-parallax[data-screen-open=true] > .perfume-body-container { transform: none; }
 .unique-card .phone-body { border-radius: 48px; transition: transform .7s cubic-bezier(.22, .68, .2, 1), box-shadow .7s; box-shadow: 1px 0 #4a5060, 3px 0 #343b4b, 6px 0 #252d3b, 9px 0 #171d28, 12px 0 #0f141f, 15px 0 #090d15, 28px 26px 60px #000a; }
 .unique-card .phone-body.flipped { transform: rotateY(180deg); box-shadow: -1px 0 #4a5060, -3px 0 #343b4b, -6px 0 #252d3b, -9px 0 #171d28, -12px 0 #0f141f, -15px 0 #090d15, -28px 26px 60px #000a; }
 .unique-card .phone-front, .unique-card .phone-back { position: absolute; inset: 0; border: 9px solid #02040a; border-radius: 47px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: inset 0 0 0 1px #57668270; }

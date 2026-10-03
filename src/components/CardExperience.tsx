@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState, type PointerEvent } from "react";
-import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 import { Globe, Phone, Mail, UserPlus, Share2, QrCode, ArrowLeft, Smartphone, Zap, Palette, MessageCircle, ArrowUpRight, CircuitBoard, X } from "lucide-react";
 import { FiInstagram } from "react-icons/fi";
@@ -39,20 +39,9 @@ export default function CardExperience() {
   const qrBack = useRef<HTMLButtonElement>(null);
   const qrTrigger = useRef<HTMLButtonElement>(null);
   const reduced = useReducedMotion();
-  const mx = useMotionValue(0), my = useMotionValue(0);
-  const rx = useSpring(my, { stiffness: 110, damping: 25 });
-  const ry = useSpring(mx, { stiffness: 110, damping: 25 });
-
-  function tilt(event: PointerEvent<HTMLDivElement>) {
-    if (reduced || action || showServices || event.pointerType !== "mouse" || (event.target instanceof Element && event.target.closest("button,a,input"))) return;
-    const box = event.currentTarget.getBoundingClientRect();
-    mx.set(((event.clientX - box.left) / box.width - .5) * 5);
-    my.set(-((event.clientY - box.top) / box.height - .5) * 3);
-  }
 
   function openAction(type: CardAction, trigger: HTMLElement) {
     returnFocus.current = trigger.dataset.cardAction || "";
-    mx.set(0); my.set(0);
     setAction(type);
   }
   function closeView() {
@@ -61,11 +50,9 @@ export default function CardExperience() {
   }
   function openServices(trigger: HTMLElement) {
     returnFocus.current = trigger.dataset.cardAction || "";
-    mx.set(0); my.set(0);
     setShowServices(true);
   }
   function flip(value: boolean) {
-    mx.set(0); my.set(0);
     setStatus(""); setManualLink(false); setFlipped(value);
   }
 
@@ -128,7 +115,7 @@ export default function CardExperience() {
     <div className="un-card-ambience" aria-hidden="true"><div className="un-card-grid"/><div className="un-card-glow un-card-glow-blue"/><div className="un-card-glow un-card-glow-violet"/></div>
     <section className="un-card-scene" aria-label="wedigitlize interactive 3D business card">
       <div className="un-phone-shell">
-        <motion.div className="un-phone-parallax" onPointerMove={tilt} onPointerLeave={() => { mx.set(0); my.set(0); }} style={{ rotateX: rx, rotateY: ry }}>
+        <div className="un-phone-parallax" data-screen-open={!!action || showServices || flipped}>
           <div className="perfume-body-container">
             <div className={`phone-body ${flipped ? "flipped" : ""}`}>
               <div className={`phone-front ${circuit ? "un-circuit-on" : ""}`} inert={flipped} aria-hidden={flipped}>
@@ -179,7 +166,7 @@ export default function CardExperience() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   </main>;
