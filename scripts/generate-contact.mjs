@@ -14,7 +14,7 @@ const lines=[
  'URL:https://wedigitlize.com/card',
  'X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/wedigitlize/',
  'CATEGORIES:Website design,Web development,Mobile apps,Branding,Digital business cards,E-commerce,Automation,SEO',
- 'NOTE:'+escape('wedigitlize — Design. Build. Connect.\nWebsites, website design, web development, landing pages, e-commerce, online stores, mobile apps, iOS, Android, web apps, portals, SaaS, branding, brand identity, logos, digital business cards, CRM integrations, automation, SEO, search optimisation and website care.\nWebsite: https://wedigitlize.com\nDigital card: https://wedigitlize.com/card\nInstagram: https://www.instagram.com/wedigitlize/\nEmail: info@wedigitlize.com\nPhone: +44 7584 296946'),
+ 'NOTE:'+escape('wedigitlize — Design. Build. Connect.\nCompany: WEDIGITLIZE LTD. Company number: 17465598. London studio, working worldwide.\nWebsites, website design, web development, landing pages, e-commerce, online stores, mobile apps, iOS, Android, web apps, portals, SaaS, branding, brand identity, logos, digital business cards, CRM integrations, automation, SEO, search optimisation, website care, social media content, print design, flyers, booking systems and business tools.\nWebsite: https://wedigitlize.com\nDigital card: https://wedigitlize.com/card\nInstagram: https://www.instagram.com/wedigitlize/\nEmail: info@wedigitlize.com\nPhone: +44 7584 296946'),
  'PHOTO;ENCODING=b;TYPE=JPEG:'+photo.toString('base64'),
  'END:VCARD'
 ];

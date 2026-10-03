@@ -13,12 +13,14 @@ export default function Contact() {
     setStatus("sending");
     const body = new URLSearchParams();
     new FormData(event.currentTarget).forEach((value,key) => { if (typeof value === "string") body.append(key,value); });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 20000);
     try {
-      const response = await fetch("/__forms.html", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body.toString(), signal: AbortSignal.timeout(20000) });
+      const response = await fetch("/__forms.html", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: body.toString(), signal: controller.signal });
       if (!response.ok) throw new Error("Submission failed");
       setStatus("success");
       formRef.current?.reset();
-    } catch { setStatus("error"); } finally { pending.current = false; }
+    } catch { setStatus("error"); } finally { clearTimeout(timeout); pending.current = false; }
   }
   return <section id="contact" className="wd-section wd-contact"><div className="wd-shell wd-contact-grid"><div><p className="wd-eyebrow">Start a conversation</p><h2>Let’s create<br />what’s next.</h2><p className="wd-lead">A new business, a better website or an idea for an app. Share a little about your project and we’ll take it from there.</p><a className="wd-contact-email" href={`mailto:${business.email}`}>{business.email}</a><a href={`tel:${business.phone}`}>{business.phoneLabel}</a><div className="wd-actions"><a className="wd-button wd-button-outline" href={whatsappUrl("Hello wedigitlize, I’d like to discuss a project.")} target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a></div><p>London · Working worldwide</p></div>
     <form ref={formRef} name="project-enquiry" method="POST" action="/__forms.html" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={submit} className="wd-contact-form">
