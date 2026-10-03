@@ -134,7 +134,7 @@ export default function CardExperience() {
     else if (showServices || action) closeView();
   }}>
     <CardIntro/>
-    <div className="un-card-ambience" aria-hidden="true"><div className="un-card-grid"/><div className="un-card-glow un-card-glow-blue"/><div className="un-card-glow un-card-glow-violet"/></div>
+    <div className="un-card-ambience" aria-hidden="true"><div className="un-card-glow un-card-glow-blue"/></div>
     <section className="un-card-scene" aria-label="wedigitlize interactive 3D business card">
       <div className="un-phone-shell">
         <div className="un-phone-parallax" data-screen-open={!!action || showServices || flipped}>
@@ -147,21 +147,21 @@ export default function CardExperience() {
                   {action ? <CardActions key={action} type={action} onClose={closeView}/> : showServices ? <section className="un-card-view" aria-labelledby="un-service-title">
                     <header className="un-view-toolbar"><button ref={servicesBack} onClick={() => service ? setService(null) : closeView()} aria-label={service ? "Back to services" : "Back to card"}><ArrowLeft size={18}/><span>{service ? "Services" : "Back"}</span></button><Logo className="un-view-logo"/></header>
                     <div ref={servicePane} className="un-card-pane">
-                      <div className="un-view-heading"><span className="un-card-eyebrow">WHAT WE CREATE</span><h2 id="un-service-title">{service ? service.title : "Your next chapter,\ndigitally crafted."}</h2><p>{service ? service.detail : "From a first website to connected business tools. Tap a service to explore."}</p></div>
+                      <div className="un-view-heading"><span className="un-card-eyebrow">DESIGN & DEVELOPMENT</span><h2 id="un-service-title">{service ? service.title : "Our services."}</h2><p>{service ? service.detail : "Thoughtfully designed. Built around your business."}</p></div>
                       {service ? <><div className="un-service-symbol"><service.icon size={34}/></div><p className="un-service-scope">{service.scope}</p><a href={whatsappUrl(`Hello wedigitlize, I’d like to discuss ${service.title}.`)} className="un-card-button un-card-primary" target="_blank" rel="noopener noreferrer">Discuss your project<ArrowUpRight size={17}/></a><p className="un-action-note">We confirm the scope, price and delivery plan before work begins.</p></> : <div className="un-phone-service-grid">{services.map(item => <button key={item.id} onClick={() => setService(item)}><span className="un-service-icon"><item.icon size={20}/></span><span>{item.title}<small>{item.scope}</small></span><ArrowUpRight size={15}/></button>)}</div>}
                     </div>
                   </section> : <>
                     <header className="un-phone-toolbar"><button className="un-icon-button" aria-label="Toggle circuit detail" aria-pressed={circuit} onClick={() => setCircuit(!circuit)}><CircuitBoard size={18}/></button><button ref={qrTrigger} className="un-icon-button" aria-label="Flip card to QR codes" onClick={() => flip(true)}><QrCode size={19}/></button></header>
                     <div className="un-card-pane un-profile-pane">
-                      <div className="un-phone-brand"><div className="un-phone-mark"><Logo className="un-phone-logo"/></div><span className="un-card-eyebrow">YOUR DIGITAL STUDIO</span><h1>wedigitlize</h1><p>Websites. Apps. Branding.<br/>Built around your business.</p></div>
+                      <div className="un-phone-brand"><div className="un-phone-mark"><Logo className="un-phone-logo"/></div><h1>wedigitlize</h1><p>Websites, apps & brands.<br/>Built around your business.</p></div>
+                      <a href={whatsappUrl("Hello wedigitlize, I found your digital card and would like to discuss a project.")} target="_blank" rel="noopener noreferrer" className="un-card-button un-card-primary un-profile-cta" aria-label="Start a project on WhatsApp"><MessageCircle size={18}/><span>Start a project</span><ArrowUpRight size={16}/></a>
                       <div className="un-phone-links">
-                        <a href={whatsappUrl("Hello wedigitlize, I found your digital card and would like to discuss a project.")} target="_blank" rel="noopener noreferrer" className="un-card-button un-card-primary"><MessageCircle size={18}/><span>Let’s talk on WhatsApp</span><ArrowUpRight size={15}/></a>
-                        <button data-card-action="website" onClick={event => openAction("website", event.currentTarget)} className="un-card-button"><Globe size={18}/><span>Preview our website</span><ArrowUpRight size={15}/></button>
-                        <button data-card-action="phone" onClick={event => openAction("phone", event.currentTarget)} className="un-card-button"><Phone size={18}/><span>Contact options</span><ArrowUpRight size={15}/></button>
-                        <button data-card-action="email" onClick={event => openAction("email", event.currentTarget)} className="un-card-button"><Mail size={18}/><span>Email & updates</span><ArrowUpRight size={15}/></button>
+                        <button data-card-action="website" onClick={event => openAction("website", event.currentTarget)} className="un-card-button" aria-label="Preview our website"><Globe size={18}/><span>Website<small>wedigitlize.com</small></span><ArrowUpRight size={15}/></button>
+                        <button data-card-action="email" onClick={event => openAction("email", event.currentTarget)} className="un-card-button" aria-label="Email & updates"><Mail size={18}/><span>Email<small>{business.email}</small></span><ArrowUpRight size={15}/></button>
+                        <button data-card-action="phone" onClick={event => openAction("phone", event.currentTarget)} className="un-card-button" aria-label="Contact options"><Phone size={18}/><span>Call the studio<small>{business.phoneLabel}</small></span><ArrowUpRight size={15}/></button>
                       </div>
-                      <button data-card-action="services" className="un-phone-explore" onClick={event => openServices(event.currentTarget)}><span>Explore our services</span><ArrowUpRight size={15}/></button>
-                      <p className="un-card-location">London studio · Working worldwide</p>
+                      <button data-card-action="services" className="un-phone-explore" onClick={event => openServices(event.currentTarget)} aria-label="Explore our services"><span>Explore services</span><ArrowUpRight size={15}/></button>
+                      <p className="un-card-location">London · Working worldwide</p>
                     </div>
                     <nav className="un-phone-dock" aria-label="Quick contact actions">
                       <a href={business.instagram} target="_blank" rel="noopener noreferrer" aria-label="Visit wedigitlize on Instagram"><FiInstagram size={19}/><span>Instagram</span></a>
@@ -177,7 +177,7 @@ export default function CardExperience() {
                 <div className="camera-bump" aria-hidden="true"><i/><i/><i/><b/></div>
                 <button ref={qrBack} className="un-icon-button un-qr-back" onClick={() => flip(false)} aria-label="Return to the front of the card"><ArrowLeft size={19}/></button>
                 <div ref={qrContent} className="un-qr-content">
-                  <div className="un-qr-heading"><Logo className="un-view-logo"/><h2>Scan. Connect. Explore.</h2><p>Swipe or choose where to go.</p></div>
+                  <div className="un-qr-heading"><Logo className="un-view-logo"/><h2>Scan to connect.</h2><p>Swipe for more links.</p></div>
                   <div className="un-qr-gallery" ref={qrGallery} aria-label="Scrollable QR code gallery" tabIndex={0}>{qrTargets.map((target, index) => <section className="un-qr-slide" key={target.label} data-index={index} aria-label={target.label}><div className="un-phone-qr-code"><QRCodeSVG value={target.url} size={180} marginSize={4} level="M" title={`QR code for ${target.label}`}/></div><h3>{target.title}</h3><p>{target.description}</p></section>)}</div>
                   <div className="un-qr-tabs" role="group" aria-label="QR destination">{qrTargets.map((target, index) => <button key={target.label} aria-pressed={qr === index} onClick={() => selectQr(index)}>{target.label}</button>)}</div>
                   <a className="un-card-button un-card-primary" href="/wedigitlize.vcf" download="wedigitlize.vcf"><UserPlus size={18}/><span>Save our contact</span></a>

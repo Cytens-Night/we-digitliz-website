@@ -74,18 +74,18 @@ export default function CardActions({ type, onClose }: { type: CardAction; onClo
       <Logo className="un-view-logo"/>
     </header>
     {type === "website" ? <>
-      <div className="un-view-heading"><span className="un-card-eyebrow">THE DIGITAL STUDIO</span><h2 id="un-action-title">Explore our world.</h2><p>A live look at our work and services.</p></div>
+      <div className="un-view-heading"><span className="un-card-eyebrow">THE DIGITAL STUDIO</span><h2 id="un-action-title">Our website.</h2><p>Explore our work and services.</p></div>
       <div className="un-website-frame"><iframe src="/" title="wedigitlize website preview" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-downloads" allow="clipboard-write"/></div>
       <a className="un-card-button un-card-primary" href="/" target="_blank" rel="noopener noreferrer">Open full website<ArrowUpRight size={17}/></a>
     </> : <div ref={pane} className="un-card-pane">
       {type === "phone" ? <>
-        <div className="un-view-heading"><span className="un-card-eyebrow">LET’S CONNECT</span><h2 id="un-action-title">Your next project<br/>starts here.</h2><p>{business.phoneLabel}</p></div>
+        <div className="un-view-heading"><span className="un-card-eyebrow">CONTACT THE STUDIO</span><h2 id="un-action-title">Let’s talk.</h2><p>{business.phoneLabel}</p></div>
         <div className="un-action-options">
           <a href={`tel:${business.phone}`}><Phone size={19}/><span>Call the studio<small>Speak with us directly</small></span><ArrowUpRight size={15}/></a>
-          <a href="/wedigitlize.vcf" download="wedigitlize.vcf"><UserPlus size={19}/><span>Save our contact<small>Logo, details and service keywords</small></span><ArrowUpRight size={15}/></a>
+          <a href="/wedigitlize.vcf" download="wedigitlize.vcf"><UserPlus size={19}/><span>Save our contact<small>Keep the studio in your contacts</small></span><ArrowUpRight size={15}/></a>
         </div>
         <div className="un-contact-preview"><Image src="/contact-logo.jpg" width={48} height={48} alt="wedigitlize contact logo" unoptimized/><div><strong>wedigitlize</strong><span>WEDIGITLIZE LTD</span></div></div>
-        <p className="un-action-note">Open the downloaded contact and choose Add or Save on your phone. Our services are included in its notes so you can find us again.</p>
+        <p className="un-action-note">Open the downloaded file and choose Add or Save. Our logo, company details and services are included.</p>
         <p className="un-action-note">Contact photos and keyword search depend on your contacts app.</p>
       </> : subscribe ? <>
         <div className="un-view-heading"><span className="un-card-eyebrow">STUDIO UPDATES</span><h2 id="un-action-title">Stay in the loop.</h2><p>New work and useful ideas for your business, occasionally.</p></div>
@@ -102,7 +102,7 @@ export default function CardActions({ type, onClose }: { type: CardAction; onClo
           <p className="un-form-status" role="status" aria-live="polite">{message}</p>
         </form>
       </> : <>
-        <div className="un-view-heading"><span className="un-card-eyebrow">LET’S CONNECT</span><h2 id="un-action-title">Good ideas start<br/>a conversation.</h2><p>{business.email}</p></div>
+        <div className="un-view-heading"><span className="un-card-eyebrow">LET’S CONNECT</span><h2 id="un-action-title">Email the studio.</h2><p>{business.email}</p></div>
         <div className="un-action-options">
           <button onClick={copyEmail}><Copy size={19}/><span>{copied ? "Email copied" : "Copy email address"}<small>{copied ? "Ready to paste" : "Keep our address handy"}</small></span></button>
           <a href={`mailto:${business.email}?subject=${encodeURIComponent("Let’s discuss a project")}`}><Send size={19}/><span>Send an email<small>Open your email app</small></span><ArrowUpRight size={15}/></a>
