@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence, useSpring, useMotionValue, useReducedMotion } from "framer-motion";
+import { motion, useSpring, useMotionValue, useReducedMotion } from "framer-motion";
 import { Globe, Smartphone, Zap, ArrowRight, BarChart3 } from "lucide-react";
 
 // --- MAGNETIC BUTTON ---
@@ -70,7 +70,7 @@ export default function Hero() {
   }, [reduced]);
 
   return (
-    <section className="relative w-full min-h-[100svh] h-auto flex flex-col items-center justify-center overflow-hidden bg-background transition-colors duration-1000">
+    <section className="un-hero relative w-full min-h-[100svh] h-auto flex flex-col items-center justify-center overflow-hidden bg-background transition-colors duration-1000">
       
       {/* Clean Ambient Background */}
       <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
@@ -101,19 +101,12 @@ export default function Hero() {
             We engineer
           </motion.div>
           <div className="h-[1.2em] relative w-full flex justify-center mt-1 md:mt-4">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 40, rotateX: -90 }}
-                animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                exit={{ opacity: 0, y: -40, rotateX: 90 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute text-primary whitespace-nowrap drop-shadow-sm pb-2"
-                style={{ transformOrigin: "50% 50% -50px" }}
-              >
-                {words[index]}
-              </motion.div>
-            </AnimatePresence>
+            <span
+              key={index}
+              className="un-hero-word absolute text-primary whitespace-nowrap drop-shadow-sm pb-2"
+            >
+              {words[index]}
+            </span>
           </div>
         </h1>
 
@@ -132,7 +125,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-2 sm:gap-4 mb-10 md:mb-16 w-full max-w-4xl px-2 sm:px-6 md:px-0"
+          className="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-2 sm:gap-4 mb-10 md:mb-16 w-full max-w-5xl px-2 sm:px-6 md:px-0"
         >
           {services.map((service, i) => (
             <motion.div 
