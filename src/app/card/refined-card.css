@@ -14,6 +14,7 @@
 }
 .unique-card button, .unique-card a, .unique-card input { -webkit-tap-highlight-color: transparent; }
 .unique-card button, .unique-card a { touch-action: manipulation; }
+.unique-card :is(button, a) > :is(svg, span), .unique-card button small { pointer-events: none; }
 .unique-card button { cursor: pointer; }
 .unique-card button:disabled { cursor: wait; opacity: .65; }
 .unique-card :is(button, a, input, [tabindex]):focus-visible { outline: 2px solid #8abbff; outline-offset: 3px; }
@@ -31,7 +32,7 @@
 .unique-card .phone-front, .unique-card .phone-back { position: absolute; inset: 0; border: 9px solid #02040a; border-radius: 47px; overflow: hidden; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: inset 0 0 0 1px #57668270; }
 .unique-card .phone-front { background: #080c16; transform: translateZ(1px); }
 .unique-card .phone-back { background: linear-gradient(135deg, #1a2232, #070b13 65%); transform: rotateY(180deg) translateZ(1px); }
-.unique-card .phone-body.flipped .phone-front, .unique-card .phone-body:not(.flipped) .phone-back { pointer-events: none; }
+.unique-card .phone-body.flipped .phone-front, .unique-card .phone-body:not(.flipped) .phone-back { pointer-events: none; visibility: hidden; }
 .unique-card .phone-screen { position: relative; display: flex; flex-direction: column; width: 100%; height: 100%; padding: 7px 14px 14px; overflow: hidden; border-radius: 37px; background: radial-gradient(ellipse at 10% 0, #14233e80, transparent 60%), linear-gradient(180deg, #0d1423, #050810 85%); }
 .unique-card .phone-screen::after { content: ""; position: absolute; inset: 0; z-index: 5; background: linear-gradient(110deg, #ffffff04, transparent 40%, #ffffff01); pointer-events: none; }
 .unique-card .dynamic-island { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 96px; height: 27px; border-radius: 99px; z-index: 8; background: #010205; display: flex; align-items: center; justify-content: space-between; padding: 0 9px; box-shadow: 0 3px 10px #0008; pointer-events: none; }

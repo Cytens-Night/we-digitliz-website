@@ -33,7 +33,8 @@ export default function CardExperience() {
   const [status, setStatus] = useState("");
   const [manualLink, setManualLink] = useState(false);
   const qrGallery = useRef<HTMLDivElement>(null);
-  const returnFocus = useRef<HTMLElement | null>(null);
+  const returnFocus = useRef<string>("");
+  const frontScreen = useRef<HTMLDivElement>(null);
   const servicesBack = useRef<HTMLButtonElement>(null);
   const qrBack = useRef<HTMLButtonElement>(null);
   const qrTrigger = useRef<HTMLButtonElement>(null);
@@ -50,16 +51,16 @@ export default function CardExperience() {
   }
 
   function openAction(type: CardAction, trigger: HTMLElement) {
-    returnFocus.current = trigger;
+    returnFocus.current = trigger.dataset.cardAction || "";
     mx.set(0); my.set(0);
     setAction(type);
   }
   function closeView() {
     setAction(null); setShowServices(false); setService(null);
-    requestAnimationFrame(() => returnFocus.current?.focus({ preventScroll: true }));
+    requestAnimationFrame(() => frontScreen.current?.querySelector<HTMLElement>(`[data-card-action="${returnFocus.current}"]`)?.focus({ preventScroll: true }));
   }
   function openServices(trigger: HTMLElement) {
-    returnFocus.current = trigger;
+    returnFocus.current = trigger.dataset.cardAction || "";
     mx.set(0); my.set(0);
     setShowServices(true);
   }
@@ -133,7 +134,7 @@ export default function CardExperience() {
               <div className={`phone-front ${circuit ? "un-circuit-on" : ""}`} inert={flipped} aria-hidden={flipped}>
                 <div className="circuit-board-bg" aria-hidden="true"/>
                 <div className="dynamic-island" aria-hidden="true"><i/><i/></div>
-                <div className="phone-screen">
+                <div ref={frontScreen} className="phone-screen">
                   {action ? <CardActions key={action} type={action} onClose={closeView}/> : showServices ? <section className="un-card-view" aria-labelledby="un-service-title">
                     <header className="un-view-toolbar"><button ref={servicesBack} onClick={() => service ? setService(null) : closeView()} aria-label={service ? "Back to services" : "Back to card"}><ArrowLeft size={18}/><span>{service ? "Services" : "Back"}</span></button><Logo className="un-view-logo"/></header>
                     <div className="un-card-pane">
@@ -146,11 +147,11 @@ export default function CardExperience() {
                       <div className="un-phone-brand"><div className="un-phone-mark"><Logo className="un-phone-logo"/></div><span className="un-card-eyebrow">YOUR DIGITAL STUDIO</span><h1>wedigitlize</h1><p>Websites. Apps. Branding.<br/>Built around your business.</p></div>
                       <div className="un-phone-links">
                         <a href={whatsappUrl("Hello wedigitlize, I found your digital card and would like to discuss a project.")} target="_blank" rel="noopener noreferrer" className="un-card-button un-card-primary"><MessageCircle size={18}/><span>Let’s talk on WhatsApp</span><ArrowUpRight size={15}/></a>
-                        <button onClick={event => openAction("website", event.currentTarget)} className="un-card-button"><Globe size={18}/><span>Preview our website</span><ArrowUpRight size={15}/></button>
-                        <button onClick={event => openAction("phone", event.currentTarget)} className="un-card-button"><Phone size={18}/><span>Contact options</span><ArrowUpRight size={15}/></button>
-                        <button onClick={event => openAction("email", event.currentTarget)} className="un-card-button"><Mail size={18}/><span>Email & updates</span><ArrowUpRight size={15}/></button>
+                        <button data-card-action="website" onClick={event => openAction("website", event.currentTarget)} className="un-card-button"><Globe size={18}/><span>Preview our website</span><ArrowUpRight size={15}/></button>
+                        <button data-card-action="phone" onClick={event => openAction("phone", event.currentTarget)} className="un-card-button"><Phone size={18}/><span>Contact options</span><ArrowUpRight size={15}/></button>
+                        <button data-card-action="email" onClick={event => openAction("email", event.currentTarget)} className="un-card-button"><Mail size={18}/><span>Email & updates</span><ArrowUpRight size={15}/></button>
                       </div>
-                      <button className="un-phone-explore" onClick={event => openServices(event.currentTarget)}><span>Explore our services</span><ArrowUpRight size={15}/></button>
+                      <button data-card-action="services" className="un-phone-explore" onClick={event => openServices(event.currentTarget)}><span>Explore our services</span><ArrowUpRight size={15}/></button>
                       <p className="un-card-location">London studio · Working worldwide</p>
                     </div>
                     <nav className="un-phone-dock" aria-label="Quick contact actions">
