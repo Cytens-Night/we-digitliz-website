@@ -139,7 +139,7 @@ export default function CardExperience() {
       <div className="un-phone-shell">
         <div className="un-phone-parallax" data-screen-open={!!action || showServices || flipped}>
           <div className="perfume-body-container">
-            <div className={`phone-body ${flipped ? "flipped" : ""}`} inert={turning} aria-busy={turning} onTransitionEnd={event => { if (event.target === event.currentTarget && event.propertyName === "transform") setTurning(false); }}>
+            <div className={`phone-body ${flipped ? "flipped" : ""}`} inert={turning} aria-busy={turning}>
               <div className={`phone-front ${circuit ? "un-circuit-on" : ""}`} inert={flipped} aria-hidden={flipped || turning}>
                 <div className="circuit-board-bg" aria-hidden="true"/>
                 <div className="dynamic-island" aria-hidden="true"><i/><i/></div>
