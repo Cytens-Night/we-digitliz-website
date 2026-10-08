@@ -147,3 +147,17 @@
 @media(max-width:370px){.art-hud-controls>span span{display:none}.art-mission-status>span{font-size:11px}.art-mission-copy small span{display:none}}
 .art-motion-paused *, .art-motion-paused *::before,.art-motion-paused *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 @media(prefers-reduced-motion:reduce){.art-wizard *, .art-wizard *::before, .art-wizard *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* Readable achievement labels on mobile and desktop */
+.ar-site .art-badge b{font-size:13px;color:#2e4b34;line-height:1.45}
+.ar-site .art-badge small{font-size:12px;color:#4e6450;line-height:1.5}
+.ar-site .art-hud-controls>span span{font-size:12px;color:inherit}
+.ar-site .art-badge-earned small{color:#285633}
+.ar-site .art-badge-shelf{gap:9px}
+@media(max-width:600px){
+ .ar-site .art-badge{min-height:71px}
+ .ar-site .art-badge b{font-size:12px}
+ .ar-site .art-badge small{font-size:11px}
+ .ar-site .art-hud-coins span,.ar-site .art-hud-count span{font-size:11px}
+ .ar-site .art-hud-motion{min-width:42px}
+}
