@@ -316,3 +316,34 @@
   .ar-site .art-wizard-head { flex-wrap: wrap; }
   .ar-site .art-wizard-head .art-wizard-skip { margin-left: auto; }
 }
+
+/* Preserve reverse contrast inside deliberately dark components and optional contrast mode. */
+.ar-site .art-stage-access.art-stage-contrast {
+  background: #111d14 !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff;
+}
+.ar-site .art-stage-access.art-stage-contrast > p,
+.ar-site .art-stage-access.art-stage-contrast .art-small-upper,
+.ar-site .art-stage-access.art-stage-contrast .art-stage-toolbar > svg {
+  color: #ffffff !important;
+}
+.ar-site .art-stage-access.art-stage-contrast .art-a11y-example,
+.ar-site .art-stage-access.art-stage-contrast .art-a11y-example p,
+.ar-site .art-stage-access.art-stage-contrast .art-a11y-example strong {
+  color: #15291b !important;
+}
+.ar-site .ar-demo-tab-group button.active, .ar-site .ar-category-row button.active,
+.ar-site .ar-demo-window .ar-allergy-pills button.active,
+.ar-site .ar-access-tools button.active { color: #ffffff !important; }
+.ar-site .ar-workspace-header .ar-workspace-live { color: #2b6034; }
+@media(max-width:600px) {
+ .ar-site .art-stage-opening { padding: 20px 15px; }
+ .ar-site .art-journey-stop { gap: 9px; }
+ .ar-site .art-journey-icon { width: 38px; height: 38px; }
+ .ar-site .art-journey-stop>svg { width: 13px; flex:none; }
+ .ar-site .art-story-impact { display: grid; grid-template-columns: 1fr; }
+ .ar-site .art-story-impact>span:nth-of-type(2) { margin-top: 9px !important; }
+ .ar-site .art-guest-mode-label { letter-spacing: 0; }
+ .ar-site .ar-suggested-prompts { padding: 5px 11px 12px; }
+}
