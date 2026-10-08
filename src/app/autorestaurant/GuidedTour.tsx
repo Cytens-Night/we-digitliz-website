@@ -60,8 +60,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  const [contribution,setContribution] = useState(0.35);
  const [plan,setPlan] = useState<Plan>("Connected");
  const [expandedProvider,setExpandedProvider] = useState<string|null>("Square for Restaurants");
- const [started,setStarted] = useState(false);
- const advance = (next:number) => { setStep(Math.max(0,Math.min(next,steps.length-1))); setStarted(true); };
+ const advance = (next:number) => { setStep(Math.max(0,Math.min(next,steps.length-1))); };
  const serviceHours = orders * minutes * 26 / 60;
  const illustrationContribution = orders * contribution * 26;
  const potentialAfterSubscription = illustrationContribution - plans[plan].monthly;
@@ -154,6 +153,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
    <div className="art-stage-toolbar"><div><span className="art-small-upper">TRANSPARENT SCOPE AND ESTIMATES</span><h4>Choose the right starting point.</h4></div><WalletCards size={25}/></div>
    <div className="art-package-list">{(Object.keys(plans) as Plan[]).map(k=><button key={k} className={"art-package "+(plan===k?"is-selected":"")} aria-pressed={plan===k} onClick={()=>setPlan(k)}><span><span className="art-package-radio"/><strong>{k}</strong><small>{plans[k].headline}</small></span><span><b>From {currency(plans[k].setup)}</b><small>{currency(plans[k].monthly)}/month example</small></span></button>)}</div>
    <div className="art-pricing-detail"><div><span>WHAT THE {plan.toUpperCase()} EXAMPLE INCLUDES</span><strong>{plans[plan].headline}</strong></div><ul>{plans[plan].inclusions.map(q=><li key={q}><Check size={15}/>{q}</li>)}</ul><div className="art-pricing-excludes"><Info size={17}/><p>{plans[plan].exclusions}</p></div></div>
+   <div className="art-budget-explained"><strong>Why does bespoke development cost more than an off-the-shelf subscription?</strong><div className="art-budget-chips"><span><Check size={13}/> Restaurant discovery and workflow design</span><span><Check size={13}/> Custom-branded guest experience</span><span><Check size={13}/> Secure ordering and manager controls</span><span><Check size={13}/> Verification, testing and staff onboarding</span></div><p>Setup pays for designing, building, integrating and validating your specific workflows. Monthly service covers the agreed hosting, monitoring, maintenance and support level. A mature third-party POS may still be the better choice for standard operations.</p></div>
    <p className="art-pricing-fine">Planning estimates, not fixed offers. UK VAT where applicable, card processing, tablets/printers, payment/POS providers, usage-based AI and any enhanced support are additional unless explicitly included in your contract. Discovery determines final scope.</p>
  </div>;
  default:return <div className="art-stage art-stage-finish">
@@ -163,7 +163,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
   <p>You're not committing to new hardware, a staffing plan, or a replacement POS. Start by finding the parts that improve your particular service.</p>
   <div className="art-personal-note"><span>YOUR TOUR SNAPSHOT</span><div><span>Perspective</span><b>{role}</b></div><div><span>Package to discuss</span><b>{plan}</b></div><div><span>Example investment</span><b>{currency(plans[plan].setup)} + {currency(plans[plan].monthly)}/mo</b></div><small>Exact pricing follows restaurant discovery and integration checks.</small></div>
   <a href={mailto} className="art-send-proposal">Request a tailored proposal <ArrowUpRight size={19}/></a>
-  <button className="art-replay" onClick={()=>{setStep(0);setStarted(false)}}>Explore the tour again <ArrowRight size={15}/></button>
+  <button className="art-replay" onClick={()=>{setStep(0)}}>Explore the tour again <ArrowRight size={15}/></button>
  </div>;
  }
  };
