@@ -76,7 +76,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  const [minutes,setMinutes] = useState(2);
  const [contribution,setContribution] = useState(0.35);
  const [plan,setPlan] = useState<Plan>("Connected");
- const [expandedProvider,setExpandedProvider] = useState<string|null>("Square for Restaurants");
+ const [expandedProvider,setExpandedProvider] = useState<string|null>(null);
  const [enquiryStatus,setEnquiryStatus] = useState<"idle"|"sending"|"sent"|"error">("idle");
  const [completedMissions,setCompletedMissions] = useState<number[]>([]);
  const [lastEarned,setLastEarned] = useState<number|null>(null);
@@ -111,7 +111,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
    setInterest("For two");
    setLargeText(false);
    setHighContrast(false);
-   setExpandedProvider("Square for Restaurants");
+   setExpandedProvider(null);
    advance(0);
  };
  const serviceHours = orders * minutes * 26 / 60;
@@ -189,7 +189,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
    <div className="art-allergen-options">{["Sesame","Milk","Nuts","Gluten"].map(name=><button key={name} aria-pressed={allergens.includes(name)} className={allergens.includes(name)?"is-selected":""} onClick={()=>setAllergens(p=>p.includes(name)?p.filter(i=>i!==name):[...p,name])}>{allergens.includes(name)?"✓ ":""}{name}</button>)}</div>
    <div className="art-preview-dishes">{filteredDishes.map(d=><div key={d.name}><span>{d.icon}</span><div><strong>{d.name}</strong><small>Declared in sample: {d.tag.join(", ")||"none listed (unverified)"}</small></div><b>£{d.price.toFixed(2)}</b></div>)}</div>
    {filteredDishes.length===0&&<p className="art-empty">No matching dishes. Ask trained staff for help choosing.</p>}
-   <div className="art-menu-footer"><div className="art-mode-picker">{(["At the table","Preorder","Takeaway extra"] as const).map(m=><button key={m} className={menuMode===m?"is-selected":""} onClick={()=>{setMenuMode(m);markMission(2)}}>{m}</button>)}</div><p>{menuMode==="At the table"?"Guests order from their seats without losing control.":menuMode==="Preorder"?"Schedule an arrival and pay in advance in the production system.":"Offer a dessert or meal to take home without restarting checkout."}</p></div>
+   <div className="art-menu-footer"><div className="art-mode-picker">{(["At the table","Preorder","Takeaway extra"] as const).map(m=><button key={m} className={menuMode===m?"is-selected":""} onClick={()=>{setMenuMode(m);if(m!=="At the table")markMission(2)}}>{m}</button>)}</div><p>{menuMode==="At the table"?"Guests order from their seats without losing control.":menuMode==="Preorder"?"Schedule an arrival and pay in advance in the production system.":"Offer a dessert or meal to take home without restarting checkout."}</p></div>
    <div className="art-safety-note"><ShieldCheck size={16}/> With an allergy, trained staff must check current ingredients and cross-contact before any real order or payment.</div>
  </div>;
  case 3:return <div className="art-stage art-stage-operations">
@@ -210,7 +210,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  </div>;
  case 5:return <div className="art-stage art-stage-market">
    <div className="art-market-head"><span>CHECKED 8 OCT 2026 • PUBLISHED UK VENDOR PAGES</span><h4>Compare what matters.</h4><p>These are different product categories and service scopes. A custom guest layer is not necessarily a cheaper alternative to a mature POS.</p></div>
-   <div className="art-provider-list">{providerData.map(p=><div key={p.name} className="art-provider"><button onClick={()=>{setExpandedProvider(expandedProvider===p.name?null:p.name);markMission(5)}} aria-expanded={expandedProvider===p.name}><span><strong>{p.name}</strong><small>{p.price}</small></span><span>{expandedProvider===p.name?<Minus size={15}/>:<ArrowRight size={15}/>}</span></button>{expandedProvider===p.name&&<div><p><b>Offers:</b> {p.good}</p><p><b>Good choice when:</b> {p.note}</p><a href={p.url} target="_blank" rel="noopener noreferrer">See provider's website <ArrowUpRight size={14}/></a></div>}</div>)}</div>
+   <div className="art-provider-list">{providerData.map(p=><div key={p.name} className="art-provider"><button onClick={()=>{const opening=expandedProvider!==p.name;setExpandedProvider(opening?p.name:null);if(opening)markMission(5)}} aria-expanded={expandedProvider===p.name}><span><strong>{p.name}</strong><small>{p.price}</small></span><span>{expandedProvider===p.name?<Minus size={15}/>:<ArrowRight size={15}/>}</span></button>{expandedProvider===p.name&&<div><p><b>Offers:</b> {p.good}</p><p><b>Good choice when:</b> {p.note}</p><a href={p.url} target="_blank" rel="noopener noreferrer">See provider's website <ArrowUpRight size={14}/></a></div>}</div>)}</div>
    <div className="art-market-difference"><span><Sparkles size={18}/> WHERE WEDIGITLIZE FITS</span><p>We design the <b>restaurant-specific experience</b> around its identity, guest journeys, verified information and chosen integrations. Existing software may remain part of the solution.</p></div>
    <p className="art-market-fine">*Flipdish £49/month is its website-only online ordering offer when billed annually; monthly billing is listed at £69. Square fees are per location for Plus. Pricing and conditions can change; confirm quotes and VAT directly.</p>
  </div>;
