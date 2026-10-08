@@ -1,0 +1,318 @@
+/* AutoRestaurant readability refresh | 2026-10-08
+ * Intentionally scoped to .ar-site. The default experience must be readable
+ * without selecting the optional high-contrast / larger-type modes.
+ */
+.ar-site {
+  --ar-ink: #203329;
+  --ar-muted: #405c48;
+  --ar-border: #bfcfc0;
+  --ar-paper: #fbfcf7;
+  color: #203329;
+  background: #fbfcf7;
+  -webkit-font-smoothing: antialiased;
+}
+.ar-site :is(button, a, input, textarea, select) { touch-action: manipulation; }
+.ar-site :is(button, a) { text-underline-offset: 3px; }
+.ar-site :is(button, a, input, textarea, select):focus-visible {
+  outline: 3px solid #1f6a37 !important;
+  outline-offset: 3px;
+}
+.ar-site :is(p, li, label) { text-wrap: pretty; }
+.ar-site :is(input, textarea, select) { color: #24382a; }
+.ar-site input::placeholder, .ar-site textarea::placeholder { color: #526454; opacity: 1; }
+
+/* Spacious typography throughout the public-facing sales story */
+.ar-site .ar-overline, .ar-site .ar-photo-label, .ar-site .ar-feature-top span,
+.ar-site .ar-plan-top>span, .ar-site .ar-safe-label {
+  font-size: 12px !important; line-height: 1.5; letter-spacing: .10em;
+  color: #365d3d; font-weight: 800;
+}
+.ar-site :is(.ar-demo-section, .ar-savings, .ar-cta) .ar-light-overline { color: #d5efc6 !important; }
+.ar-site .ar-intro-right p, .ar-site .ar-section-head>p,
+.ar-site .ar-concierge-copy>p, .ar-site .ar-savings-grid>div>p,
+.ar-site .ar-cta p { font-size: 17px !important; line-height: 1.8; }
+.ar-site .ar-hero-copy>p { font-size: 19px !important; line-height: 1.7; color: #354e3d; }
+.ar-site .ar-tour-hint { font-size: 14px !important; color: #36553c; font-weight: 600; }
+.ar-site .ar-hero-foot strong { font-size: 13px; }
+.ar-site .ar-hero-foot small { font-size: 13px; color: #456347; }
+.ar-site .ar-nav a { font-size: 14px; color: #284c33; }
+.ar-site .ar-inline-link { font-size: 14px; color: #214c31; }
+.ar-site .ar-main-button { font-size: 14px; padding: 15px 23px; }
+.ar-site .ar-marquee-inner span { font-size: 12px; color: #284c32; letter-spacing: .07em; }
+.ar-site .ar-intro-signoff { font-size: 14px; color: #2f5136; }
+.ar-site .ar-demo-heading p { color: #e0eadf; font-size: 16px; }
+.ar-site .ar-demo-pill { color: #f0f7ed; font-size: 12px; }
+.ar-site .ar-demo-pill>span:last-child { color: #d8e8d6; }
+.ar-site .ar-feature { background: #f1f5eb; border-color: #c5d7c4; }
+.ar-site .ar-feature-top { color: #35573b; }
+.ar-site .ar-feature h3 { color: #203c28; font-size: 24px; }
+.ar-site .ar-feature p, .ar-site .ar-flow-grid p { font-size: 15px !important; line-height: 1.7; color: #405b45; }
+.ar-site .ar-flow-grid h3 { color: #203729; font-size: 21px; }
+.ar-site .ar-concierge-lines>div { font-size: 15px; color: #304f37; }
+.ar-site .ar-concierge-quote>span, .ar-site .ar-concierge-quote>div { font-size: 12px; color: #3c5840; }
+.ar-site .ar-calc-input label { font-size: 14px; }
+.ar-site .ar-calc-input>div { font-size: 13px; color: #d8e8d6; }
+.ar-site .ar-calc-result>span { font-size: 12px; color: #3e6244; }
+.ar-site .ar-calc-result>p { font-size: 14px !important; color: #38533e !important; }
+.ar-site .ar-result-bottom { font-size: 13px; color: #315738; }
+.ar-site .ar-plan { border-color: #b9ccb9; background: #fff; }
+.ar-site .ar-plan.ar-featured-plan { background: #e9f4e2; border-color: #7da177; }
+.ar-site .ar-plan-top p, .ar-site .ar-plan li,
+.ar-site .ar-plan-month, .ar-site .ar-plan-note { font-size: 14px; color: #425d49; }
+.ar-site .ar-plan-price small { color: #405845; font-size: 12px; }
+.ar-site .ar-plan>a { font-size: 14px; }
+.ar-site .ar-featured-plan .ar-plan-featured { font-size: 11px; }
+.ar-site .ar-safety-card>div:last-child p,
+.ar-site .ar-safety li, .ar-site .ar-faq-item p { font-size: 15px; color: #38553d; }
+.ar-site .ar-safety-card a, .ar-site .ar-faq-item button { font-size: 15px; }
+.ar-site .ar-footer p, .ar-site .ar-footer>.ar-container:first-child>div:last-child a { font-size: 14px; color: #36523c; }
+.ar-site .ar-footer-bottom { font-size: 12px; color: #456047; }
+
+/* The nine-chapter walkthrough has to be readable without zooming */
+.ar-site .art-root { background: #f0f5ea; color: #243b2a; }
+.ar-site .art-introduction p { font-size: 17px !important; color: #385b40; }
+.ar-site .art-intro-mark small { font-size: 12px; color: #36553c; }
+.ar-site .art-wizard { border-color: #a9c3a6; box-shadow: 0 20px 50px #20372a17; }
+.ar-site .art-wizard-head { background: #24382b; }
+.ar-site .art-wizard-label, .ar-site .art-wizard-label>span:last-child {
+  color: #f0faec; font-size: 12px; letter-spacing: .06em;
+}
+.ar-site .art-wizard-skip { color: #fff; font-size: 13px; border-color: #8cae8e; }
+.ar-site .art-wizard-layout { min-height: 790px; }
+.ar-site .art-story { background: #f1f6ee; border-color: #b9cdb6; padding: 42px 35px; }
+.ar-site .art-chapter-index { font-size: 12px; letter-spacing: .08em; color: #36583d; }
+.ar-site .art-chapter-index span:first-child { background: #d7e9cf; color: #214a2c; }
+.ar-site .art-story h3 { color: #1e3927; line-height: 1.14; }
+.ar-site .art-story-problem { font-size: 16px; color: #3c5842; line-height: 1.8; }
+.ar-site .art-role-panel { background: #e4f0dc; border-color: #aac7a0; }
+.ar-site .art-role-panel>span, .ar-site .art-story-outcome>span,
+.ar-site .art-story-impact>span, .ar-site .art-story-insight>span {
+  font-size: 12px; letter-spacing: .07em; color: #315b39;
+}
+.ar-site .art-role-panel button { font-size: 14px; min-height: 40px; color: #2a5234; }
+.ar-site .art-role-panel button.is-selected { color: #fff; }
+.ar-site .art-role-panel p { font-size: 15px; color: #36583b; }
+.ar-site .art-story-outcome { background: #e0eed8; border-left-color: #477f46; }
+.ar-site .art-story-outcome p { font-size: 15px; color: #2f5335; line-height: 1.75; }
+.ar-site .art-story-impact p { font-size: 15px; line-height: 1.75; color: #3c5842; }
+.ar-site .art-story-insight p { font-size: 22px; line-height: 1.45; color: #305137; }
+.ar-site .art-story-stage { background: #fff; }
+.ar-site .art-stage-top, .ar-site .art-stage-top>span:last-child { color: #405c45; font-size: 12px; letter-spacing: .04em; }
+.ar-site .art-stage { border-color: #c2d5c0; background-color: #f7faf5; min-height: 690px; }
+.ar-site .art-stage-eyebrow, .ar-site .art-small-upper { color: #365f3f; font-size: 12px; letter-spacing: .07em; }
+.ar-site .art-journey-stop { border-color: #bdd3b7; padding: 17px; }
+.ar-site .art-journey-stop span { font-size: 12px; color: #416449; }
+.ar-site .art-journey-stop strong { font-size: 16px; line-height: 1.45; }
+.ar-site .art-spotlight>span { color: #d4efc9; font-size: 12px; }
+.ar-site .art-spotlight strong { font-size: 25px; }
+.ar-site .art-phone-top b { font-size: 14px; }
+.ar-site .art-phone-top span { font-size: 12px; color: #45604b; }
+.ar-site .art-phone-welcome p { font-size: 14px; color: #3e6048; }
+.ar-site .art-intent-options button { font-size: 12px; min-height: 38px; }
+.ar-site .art-phone-reply { font-size: 15px; color: #2e5335; }
+.ar-site .art-phone-link { font-size: 13px; min-height: 43px; }
+.ar-site .art-stage-sidecard>span { font-size: 12px; color: #365a3c; }
+.ar-site .art-stage-sidecard p, .ar-site .art-tag-row>span { font-size: 14px; color: #38533c; }
+.ar-site .art-stage-sidecard h4 { color: #25422d; }
+.ar-site .art-filter-intro { border-color: #ccb886; color: #5e4825; }
+.ar-site .art-filter-intro strong { font-size: 14px; }
+.ar-site .art-filter-intro small { font-size: 13px; color: #5d4729; }
+.ar-site .art-allergen-options button, .ar-site .art-mode-picker button { font-size: 13px; min-height: 40px; }
+.ar-site .art-preview-dishes strong { font-size: 14px; }
+.ar-site .art-preview-dishes small { font-size: 12px; color: #455b48; }
+.ar-site .art-preview-dishes b { font-size: 14px; }
+.ar-site .art-preview-dishes>div { border-color: #cbdcca; }
+.ar-site .art-menu-footer>p, .ar-site .art-safety-note { font-size: 13px; color: #594a29; line-height: 1.6; }
+.ar-site .art-work-top span, .ar-site .art-live-indicator,
+.ar-site .art-kitchen-progress small, .ar-site .art-kitchen-ticket>small {
+  font-size: 12px !important; letter-spacing: .04em; color: #39553d;
+}
+.ar-site .art-kitchen-ticket>div { font-size: 15px; }
+.ar-site .art-stage-actions button { font-size: 14px; min-height: 43px; }
+.ar-site .art-service-alert strong { font-size: 14px; }
+.ar-site .art-service-alert small { font-size: 12px; color: #3e5941; }
+.ar-site .art-service-alert>span { font-size: 12px; color: #2a5b36; }
+.ar-site .art-ops-caption { font-size: 13px; color: #3d5741; }
+.ar-site .art-stage-access>p { font-size: 15px; color: #385740; }
+.ar-site .art-a11y-controls button { font-size: 14px; min-height: 45px; }
+.ar-site .art-a11y-example>strong { font-size: 20px; }
+.ar-site .art-a11y-example>p { font-size: 15px; color: #34533a; }
+.ar-site .art-a11y-directions p { font-size: 13px; color: #405f46; }
+.ar-site .art-a11y-assist { font-size: 14px; min-height: 46px; }
+.ar-site .art-market-head>span { font-size: 12px; color: #3c5d43; letter-spacing: .05em; }
+.ar-site .art-market-head p { font-size: 14px; color: #405a42; }
+.ar-site .art-provider { border-color: #bfcfbe; }
+.ar-site .art-provider>button { min-height: 59px; }
+.ar-site .art-provider>button strong { font-size: 15px; }
+.ar-site .art-provider>button small { font-size: 13px; color: #396344; }
+.ar-site .art-provider>div { font-size: 14px; color: #3b5840; }
+.ar-site .art-provider>div a { font-size: 14px; color: #175c2b; text-decoration: underline; }
+.ar-site .art-market-difference span { font-size: 12px; color: #31593a; }
+.ar-site .art-market-difference p { font-size: 14px; color: #304d36; }
+.ar-site .art-market-fine { font-size: 12px; color: #425e46; line-height: 1.7; }
+.ar-site .art-range-row>label { font-size: 14px; color: #35583b; }
+.ar-site .art-range-row>span { font-size: 12px; color: #46664a; }
+.ar-site .art-calculator-select label, .ar-site .art-calculator-select select { font-size: 13px; }
+.ar-site .art-number-results small { font-size: 12px; color: #3a6143; min-height: 52px; }
+.ar-site .art-estimate-caption { font-size: 14px; color: #275235; }
+.ar-site .art-estimate-caption span { font-size: 13px; color: #425d44; }
+.ar-site .art-package { border-color: #bdcfbc; min-height: 74px; }
+.ar-site .art-package strong { font-size: 16px; }
+.ar-site .art-package small { font-size: 12px; color: #405f45; }
+.ar-site .art-package>span:last-child b { font-size: 14px; }
+.ar-site .art-pricing-detail { border-color: #c0d4be; }
+.ar-site .art-pricing-detail>div:first-child span { font-size: 12px; color: #365c3d; }
+.ar-site .art-pricing-detail>div:first-child strong { font-size: 16px; }
+.ar-site .art-pricing-detail li { font-size: 13px; color: #335538; }
+.ar-site .art-pricing-excludes p { font-size: 13px; color: #654d2f; }
+.ar-site .art-pricing-fine { font-size: 12px; color: #445d46; }
+.ar-site .art-budget-explained { background: #e7f1e0; border-color: #b6ceb2; }
+.ar-site .art-budget-explained>strong { font-size: 14px; color: #244b30; }
+.ar-site .art-budget-chips span { font-size: 12px; color: #365a3e; }
+.ar-site .art-budget-explained>p { font-size: 13px; color: #38563e; }
+.ar-site .art-personal-note>span { font-size: 12px; color: #365b3d; }
+.ar-site .art-personal-note>div { font-size: 13px; }
+.ar-site .art-personal-note>div span { color: #405c44; }
+.ar-site .art-personal-note>small { font-size: 12px; color: #446345; }
+.ar-site .art-stage-finish>p { font-size: 15px; color: #365840; }
+.ar-site .art-lead-form>strong { font-size: 16px; }
+.ar-site .art-lead-form label { font-size: 14px; color: #36533b; }
+.ar-site .art-lead-form input, .ar-site .art-lead-form textarea { font-size: 16px; padding: 11px; }
+.ar-site .art-lead-form>p, .ar-site .art-lead-success p { font-size: 13px; color: #35563b; }
+.ar-site .art-lead-success strong { font-size: 15px; }
+.ar-site .art-lead-fallback, .ar-site .art-replay { font-size: 14px; }
+.ar-site .art-send-proposal { font-size: 14px; min-height: 47px; }
+.ar-site .art-wizard-steps button { min-width: 34px; min-height: 34px; font-size: 13px; }
+.ar-site .art-wizard-back, .ar-site .art-wizard-next { font-size: 14px; min-height: 43px; }
+.ar-site .art-underfoot strong { font-size: 15px; }
+.ar-site .art-underfoot p { font-size: 13px; color: #3d5a44; }
+.ar-site .art-underfoot button { font-size: 14px; }
+.ar-site .art-owner-reasons>div:first-child>span { font-size: 12px; color: #35593d; }
+.ar-site .art-owner-reasons strong { font-size: 15px; }
+.ar-site .art-owner-reasons p { font-size: 14px; color: #3b5640; }
+
+/* Hands-on ordering demo: increase small labels and muted text in every state */
+.ar-site .ar-demo-side { background: #ecf3e8; }
+.ar-site .ar-side-label, .ar-site .ar-mini-eyebrow, .ar-site .ar-dish-label,
+.ar-site .ar-guest-mode-label, .ar-site .ar-demo-status, .ar-site .ar-side-step>span {
+  font-size: 12px; color: #385f3f; letter-spacing: .07em;
+}
+.ar-site .ar-demo-side>p { font-size: 15px; color: #405a44; }
+.ar-site .ar-side-step strong, .ar-site .ar-side-step small { font-size: 13px; color: #325037; }
+.ar-site .ar-side-footer { font-size: 12px; color: #3e5a43; }
+.ar-site .ar-demo-tab-group button { font-size: 13px; min-height: 48px; }
+.ar-site .ar-access-tools>span, .ar-site .ar-access-tools button { font-size: 12px; color: #29482f; }
+.ar-site .ar-access-tools button.active { color: #fff; }
+.ar-site .ar-table-pill { font-size: 12px; color: #38573e; }
+.ar-site .ar-chat-head h5 { font-size: 15px; color: #263f2b; }
+.ar-site .ar-chat-head p, .ar-site .ar-call-staff { font-size: 12px; color: #36573c; }
+.ar-site .ar-chat-bubble { font-size: 14px; line-height: 1.65; color: #26402d; }
+.ar-site .ar-user-message .ar-chat-bubble { color: #fff; }
+.ar-site .ar-suggested-prompts button, .ar-site .ar-host-actions button { font-size: 12px; min-height: 37px; color: #25542e; }
+.ar-site .ar-chat-input input { font-size: 16px; }
+.ar-site .ar-chat-disclaimer { font-size: 12px; color: #425d43; }
+.ar-site .ar-menu-intro p { font-size: 13px; color: #405d44; }
+.ar-site .ar-mode-buttons button { font-size: 12px; min-height: 37px; color: #315238; }
+.ar-site .ar-mode-buttons button.active { color: #fff; }
+.ar-site .ar-schedule, .ar-site .ar-allergy-tool>button,
+.ar-site .ar-allergy-content p, .ar-site .ar-allergy-assistance,
+.ar-site .ar-allergy-pills button { font-size: 13px; }
+.ar-site .ar-allergy-tool>button>span { font-size: 12px; color: #5a482e; }
+.ar-site .ar-allergy-content p { color: #5b482c; }
+.ar-site .ar-context-nudge, .ar-site .ar-context-nudge button { font-size: 12px; color: #2e5b33; }
+.ar-site .ar-search-box input { font-size: 15px; }
+.ar-site .ar-category-row button { font-size: 13px; min-height: 37px; }
+.ar-site .ar-dish-info strong, .ar-site .ar-dish-info b { font-size: 14px; color: #293d2c; }
+.ar-site .ar-dish-info p { font-size: 12px; color: #485f4a; }
+.ar-site .ar-dish-allergens { font-size: 11px; color: #6b4b26; }
+.ar-site .ar-menu-allergy-footer { font-size: 12px; color: #654b2a; }
+.ar-site .ar-menu-cart-bar strong, .ar-site .ar-menu-cart-bar small { font-size: 13px; color: #2c4830; }
+.ar-site .ar-menu-cart-bar button { font-size: 13px; }
+.ar-site .ar-workspace-header p, .ar-site .ar-workspace-live,
+.ar-site .ar-workspace-stats span, .ar-site .ar-owner-stats span,
+.ar-site .ar-owner-stats small, .ar-site .ar-workspace-note { font-size: 12px; color: #3b5941; }
+.ar-site .ar-ticket-top { font-size: 13px; color: #2e4933; }
+.ar-site .ar-ticket-top small, .ar-site .ar-ticket-status { font-size: 12px; color: #3c533d; }
+.ar-site .ar-ticket-items, .ar-site .ar-ticket-bottom strong { font-size: 13px; }
+.ar-site .ar-ticket-bottom button { font-size: 12px; min-height: 37px; }
+.ar-site .ar-manager-panel h4 { font-size: 15px; }
+.ar-site .ar-manager-panel h4 span { font-size: 12px; color: #405c45; }
+.ar-site .ar-status-row { font-size: 13px; color: #35553b; }
+.ar-site .ar-manager-notices p, .ar-site .ar-manager-notices button { font-size: 13px; color: #3a5c3f; }
+.ar-site .ar-guide-header p, .ar-site .ar-guide-destinations button,
+.ar-site .ar-guide-instructions p, .ar-site .ar-guide-instructions button { font-size: 13px; color: #305638; }
+.ar-site .ar-floorplan-label { font-size: 11px; color: #37573e; }
+.ar-site .ar-map-room { font-size: 12px; color: #37553d; }
+.ar-site .ar-map-target { font-size: 12px; color: #1e4729; }
+.ar-site .ar-drawer-warning, .ar-site .ar-prepay-checkbox small,
+.ar-site .ar-checkout-upsell small, .ar-site .ar-qr-modal p { font-size: 13px; color: #3d5740; }
+.ar-site .ar-drawer-item strong, .ar-site .ar-drawer-item small,
+.ar-site .ar-checkout-upsell strong { font-size: 14px; }
+
+/* Layout grows with the text instead of clipping. */
+.ar-site .ar-chat-messages { max-height: 400px; min-height: 280px; }
+.ar-site .ar-menu-view .ar-dishes { max-height: 420px; }
+.ar-site .ar-dishes { gap: 13px; }
+.ar-site .art-preview-dishes { max-height: 340px; }
+.ar-site .art-wizard-layout, .ar-site .ar-demo-content { height: auto; }
+.ar-site .ar-demo-window { min-height: 650px; }
+
+/* Global reading size controls now meaningfully affect prose beyond the demo. */
+.ar-site.ar-view-large .art-story-problem,
+.ar-site.ar-view-large .art-story-impact p,
+.ar-site.ar-view-large .art-story-outcome p,
+.ar-site.ar-view-large .art-provider>div,
+.ar-site.ar-view-large .ar-feature p,
+.ar-site.ar-view-large .ar-plan li,
+.ar-site.ar-view-large .ar-intro-right p { font-size: 19px !important; }
+
+/* Small screens need one readable column and breathing room. */
+@media(max-width:900px) {
+  .ar-site .art-wizard-layout { min-height: 0; }
+  .ar-site .art-stage { min-height: 0; }
+  .ar-site .art-story { padding: 29px 26px; }
+  .ar-site .art-story-insight { padding-top: 18px; margin-top: 20px; }
+  .ar-site .art-stage-sidecard p { line-height: 1.7; }
+}
+@media(max-width:600px) {
+  .ar-site .ar-overline { font-size: 11px !important; }
+  .ar-site .ar-hero-copy>p { font-size: 17px !important; }
+  .ar-site .art-introduction h2 { font-size: clamp(38px, 10vw, 48px); }
+  .ar-site .art-introduction p { font-size: 15px !important; }
+  .ar-site .art-wizard-head { padding: 14px; gap: 7px; }
+  .ar-site .art-wizard-label { font-size: 11px; }
+  .ar-site .art-wizard-label>span:last-child { display: none; }
+  .ar-site .art-wizard-skip { font-size: 11px; }
+  .ar-site .art-story { padding: 24px 19px; }
+  .ar-site .art-story h3 { font-size: 35px; }
+  .ar-site .art-stage-top>span:last-child { font-size: 10px; max-width: 145px; }
+  .ar-site .art-story-stage { padding: 10px; }
+  .ar-site .art-stage { padding: 19px; }
+  .ar-site .art-stage-guest { display: block; }
+  .ar-site .art-stage-sidecard { margin-top: 26px; }
+  .ar-site .art-journey-stop { padding: 11px; }
+  .ar-site .art-journey-stop strong { font-size: 14px; }
+  .ar-site .art-stage-sidecard>span { font-size: 11px; }
+  .ar-site .art-number-results small { font-size: 12px; }
+  .ar-site .art-provider>button strong { font-size: 14px; }
+  .ar-site .art-pricing-detail ul { grid-template-columns: 1fr; }
+  .ar-site .art-package>span:last-child b { font-size: 12px; }
+  .ar-site .art-wizard-footer { padding: 16px; }
+  .ar-site .art-wizard-steps { gap: 3px; }
+  .ar-site .art-wizard-steps button { min-width: 31px; width: 31px; min-height: 36px; }
+  .ar-site .art-wizard-nav { width: 100%; }
+  .ar-site .art-wizard-next { flex: 1; }
+  .ar-site .ar-demo-tab-group button { font-size: 11px; }
+  .ar-site .ar-access-tools button { font-size: 12px; }
+  .ar-site .ar-dish-info p { font-size: 12px; }
+  .ar-site .ar-dish-art { width: 74px; }
+  .ar-site .ar-marquee-inner span { font-size: 11px; }
+  .ar-site .ar-plan-top p, .ar-site .ar-plan li { font-size: 15px; }
+  .ar-site .ar-safety-card { padding: 27px 22px; }
+  .ar-site .ar-footer-bottom { font-size: 12px; }
+}
+@media(max-width:370px) {
+  .ar-site .art-wizard-steps button { min-width: 26px; width: 26px; }
+  .ar-site .art-wizard-head { flex-wrap: wrap; }
+  .ar-site .art-wizard-head .art-wizard-skip { margin-left: auto; }
+}
