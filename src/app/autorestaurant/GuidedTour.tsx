@@ -62,6 +62,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  const [expandedProvider,setExpandedProvider] = useState<string|null>("Square for Restaurants");
  const [enquiryStatus,setEnquiryStatus] = useState<"idle"|"sending"|"sent"|"error">("idle");
  const leadPending = useRef(false);
+ const leadForm = useRef<HTMLFormElement>(null);
  const advance = (next:number) => { setStep(Math.max(0,Math.min(next,steps.length-1))); };
  const serviceHours = orders * minutes * 26 / 60;
  const illustrationContribution = orders * contribution * 26;
@@ -91,7 +92,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
      const result = await fetch("/__forms.html", { method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:data.toString(), signal:controller.signal });
      if (!result.ok) throw new Error("Could not submit");
      setEnquiryStatus("sent");
-     event.currentTarget.reset();
+     leadForm.current?.reset();
    } catch {
      setEnquiryStatus("error");
    } finally {
@@ -185,7 +186,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
   <h4>Now imagine this with<br/><em>your restaurant's name on it.</em></h4>
   <p>You're not committing to new hardware, a staffing plan, or a replacement POS. Start by finding the parts that improve your particular service.</p>
   <div className="art-personal-note"><span>YOUR TOUR SNAPSHOT</span><div><span>Perspective</span><b>{role}</b></div><div><span>Package to discuss</span><b>{plan}</b></div><div><span>Example investment</span><b>{currency(plans[plan].setup)} + {currency(plans[plan].monthly)}/mo</b></div><small>Exact pricing follows restaurant discovery and integration checks.</small></div>
-  {enquiryStatus==="sent"?<div className="art-lead-success" role="status"><CheckCircle2 size={23}/><div><strong>Your enquiry has been submitted.</strong><p>Thank you. WeDigitlize can contact you using the email address you entered.</p></div></div>:<form className="art-lead-form" name="autorestaurant-enquiry" action="/__forms.html" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={submitLead}>
+  {enquiryStatus==="sent"?<div className="art-lead-success" role="status"><CheckCircle2 size={23}/><div><strong>Your enquiry has been submitted.</strong><p>Thank you. WeDigitlize can contact you using the email address you entered.</p></div></div>:<form ref={leadForm} className="art-lead-form" name="autorestaurant-enquiry" action="/__forms.html" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" onSubmit={submitLead}>
    <input type="hidden" name="form-name" value="autorestaurant-enquiry"/><input type="hidden" name="subject" value="AutoRestaurant guided-tour enquiry"/><input type="hidden" name="source" value="autorestaurant-self-guided-tour"/><input type="hidden" name="role" value={role}/><input type="hidden" name="package" value={plan}/><input type="hidden" name="orders" value={String(orders)}/><div hidden><label>Do not fill out<input name="bot-field" tabIndex={-1} autoComplete="off"/></label></div>
    <strong>Get a tailored proposal — without a meeting first.</strong><div className="art-lead-fields"><label>Your name<input type="text" name="name" autoComplete="name" maxLength={100} placeholder="Your name" required/></label><label>Your email<input type="email" name="email" autoComplete="email" maxLength={254} placeholder="you@restaurant.com" required/></label></div><label>Restaurant name<input type="text" name="restaurant" autoComplete="organization" maxLength={150} placeholder="Your restaurant" required/></label><label>What would you like help with?<textarea name="message" rows={2} maxLength={1500} placeholder="e.g. 20 tables, Square POS, table preorders and AI host" required/></label><p>We use your enquiry details to reply. Read our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">privacy notice</a>.</p>{enquiryStatus==="error"&&<p className="art-lead-error" role="alert">We couldn't confirm your enquiry was received. Please retry or use the email option below.</p>}<button type="submit" className="art-send-proposal" disabled={enquiryStatus==="sending"}>{enquiryStatus==="sending"?"Sending your enquiry…":"Send my restaurant enquiry"} <ArrowUpRight size={18}/></button></form>}
   <a className="art-lead-fallback" href={mailto}>Prefer email? Use a prepared enquiry <ArrowUpRight size={14}/></a>
