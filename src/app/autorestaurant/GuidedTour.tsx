@@ -51,10 +51,10 @@ const missions = [
  { title:"Find your starting point", hint:"Select a plan to reveal its features and exclusions.", reward:"You know what you're considering — and what isn't included." }
 ] as const;
 const awards = [
- { at:2, icon:"✦", title:"Guest-first explorer", subtitle:"Explore the guest journey" },
- { at:4, icon:"✳", title:"Service orchestrator", subtitle:"Connect the front and back of house" },
- { at:6, icon:"◆", title:"Informed decision-maker", subtitle:"Make accessibility and comparisons count" },
- { at:8, icon:"★", title:"Experience architect", subtitle:"Shape the business case" }
+ { requires:[0,1], icon:"✦", title:"Guest-first explorer", subtitle:"Explore the guest journey" },
+ { requires:[2,3], icon:"✳", title:"Service orchestrator", subtitle:"Connect the front and back of house" },
+ { requires:[4,5], icon:"◆", title:"Informed decision-maker", subtitle:"Make accessibility and comparisons count" },
+ { requires:[6,7], icon:"★", title:"Experience architect", subtitle:"Shape the business case" }
 ] as const;
 const roleBenefit: Record<Audience,string> = {
   Owner:"A distinct brand experience with clearer ways to assess service capacity and investment.",
@@ -271,7 +271,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
       <div className="art-hud-controls"><span className="art-hud-coins" aria-label={earnedPoints+" insight points earned"}><Sparkles size={16}/><b>{earnedPoints}</b> <span>INSIGHT POINTS</span></span><span className="art-hud-count"><Target size={16}/><b>{completedMissions.length}/8</b><span>EXPLORED</span></span><button className="art-hud-motion" aria-pressed={!motionEnabled} onClick={()=>setMotionEnabled(v=>!v)} title={motionEnabled?"Pause decorative animations":"Resume animations"}>{motionEnabled?<Pause size={15}/>:<Play size={15}/>} <span>{motionEnabled?"Pause motion":"Resume motion"}</span></button></div>
      </div>
      <div className="art-badge-shelf" aria-label="Collectible exploration badges">
-      {awards.map(a=><div key={a.title} className={"art-badge "+(completedMissions.length>=a.at?"art-badge-earned":"")} title={a.subtitle}><span className="art-badge-symbol" aria-hidden="true">{completedMissions.length>=a.at?a.icon:"◇"}</span><span><b>{a.title}</b><small>{completedMissions.length>=a.at?"Unlocked":"Complete "+a.at+" mini-challenges"}</small></span></div>)}
+      {awards.map(a=><div key={a.title} className={"art-badge "+(a.requires.every(i=>completedMissions.includes(i))?"art-badge-earned":"")} title={a.subtitle}><span className="art-badge-symbol" aria-hidden="true">{a.requires.every(i=>completedMissions.includes(i))?a.icon:"◇"}</span><span><b>{a.title}</b><small>{a.requires.every(i=>completedMissions.includes(i))?"Unlocked":"Explore chapters "+(a.requires[0]+1)+" and "+(a.requires[1]+1)}</small></span></div>)}
      </div>
      <div className="art-wizard-progress" role="progressbar" aria-valuemin={1} aria-valuemax={steps.length} aria-valuenow={step+1} aria-label="Tour progress"><span style={{width:progress+"%"}}/></div>
      <div className="art-wizard-layout">
