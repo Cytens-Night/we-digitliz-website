@@ -97,6 +97,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  const advance = (next:number) => {
    setStep(Math.max(0,Math.min(next,steps.length-1)));
    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+   window.requestAnimationFrame(()=>document.getElementById("art-chapter-title")?.focus({preventScroll:true}));
    document.getElementById("art-tour-top")?.scrollIntoView({
      behavior:motionEnabled&&!reduced?"smooth":"auto",
      block:"start"
@@ -277,7 +278,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
      <div className="art-wizard-layout">
       <div className="art-story art-story-enter" key={"story-"+step}>
        <div className="art-chapter-index"><span>{x.tag} / 09</span><span>{x.eyebrow}</span></div>
-       <h3>{x.title}</h3>
+       <h3 id="art-chapter-title" tabIndex={-1}>{x.title}</h3>
        <p className="art-story-problem">{current.problem}</p>
        {step===0&&<div className="art-role-panel"><span>YOUR PERSPECTIVE</span><div>{(["Owner","Manager","Service team"] as const).map(r=><button className={role===r?"is-selected":""} key={r} onClick={()=>{setRole(r);markMission(0)}} aria-pressed={role===r}>{r}</button>)}</div><p>{roleTitle}</p></div>}
        {step!==0&&<div className="art-story-outcome"><span><Sparkles size={14}/> THE BETTER EXPERIENCE</span><p>{current.outcome}</p></div>}
@@ -293,8 +294,8 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
           <div className="art-mission-status">{completedMissions.includes(step)?<span><CheckCircle2 size={17}/> DONE</span>:<span><Sparkles size={16}/> +15</span>}</div>
           {lastEarned===step&&<div className="art-reward-pop" role="status" key={"pop-"+step}><Sparkles size={20}/><span>+15</span><strong>Experience unlocked!</strong>{[0,1,2,3,4,5,6,7].map(i=><i key={i} className={"art-spark-bit bit-"+i}/>)}</div>}
         </div>}
-        <div className="art-stage-enter" key={"stage-"+step}>{stage()}</div>
         {step===8&&<div className="art-finale-note"><Trophy size={22}/><div><strong>{completedMissions.length} of 8 explorations unlocked</strong><span>{completedMissions.length===8?"You tried every interactive demonstration!":"The challenges are optional. You can request a tailored proposal at any time."}</span></div></div>
+        <div className="art-stage-enter" key={"stage-"+step}>{stage()}</div>
       </div>
      </div>
      <div className="art-wizard-footer"><div className="art-wizard-steps">{steps.map((s,i)=><button key={s.short} className={step===i?"is-active":completedMissions.includes(i)?"is-complete":""} title={s.short} aria-label={"Go to chapter "+(i+1)+": "+s.short+(completedMissions.includes(i)?" (challenge complete)":"")} aria-current={step===i?"step":undefined} onClick={()=>advance(i)}>{completedMissions.includes(i)?<Check size={13}/>:i+1}</button>)}</div><div className="art-wizard-nav">{step>0&&<button className="art-wizard-back" onClick={()=>advance(step-1)}><ArrowLeft size={16}/> Previous</button>}{step<steps.length-1?<button className="art-wizard-next" onClick={()=>advance(step+1)}>{nextLabel}<ArrowRight size={17}/></button>:<a className="art-wizard-next" href={mailto}>Send enquiry <ArrowUpRight size={17}/></a>}</div></div>
