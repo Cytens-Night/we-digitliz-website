@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowRight, ArrowUpRight, BellRing, Check, CheckCircle2, ChefHat, ChevronDown, ChevronRight, CircleHelp, Clock3, Coffee, CreditCard, Gift, Globe2, Heart, LayoutDashboard, Menu as MenuIcon, MessageCircleHeart, Minus, Plus, QrCode, ReceiptText, Search, Send, ShieldAlert, ShieldCheck, ShoppingBag, Sparkles, TrendingUp, UtensilsCrossed, WalletCards, X } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import "./style.css";
+import GuidedTour from "./GuidedTour";
 
 type View = "host" | "menu" | "guide" | "kitchen" | "owner";
 type OrderMode = "Dine in" | "Preorder" | "Takeaway extras";
@@ -146,7 +147,7 @@ export default function AutoRestaurantExperience() {
    <div className="ar-container ar-header-inner">
     <a className="ar-logo" href="/"><span className="ar-logo-symbol"><UtensilsCrossed size={22}/></span><span>auto<span className="ar-logo-accent">restaurant</span><b>.</b><small>BY WEDIGITLIZE</small></span></a>
     <nav className={navOpen ? "ar-nav open" : "ar-nav"}>
-     <a href="#experience" onClick={() => setNavOpen(false)}>The experience</a><a href="#demo" onClick={() => setNavOpen(false)}>Interactive demo</a><a href="#platform" onClick={() => setNavOpen(false)}>Platform</a><a href="#plans" onClick={() => setNavOpen(false)}>Investment</a>
+     <a href="#walkthrough" onClick={() => setNavOpen(false)}>Guided walkthrough</a><a href="#demo" onClick={() => setNavOpen(false)}>Interactive demo</a><a href="#platform" onClick={() => setNavOpen(false)}>Platform</a><a href="#plans" onClick={() => setNavOpen(false)}>Investment</a>
     </nav>
     <a className="ar-main-button ar-nav-cta" href="mailto:info@wedigitlize.com?subject=AutoRestaurant%20discovery%20call">Let's talk <ArrowUpRight size={16}/></a>
     <button className="ar-menu-toggle" aria-label="Toggle navigation" onClick={() => setNavOpen(v => !v)}>{navOpen ? <X/> : <MenuIcon/>}</button>
@@ -158,7 +159,7 @@ export default function AutoRestaurantExperience() {
      <div className="ar-overline"><span className="ar-small-line"/> THE FUTURE OF HOSPITALITY FEELS HUMAN</div>
      <h1>Hospitality,<br/><em>beautifully</em><br/>handled<span className="ar-green-dot">.</span></h1>
      <p>Meet the digital host that knows your menu, delights your guests, and keeps the whole restaurant beautifully in sync.</p>
-     <div className="ar-hero-buttons"><button className="ar-main-button ar-lime" onClick={() => openDemo("host")}>Meet the digital host <ArrowUpRight size={18}/></button><a href="#experience" className="ar-inline-link">Discover the experience <ArrowRight size={17}/></a></div>
+     <div className="ar-hero-buttons"><a className="ar-main-button ar-lime" href="#walkthrough">See how it works — guided tour <ArrowUpRight size={18}/></a><button className="ar-inline-link ar-inline-demo-button" onClick={() => openDemo("host")}>Try the live-style demo <ArrowRight size={17}/></button></div><p className="ar-tour-hint"><CheckCircle2 size={15}/> Understand the experience, benefits, pricing and alternatives at your own pace.</p>
      <div className="ar-hero-foot"><div className="ar-hero-tiny-icons"><span>✦</span><span>♧</span><span>✧</span></div><div><strong>More than a QR code.</strong><small>One considered journey from hello to goodbye.</small></div></div>
     </div>
     <div className="ar-hero-visual">
@@ -172,6 +173,8 @@ export default function AutoRestaurantExperience() {
     </div>
    </section>
    <section className="ar-marquee"><div className="ar-container ar-marquee-inner"><span><Sparkles size={17}/> CONVERSATIONAL HOSPITALITY</span><span><QrCode size={17}/> SMART TABLE ORDERING</span><span><ChefHat size={18}/> CONNECTED KITCHENS</span><span><Heart size={17}/> MEMORABLE MOMENTS</span></div></section>
+
+   <GuidedTour onOpenDemo={openDemo}/>
 
    <section className="ar-intro ar-container" id="experience">
     <div><div className="ar-overline">01 — THE IDEA</div><h2>Make every guest feel <em>looked after.</em></h2></div>
