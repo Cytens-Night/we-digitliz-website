@@ -5,6 +5,7 @@ import { ArrowRight, ArrowUpRight, BellRing, Check, CheckCircle2, ChefHat, Chevr
 import { QRCodeSVG } from "qrcode.react";
 import "./style.css";
 import GuidedTour from "./GuidedTour";
+import "./readability.css";
 
 type View = "host" | "menu" | "guide" | "kitchen" | "owner";
 type OrderMode = "Dine in" | "Preorder" | "Takeaway extras";
