@@ -5,11 +5,13 @@ import { ArrowRight, ArrowUpRight, BellRing, Check, CheckCircle2, ChefHat, Chevr
 import { QRCodeSVG } from "qrcode.react";
 import "./style.css";
 
-type View = "host" | "menu" | "kitchen" | "owner";
+type View = "host" | "menu" | "guide" | "kitchen" | "owner";
+type OrderMode = "Dine in" | "Preorder" | "Takeaway extras";
+type DisplayMode = "standard" | "large" | "contrast" | "calm";
 type TicketStatus = "New" | "Preparing" | "Ready" | "Served";
 type ChatMessage = { role: "assistant" | "user"; text: string; danger?: boolean };
 type Dish = { id: number; name: string; category: string; price: number; description: string; icon: string; colour: string; label?: string };
-type Ticket = { id: number; table: string; items: string[]; total: number; status: TicketStatus };
+type Ticket = { id: number; table: string; items: string[]; total: number; status: TicketStatus; service?: string; simulatedPrepay?: boolean };
 const dishes: Dish[] = [
  { id: 1, name: "Anatolian mixed grill", category: "Mains", price: 24.50, description: "A generous selection inspired by traditional charcoal cooking.", icon: "🍢", colour: "ember", label: "Guest favourite" },
  { id: 2, name: "Chicken shish", category: "Mains", price: 17.50, description: "Smoky skewers with peppers and fragrant herbs.", icon: "🍗", colour: "gold", label: "Our pick" },
@@ -18,6 +20,12 @@ const dishes: Dish[] = [
  { id: 5, name: "Pistachio baklava", category: "Desserts", price: 7, description: "Layers of delicate pastry and sweet syrup.", icon: "🍯", colour: "olive" },
  { id: 6, name: "Mint lemonade", category: "Drinks", price: 4.50, description: "Citrus, fresh mint and a refreshing finish.", icon: "🍋", colour: "lime" },
 ];
+// Illustrative data only, NOT an approved restaurant allergen matrix.
+// An actual deployment must source this from approved recipes and supplier records.
+const SAMPLE_ALLERGENS: Record<number, string[]> = {
+  1: ["Milk"], 2: [], 3: ["Sesame", "Gluten"], 4: ["Milk"], 5: ["Nuts", "Gluten"], 6: [],
+};
+const ALLERGEN_OPTIONS = ["Celery","Gluten","Crustaceans","Eggs","Fish","Lupin","Milk","Molluscs","Mustard","Nuts","Peanuts","Sesame","Soya","Sulphites"];
 const seedTickets: Ticket[] = [
  { id: 1042, table: "03", items: ["Chicken shish × 2", "Mint lemonade × 2"], total: 44, status: "Preparing" },
  { id: 1043, table: "12", items: ["Anatolian mixed grill × 1", "Hummus & warm flatbread × 1"], total: 32, status: "New" },
@@ -32,6 +40,9 @@ const featureCards = [
  { icon: CreditCard, label: "04 / Payments", title: "The effortless last impression.", text: "Offer digital payment, bill splitting, tips and receipts through an approved payment provider." },
  { icon: LayoutDashboard, label: "05 / Insights", title: "Every decision, clearer.", text: "Track orders, peak hours, popular dishes and service flow from a connected owner workspace." },
  { icon: Gift, label: "06 / Loyalty", title: "Give them a reason to return.", text: "Remember preferences with consent, celebrate milestones and offer personalised rewards." },
+ { icon: Clock3, label: "07 / Before arrival", title: "Ready before they arrive.", text: "Preorder a meal, schedule collection, or arrange takeaway extras with digital prepayment." },
+ { icon: ShieldCheck, label: "08 / Inclusive service", title: "Designed for every guest.", text: "Adjust text, contrast, pace and language, with staff assistance always one tap away." },
+ { icon: Globe2, label: "09 / Wayfinding", title: "Never leave them guessing.", text: "Help people find the toilets, accessible facilities, exits and help points using an approved floor map." },
 ];
 const faqs = [
  ["Does the AI host replace waiters?", "No. It handles repetitive questions, menu exploration and service routing while staff remain responsible for personal hospitality, order checks and food safety."],
@@ -77,6 +88,13 @@ export default function AutoRestaurantExperience() {
  const [orders, setOrders] = useState(80);
  const [expanded, setExpanded] = useState<number | null>(0);
  const [navOpen, setNavOpen] = useState(false);
+ const [orderMode, setOrderMode] = useState<OrderMode>("Dine in");
+ const [orderTime, setOrderTime] = useState("18:30");
+ const [simulatedPrepay, setSimulatedPrepay] = useState(false);
+ const [showAllergyChoices, setShowAllergyChoices] = useState(false);
+ const [avoidAllergens, setAvoidAllergens] = useState<string[]>([]);
+ const [displayMode, setDisplayMode] = useState<DisplayMode>("standard");
+ const [facility, setFacility] = useState<"Toilets" | "Accessible WC" | "Exit">("Toilets");
  useEffect(() => {
   const query = new URLSearchParams(window.location.search);
   const t = query.get("table");
@@ -89,7 +107,7 @@ export default function AutoRestaurantExperience() {
  }, [notice]);
  const itemCount = Object.values(cart).reduce((a,b) => a + b, 0);
  const subtotal = dishes.reduce((acc,d) => acc + (cart[d.id] || 0) * d.price, 0);
- const displayed = useMemo(() => dishes.filter(d => (category === "All" || d.category === category) && (d.name + d.description).toLowerCase().includes(search.toLowerCase())), [category, search]);
+ const displayed = useMemo(() => dishes.filter(d => (category === "All" || d.category === category) && (d.name + d.description).toLowerCase().includes(search.toLowerCase()) && !SAMPLE_ALLERGENS[d.id].some(a => avoidAllergens.includes(a))), [category, search, avoidAllergens]);
  const liveTickets = tickets.filter(t => t.status !== "Served");
  const maxTicket = Math.max(...tickets.map(t => t.id));
  const sendChat = (value?: string) => {
@@ -104,13 +122,15 @@ export default function AutoRestaurantExperience() {
   setActive(target);
   document.getElementById("demo")?.scrollIntoView({ behavior: "smooth", block: "start" });
  };
+ const toggleAllergen = (name: string) => setAvoidAllergens(prev => prev.includes(name) ? prev.filter(a => a !== name) : [...prev, name]);
  const sendOrder = () => {
   if (itemCount < 1) return;
   const id = maxTicket + 1;
-  setTickets(prev => [{ id, table, items: dishes.filter(d => cart[d.id]).map(d => d.name + " × " + cart[d.id]), total: subtotal, status: "New" }, ...prev]);
+  const plan = orderMode === "Dine in" ? "Dine in" : orderMode + " at " + orderTime;
+  setTickets(prev => [{ id, table, items: dishes.filter(d => cart[d.id]).map(d => d.name + " × " + cart[d.id]), total: subtotal, status: "New", service: plan, simulatedPrepay }, ...prev]);
   setCart({});
   setCartOpen(false);
-  setNotice("Demo order #" + id + " added to the kitchen board");
+  setNotice("Sample " + orderMode.toLowerCase() + " order #" + id + (simulatedPrepay ? " (payment simulated)" : "") + " sent to the kitchen");
   setActive("kitchen");
  };
  const requestStaff = () => { setCalls(v => v + 1); setNotice("Demo assistance request sent from table " + table); };
@@ -118,7 +138,7 @@ export default function AutoRestaurantExperience() {
  const shareUrl = "https://wedigitlize.com/autorestaurant?table=" + table;
  const hours = Math.round(orders * minutes * 26 / 60);
 
- return <div className="ar-site" id="main-content">
+ return <div className={"ar-site ar-view-" + displayMode} id="main-content">
   <div className="ar-topline"><span className="ar-dot" /> A NEW KIND OF RESTAURANT EXPERIENCE <span>AN INDEPENDENT CONCEPT BY WEDIGITLIZE <ArrowUpRight size={13} /></span></div>
   <header className="ar-header">
    <div className="ar-container ar-header-inner">
@@ -161,12 +181,13 @@ export default function AutoRestaurantExperience() {
      <div className="ar-demo-heading"><div><div className="ar-overline ar-light-overline">02 — EXPERIENCE IT YOURSELF</div><h2>Don't just imagine it.<br/><em>Try it.</em></h2><p>A hands-on concept you can explore. Place an order, chat with the host, see it in the kitchen and manage the flow.</p></div><div className="ar-demo-pill"><span className="ar-dot"/> INTERACTIVE CONCEPT <span>NOT A LIVE RESTAURANT</span></div></div>
      <div className="ar-demo-shell">
       <div className="ar-demo-tabs"><div className="ar-demo-tab-group">
-       {([{id:"host",name:"Digital host",icon:MessageCircleHeart},{id:"menu",name:"Guest menu",icon:UtensilsCrossed},{id:"kitchen",name:"Kitchen",icon:ChefHat},{id:"owner",name:"Owner view",icon:LayoutDashboard}] as const).map(t => <button key={t.id} className={active === t.id ? "active" : ""} onClick={() => setActive(t.id)}><t.icon size={17}/><span>{t.name}</span></button>)}
+       {([{id:"host",name:"Digital host",icon:MessageCircleHeart},{id:"menu",name:"Guest menu",icon:UtensilsCrossed},{id:"guide",name:"Facilities",icon:Globe2},{id:"kitchen",name:"Kitchen",icon:ChefHat},{id:"owner",name:"Owner view",icon:LayoutDashboard}] as const).map(t => <button key={t.id} className={active === t.id ? "active" : ""} onClick={() => setActive(t.id)}><t.icon size={17}/><span>{t.name}</span></button>)}
       </div><div className="ar-demo-status"><span className="ar-dot"/> DEMO MODE</div></div>
+      <div className="ar-access-tools"><span><Heart size={14}/> Your experience, your way</span><div>{([{id:"standard",label:"Standard"},{id:"large",label:"Larger text"},{id:"contrast",label:"High contrast"},{id:"calm",label:"Calm mode"}] as const).map(m=><button key={m.id} onClick={()=>setDisplayMode(m.id)} className={displayMode===m.id?"active":""} aria-pressed={displayMode===m.id}>{m.label}</button>)}</div></div>
       <div className="ar-demo-content">
        <div className="ar-demo-side">
-        <div className="ar-side-label">YOUR EXPERIENCE</div><h3>{active === "host" ? "A warmer welcome." : active === "menu" ? "Made to order." : active === "kitchen" ? "A calmer kitchen." : "The bigger picture."}</h3>
-        <p>{active === "host" ? "Your always-available companion can recommend, explain and entertain, while knowing when a real team member is essential." : active === "menu" ? "Choose your favourites, build a cart, and watch the order travel to the kitchen." : active === "kitchen" ? "Track each order as it moves from new to preparing, ready and served." : "See how orders and service requests come together in one clean workspace."}</p>
+        <div className="ar-side-label">YOUR EXPERIENCE</div><h3>{active === "host" ? "A warmer welcome." : active === "menu" ? "Made to order." : active === "guide" ? "A little direction." : active === "kitchen" ? "A calmer kitchen." : "The bigger picture."}</h3>
+        <p>{active === "host" ? "Your always-available companion can recommend, explain and entertain, while knowing when a real team member is essential." : active === "menu" ? "Choose your favourites, filter example ingredients, preorder, or arrange takeaway extras." : active === "guide" ? "Find facilities without having to search for a member of staff. Actual maps are verified by the restaurant." : active === "kitchen" ? "Track each order as it moves from new to preparing, ready and served." : "See how orders and service requests come together in one clean workspace."}</p>
         <div className="ar-side-divider"></div>
         <div className="ar-side-step"><span>01</span><div><strong>Open the experience</strong><small>No account or app required</small></div><CheckCircle2 size={18}/></div>
         <div className="ar-side-step"><span>02</span><div><strong>Make it your own</strong><small>Ask questions or add dishes</small></div><CheckCircle2 size={18}/></div>
@@ -179,21 +200,27 @@ export default function AutoRestaurantExperience() {
          <div className="ar-chat-head"><div className="ar-assistant-icon"><Sparkles size={23}/></div><div><h5>Your digital host <span className="ar-online-dot"/></h5><p>Here to make your visit wonderful</p></div><button onClick={requestStaff} className="ar-call-staff"><BellRing size={16}/> Call a team member</button></div>
          <div className="ar-chat-messages" aria-live="polite">{chat.map((m,i) => <div key={i} className={"ar-message " + (m.role === "user" ? "ar-user-message" : "ar-host-message")}>{m.role === "assistant" && <div className="ar-message-avatar">✳</div>}<div className={m.danger ? "ar-chat-bubble ar-bubble-danger" : "ar-chat-bubble"}>{m.danger && <ShieldAlert size={17}/>}<span>{m.text}</span></div></div>)}</div>
          <div className="ar-suggested-prompts">{["Recommend a meal for two","I have a nut allergy","How is it prepared?","Tell me a joke"].map(q => <button key={q} onClick={() => sendChat(q)}>{q} <ArrowUpRight size={12}/></button>)}</div>
+         <div className="ar-host-actions"><button onClick={()=>setActive("menu")}><UtensilsCrossed size={14}/> Browse menu</button><button onClick={()=>setActive("guide")}><Globe2 size={14}/> Find facilities</button><button onClick={()=>{setShowAllergyChoices(true);setActive("menu");}}><ShieldCheck size={14}/> Allergy preferences</button><button onClick={()=>{setOrderMode("Preorder");setActive("menu");}}><Clock3 size={14}/> Preorder</button></div>
          <form className="ar-chat-input" onSubmit={e => {e.preventDefault();sendChat();}}><input aria-label="Ask the digital host" value={input} onChange={e => setInput(e.target.value)} placeholder="Ask anything about your visit…" maxLength={300}/><button aria-label="Send message" disabled={!input.trim()}><Send size={17}/></button></form>
          <div className="ar-chat-disclaimer">Scripted concept responses. Allergy requests are always escalated to staff. Sample menu only.</div>
         </div>}
         {active === "menu" && <div className="ar-menu-view">
          <div className="ar-customer-bar"><div><span className="ar-mini-eyebrow">THE RESTAURANT EXPERIENCE</span><h4>LIKYA <span>CONCEPT</span></h4></div><span className="ar-table-pill">TABLE {table}</span></div>
          <div className="ar-menu-intro"><div><span className="ar-mini-eyebrow">MAKE YOURSELF AT HOME</span><h3>A little something <em>delicious.</em></h3><p>Thoughtful choices, inspired by Anatolian dining.</p></div><div className="ar-menu-lemon">✻</div></div>
+         <div className="ar-guest-modes"><div className="ar-guest-mode-label">HOW WOULD YOU LIKE TO ENJOY YOUR ORDER?</div><div className="ar-mode-buttons">{(["Dine in","Preorder","Takeaway extras"] as const).map(m=><button key={m} className={orderMode===m?"active":""} onClick={()=>setOrderMode(m)}>{m==="Dine in"?<UtensilsCrossed size={14}/>:m==="Preorder"?<Clock3 size={14}/>:<ShoppingBag size={14}/>} {m}</button>)}</div>{orderMode!=="Dine in"&&<label className="ar-schedule">Sample {orderMode==="Preorder"?"arrival":"collection"} time <input aria-label="Order time" type="time" value={orderTime} onChange={e=>setOrderTime(e.target.value)}/></label>}</div>
+         <div className="ar-allergy-tool"><button aria-expanded={showAllergyChoices} onClick={()=>setShowAllergyChoices(v=>!v)}><ShieldAlert size={16}/> Help me avoid known allergens <span>{avoidAllergens.length?avoidAllergens.length+" selected":"Personalise menu"}</span><ChevronDown size={15}/></button>{showAllergyChoices&&<div className="ar-allergy-content"><p>Sample ingredient labels only. This filters dishes with listed allergens, <b>not</b> cross-contact or unknown ingredients. Speak to staff before ordering if you have an allergy.</p><div className="ar-allergy-pills">{ALLERGEN_OPTIONS.map(a=><button key={a} className={avoidAllergens.includes(a)?"active":""} onClick={()=>toggleAllergen(a)} aria-pressed={avoidAllergens.includes(a)}>{avoidAllergens.includes(a)?"✓ ":""}{a}</button>)}</div><button className="ar-allergy-assistance" onClick={requestStaff}><BellRing size={14}/> Ask trained staff about allergens</button></div>}</div>
+         <div className="ar-context-nudge"><Sparkles size={14}/> In the mood for something cosy? Try a sharing dish. <button onClick={()=>{setCategory("Mains");setSearch("");}}>Show me <ArrowRight size={13}/></button></div>
          <div className="ar-search-box"><Search size={16}/><input aria-label="Search sample dishes" value={search} onChange={e => setSearch(e.target.value)} placeholder="Find something lovely…"/></div>
          <div className="ar-category-row">{["All","Mains","Starters","Desserts","Drinks"].map(c => <button className={category === c ? "active" : ""} key={c} onClick={() => setCategory(c)}>{c}</button>)}</div>
-         <div className="ar-dishes">{displayed.map(d => <article className="ar-dish" key={d.id}><div className={"ar-dish-art " + d.colour}>{d.icon}</div><div className="ar-dish-info">{d.label && <span className="ar-dish-label">{d.label}</span>}<strong>{d.name}</strong><p>{d.description}</p><b>{money(d.price)}</b></div><div className="ar-add-controls">{cart[d.id] ? <><button aria-label={"Remove " + d.name} onClick={() => add(d.id,-1)}><Minus size={14}/></button><span>{cart[d.id]}</span></> : null}<button aria-label={"Add " + d.name} onClick={() => add(d.id,1)}><Plus size={17}/></button></div></article>)}</div>
-         {displayed.length === 0 && <p className="ar-empty">No sample dishes found. Try another category.</p>}
+         <div className="ar-dishes">{displayed.map(d => <article className="ar-dish" key={d.id}><div className={"ar-dish-art " + d.colour}>{d.icon}</div><div className="ar-dish-info">{d.label && <span className="ar-dish-label">{d.label}</span>}<strong>{d.name}</strong><p>{d.description}</p><span className="ar-dish-allergens">Example contains: {SAMPLE_ALLERGENS[d.id].join(", ") || "none listed — unverified"}</span><b>{money(d.price)}</b></div><div className="ar-add-controls">{cart[d.id] ? <><button aria-label={"Remove " + d.name} onClick={() => add(d.id,-1)}><Minus size={14}/></button><span>{cart[d.id]}</span></> : null}<button aria-label={"Add " + d.name} onClick={() => add(d.id,1)}><Plus size={17}/></button></div></article>)}</div>
+         {displayed.length === 0 && <p className="ar-empty">No dishes match those preferences. Please speak with staff about safe choices and ingredient changes.</p>}
+         <p className="ar-menu-allergy-footer"><ShieldAlert size={13}/> Example allergen data only. No dish is confirmed allergy-safe. Staff must verify ingredients and cross-contact.</p>
          <div className="ar-menu-cart-bar"><div><ShoppingBag size={19}/><span><strong>{itemCount} item{itemCount === 1 ? "" : "s"}</strong><small>{money(subtotal)} subtotal</small></span></div><button onClick={() => setCartOpen(true)} disabled={!itemCount}>View order <ArrowRight size={17}/></button></div>
         </div>}
+        {active === "guide" && <div className="ar-guide-view"><div className="ar-customer-bar"><div><span className="ar-mini-eyebrow">FIND YOUR WAY</span><h4>LIKYA <span>CONCEPT</span></h4></div><span className="ar-table-pill">TABLE {table}</span></div><div className="ar-guide-header"><div><span className="ar-mini-eyebrow">A FRIENDLY LITTLE GUIDE</span><h3>Need to find something?</h3><p>Choose a destination to see a simplified example route.</p></div><Globe2 size={27}/></div><div className="ar-guide-destinations">{(["Toilets","Accessible WC","Exit"] as const).map(place=><button key={place} className={facility===place?"active":""} onClick={()=>setFacility(place)}>{place==="Exit"?"↗":"⌖"} {place}</button>)}</div><div className={"ar-floorplan ar-destination-"+(facility==="Accessible WC"?"accessible":facility.toLowerCase())} role="img" aria-label={"Illustrative floor plan showing a route from your table to "+facility}><div className="ar-floorplan-label">EXAMPLE FLOOR PLAN — NOT LIKYA'S ACTUAL LAYOUT</div><div className="ar-map-room ar-map-dining">DINING<br/>AREA</div><div className="ar-map-room ar-map-toilet">TOILETS</div><div className="ar-map-room ar-map-accessible">ACCESSIBLE WC*</div><div className="ar-map-room ar-map-exit">EXIT</div><div className="ar-map-table">YOU<br/>ARE HERE</div><div className="ar-map-route ar-map-route-one"/><div className="ar-map-route ar-map-route-two"/><div className="ar-map-target">{facility}</div></div><div className="ar-guide-instructions"><strong><ArrowRight size={17}/> Sample directions to {facility}</strong><p>{facility==="Toilets"?"From the dining area, follow the highlighted corridor towards the facilities sign.":facility==="Accessible WC"?"Follow the indicated example route. Confirm step-free access, dimensions and availability with the restaurant team.":"Follow the highlighted example route towards the exit, or ask staff for assistance."}</p><button onClick={requestStaff}><BellRing size={15}/> Request human guidance</button></div><p className="ar-workspace-note">*This is not a verified floorplan or accessible route. Production routes must be surveyed, approved, and reflect actual accessibility provisions and emergency plans.</p></div>}
         {active === "kitchen" && <div className="ar-kitchen-view"><div className="ar-workspace-header"><div><span className="ar-mini-eyebrow">BACK OF HOUSE / DEMO</span><h3>Kitchen display</h3><p>Every order. Right where it belongs.</p></div><div className="ar-workspace-live"><span className="ar-dot"/> Kitchen online</div></div>
          <div className="ar-workspace-stats"><div><span>Active tickets</span><strong>{liveTickets.length}</strong></div><div><span>New</span><strong>{tickets.filter(t=>t.status === "New").length}</strong></div><div><span>Ready</span><strong>{tickets.filter(t=>t.status === "Ready").length}</strong></div></div>
-         <div className="ar-tickets">{tickets.slice(0,8).map(t=><article className="ar-ticket" key={t.id}><div className="ar-ticket-top"><span>TABLE {t.table} <small>#{t.id}</small></span><span className={"ar-ticket-status status-" + t.status.toLowerCase()}>{t.status}</span></div><div className="ar-ticket-items">{t.items.map((item,i) => <div key={i}>• {item}</div>)}</div><div className="ar-ticket-bottom"><strong>{money(t.total)}</strong><button onClick={()=>advance(t.id)} disabled={t.status==="Served"}>{t.status==="New"?"Start preparing":t.status==="Preparing"?"Mark ready":t.status==="Ready"?"Mark served":"Completed"} <ChevronRight size={15}/></button></div></article>)}</div>
+         <div className="ar-tickets">{tickets.slice(0,8).map(t=><article className="ar-ticket" key={t.id}><div className="ar-ticket-top"><span>TABLE {t.table} <small>#{t.id}</small></span><span className={"ar-ticket-status status-" + t.status.toLowerCase()}>{t.status}</span></div><div className="ar-ticket-items">{t.service&&<div className="ar-ticket-service">{t.service} {t.simulatedPrepay?"• demo prepaid":""}</div>}{t.items.map((item,i) => <div key={i}>• {item}</div>)}</div><div className="ar-ticket-bottom"><strong>{money(t.total)}</strong><button onClick={()=>advance(t.id)} disabled={t.status==="Served"}>{t.status==="New"?"Start preparing":t.status==="Preparing"?"Mark ready":t.status==="Ready"?"Mark served":"Completed"} <ChevronRight size={15}/></button></div></article>)}</div>
          <p className="ar-workspace-note">Demo orders only. Updates are kept in this browser session, not synced to devices.</p>
         </div>}
         {active === "owner" && <div className="ar-owner-view"><div className="ar-workspace-header"><div><span className="ar-mini-eyebrow">RESTAURANT MANAGER / DEMO</span><h3>Your restaurant, at a glance.</h3><p>All the moving parts. One thoughtful view.</p></div><div className="ar-workspace-live"><span className="ar-dot"/> Demo dashboard</div></div>
@@ -203,7 +230,7 @@ export default function AutoRestaurantExperience() {
         </div>}
        </div>
       </div>
-      <div className="ar-demo-bottom"><span><span className="ar-dot"/> THIS IS A FRONTEND PRODUCT PROTOTYPE</span><div><button onClick={()=>setQrOpen(true)}><QrCode size={17}/> View table QR code</button><button onClick={()=>openDemo(active==="host"?"menu":active==="menu"?"kitchen":active==="kitchen"?"owner":"host")}>Next experience <ArrowRight size={16}/></button></div></div>
+      <div className="ar-demo-bottom"><span><span className="ar-dot"/> THIS IS A FRONTEND PRODUCT PROTOTYPE</span><div><button onClick={()=>setQrOpen(true)}><QrCode size={17}/> View table QR code</button><button onClick={()=>openDemo(active==="host"?"menu":active==="menu"?"guide":active==="guide"?"kitchen":active==="kitchen"?"owner":"host")}>Next experience <ArrowRight size={16}/></button></div></div>
      </div>
     </div>
    </section>
@@ -215,7 +242,7 @@ export default function AutoRestaurantExperience() {
    <section className="ar-concierge-section"><div className="ar-container ar-concierge-grid"><div className="ar-concierge-art"><div className="ar-concierge-light">✺</div><div className="ar-concierge-quote"><span>✳ YOUR DIGITAL HOST</span><p>“Shall I recommend something delicious, tell you a story behind the dish, or summon a real human?”</p><div><span>Always warm.</span><span>Never guessing.</span></div></div></div><div className="ar-concierge-copy"><div className="ar-overline">04 — THE CONCIERGE DIFFERENCE</div><h2>Intelligent,<br/><em>with a personal touch.</em></h2><p>Not another robotic menu. Your restaurant's own personality — in every recommendation, interaction and thoughtfully timed moment.</p><div className="ar-concierge-lines"><div><Sparkles size={18}/><span>Tailored meal and combo recommendations</span></div><div><Coffee size={18}/><span>Cooking stories, pairings and friendly conversation</span></div><div><Globe2 size={18}/><span>Multi-language guest assistance</span></div><div><ShieldCheck size={18}/><span>Verified allergen information with human escalation</span></div><div><Heart size={18}/><span>Occasions, birthdays and delightful extras</span></div></div><button className="ar-main-button" onClick={()=>openDemo("host")}>Have a conversation <ArrowUpRight size={18}/></button></div></div></section>
 
    <section className="ar-flow ar-container"><div className="ar-section-head"><div><div className="ar-overline">05 — ONE HARMONIOUS FLOW</div><h2>From hello<br/><em>to see you soon.</em></h2></div><p>One experience brings everyone together, without forcing customers to change how they like to dine.</p></div><div className="ar-flow-grid">{[
-    ["01","Scan & settle in","A secure table QR opens a personal welcome."],
+    ["01","Plan or scan","Preorder before visiting, or scan a secure QR at the table."],
     ["02","Ask & discover","Chat about cravings, ingredients and perfect pairings."],
     ["03","Order with ease","Send a checked order to the kitchen in seconds."],
     ["04","Keep in sync","Staff follow preparations and service requests."],
@@ -239,7 +266,7 @@ export default function AutoRestaurantExperience() {
   </main>
   <footer className="ar-footer"><div className="ar-container"><div><a className="ar-footer-logo" href="/">wedigitlize<span>.</span></a><p>Making digital feel wonderfully human.</p></div><div><a href="/">Back to our studio <ArrowUpRight size={15}/></a><a href="mailto:info@wedigitlize.com">info@wedigitlize.com <ArrowUpRight size={15}/></a></div></div><div className="ar-container ar-footer-bottom"><span>© {new Date().getFullYear()} WeDigitlize. Independent demonstration.</span><span>Likya concept reference is illustrative, not affiliated or endorsed. Prices and menu items are samples.</span></div></footer>
   {notice && <div className="ar-toast" role="status"><CheckCircle2 size={18}/>{notice}<button aria-label="Dismiss notification" onClick={()=>setNotice("")}><X size={16}/></button></div>}
-  {cartOpen && <div className="ar-overlay" onClick={()=>setCartOpen(false)}><div className="ar-drawer" role="dialog" aria-modal="true" aria-label="Your demo order" onClick={e=>e.stopPropagation()}><div className="ar-drawer-title"><div><span className="ar-mini-eyebrow">TABLE {table}</span><h3>Your order</h3></div><button aria-label="Close basket" onClick={()=>setCartOpen(false)}><X/></button></div>{dishes.filter(d=>cart[d.id]).map(d=><div className="ar-drawer-item" key={d.id}><span className="ar-drawer-emoji">{d.icon}</span><div><strong>{d.name}</strong><small>{cart[d.id]} × {money(d.price)}</small></div><div><button aria-label={"Remove " + d.name} onClick={()=>add(d.id,-1)}><Minus size={14}/></button><button aria-label={"Add " + d.name} onClick={()=>add(d.id,1)}><Plus size={14}/></button></div></div>)}<div className="ar-drawer-total"><span>Subtotal</span><strong>{money(subtotal)}</strong></div><p className="ar-drawer-warning">Sample dishes and pricing only. No real order or payment is submitted.</p><button className="ar-main-button ar-lime ar-drawer-submit" disabled={!itemCount} onClick={sendOrder}>Send demo order to kitchen <ArrowRight size={18}/></button></div></div>}
+  {cartOpen && <div className="ar-overlay" onClick={()=>setCartOpen(false)}><div className="ar-drawer" role="dialog" aria-modal="true" aria-label="Your demo order" onClick={e=>e.stopPropagation()}><div className="ar-drawer-title"><div><span className="ar-mini-eyebrow">TABLE {table}</span><h3>Your order</h3></div><button aria-label="Close basket" onClick={()=>setCartOpen(false)}><X/></button></div>{dishes.filter(d=>cart[d.id]).map(d=><div className="ar-drawer-item" key={d.id}><span className="ar-drawer-emoji">{d.icon}</span><div><strong>{d.name}</strong><small>{cart[d.id]} × {money(d.price)}</small></div><div><button aria-label={"Remove " + d.name} onClick={()=>add(d.id,-1)}><Minus size={14}/></button><button aria-label={"Add " + d.name} onClick={()=>add(d.id,1)}><Plus size={14}/></button></div></div>)}<div className="ar-checkout-options"><span className="ar-mini-eyebrow">ORDER TYPE</span><div className="ar-mode-buttons">{(["Dine in","Preorder","Takeaway extras"] as const).map(m=><button key={m} className={orderMode===m?"active":""} onClick={()=>setOrderMode(m)}>{m}</button>)}</div>{orderMode!=="Dine in"&&<label>Planned {orderMode==="Preorder"?"arrival":"collection"} <input type="time" value={orderTime} onChange={e=>setOrderTime(e.target.value)}/></label>}<label className="ar-prepay-checkbox"><input type="checkbox" checked={simulatedPrepay} onChange={e=>setSimulatedPrepay(e.target.checked)}/><span><strong>Simulate payment in advance</strong><small>No card details, no payment collected. A real site would use a payment provider.</small></span></label></div><div className="ar-drawer-total"><span>Subtotal</span><strong>{money(subtotal)}</strong></div><p className="ar-drawer-warning">Sample dishes and prices only. This checkout simulates payment and scheduling; no real order, reservation, receipt or payment is created.</p><button className="ar-main-button ar-lime ar-drawer-submit" disabled={!itemCount} onClick={sendOrder}>Send demo order to kitchen <ArrowRight size={18}/></button></div></div>}
   {qrOpen && <div className="ar-overlay" onClick={()=>setQrOpen(false)}><div className="ar-qr-modal" role="dialog" aria-modal="true" aria-label="Table QR demonstration" onClick={e=>e.stopPropagation()}><button className="ar-close-qr" aria-label="Close QR" onClick={()=>setQrOpen(false)}><X/></button><span className="ar-mini-eyebrow">SCAN TO OPEN THE GUEST EXPERIENCE</span><h3>One little scan.<br/><em>A lovely welcome.</em></h3><div className="ar-qr-image"><QRCodeSVG value={shareUrl} size={208} includeMargin /></div><label htmlFor="ar-table-select">Try a table number</label><select id="ar-table-select" value={table} onChange={e=>setTable(e.target.value)}>{Array.from({length:20},(_,i)=><option key={i} value={String(i+1).padStart(2,"0")}>Table {String(i+1).padStart(2,"0")}</option>)}</select><p>This sample QR links to the public showcase with the selected table number. Production QR codes would use signed, validated table sessions.</p><button className="ar-main-button ar-lime" onClick={()=>{setQrOpen(false);openDemo("host");}}>Experience table {table} <ArrowRight size={17}/></button></div></div>}
  </div>;
 }
