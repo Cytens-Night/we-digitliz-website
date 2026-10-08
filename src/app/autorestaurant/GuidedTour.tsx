@@ -1,15 +1,16 @@
 "use client";
 
-import { useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, Bell, Check, CheckCircle2,
   ChefHat, Clock3, CreditCard, GlassWater, Globe2, HeartHandshake,
   Info, LayoutDashboard, MapPinned, MessageCircleHeart, Minus,
-  MousePointerClick, QrCode, ShieldAlert, ShieldCheck, ShoppingBag,
-  SlidersHorizontal, Sparkles, TrendingUp, Users, UtensilsCrossed,
+  MousePointerClick, Pause, Play, QrCode, ShieldAlert, ShieldCheck, ShoppingBag,
+  SlidersHorizontal, Sparkles, Target, TrendingUp, Trophy, Users, UtensilsCrossed,
   WalletCards, X
 } from "lucide-react";
 import "./tour.css";
+import "./tour-motion.css";
 
 type DemoView = "host" | "menu" | "guide" | "kitchen" | "owner";
 type Audience = "Owner" | "Manager" | "Service team";
@@ -39,6 +40,22 @@ const plans: Record<Plan, { setup:number; monthly:number; headline:string; inclu
   Signature:{ setup:12000, monthly:499, headline:"A considered digital concierge", inclusions:["Everything in Connected","Grounded conversational restaurant host","Verified-knowledge review process","Multilingual and preference-led journeys","Bespoke experience and integration planning"], exclusions:"AI usage, specialist integrations, hardware and dedicated support terms are quoted separately." }
 };
 const currency = (n: number) => n.toLocaleString("en-GB",{ style:"currency",currency:"GBP",maximumFractionDigits:0 });
+const missions = [
+ { title:"Make it yours", hint:"Choose your perspective: owner, manager or service team.", reward:"Your journey now speaks to your role." },
+ { title:"Set the scene", hint:"Tap a dining mood to see the host personalise a suggestion.", reward:"The conversation adapts to the guest." },
+ { title:"Take ordering further", hint:"Try Preorder or Takeaway extra in the sample menu.", reward:"One menu supports more ways to serve guests." },
+ { title:"Run the kitchen", hint:"Move the example order from received to preparing.", reward:"Your handoff is one step clearer." },
+ { title:"Make it comfortable", hint:"Try larger text or high contrast on the guest screen.", reward:"Inclusive choices make hospitality more welcoming." },
+ { title:"Know your options", hint:"Expand a provider to explore where existing tools shine.", reward:"Good investment starts with a fair comparison." },
+ { title:"Model your own numbers", hint:"Change the daily-order slider and see the scenario respond.", reward:"You have tested an assumption — not a sales promise." },
+ { title:"Find your starting point", hint:"Select a plan to reveal its features and exclusions.", reward:"You know what you're considering — and what isn't included." }
+] as const;
+const awards = [
+ { at:2, icon:"✦", title:"Guest-first explorer", subtitle:"Explore the guest journey" },
+ { at:4, icon:"✳", title:"Service orchestrator", subtitle:"Connect the front and back of house" },
+ { at:6, icon:"◆", title:"Informed decision-maker", subtitle:"Make accessibility and comparisons count" },
+ { at:8, icon:"★", title:"Experience architect", subtitle:"Shape the business case" }
+] as const;
 const roleBenefit: Record<Audience,string> = {
   Owner:"A distinct brand experience with clearer ways to assess service capacity and investment.",
   Manager:"Better visibility into tables, kitchen work and requests — so fewer things depend on chasing people.",
@@ -61,9 +78,42 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  const [plan,setPlan] = useState<Plan>("Connected");
  const [expandedProvider,setExpandedProvider] = useState<string|null>("Square for Restaurants");
  const [enquiryStatus,setEnquiryStatus] = useState<"idle"|"sending"|"sent"|"error">("idle");
+ const [completedMissions,setCompletedMissions] = useState<number[]>([]);
+ const [lastEarned,setLastEarned] = useState<number|null>(null);
+ const [motionEnabled,setMotionEnabled] = useState(true);
+ const markMission = (id:number) => {
+   if (completedMissions.includes(id)) return;
+   setCompletedMissions(prev => prev.includes(id)?prev:[...prev,id]);
+   setLastEarned(id);
+ };
+ useEffect(() => {
+   if (lastEarned===null) return;
+   const timer=window.setTimeout(()=>setLastEarned(null),2400);
+   return ()=>window.clearTimeout(timer);
+ },[lastEarned]);
+ const earnedPoints=completedMissions.length*15;
  const leadPending = useRef(false);
  const leadForm = useRef<HTMLFormElement>(null);
- const advance = (next:number) => { setStep(Math.max(0,Math.min(next,steps.length-1))); };
+ const advance = (next:number) => {
+   setStep(Math.max(0,Math.min(next,steps.length-1)));
+   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+   document.getElementById("art-tour-top")?.scrollIntoView({
+     behavior:motionEnabled&&!reduced?"smooth":"auto",
+     block:"start"
+   });
+ };
+ const replay = () => {
+   setCompletedMissions([]);
+   setLastEarned(null);
+   setStatus("Received");
+   setServiceRequested(false);
+   setAllergens([]);
+   setInterest("For two");
+   setLargeText(false);
+   setHighContrast(false);
+   setExpandedProvider("Square for Restaurants");
+   advance(0);
+ };
  const serviceHours = orders * minutes * 26 / 60;
  const illustrationContribution = orders * contribution * 26;
  const potentialAfterSubscription = illustrationContribution - plans[plan].monthly;
@@ -127,7 +177,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  case 1: return <div className="art-stage art-stage-guest">
    <div className="art-phone" aria-label="Illustrative guest digital-host conversation"><div className="art-phone-top"><div className="art-phone-mark">✳</div><div><b>Welcome to your table</b><span>Your digital host • demo</span></div><div className="art-mini-online"/></div>
     <div className="art-phone-welcome"><span>✦</span><strong>Good evening! What sounds lovely?</strong><p>No app. No account. Just a little help when you want it.</p></div>
-    <div className="art-intent-options">{(["For two","Something light","Surprise me"] as const).map(s=><button key={s} className={interest===s?"is-selected":""} onClick={()=>setInterest(s)}>{s}</button>)}</div>
+    <div className="art-intent-options">{(["For two","Something light","Surprise me"] as const).map(s=><button key={s} className={interest===s?"is-selected":""} onClick={()=>{setInterest(s);markMission(1)}}>{s}</button>)}</div>
     <div className="art-phone-reply"><span className="art-reply-spark">✳</span>{interest==="For two"?"A shared meal sounds lovely. Shall I suggest a mixed-grill-style feast and two refreshing drinks?":interest==="Something light"?"Let's begin with a lighter option. I'll show you the verified menu choices so you can decide.": "I could surprise you with a popular house favourite — or you can take your time exploring everything."}</div>
     <button className="art-phone-link" onClick={()=>onOpenDemo("host")}>Talk to the example host <ArrowUpRight size={16}/></button>
    </div>
@@ -139,34 +189,34 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
    <div className="art-allergen-options">{["Sesame","Milk","Nuts","Gluten"].map(name=><button key={name} aria-pressed={allergens.includes(name)} className={allergens.includes(name)?"is-selected":""} onClick={()=>setAllergens(p=>p.includes(name)?p.filter(i=>i!==name):[...p,name])}>{allergens.includes(name)?"✓ ":""}{name}</button>)}</div>
    <div className="art-preview-dishes">{filteredDishes.map(d=><div key={d.name}><span>{d.icon}</span><div><strong>{d.name}</strong><small>Declared in sample: {d.tag.join(", ")||"none listed (unverified)"}</small></div><b>£{d.price.toFixed(2)}</b></div>)}</div>
    {filteredDishes.length===0&&<p className="art-empty">No matching dishes. Ask trained staff for help choosing.</p>}
-   <div className="art-menu-footer"><div className="art-mode-picker">{(["At the table","Preorder","Takeaway extra"] as const).map(m=><button key={m} className={menuMode===m?"is-selected":""} onClick={()=>setMenuMode(m)}>{m}</button>)}</div><p>{menuMode==="At the table"?"Guests order from their seats without losing control.":menuMode==="Preorder"?"Schedule an arrival and pay in advance in the production system.":"Offer a dessert or meal to take home without restarting checkout."}</p></div>
+   <div className="art-menu-footer"><div className="art-mode-picker">{(["At the table","Preorder","Takeaway extra"] as const).map(m=><button key={m} className={menuMode===m?"is-selected":""} onClick={()=>{setMenuMode(m);markMission(2)}}>{m}</button>)}</div><p>{menuMode==="At the table"?"Guests order from their seats without losing control.":menuMode==="Preorder"?"Schedule an arrival and pay in advance in the production system.":"Offer a dessert or meal to take home without restarting checkout."}</p></div>
    <div className="art-safety-note"><ShieldCheck size={16}/> With an allergy, trained staff must check current ingredients and cross-contact before any real order or payment.</div>
  </div>;
  case 3:return <div className="art-stage art-stage-operations">
    <div className="art-work-top"><div><span>SIMULATED KITCHEN TICKET</span><h4>Order #1048 · Table 07</h4></div><span className="art-live-indicator">DEMO FLOW</span></div>
    <div className="art-kitchen-progress">{(["Received","Preparing","Ready"] as const).map((s,i)=><div key={s} className={["Received","Preparing","Ready"].indexOf(status)>=i?"is-done":""}><span>{["Received","Preparing","Ready"].indexOf(status)>i?<Check size={15}/>:i+1}</span><small>{s}</small></div>)}</div>
    <div className="art-kitchen-ticket"><div><span>1×</span> Chicken shish</div><div><span>2×</span> Mint lemonade</div><div><span>1×</span> Halloumi bites</div><small>Restaurant-approved tickets would include modifiers, staff notes and dietary alerts.</small></div>
-   <div className="art-stage-actions"><button onClick={()=>setStatus(status==="Received"?"Preparing":status==="Preparing"?"Ready":"Received")}>{status==="Received"?"Start preparing":status==="Preparing"?"Mark ready":"Reset example ticket"} <ArrowRight size={16}/></button><button onClick={()=>setServiceRequested(v=>!v)}><Bell size={16}/>{serviceRequested?"Clear request":"Simulate table request"}</button></div>
+   <div className="art-stage-actions"><button onClick={()=>{setStatus(status==="Received"?"Preparing":status==="Preparing"?"Ready":"Received");markMission(3)}}>{status==="Received"?"Start preparing":status==="Preparing"?"Mark ready":"Reset example ticket"} <ArrowRight size={16}/></button><button onClick={()=>setServiceRequested(v=>!v)}><Bell size={16}/>{serviceRequested?"Clear request":"Simulate table request"}</button></div>
    <div className="art-service-alert"><div><Bell size={18}/><span><strong>Front-of-house queue</strong><small>{serviceRequested?"Table 07 is requesting assistance · Example notification":"No active requests in this illustration"}</small></span></div><span>{serviceRequested?"1 waiting":"All clear"}</span></div>
    <div className="art-ops-caption">Less relaying handwritten tickets and chasing order status. The actual production system requires durable real-time sync and POS compatibility checks.</div>
  </div>;
  case 4:return <div className={"art-stage art-stage-access "+(highContrast?"art-stage-contrast ":"")+(largeText?"art-stage-large":"")}>
    <div className="art-stage-toolbar"><div><span className="art-small-upper">GUEST CONTROLS</span><h4>Comfort is personal.</h4></div><HeartHandshake size={25}/></div>
    <p>Offer a calm interface with clear, accessible controls. Let people choose their experience rather than make assumptions about them.</p>
-   <div className="art-a11y-controls"><button aria-pressed={largeText} className={largeText?"is-selected":""} onClick={()=>setLargeText(v=>!v)}>A+ Larger type</button><button aria-pressed={highContrast} className={highContrast?"is-selected":""} onClick={()=>setHighContrast(v=>!v)}>◐ High contrast</button></div>
+   <div className="art-a11y-controls"><button aria-pressed={largeText} className={largeText?"is-selected":""} onClick={()=>{setLargeText(v=>!v);markMission(4)}}>A+ Larger type</button><button aria-pressed={highContrast} className={highContrast?"is-selected":""} onClick={()=>{setHighContrast(v=>!v);markMission(4)}}>◐ High contrast</button></div>
    <div className="art-a11y-example"><strong>Find your way, comfortably.</strong><p>A simple, restaurant-verified way to reach facilities — with personal assistance on request.</p><div className="art-a11y-directions"><div><span className="art-map-you">YOU</span><span className="art-map-track"/><span className="art-map-wc">WC</span></div><p>Example directions only — not a surveyed accessible route.</p></div></div>
    <button className="art-a11y-assist" onClick={()=>onOpenDemo("guide")}>Explore the facilities example <ArrowUpRight size={16}/></button>
    <div className="art-safety-note"><Info size={16}/> Guest-assisted ordering must remain available for visitors without a phone or who prefer to speak with someone.</div>
  </div>;
  case 5:return <div className="art-stage art-stage-market">
    <div className="art-market-head"><span>CHECKED 8 OCT 2026 • PUBLISHED UK VENDOR PAGES</span><h4>Compare what matters.</h4><p>These are different product categories and service scopes. A custom guest layer is not necessarily a cheaper alternative to a mature POS.</p></div>
-   <div className="art-provider-list">{providerData.map(p=><div key={p.name} className="art-provider"><button onClick={()=>setExpandedProvider(expandedProvider===p.name?null:p.name)} aria-expanded={expandedProvider===p.name}><span><strong>{p.name}</strong><small>{p.price}</small></span><span>{expandedProvider===p.name?<Minus size={15}/>:<ArrowRight size={15}/>}</span></button>{expandedProvider===p.name&&<div><p><b>Offers:</b> {p.good}</p><p><b>Good choice when:</b> {p.note}</p><a href={p.url} target="_blank" rel="noopener noreferrer">See provider's website <ArrowUpRight size={14}/></a></div>}</div>)}</div>
+   <div className="art-provider-list">{providerData.map(p=><div key={p.name} className="art-provider"><button onClick={()=>{setExpandedProvider(expandedProvider===p.name?null:p.name);markMission(5)}} aria-expanded={expandedProvider===p.name}><span><strong>{p.name}</strong><small>{p.price}</small></span><span>{expandedProvider===p.name?<Minus size={15}/>:<ArrowRight size={15}/>}</span></button>{expandedProvider===p.name&&<div><p><b>Offers:</b> {p.good}</p><p><b>Good choice when:</b> {p.note}</p><a href={p.url} target="_blank" rel="noopener noreferrer">See provider's website <ArrowUpRight size={14}/></a></div>}</div>)}</div>
    <div className="art-market-difference"><span><Sparkles size={18}/> WHERE WEDIGITLIZE FITS</span><p>We design the <b>restaurant-specific experience</b> around its identity, guest journeys, verified information and chosen integrations. Existing software may remain part of the solution.</p></div>
    <p className="art-market-fine">*Flipdish £49/month is its website-only online ordering offer when billed annually; monthly billing is listed at £69. Square fees are per location for Plus. Pricing and conditions can change; confirm quotes and VAT directly.</p>
  </div>;
  case 6:return <div className="art-stage art-stage-maths">
    <div className="art-stage-toolbar"><div><span className="art-small-upper">INTERACTIVE PLANNING SCENARIO</span><h4>Your numbers. Your assumptions.</h4></div><TrendingUp size={26}/></div>
-   <div className="art-range-row"><label htmlFor="art-orders">Orders / day <b>{orders}</b></label><input id="art-orders" type="range" min="20" max="250" step="10" value={orders} onChange={e=>setOrders(Number(e.target.value))}/><span>20–250 orders a day</span></div>
+   <div className="art-range-row"><label htmlFor="art-orders">Orders / day <b>{orders}</b></label><input id="art-orders" type="range" min="20" max="250" step="10" value={orders} onChange={e=>{setOrders(Number(e.target.value));markMission(6)}}/><span>20–250 orders a day</span></div>
    <div className="art-range-row"><label htmlFor="art-minutes">Minutes of routine handling / order <b>{minutes}</b></label><input id="art-minutes" type="range" min="0" max="6" step=".5" value={minutes} onChange={e=>setMinutes(Number(e.target.value))}/><span>Assumed staff time potentially redirected, not reduced paid hours</span></div>
    <div className="art-range-row"><label htmlFor="art-uplift">Assumed extra gross contribution / order <b>£{contribution.toFixed(2)}</b></label><input id="art-uplift" type="range" min="0" max="1.5" step=".05" value={contribution} onChange={e=>setContribution(Number(e.target.value))}/><span>Hypothetical, after ingredient cost but before fees and other costs</span></div>
    <div className="art-calculator-select"><label htmlFor="art-package">Compare with example package</label><select id="art-package" value={plan} onChange={e=>setPlan(e.target.value as Plan)}>{(Object.keys(plans) as Plan[]).map(p=><option key={p}>{p}</option>)}</select></div>
@@ -175,7 +225,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  </div>;
  case 7:return <div className="art-stage art-stage-pricing">
    <div className="art-stage-toolbar"><div><span className="art-small-upper">TRANSPARENT SCOPE AND ESTIMATES</span><h4>Choose the right starting point.</h4></div><WalletCards size={25}/></div>
-   <div className="art-package-list">{(Object.keys(plans) as Plan[]).map(k=><button key={k} className={"art-package "+(plan===k?"is-selected":"")} aria-pressed={plan===k} onClick={()=>setPlan(k)}><span><span className="art-package-radio"/><strong>{k}</strong><small>{plans[k].headline}</small></span><span><b>From {currency(plans[k].setup)}</b><small>{currency(plans[k].monthly)}/month example</small></span></button>)}</div>
+   <div className="art-package-list">{(Object.keys(plans) as Plan[]).map(k=><button key={k} className={"art-package "+(plan===k?"is-selected":"")} aria-pressed={plan===k} onClick={()=>{setPlan(k);markMission(7)}}><span><span className="art-package-radio"/><strong>{k}</strong><small>{plans[k].headline}</small></span><span><b>From {currency(plans[k].setup)}</b><small>{currency(plans[k].monthly)}/month example</small></span></button>)}</div>
    <div className="art-pricing-detail"><div><span>WHAT THE {plan.toUpperCase()} EXAMPLE INCLUDES</span><strong>{plans[plan].headline}</strong></div><ul>{plans[plan].inclusions.map(q=><li key={q}><Check size={15}/>{q}</li>)}</ul><div className="art-pricing-excludes"><Info size={17}/><p>{plans[plan].exclusions}</p></div></div>
    <div className="art-budget-explained"><strong>Why does bespoke development cost more than an off-the-shelf subscription?</strong><div className="art-budget-chips"><span><Check size={13}/> Restaurant discovery and workflow design</span><span><Check size={13}/> Custom-branded guest experience</span><span><Check size={13}/> Secure ordering and manager controls</span><span><Check size={13}/> Verification, testing and staff onboarding</span></div><p>Setup pays for designing, building, integrating and validating your specific workflows. Monthly service covers the agreed hosting, monitoring, maintenance and support level. A mature third-party POS may still be the better choice for standard operations.</p></div>
    <p className="art-pricing-fine">Planning estimates, not fixed offers. UK VAT where applicable, card processing, tablets/printers, payment/POS providers, usage-based AI and any enhanced support are additional unless explicitly included in your contract. Discovery determines final scope.</p>
@@ -190,7 +240,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
    <input type="hidden" name="form-name" value="autorestaurant-enquiry"/><input type="hidden" name="subject" value="AutoRestaurant guided-tour enquiry"/><input type="hidden" name="source" value="autorestaurant-self-guided-tour"/><input type="hidden" name="role" value={role}/><input type="hidden" name="package" value={plan}/><input type="hidden" name="orders" value={String(orders)}/><div hidden><label>Do not fill out<input name="bot-field" tabIndex={-1} autoComplete="off"/></label></div>
    <strong>Get a tailored proposal — without a meeting first.</strong><div className="art-lead-fields"><label>Your name<input type="text" name="name" autoComplete="name" maxLength={100} placeholder="Your name" required/></label><label>Your email<input type="email" name="email" autoComplete="email" maxLength={254} placeholder="you@restaurant.com" required/></label></div><label>Restaurant name<input type="text" name="restaurant" autoComplete="organization" maxLength={150} placeholder="Your restaurant" required/></label><label>What would you like help with?<textarea name="message" rows={2} maxLength={1500} placeholder="e.g. 20 tables, Square POS, table preorders and AI host" required/></label><p>We use your enquiry details to reply. Read our <a href="/privacy-policy" target="_blank" rel="noopener noreferrer">privacy notice</a>.</p>{enquiryStatus==="error"&&<p className="art-lead-error" role="alert">We couldn't confirm your enquiry was received. Please retry or use the email option below.</p>}<button type="submit" className="art-send-proposal" disabled={enquiryStatus==="sending"}>{enquiryStatus==="sending"?"Sending your enquiry…":"Send my restaurant enquiry"} <ArrowUpRight size={18}/></button></form>}
   <a className="art-lead-fallback" href={mailto}>Prefer email? Use a prepared enquiry <ArrowUpRight size={14}/></a>
-  <button className="art-replay" onClick={()=>{setStep(0)}}>Explore the tour again <ArrowRight size={15}/></button>
+  <button className="art-replay" onClick={replay}>Explore the tour again <ArrowRight size={15}/></button>
  </div>;
  }
  };
@@ -219,7 +269,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
        <div className="art-chapter-index"><span>{x.tag} / 09</span><span>{x.eyebrow}</span></div>
        <h3>{x.title}</h3>
        <p className="art-story-problem">{current.problem}</p>
-       {step===0&&<div className="art-role-panel"><span>YOUR PERSPECTIVE</span><div>{(["Owner","Manager","Service team"] as const).map(r=><button className={role===r?"is-selected":""} key={r} onClick={()=>setRole(r)} aria-pressed={role===r}>{r}</button>)}</div><p>{roleTitle}</p></div>}
+       {step===0&&<div className="art-role-panel"><span>YOUR PERSPECTIVE</span><div>{(["Owner","Manager","Service team"] as const).map(r=><button className={role===r?"is-selected":""} key={r} onClick={()=>{setRole(r);markMission(0)}} aria-pressed={role===r}>{r}</button>)}</div><p>{roleTitle}</p></div>}
        {step!==0&&<div className="art-story-outcome"><span><Sparkles size={14}/> THE BETTER EXPERIENCE</span><p>{current.outcome}</p></div>}
        <div className="art-story-impact"><span><CheckCircle2 size={15}/> HELPS REDUCE</span><p>{current.removed}</p><span><HeartHandshake size={15}/> STILL ESSENTIAL</span><p>{current.kept}</p></div>
        <div className="art-story-insight"><span>WHY THIS MATTERS TO A {role.toUpperCase()}</span><p>{roleBenefit[role]}</p></div>
