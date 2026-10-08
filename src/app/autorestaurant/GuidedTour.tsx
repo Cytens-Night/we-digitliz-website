@@ -294,7 +294,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
           <div className="art-mission-status">{completedMissions.includes(step)?<span><CheckCircle2 size={17}/> DONE</span>:<span><Sparkles size={16}/> +15</span>}</div>
           {lastEarned===step&&<div className="art-reward-pop" role="status" key={"pop-"+step}><Sparkles size={20}/><span>+15</span><strong>Experience unlocked!</strong>{[0,1,2,3,4,5,6,7].map(i=><i key={i} className={"art-spark-bit bit-"+i}/>)}</div>}
         </div>}
-        {step===8&&<div className="art-finale-note"><Trophy size={22}/><div><strong>{completedMissions.length} of 8 explorations unlocked</strong><span>{completedMissions.length===8?"You tried every interactive demonstration!":"The challenges are optional. You can request a tailored proposal at any time."}</span></div></div>
+        {step===8&&<div className="art-finale-note"><Trophy size={22}/><div><strong>{completedMissions.length} of 8 explorations unlocked</strong><span>{completedMissions.length===8?"You tried every interactive demonstration!":"The challenges are optional. You can request a tailored proposal at any time."}</span></div></div>}
         <div className="art-stage-enter" key={"stage-"+step}>{stage()}</div>
       </div>
      </div>
