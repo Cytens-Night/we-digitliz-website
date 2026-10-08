@@ -260,12 +260,22 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
  const nextLabel = step===0?"Show me the guest experience":step===steps.length-2?"Let's bring it together":"Continue the story";
  return <section className="art-root" id="walkthrough" aria-labelledby="art-walk-title">
    <div className="ar-container">
-    <div className="art-introduction"><div><span className="ar-overline">A SELF-GUIDED PRODUCT EXPERIENCE</span><h2 id="art-walk-title">See what changes.<br/><em>Without a sales pitch.</em></h2><p>Experience the entire story in about three to five minutes. Tap your way from the first welcome to the business case — at your own pace.</p></div><div className="art-intro-mark"><span>09</span><small>SHORT CHAPTERS<br/>ONE CLEAR PICTURE</small></div></div>
-    <div className="art-wizard">
-     <div className="art-wizard-head"><div className="art-wizard-label"><span className="art-pulse"/><b>THE RESTAURANT EXPERIENCE</b><span>• INTERACTIVE GUIDED TOUR</span></div><button className="art-wizard-skip" onClick={()=>advance(steps.length-1)}>Skip to proposal <ArrowUpRight size={14}/></button></div>
+    <div className="art-introduction"><div><span className="ar-overline">A SELF-GUIDED PRODUCT EXPERIENCE</span><h2 id="art-walk-title">See what changes.<br/><em>Without a sales pitch.</em></h2><p>A playful, hands-on journey through better hospitality. Choose your role, try eight optional mini-challenges and discover the business case — at your own pace.</p></div><div className="art-intro-mark"><span>09</span><small>SHORT CHAPTERS<br/>ONE CLEAR PICTURE</small></div></div>
+    <div className={"art-wizard "+(motionEnabled?"":"art-motion-paused")} id="art-tour-top">
+     <div className="art-wizard-head">
+       <div className="art-wizard-label"><span className="art-pulse"/><b>THE RESTAURANT EXPERIENCE</b><span>• AN INTERACTIVE STORY</span></div>
+       <button className="art-wizard-skip" onClick={()=>advance(steps.length-1)}>Jump to the proposal <ArrowUpRight size={14}/></button>
+     </div>
+     <div className="art-game-hud">
+      <div className="art-hud-copy"><div className="art-hud-symbol"><Sparkles size={22}/></div><div><strong>YOUR HOSPITALITY QUEST</strong><span>{completedMissions.length===0?"Discover more by trying the mini-challenges":"Keep exploring the story at your own pace."}</span></div></div>
+      <div className="art-hud-controls"><span className="art-hud-coins" aria-label={earnedPoints+" insight points earned"}><Sparkles size={16}/><b>{earnedPoints}</b> <span>INSIGHT POINTS</span></span><span className="art-hud-count"><Target size={16}/><b>{completedMissions.length}/8</b><span>EXPLORED</span></span><button className="art-hud-motion" aria-pressed={!motionEnabled} onClick={()=>setMotionEnabled(v=>!v)} title={motionEnabled?"Pause decorative animations":"Resume animations"}>{motionEnabled?<Pause size={15}/>:<Play size={15}/>} <span>{motionEnabled?"Pause motion":"Resume motion"}</span></button></div>
+     </div>
+     <div className="art-badge-shelf" aria-label="Collectible exploration badges">
+      {awards.map(a=><div key={a.title} className={"art-badge "+(completedMissions.length>=a.at?"art-badge-earned":"")} title={a.subtitle}><span className="art-badge-symbol" aria-hidden="true">{completedMissions.length>=a.at?a.icon:"◇"}</span><span><b>{a.title}</b><small>{completedMissions.length>=a.at?"Unlocked":"Complete "+a.at+" mini-challenges"}</small></span></div>)}
+     </div>
      <div className="art-wizard-progress" role="progressbar" aria-valuemin={1} aria-valuemax={steps.length} aria-valuenow={step+1} aria-label="Tour progress"><span style={{width:progress+"%"}}/></div>
      <div className="art-wizard-layout">
-      <div className="art-story">
+      <div className="art-story art-story-enter" key={"story-"+step}>
        <div className="art-chapter-index"><span>{x.tag} / 09</span><span>{x.eyebrow}</span></div>
        <h3>{x.title}</h3>
        <p className="art-story-problem">{current.problem}</p>
@@ -273,6 +283,7 @@ export default function GuidedTour({ onOpenDemo }:{ onOpenDemo:(view:DemoView)=>
        {step!==0&&<div className="art-story-outcome"><span><Sparkles size={14}/> THE BETTER EXPERIENCE</span><p>{current.outcome}</p></div>}
        <div className="art-story-impact"><span><CheckCircle2 size={15}/> HELPS REDUCE</span><p>{current.removed}</p><span><HeartHandshake size={15}/> STILL ESSENTIAL</span><p>{current.kept}</p></div>
        <div className="art-story-insight"><span>WHY THIS MATTERS TO A {role.toUpperCase()}</span><p>{roleBenefit[role]}</p></div>
+       {step<8&&<div className="art-side-mission"><Target size={17}/><span><b>OPTIONAL MINI-CHALLENGE</b>{missions[step].hint}</span></div>}
       </div>
       <div className="art-story-stage">
        <div className="art-stage-top"><span><span className="art-stage-dot"/> EXPERIENCE {x.tag}</span><span>INTERACTIVE EXAMPLE — NOT LIVE RESTAURANT DATA</span></div>
