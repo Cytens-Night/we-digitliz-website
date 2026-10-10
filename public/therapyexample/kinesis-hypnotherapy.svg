@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 190" role="img" aria-labelledby="title desc">
+  <title id="title">Kinesis Hypnotherapy</title>
+  <desc id="desc">A flowing-line symbol beside the Kinesis Hypnotherapy wordmark.</desc>
+  <g fill="none" stroke="#263f38" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="77" cy="82" r="48" stroke-opacity=".18" stroke-width="2"/>
+    <path d="M49 94c8-11 16-16 26-16 12 0 15 11 28 11 5 0 10-2 14-5" stroke-width="3.5"/>
+    <path d="M49 79c8-10 16-15 26-15 11 0 17 10 27 10 5 0 10-2 15-6" stroke-width="3.5"/>
+    <path d="M51 109c8-9 16-14 26-14 10 0 15 8 25 9" stroke-width="3.5"/>
+  </g>
+  <circle cx="54" cy="56" r="5" fill="#B77C54"/>
+  <text x="155" y="95" fill="#263f38" font-family="Georgia, 'Times New Roman', serif" font-size="70" letter-spacing="-2">Kinesis</text>
+  <text x="160" y="132" fill="#5F7669" font-family="Arial, Helvetica, sans-serif" font-size="19" letter-spacing="6">HYPNOTHERAPY</text>
+  <path d="M160 151h283" stroke="#B7C5B1" stroke-width="1.5"/>
+  <text x="160" y="174" fill="#8C745C" font-family="Arial, Helvetica, sans-serif" font-size="12" letter-spacing="3">A CALMER WAY FORWARD</text>
+</svg>
